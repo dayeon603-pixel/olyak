@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>올약 — 어르신 복약안전 코파일럿 (데모)</title>
+<style>
+  :root{
+    --teal:#0E7C86; --teal2:#13A1A2; --teal-d:#0A565E; --coral:#F06A4C; --coral-d:#D8553A;
+    --ink:#16242F; --sub:#7C8A96; --bg1:#E7EEF0; --bg2:#EFEAE3; --card:#FFFFFF; --line:#E7EDF0;
+    --red:#E0524D; --yellow:#E8A100; --green:#2FA866;
+  }
+  *{box-sizing:border-box; margin:0; padding:0; font-family:-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif; -webkit-font-smoothing:antialiased;}
+  body{background:linear-gradient(135deg,var(--bg1),var(--bg2)); display:flex; justify-content:center; padding:22px 14px; min-height:100vh;}
+
+  /* iPhone device */
+  .device{width:430px; max-width:100%; background:#0C0D10; border-radius:60px; padding:13px;
+          box-shadow:0 30px 70px rgba(16,30,45,.30), inset 0 0 0 2px #2a2c31; position:relative;}
+  .screen{background:var(--card); border-radius:48px; overflow:hidden; position:relative;}
+  .island{position:absolute; top:13px; left:50%; transform:translateX(-50%); width:118px; height:33px;
+          background:#000; border-radius:20px; z-index:30;}
+
+  /* status bar */
+  .topwrap{background:linear-gradient(140deg,var(--teal2),var(--teal-d)); color:#fff; position:relative;}
+  .statusbar{display:flex; justify-content:space-between; align-items:center; padding:15px 28px 4px; height:54px;}
+  .sb-time{font-size:16px; font-weight:700; letter-spacing:.3px;}
+  .sb-right{display:flex; align-items:center; gap:7px;}
+  .signal{display:flex; align-items:flex-end; gap:2px; height:12px;}
+  .signal i{width:3px; background:#fff; border-radius:1px;}
+  .signal i:nth-child(1){height:5px;} .signal i:nth-child(2){height:7px;} .signal i:nth-child(3){height:9px;} .signal i:nth-child(4){height:12px;}
+  .batt{width:24px; height:12px; border:1.5px solid #fff; border-radius:3px; position:relative; display:flex; align-items:center; padding:1.5px;}
+  .batt::after{content:""; position:absolute; right:-3px; top:3px; width:2px; height:6px; background:#fff; border-radius:0 1px 1px 0;}
+  .batt i{height:100%; width:80%; background:#fff; border-radius:1px;}
+
+  .header{padding:8px 24px 24px;}
+  .topwrap::after{content:""; position:absolute; left:0; right:0; bottom:-1px; height:22px; background:var(--card); border-radius:22px 22px 0 0;}
+  .brandrow{display:flex; align-items:center; gap:11px;}
+  .mark{width:40px; height:40px; border-radius:12px; background:rgba(255,255,255,.16); display:flex; align-items:center; justify-content:center;}
+  .mark svg{width:23px; height:23px;}
+  .brand{font-size:28px; font-weight:800; letter-spacing:-.6px; line-height:1;}
+  .brand .dot{color:var(--coral);}
+  .tag{font-size:13px; opacity:.92; margin-top:8px; font-weight:500;}
+
+  .body{padding:6px 20px 18px;}
+  h2{font-size:19px; margin-bottom:6px; letter-spacing:-.3px; color:var(--ink);}
+  .hint{font-size:13px; color:var(--sub); margin-bottom:15px; line-height:1.55;}
+
+  .srcrow{display:flex; gap:10px; margin-bottom:10px;}
+  .src{flex:1; background:#F4F9F9; border:1.5px solid #DCEAEA; border-radius:16px; padding:14px 8px; text-align:center; cursor:pointer; transition:.15s;}
+  .src:hover{border-color:var(--teal); background:#EAF5F5;} .src:active{transform:translateY(1px);}
+  .src .si{font-size:23px; display:block; margin-bottom:5px;}
+  .src .st{font-size:13.5px; font-weight:700; color:var(--teal-d);}
+  .src .ss{font-size:10.5px; color:var(--sub); margin-top:2px;}
+  .or{text-align:center; font-size:11.5px; color:var(--sub); margin:4px 0 8px;}
+
+  .row{display:flex; gap:9px; margin-bottom:10px;}
+  input[type=text]{flex:1; padding:14px 15px; font-size:16px; border:1.5px solid var(--line); border-radius:15px; outline:none; background:#fff; transition:.15s; color:var(--ink);}
+  input[type=text]:focus{border-color:var(--teal); box-shadow:0 0 0 4px rgba(14,124,134,.10);}
+  .btn{border:none; border-radius:15px; font-size:16px; font-weight:700; cursor:pointer; padding:14px 18px; transition:.15s;}
+  .btn:active{transform:translateY(1px);}
+  .btn-add{background:var(--teal); color:#fff;} .btn-add:hover{background:var(--teal-d);}
+  .btn-ghost{background:#EEF4F5; color:var(--teal-d); font-weight:700;} .btn-ghost:hover{background:#E2EDEE;}
+  .nomem{font-size:12px; color:var(--sub); margin:-2px 0 14px; line-height:1.5;}
+
+  .chips{display:flex; flex-wrap:wrap; gap:8px; margin:4px 0 16px;}
+  .chip{background:#F6F9FA; border:1px solid var(--line); border-radius:999px; padding:8px 12px 8px 11px; font-size:14.5px; display:flex; align-items:center; gap:8px; box-shadow:0 1px 2px rgba(16,40,55,.04); color:var(--ink);}
+  .chip .dotcat{width:9px; height:9px; border-radius:50%; flex:none;}
+  .chip b{font-weight:700;} .chip .cat{font-size:11px; color:var(--sub);}
+  .chip .x{cursor:pointer; color:#A7B2BB; font-weight:700; font-size:18px; line-height:1; margin-left:2px;} .chip .x:hover{color:var(--coral);}
+
+  .gate{background:#F7FAFB; border:1px solid var(--line); border-radius:16px; padding:15px 16px; margin-bottom:14px;}
+  .gate .sub{font-size:12.5px; color:var(--sub); margin-bottom:11px;}
+  .gate label{font-size:14.5px; display:flex; align-items:center; gap:10px; cursor:pointer; font-weight:500; color:var(--ink);}
+  .gate input{width:20px; height:20px; accent-color:var(--teal);}
+  .btn-check{width:100%; background:linear-gradient(135deg,var(--coral),var(--coral-d)); color:#fff; padding:18px; font-size:18px; border-radius:17px; margin-top:2px; box-shadow:0 8px 18px rgba(240,106,76,.30);}
+  .btn-check:disabled{background:#D9E0E4; color:#fff; cursor:not-allowed; box-shadow:none;}
+
+  #result{display:none; margin-top:22px; animation:fade .4s ease;}
+  @keyframes fade{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;}}
+  .dots{display:flex; justify-content:center; gap:13px; margin-bottom:14px;}
+  .d{width:20px; height:20px; border-radius:50%; background:#DCE3E7; transition:.2s;}
+  .d.on{box-shadow:0 0 0 5px rgba(0,0,0,.05); transform:scale(1.15);}
+  .light{border-radius:20px; padding:22px; color:#fff; display:flex; align-items:center; gap:16px; margin-bottom:14px; box-shadow:0 10px 24px rgba(16,40,55,.14);}
+  .light .ic{font-size:30px;} .light .big{font-size:23px; font-weight:800; letter-spacing:-.3px;} .light .small{font-size:13.5px; opacity:.96; margin-top:3px; font-weight:500; line-height:1.45;}
+  .L-red{background:linear-gradient(135deg,#E86863,var(--red));} .L-yellow{background:linear-gradient(135deg,#F0B431,var(--yellow));} .L-green{background:linear-gradient(135deg,#46BE7B,var(--green));}
+  .scoregrid{display:flex; gap:10px; margin-bottom:8px;}
+  .scorecard{flex:1; background:#F6F9FA; border:1px solid var(--line); border-radius:14px; padding:13px; text-align:center;}
+  .scorecard .snum{font-size:26px; font-weight:800; color:var(--teal-d); line-height:1;}
+  .scorecard .slab{font-size:12px; color:var(--sub); margin-top:5px; font-weight:600;}
+  .infonote{font-size:11.5px; color:var(--sub); background:#F1F5F7; border-radius:9px; padding:8px 11px; margin-bottom:16px;}
+  .safebar{background:#FFF4E6; border:1px solid #F6DBAE; border-radius:14px; padding:14px 15px; font-size:13px; color:#8A5A12; font-weight:600; margin:4px 0 16px; line-height:1.55; display:flex; gap:10px;}
+  .safebar .ic{font-size:17px;}
+  .finding{background:#fff; border:1px solid var(--line); border-left-width:5px; border-radius:14px; padding:14px 15px; margin-bottom:11px; box-shadow:0 2px 6px rgba(16,40,55,.05);}
+  .finding.high{border-left-color:var(--red);} .finding.mid{border-left-color:var(--yellow);}
+  .ftag{display:inline-block; font-size:11px; font-weight:800; padding:4px 9px; border-radius:999px; color:#fff; margin-bottom:8px;}
+  .ftag.high{background:var(--red);} .ftag.mid{background:var(--yellow);}
+  .fttl{font-size:15.5px; font-weight:700; margin-bottom:4px; color:var(--ink);} .fdesc{font-size:13.5px; color:#4A5862; line-height:1.55;}
+  .buffer{font-size:12px; color:var(--teal-d); background:#EAF4F4; border-radius:9px; padding:7px 10px; margin-top:9px; font-weight:600; display:inline-block;}
+  .actions{display:flex; gap:9px; margin-top:15px;} .actions .btn{flex:1; font-size:14px; padding:14px 10px;}
+  .foot{font-size:11px; color:var(--sub); line-height:1.65; padding:16px 22px 20px; border-top:1px solid var(--line); background:#FAFCFC;}
+
+  /* tab bar + home indicator */
+  .tabbar{display:flex; background:rgba(255,255,255,.96); border-top:1px solid var(--line); padding:10px 6px 4px; backdrop-filter:blur(8px);}
+  .tab{flex:1; text-align:center; color:#A6B1BA; font-size:11px; font-weight:600;}
+  .tab.active{color:var(--teal);}
+  .tab .ti{font-size:21px; display:block; margin-bottom:3px;}
+  .homebar{height:26px; background:#FAFCFC; display:flex; align-items:center; justify-content:center;}
+  .homebar::after{content:""; width:140px; height:5px; border-radius:999px; background:#1c2128; opacity:.85;}
+
+  .moreitem{display:flex; justify-content:space-between; align-items:center; padding:16px 4px; border-bottom:1px solid var(--line); font-size:15px; color:var(--ink);}
+  .moreitem .badge{font-size:12px; font-weight:700; color:#fff; background:var(--green); padding:4px 10px; border-radius:999px;}
+  .moreitem .arrow{color:#C4CCD3; font-size:20px;} .moreitem .sub2{color:var(--sub); font-size:13px;}
+  .pcard{background:#fff; border:1px solid var(--line); border-radius:18px; padding:20px; box-shadow:0 6px 18px rgba(16,40,55,.08);}
+  .pcard .pc-h{display:flex; justify-content:space-between; align-items:baseline; border-bottom:2px solid var(--teal); padding-bottom:10px; margin-bottom:14px;}
+  .pcard .pc-h b{font-size:17px; color:var(--teal-d);} .pcard .pc-h span{font-size:12px; color:var(--sub);}
+  .pcard .pc-sec{font-size:12.5px; font-weight:700; color:var(--sub); margin:14px 0 7px;}
+  .pcard .pc-li{font-size:14.5px; padding:6px 0; border-bottom:1px dashed var(--line); color:var(--ink);}
+  .pcard .pc-flag{font-size:13.5px; padding:8px 11px; border-radius:10px; margin-bottom:7px; font-weight:600;}
+  .pcard .pc-flag.high{background:#FCE9E7; color:#B23A35;} .pcard .pc-flag.mid{background:#FBF1DC; color:#8A5A12;}
+  .pcard .pc-foot{font-size:11.5px; color:var(--sub); margin-top:14px; text-align:center;}
+  .toast{position:absolute; left:50%; bottom:60px; transform:translateX(-50%); background:var(--ink); color:#fff; padding:11px 18px; border-radius:999px; font-size:13.5px; font-weight:600; box-shadow:0 8px 20px rgba(0,0,0,.22); opacity:0; transition:.3s; pointer-events:none; white-space:nowrap; z-index:40;}
+  .toast.show{opacity:1; bottom:70px;}
+</style>
+</head>
+<body>
+<div class="device">
+ <div class="screen">
+  <div class="island"></div>
+
+  <div class="topwrap">
+    <div class="statusbar">
+      <span class="sb-time">9:41</span>
+      <span class="sb-right">
+        <span class="signal"><i></i><i></i><i></i><i></i></span>
+        <span style="font-size:12px;font-weight:700;">5G</span>
+        <span class="batt"><i></i></span>
+      </span>
+    </div>
+    <div class="header">
+      <div class="brandrow">
+        <div class="mark"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="8.5" width="18" height="7" rx="3.5" fill="#fff"/><rect x="11.4" y="8.5" width="9.6" height="7" rx="3.5" fill="#F06A4C"/></svg></div>
+        <div class="brand">올약<span class="dot">.</span></div>
+      </div>
+      <div class="tag">내 약, 한 눈에 — 어르신 복약안전 코파일럿</div>
+    </div>
+  </div>
+
+  <div class="body">
+   <div class="view" id="view-home">
+    <h2>복용 중인 약을 입력하세요</h2>
+    <p class="hint">약 이름을 몰라도 됩니다. 약봉투나 알약을 사진으로 찍으면 자동으로 읽어 드려요.</p>
+
+    <div class="srcrow">
+      <div class="src" id="srcBag"><span class="si">📷</span><div class="st">약봉투 사진</div><div class="ss">처방전·약봉투 촬영</div></div>
+      <div class="src" id="srcPill"><span class="si">💊</span><div class="st">알약 사진</div><div class="ss">낱알 식별</div></div>
+    </div>
+    <div class="or">또는 직접 검색</div>
+
+    <div class="row">
+      <input type="text" id="drugInput" list="druglist" placeholder="약 이름 검색 (예: 와파린)">
+      <button class="btn btn-add" id="addBtn">추가</button>
+    </div>
+    <datalist id="druglist"></datalist>
+    <div class="nomem">집에 있는 약봉투를 찍거나, 보호자·약국이 대신 입력할 수 있어 어르신이 약 이름을 기억하지 않아도 됩니다.</div>
+
+    <div class="chips" id="chips"></div>
+
+    <div class="row" style="margin-bottom:10px;">
+      <button class="btn btn-ghost" id="seedBtn" style="flex:1;">예시로 채워보기</button>
+      <button class="btn btn-ghost" id="clearBtn" style="flex:1;">전체 지우기</button>
+    </div>
+
+    <div class="gate">
+      <div class="sub">정확한 점검을 위해 확인해 주세요.</div>
+      <label><input type="checkbox" id="gateChk"> 복용 중인 약을 <b>모두</b> 입력했습니다.</label>
+    </div>
+
+    <button class="btn btn-check" id="checkBtn" disabled>위험 점검하기</button>
+
+    <div id="result"></div>
+   </div><!-- /view-home -->
+
+   <div class="view" id="view-meds" style="display:none;">
+     <h2>내 약</h2>
+     <p class="hint">현재 등록된 약입니다. 약봉투·알약 사진으로 추가할 수 있어요.</p>
+     <div class="chips" id="medsList"></div>
+     <button class="btn btn-ghost" style="width:100%;" onclick="go('home')">＋ 약 추가하러 가기</button>
+   </div>
+
+   <div class="view" id="view-card" style="display:none;">
+     <h2>다음 진료 요약 카드</h2>
+     <p class="hint">진료 때 의사·약사에게 보여주세요.</p>
+     <div id="cardBox"></div>
+   </div>
+
+   <div class="view" id="view-more" style="display:none;">
+     <h2>더보기</h2>
+     <div class="moreitem"><b>보호자 연동</b><span class="badge">연결됨</span></div>
+     <div class="moreitem"><b>알림 설정</b><span class="arrow">›</span></div>
+     <div class="moreitem"><b>이용 안내</b><span class="arrow">›</span></div>
+     <div class="moreitem"><b>버전</b><span class="sub2">데모 v0.3</span></div>
+     <p class="hint" style="margin-top:14px;">올약은 정보 제공 도구이며 질병을 진단하거나 약을 바꾸지 않습니다.</p>
+   </div>
+  </div>
+
+  <div class="foot">
+    본 화면은 시연용 데모입니다. 표시 약물·규칙은 예시이며 실제 서비스는 식약처 DUR·낱알식별 정보와 한국형 노인 부적절약물(PIM) 2018을 사용합니다.
+    올약은 정보 제공 도구이며 <b>질병을 진단하거나 약을 바꾸지 않습니다</b>. 모든 결정은 의사·약사와 상의하세요.
+  </div>
+
+  <div class="tabbar">
+    <div class="tab active" data-s="home" onclick="go('home')"><span class="ti">🏠</span>홈</div>
+    <div class="tab" data-s="meds" onclick="go('meds')"><span class="ti">💊</span>내 약</div>
+    <div class="tab" data-s="card" onclick="go('card')"><span class="ti">📋</span>진료카드</div>
+    <div class="tab" data-s="more" onclick="go('more')"><span class="ti">⋯</span>더보기</div>
+  </div>
+  <div class="homebar"></div>
+
+  <div class="toast" id="toast"></div>
+ </div>
+</div>
+
+<script>
+const DRUGS = [
+  {n:"와파린", cat:"항응고제", cls:"anticoag"},
+  {n:"아스피린", cat:"항혈소판제", cls:"antiplatelet"},
+  {n:"이부프로펜", cat:"소염진통제(NSAID)", cls:"nsaid", pim:"위장출혈·신장 주의"},
+  {n:"나프록센", cat:"소염진통제(NSAID)", cls:"nsaid", pim:"위장출혈·신장 주의"},
+  {n:"아세트아미노펜", cat:"해열진통제", cls:"apap"},
+  {n:"졸피뎀", cat:"수면제", cls:"sedative", pim:"낙상·인지저하 주의"},
+  {n:"디아제팜", cat:"벤조디아제핀", cls:"sedative", pim:"낙상·과진정 주의"},
+  {n:"로라제팜", cat:"벤조디아제핀", cls:"sedative", pim:"낙상·과진정 주의"},
+  {n:"클로르페니라민", cat:"1세대 항히스타민", cls:"anticholinergic", pim:"항콜린·졸음 주의"},
+  {n:"아미트립틸린", cat:"삼환계 항우울제", cls:"anticholinergic", pim:"항콜린·낙상 주의"},
+  {n:"트라마돌", cat:"진통제(오피오이드)", cls:"opioid"},
+  {n:"디곡신", cat:"강심제", cls:"digoxin", pim:"고용량 주의"},
+  {n:"푸로세미드", cat:"이뇨제", cls:"diuretic"},
+  {n:"암로디핀", cat:"혈압약(칼슘차단제)", cls:"bp"},
+  {n:"리시노프릴", cat:"혈압약(ACE억제제)", cls:"acei"},
+  {n:"메트포르민", cat:"당뇨약", cls:"dm"},
+  {n:"글리메피리드", cat:"당뇨약(설폰요소제)", cls:"su"},
+  {n:"심바스타틴", cat:"고지혈증약", cls:"statin"},
+  {n:"오메프라졸", cat:"위산억제제", cls:"ppi"},
+  {n:"리바스티그민", cat:"치매치료제", cls:"chei"},
+];
+const CATCOLOR={anticoag:'#E0524D',antiplatelet:'#E0524D',nsaid:'#F0894A',apap:'#7C93A3',sedative:'#E8A100',anticholinergic:'#B06AC0',opioid:'#C0564D',digoxin:'#C98A2B',diuretic:'#3FA3C0',bp:'#2FA866',acei:'#2FA866',dm:'#2E8FD6',su:'#2E8FD6',statin:'#6B8E9E',ppi:'#6B8E9E',chei:'#7A6FD0'};
+const byName = Object.fromEntries(DRUGS.map(d=>[d.n,d]));
+const dl=document.getElementById('druglist');
+DRUGS.forEach(d=>{const o=document.createElement('option'); o.value=d.n; o.label=d.cat; dl.appendChild(o);});
+
+let picked=[];
+const chipsEl=document.getElementById('chips');
+const input=document.getElementById('drugInput');
+function render(){
+  chipsEl.innerHTML='';
+  picked.forEach((n,i)=>{
+    const d=byName[n]; const el=document.createElement('div'); el.className='chip';
+    el.innerHTML=`<span class="dotcat" style="background:${CATCOLOR[d.cls]||'#9AA7B0'}"></span><span><b>${n}</b> <span class="cat">${d.cat}</span></span><span class="x" data-i="${i}">×</span>`;
+    chipsEl.appendChild(el);
+  });
+  document.querySelectorAll('.chip .x').forEach(x=>x.onclick=()=>{picked.splice(+x.dataset.i,1); render();});
+}
+function addMany(arr,msg){ arr.forEach(n=>{if(byName[n]&&!picked.includes(n))picked.push(n);}); render(); toast(msg); }
+function add(name){ const n=(name||input.value).trim(); if(!n||!byName[n]||picked.includes(n)){input.value=''; return;} picked.push(n); input.value=''; render(); }
+let _tt; function toast(m){ const t=document.getElementById('toast'); t.textContent=m; t.classList.add('show'); clearTimeout(_tt); _tt=setTimeout(()=>t.classList.remove('show'),2200); }
+
+document.getElementById('addBtn').onclick=()=>add();
+input.addEventListener('keydown',e=>{if(e.key==='Enter')add();});
+document.getElementById('srcBag').onclick=()=>addMany(["와파린","아스피린","졸피뎀"],"📷 약봉투에서 3개의 약을 읽었어요");
+document.getElementById('srcPill').onclick=()=>addMany(["암로디핀"],"💊 알약을 식별했어요: 암로디핀");
+document.getElementById('clearBtn').onclick=()=>{picked=[]; render(); document.getElementById('result').style.display='none';};
+document.getElementById('seedBtn').onclick=()=>{picked=["와파린","아스피린","졸피뎀","클로르페니라민","암로디핀"]; render();};
+
+const gate=document.getElementById('gateChk'); const checkBtn=document.getElementById('checkBtn');
+gate.onchange=()=>{checkBtn.disabled=!gate.checked;};
+
+const PAIRS=[
+  {a:"anticoag", b:"antiplatelet", sev:"high", t:"출혈 위험 (항응고제 + 항혈소판제)", d:"와파린과 아스피린을 함께 복용하면 출혈 위험이 크게 높아집니다."},
+  {a:"anticoag", b:"nsaid", sev:"high", t:"출혈 위험 (항응고제 + 소염진통제)", d:"항응고제와 NSAID 병용은 위장관 출혈 위험을 높입니다."},
+  {a:"antiplatelet", b:"nsaid", sev:"mid", t:"출혈 위험 증가 (항혈소판제 + NSAID)", d:"함께 복용 시 위장 출혈 위험이 증가할 수 있습니다."},
+  {a:"sedative", b:"opioid", sev:"high", t:"과진정·호흡억제 위험", d:"진정제와 오피오이드 병용은 호흡 억제와 낙상 위험을 키웁니다."},
+  {a:"sedative", b:"anticholinergic", sev:"mid", t:"졸음·낙상 위험 가중", d:"진정 작용이 겹쳐 어지럼과 낙상 위험이 높아집니다."},
+];
+function classPairKey(c1,c2){return [c1,c2].sort().join('|');}
+function analyze(){
+  const findings=[]; const cls=picked.map(n=>byName[n]);
+  for(let i=0;i<picked.length;i++) for(let j=i+1;j<picked.length;j++){
+    const k=classPairKey(cls[i].cls,cls[j].cls);
+    PAIRS.forEach(p=>{ if(classPairKey(p.a,p.b)===k){ findings.push({sev:p.sev, type:p.sev==='high'?'병용 위험':'병용 주의', title:`${picked[i]} + ${picked[j]} — ${p.t}`, desc:p.d}); }});
+  }
+  const seen={}; picked.forEach((n,idx)=>{const c=cls[idx].cls;(seen[c]=seen[c]||[]).push(n);});
+  Object.entries(seen).forEach(([c,arr])=>{ if(arr.length>1 && ['nsaid','sedative'].includes(c)){ findings.push({sev:'mid', type:'중복 처방', title:`중복 — ${arr.join(', ')}`, desc:`같은 계열(${byName[arr[0]].cat}) 약을 2가지 이상 복용 중입니다. 중복 복용일 수 있습니다.`}); }});
+  picked.forEach((n,idx)=>{ if(cls[idx].pim) findings.push({sev:'mid', type:'어르신 주의약물(PIM)', title:`${n} — ${byName[n].cat}`, desc:`어르신에게 주의가 필요한 약물입니다. ${cls[idx].pim}.`}); });
+  return findings;
+}
+
+document.getElementById('checkBtn').onclick=()=>{
+  const f=analyze();
+  const hasHigh=f.some(x=>x.sev==='high'); const hasMid=f.some(x=>x.sev==='mid');
+  let level=hasHigh?'red':(hasMid?'yellow':'green');
+  const meta={
+    red:{c:'L-red', ic:'⚠️', big:'위험 — 빨강', small:'위험한 약 조합이 있습니다. 다음 진료 때 꼭 보여주세요.'},
+    yellow:{c:'L-yellow', ic:'🟡', big:'주의 — 노랑', small:'확인이 필요한 약이 있습니다.'},
+    green:{c:'L-green', ic:'✅', big:'양호 — 초록', small:'입력하신 약에서 큰 위험 신호는 없습니다.'}
+  }[level];
+  const di={red:0,yellow:1,green:2}[level]; const dotc={0:'#E0524D',1:'#E8A100',2:'#2FA866'};
+  const antichol=picked.filter(n=>byName[n].cls==='anticholinergic').length;
+  const fallRisk=picked.filter(n=>['sedative','anticholinergic','opioid'].includes(byName[n].cls)).length;
+  let html=`<div class="dots">${[0,1,2].map(i=>`<div class="d ${i===di?'on':''}" style="background:${i===di?dotc[i]:'#DCE3E7'}"></div>`).join('')}</div>`;
+  html+=`<div class="light ${meta.c}"><div class="ic">${meta.ic}</div><div><div class="big">${meta.big}</div><div class="small">${meta.small}</div></div></div>`;
+  html+=`<div class="scoregrid"><div class="scorecard"><div class="snum">${antichol}</div><div class="slab">항콜린 부담 약물</div></div><div class="scorecard"><div class="snum">${fallRisk}</div><div class="slab">낙상위험 약물</div></div></div>`;
+  html+=`<div class="infonote">위 점수는 정보 제공이며 진단이 아닙니다. 수치가 높으면 의사·약사와 상의하세요.</div>`;
+  if(f.length){
+    html+=`<div class="safebar"><span class="ic">⚠️</span><span>약을 바꾸거나 끊는 결정은 반드시 의사·약사와 함께 하세요. 이 약들은 담당 의사가 특별한 이유로 처방했을 수 있습니다.</span></div>`;
+    f.sort((a,b)=>(a.sev==='high'?0:1)-(b.sev==='high'?0:1));
+    f.forEach(x=>{ html+=`<div class="finding ${x.sev}"><span class="ftag ${x.sev}">${x.type}</span><div class="fttl">${x.title}</div><div class="fdesc">${x.desc}</div><div class="buffer">의사·약사와 상의하세요</div></div>`; });
+  } else { html+=`<div class="fdesc" style="text-align:center;padding:8px;">입력하신 약에서 위험 조합이 발견되지 않았습니다.</div>`; }
+  html+=`<div class="actions"><button class="btn btn-ghost" onclick="alert('보호자에게 위험 요약을 공유했습니다. (데모)')">👪 보호자에게 공유</button><button class="btn btn-ghost" onclick="go('card')">📋 진료 요약 카드</button></div>`;
+  const r=document.getElementById('result'); r.innerHTML=html; r.style.display='block'; r.scrollIntoView({behavior:'smooth'});
+};
+
+// ---- 화면 전환 ----
+function go(name){
+  document.querySelectorAll('.view').forEach(v=>v.style.display='none');
+  document.getElementById('view-'+name).style.display='block';
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.s===name));
+  if(name==='meds') renderMeds();
+  if(name==='card') renderCard();
+  document.querySelector('.screen').scrollTop=0;
+}
+function renderMeds(){
+  const el=document.getElementById('medsList');
+  if(!picked.length){ el.innerHTML='<div class="fdesc" style="padding:6px 0 14px;">아직 등록된 약이 없습니다.</div>'; return; }
+  el.innerHTML='';
+  picked.forEach((n,i)=>{ const d=byName[n]; const c=document.createElement('div'); c.className='chip';
+    c.innerHTML=`<span class="dotcat" style="background:${CATCOLOR[d.cls]||'#9AA7B0'}"></span><span><b>${n}</b> <span class="cat">${d.cat}</span></span><span class="x" data-i="${i}">×</span>`;
+    el.appendChild(c); });
+  el.querySelectorAll('.chip .x').forEach(x=>x.onclick=()=>{picked.splice(+x.dataset.i,1); renderMeds(); render();});
+}
+function renderCard(){
+  const f=analyze(); const hi=f.filter(x=>x.sev==='high'), mid=f.filter(x=>x.sev==='mid');
+  const dt=new Date(); const ds=`${dt.getFullYear()}.${String(dt.getMonth()+1).padStart(2,'0')}.${String(dt.getDate()).padStart(2,'0')}`;
+  let h=`<div class="pcard"><div class="pc-h"><b>올약 복약 요약</b><span>${ds}</span></div>`;
+  h+=`<div class="pc-sec">현재 복용 약 (${picked.length})</div>`;
+  h+= picked.length? picked.map(n=>`<div class="pc-li">• ${n} <span style="color:var(--sub);font-size:12px;">${byName[n].cat}</span></div>`).join('') : '<div class="fdesc">등록된 약 없음</div>';
+  h+=`<div class="pc-sec">확인이 필요한 항목</div>`;
+  if(f.length){ h+= hi.concat(mid).map(x=>`<div class="pc-flag ${x.sev}">${x.sev==='high'?'⚠️ 위험':'• 주의'} — ${x.title}</div>`).join(''); }
+  else { h+='<div class="fdesc">특이사항 없음</div>'; }
+  h+=`<div class="pc-foot">의사·약사에게 보여주세요 · 약 변경·중단은 전문가와 상의</div></div>`;
+  h+=`<div class="actions" style="margin-top:14px;"><button class="btn btn-ghost" onclick="alert('보호자에게 카드를 공유했습니다. (데모)')">👪 공유</button><button class="btn btn-ghost" onclick="window.print()">🖨 인쇄</button></div>`;
+  document.getElementById('cardBox').innerHTML=h;
+}
+
+const _p=new URLSearchParams(location.search), _s=_p.get('state');
+if(_p.get('screen')) go(_p.get('screen'));
+if(_s){
+  picked=(_s==='input')?["와파린","아스피린","졸피뎀"]:["와파린","아스피린","졸피뎀","클로르페니라민","암로디핀"];
+  render();
+  if(_s==='result'){gate.checked=true; checkBtn.disabled=false; checkBtn.click(); setTimeout(()=>window.scrollTo(0,0),60);}
+  if(_s==='card'){ go('card'); }
+}
+render();
+</script>
+</body>
+</html>
