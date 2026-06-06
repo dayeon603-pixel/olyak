@@ -118,9 +118,17 @@
   .pcard .pc-flag{font-size:13.5px; padding:8px 11px; border-radius:10px; margin-bottom:7px; font-weight:600;}
   .pcard .pc-flag.high{background:#FCE9E7; color:#B23A35;} .pcard .pc-flag.mid{background:#FBF1DC; color:#8A5A12;}
   .pcard .pc-foot{font-size:11.5px; color:var(--sub); margin-top:14px; text-align:center;}
+  .ocrstatus{display:flex;gap:11px;align-items:center;background:#F6F9FA;border:1px solid var(--line);border-radius:14px;padding:11px;margin-bottom:12px}
+  .ocrstatus img{width:54px;height:54px;border-radius:10px;object-fit:cover;flex:none;border:1px solid var(--line)}
+  .ocrstatus .ost{flex:1;min-width:0}
+  .ocrstatus .ost b{font-size:13px}
+  .ocrstatus .osub{font-size:11px;color:var(--sub);margin-top:3px;line-height:1.4;word-break:break-all}
+  .ocrstatus .prog{height:6px;background:#E3EBED;border-radius:99px;overflow:hidden;margin:6px 0 2px}
+  .ocrstatus .prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--teal-d));transition:.2s}
   .toast{position:absolute; left:50%; bottom:60px; transform:translateX(-50%); background:var(--ink); color:#fff; padding:11px 18px; border-radius:999px; font-size:13.5px; font-weight:600; box-shadow:0 8px 20px rgba(0,0,0,.22); opacity:0; transition:.3s; pointer-events:none; white-space:nowrap; z-index:40;}
   .toast.show{opacity:1; bottom:70px;}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 </head>
 <body>
 <div class="device">
@@ -154,6 +162,9 @@
       <div class="src" id="srcBag"><span class="si">📷</span><div class="st">약봉투 사진</div><div class="ss">처방전·약봉투 촬영</div></div>
       <div class="src" id="srcPill"><span class="si">💊</span><div class="st">알약 사진</div><div class="ss">낱알 식별</div></div>
     </div>
+    <input type="file" id="fileBag" accept="image/*" capture="environment" style="display:none">
+    <input type="file" id="filePill" accept="image/*" capture="environment" style="display:none">
+    <div id="ocrStatus" class="ocrstatus" style="display:none"></div>
     <div class="or">또는 직접 검색</div>
 
     <div class="row">
@@ -266,8 +277,43 @@ let _tt; function toast(m){ const t=document.getElementById('toast'); t.textCont
 
 document.getElementById('addBtn').onclick=()=>add();
 input.addEventListener('keydown',e=>{if(e.key==='Enter')add();});
-document.getElementById('srcBag').onclick=()=>addMany(["와파린","아스피린","졸피뎀"],"📷 약봉투에서 3개의 약을 읽었어요");
-document.getElementById('srcPill').onclick=()=>addMany(["암로디핀"],"💊 알약을 식별했어요: 암로디핀");
+// ---- 사진 인식 (실제 OCR) ----
+const ALIAS={aspirin:"아스피린",amlodipine:"암로디핀",metformin:"메트포르민",ibuprofen:"이부프로펜",naproxen:"나프록센",
+  warfarin:"와파린",zolpidem:"졸피뎀",diazepam:"디아제팜",lorazepam:"로라제팜",tramadol:"트라마돌",digoxin:"디곡신",
+  furosemide:"푸로세미드",lisinopril:"리시노프릴",glimepiride:"글리메피리드",simvastatin:"심바스타틴",
+  omeprazole:"오메프라졸",rivastigmine:"리바스티그민",acetaminophen:"아세트아미노펜",tylenol:"아세트아미노펜",
+  chlorpheniramine:"클로르페니라민",amitriptyline:"아미트립틸린"};
+function matchDrugs(text){
+  const raw=(text||''); const norm=raw.replace(/\s/g,''); const low=raw.toLowerCase();
+  const found=new Set();
+  DRUGS.forEach(d=>{ if(norm.includes(d.n)) found.add(d.n); });           // 한글 약품명
+  Object.entries(ALIAS).forEach(([en,kn])=>{ if(low.includes(en)) found.add(kn); }); // 영문명
+  return [...found];
+}
+function openFile(id){ document.getElementById(id).click(); }
+document.getElementById('srcBag').onclick=()=>openFile('fileBag');
+document.getElementById('srcPill').onclick=()=>openFile('filePill');
+document.getElementById('fileBag').onchange=e=>runOCR(e.target.files[0],'약봉투');
+document.getElementById('filePill').onchange=e=>runOCR(e.target.files[0],'알약');
+
+async function runOCR(file,kind){
+  if(!file) return;
+  const box=document.getElementById('ocrStatus'); box.style.display='flex';
+  const url=URL.createObjectURL(file);
+  box.innerHTML=`<img src="${url}"><div class="ost"><b>${kind} 사진 분석 중…</b><div class="prog"><i id="ocrbar"></i></div><div class="osub" id="ocrsub">글자를 읽고 있어요 (처음엔 잠시 걸려요)</div></div>`;
+  if(typeof Tesseract==='undefined'){ box.querySelector('#ocrsub').textContent='인식 엔진을 불러오지 못했어요. 아래에서 직접 검색해 주세요.'; return; }
+  try{
+    const {data:{text}}=await Tesseract.recognize(file,'kor+eng',{logger:m=>{ if(m.status==='recognizing text'){ const b=document.getElementById('ocrbar'); if(b)b.style.width=Math.round(m.progress*100)+'%'; }}});
+    const matched=matchDrugs(text);
+    matched.forEach(n=>{ if(!picked.includes(n)) picked.push(n); }); render();
+    const snip=(text||'').replace(/\s+/g,' ').trim().slice(0,70);
+    if(matched.length){
+      box.innerHTML=`<img src="${url}"><div class="ost"><b style="color:var(--teal-d)">✓ ${matched.length}개 약을 인식했어요</b><div class="osub">${matched.join(', ')}</div><div class="osub" style="color:#aab4bc">읽은 글자: ${snip}…</div></div>`;
+    } else {
+      box.innerHTML=`<img src="${url}"><div class="ost"><b>인식된 약을 찾지 못했어요</b><div class="osub">읽은 글자: ${snip||'(글자 인식 실패)'}</div><div class="osub">사진을 더 또렷하게 찍거나, 아래에서 직접 검색해 주세요.</div></div>`;
+    }
+  }catch(err){ box.innerHTML=`<img src="${url}"><div class="ost"><b>분석에 실패했어요</b><div class="osub">${(''+err).slice(0,80)}</div></div>`; }
+}
 document.getElementById('clearBtn').onclick=()=>{picked=[]; render(); document.getElementById('result').style.display='none';};
 document.getElementById('seedBtn').onclick=()=>{picked=["와파린","아스피린","졸피뎀","클로르페니라민","암로디핀"]; render();};
 
@@ -352,11 +398,13 @@ function renderCard(){
 }
 
 const _p=new URLSearchParams(location.search), _s=_p.get('state');
+if(_p.get('shot')){ document.body.style.background='#E9EDF1'; document.body.style.padding='70px 60px'; }
 if(_p.get('screen')) go(_p.get('screen'));
 if(_s){
   picked=(_s==='input')?["와파린","아스피린","졸피뎀"]:["와파린","아스피린","졸피뎀","클로르페니라민","암로디핀"];
   render();
-  if(_s==='result'){gate.checked=true; checkBtn.disabled=false; checkBtn.click(); setTimeout(()=>window.scrollTo(0,0),60);}
+  if(_s==='result'){gate.checked=true; checkBtn.disabled=false; checkBtn.click();
+    setTimeout(()=>{ if(_p.get('shot')){ [...document.getElementById('view-home').children].forEach(c=>{ if(c.id!=='result') c.style.display='none'; }); document.getElementById('result').style.marginTop='4px'; } window.scrollTo(0,0); },90);}
   if(_s==='card'){ go('card'); }
 }
 render();
