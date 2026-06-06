@@ -129,6 +129,18 @@
   .sched .sh{font-size:12.5px;font-weight:800;color:var(--ink);margin-bottom:9px}
   .sched .ss{display:flex;gap:8px}.sched .ss .t{flex:1;text-align:center;background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 4px;font-size:11px;color:var(--sub)}
   .sched .ss .t b{display:block;font-size:14px;color:var(--teal-d);margin-top:3px}
+  .same{font-size:10.5px;color:var(--teal-d);background:#EAF4F4;border-radius:8px;padding:5px 9px;cursor:pointer;font-weight:700}
+  .samebox{background:#F6F9FA;border:1px dashed #CFE0DC;border-radius:11px;padding:11px 13px;margin:-3px 0 9px}
+  .samebox b{font-size:12px;color:var(--teal-d)}.samebox .sl{font-size:12.5px;margin-top:5px;color:var(--ink)}.samebox .sn{font-size:10.5px;color:var(--sub);margin-top:6px;line-height:1.45}
+  .pmap{height:120px;border-radius:14px;background:linear-gradient(135deg,#DCEBE8,#EAF4F2);border:1px solid var(--line);position:relative;overflow:hidden;margin-bottom:12px}
+  .pmap .pin{position:absolute;width:13px;height:13px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--coral);box-shadow:0 2px 5px rgba(0,0,0,.2)}
+  .pmap .pin.me{background:var(--teal);width:15px;height:15px}
+  .pmap .pin:nth-child(1){top:46%;left:47%}.pmap .pin:nth-child(2){top:28%;left:30%}.pmap .pin:nth-child(3){top:60%;left:64%}.pmap .pin:nth-child(4){top:38%;left:72%}
+  .pmap .pmaplabel{position:absolute;bottom:9px;left:11px;font-size:10px;color:var(--sub);background:rgba(255,255,255,.85);padding:3px 9px;border-radius:8px}
+  .pharmrow{display:flex;align-items:center;gap:11px;background:#fff;border:1px solid var(--line);border-radius:13px;padding:12px;margin-bottom:9px;box-shadow:0 2px 6px rgba(16,40,55,.04)}
+  .pharmrow .pic{width:38px;height:38px;border-radius:11px;background:#EEF6F4;display:grid;place-items:center;font-size:18px;flex:none}
+  .pharmrow .px{flex:1}.pharmrow .px b{font-size:14px}.pharmrow .px span{font-size:11px;color:var(--sub);display:block;margin-top:2px}
+  .pharmrow .pacts{display:flex;gap:6px}.pharmrow .pacts button{border:none;background:#EEF4F5;color:var(--teal-d);font-weight:700;font-size:11px;border-radius:9px;padding:8px 10px;cursor:pointer}
   .ocrstatus{display:flex;gap:11px;align-items:center;background:#F6F9FA;border:1px solid var(--line);border-radius:14px;padding:11px;margin-bottom:12px}
   .ocrstatus img{width:54px;height:54px;border-radius:10px;object-fit:cover;flex:none;border:1px solid var(--line)}
   .ocrstatus .ost{flex:1;min-width:0}
@@ -218,6 +230,14 @@
      <div id="cardBox"></div>
    </div>
 
+   <div class="view" id="view-pharm" style="display:none;">
+     <h2>주변 약국</h2>
+     <p class="hint">내 위치에서 가까운 약국을 찾고, 같은 성분 약은 약사와 상의하세요.</p>
+     <div class="pmap"><span class="pin me"></span><span class="pin"></span><span class="pin"></span><span class="pin"></span><div class="pmaplabel">📍 내 위치 기준 500m</div></div>
+     <div id="pharmList"></div>
+     <div class="infonote">데모 화면입니다. 실서비스는 공공데이터 '전국 약국 정보'(주소·좌표)와 지도(길찾기·전화)를 연동합니다.</div>
+   </div>
+
    <div class="view" id="view-more" style="display:none;">
      <h2>더보기</h2>
      <div class="moreitem"><b>보호자 연동</b><span class="badge">연결됨</span></div>
@@ -237,6 +257,7 @@
     <div class="tab active" data-s="home" onclick="go('home')"><span class="ti">🏠</span>홈</div>
     <div class="tab" data-s="meds" onclick="go('meds')"><span class="ti">💊</span>내 약</div>
     <div class="tab" data-s="card" onclick="go('card')"><span class="ti">📋</span>진료카드</div>
+    <div class="tab" data-s="pharm" onclick="go('pharm')"><span class="ti">🏪</span>약국</div>
     <div class="tab" data-s="more" onclick="go('more')"><span class="ti">⋯</span>더보기</div>
   </div>
   <div class="homebar"></div>
@@ -379,6 +400,14 @@ document.getElementById('checkBtn').onclick=()=>{
   const r=document.getElementById('result'); r.innerHTML=html; r.style.display='block'; r.scrollIntoView({behavior:'smooth'});
 };
 
+// ---- 같은 성분 약(동일성분의약품) · 예시 ----
+const SAME={"암로디핀":["노바스크정","아모디핀정","암로핀정"],"아스피린":["아스피린프로텍트정","아스트릭스캡슐"],"오메프라졸":["오엠피정","로섹캡슐"],"심바스타틴":["조코정","심바스트정"],"메트포르민":["글루코파지정","다이아벡스정"],"이부프로펜":["부루펜정","이지엔6애니"]};
+// ---- 주변 약국 · 예시 ----
+const PHARMS=[{n:"행복한약국",d:"120m · 영업중",t:"동래구 명륜로"},{n:"24시 온누리약국",d:"260m · 영업중",t:"연제구 거제대로"},{n:"건강드림약국",d:"410m · 20시 마감",t:"부산진구 중앙대로"},{n:"우리동네약국",d:"530m · 영업중",t:"동래구 충렬대로"}];
+function renderPharm(){
+  document.getElementById('pharmList').innerHTML=PHARMS.map(p=>`<div class="pharmrow"><div class="pic">🏪</div><div class="px"><b>${p.n}</b><span>${p.d} · ${p.t}</span></div><div class="pacts"><button onclick="alert('길찾기 (데모)')">길찾기</button><button onclick="alert('전화 연결 (데모)')">전화</button></div></div>`).join('');
+}
+
 // ---- 화면 전환 ----
 function go(name){
   document.querySelectorAll('.view').forEach(v=>v.style.display='none');
@@ -386,6 +415,7 @@ function go(name){
   document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.s===name));
   if(name==='meds') renderMeds();
   if(name==='card') renderCard();
+  if(name==='pharm') renderPharm();
   document.querySelector('.screen').scrollTop=0;
 }
 const MEDICON={anticoag:'🩸',antiplatelet:'🩸',nsaid:'💊',apap:'💊',sedative:'😴',anticholinergic:'🤧',opioid:'💊',digoxin:'❤️',diuretic:'💧',bp:'❤️',acei:'❤️',dm:'🩸',su:'🩸',statin:'💊',ppi:'💊',chei:'🧠'};
@@ -394,12 +424,14 @@ function renderMeds(){
   if(!picked.length){ el.innerHTML='<div class="card" style="text-align:center;color:var(--sub);padding:26px 14px;">아직 등록된 약이 없습니다.<br>약봉투·알약 사진으로 추가해 보세요.</div>'; return; }
   const pim=picked.filter(n=>byName[n].pim).length;
   let h=`<div class="medsum"><div class="c"><div class="v">${picked.length}</div><div class="l">복용 중인 약</div></div><div class="c"><div class="v" style="color:var(--coral)">${pim}</div><div class="l">주의 약물</div></div></div>`;
-  picked.forEach((n,i)=>{ const d=byName[n];
-    h+=`<div class="medrow"><div class="mic">${MEDICON[d.cls]||'💊'}</div><div class="mx"><b>${n}</b><span>${d.cat}</span></div>${d.pim?'<span class="pill warn">주의</span>':''}<span class="rm" data-i="${i}">×</span></div>`;
+  picked.forEach((n,i)=>{ const d=byName[n]; const hasSame=SAME[n];
+    h+=`<div class="medrow"><div class="mic">${MEDICON[d.cls]||'💊'}</div><div class="mx"><b>${n}</b><span>${d.cat}</span></div>${hasSame?`<span class="same" data-s="${i}">같은 성분</span>`:''}${d.pim?'<span class="pill warn">주의</span>':''}<span class="rm" data-i="${i}">×</span></div>`;
+    if(hasSame){ h+=`<div class="samebox" id="same${i}" style="display:none"><b>💊 ${n}과 같은 성분 약</b><div class="sl">${SAME[n].join(' · ')}</div><div class="sn">성분은 같지만 제품·함량이 다를 수 있어요. 바꾸는 결정은 의사·약사와 상의하세요.</div></div>`; }
   });
   h+=`<div class="sched"><div class="sh">⏰ 오늘 복약 시간</div><div class="ss"><div class="t">아침<b>3종</b></div><div class="t">점심<b>2종</b></div><div class="t">저녁<b>3종</b></div></div></div>`;
   el.innerHTML=h;
   el.querySelectorAll('.rm').forEach(x=>x.onclick=()=>{picked.splice(+x.dataset.i,1); renderMeds(); render();});
+  el.querySelectorAll('.same').forEach(b=>b.onclick=()=>{ const box=document.getElementById('same'+b.dataset.s); box.style.display=(box.style.display==='none'?'block':'none'); });
 }
 function renderCard(){
   const f=analyze(); const hi=f.filter(x=>x.sev==='high'), mid=f.filter(x=>x.sev==='mid');
@@ -425,6 +457,7 @@ if(_s){
     setTimeout(()=>{ if(_p.get('shot')){ [...document.getElementById('view-home').children].forEach(c=>{ if(c.id!=='result') c.style.display='none'; }); document.getElementById('result').style.marginTop='4px'; } window.scrollTo(0,0); },90);}
   if(_s==='card'){ go('card'); }
   if(_s==='meds'){ go('meds'); }
+  if(_s==='pharm'){ go('pharm'); }
 }
 render();
 </script>
