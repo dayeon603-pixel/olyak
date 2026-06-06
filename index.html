@@ -453,7 +453,7 @@ if(_s){
   picked=(_s==='input')?["와파린","아스피린","졸피뎀"]:["와파린","아스피린","졸피뎀","클로르페니라민","암로디핀"];
   render();
   if(_s==='result'){gate.checked=true; checkBtn.disabled=false; checkBtn.click();
-    setTimeout(()=>{ if(_p.get('shot')){ [...document.getElementById('view-home').children].forEach(c=>{ if(c.id!=='result') c.style.display='none'; }); document.getElementById('result').style.marginTop='4px'; } window.scrollTo(0,0); },90);}
+    setTimeout(()=>{ if(_p.get('shot')){ [...document.getElementById('view-home').children].forEach(c=>{ if(c.id!=='result') c.style.display='none'; }); document.getElementById('result').style.marginTop='4px'; } var bd=document.querySelector('.body'); if(bd) bd.scrollTop=0; window.scrollTo(0,0); },90);}
   if(_s==='card'){ go('card'); }
   if(_s==='meds'){ go('meds'); }
   if(_s==='pharm'){ go('pharm'); }
