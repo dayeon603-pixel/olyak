@@ -11,12 +11,12 @@
     --red:#E0524D; --yellow:#E8A100; --green:#2FA866;
   }
   *{box-sizing:border-box; margin:0; padding:0; font-family:-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif; -webkit-font-smoothing:antialiased;}
-  body{background:linear-gradient(135deg,var(--bg1),var(--bg2)); display:flex; justify-content:center; padding:22px 14px; min-height:100vh;}
+  body{background:linear-gradient(135deg,var(--bg1),var(--bg2)); display:flex; justify-content:center; align-items:flex-start; padding:22px 14px; min-height:100vh;}
 
   /* iPhone device */
   .device{width:430px; max-width:100%; background:#0C0D10; border-radius:60px; padding:13px;
           box-shadow:0 30px 70px rgba(16,30,45,.30), inset 0 0 0 2px #2a2c31; position:relative;}
-  .screen{background:var(--card); border-radius:48px; overflow:hidden; position:relative;}
+  .screen{background:var(--card); border-radius:48px; overflow:hidden; position:relative; display:flex; flex-direction:column; min-height:800px;}
   .island{position:absolute; top:13px; left:50%; transform:translateX(-50%); width:118px; height:33px;
           background:#000; border-radius:20px; z-index:30;}
 
@@ -41,7 +41,7 @@
   .brand .dot{color:var(--coral);}
   .tag{font-size:13px; opacity:.92; margin-top:8px; font-weight:500;}
 
-  .body{padding:6px 20px 18px;}
+  .body{padding:6px 20px 18px; flex:1;}
   h2{font-size:19px; margin-bottom:6px; letter-spacing:-.3px; color:var(--ink);}
   .hint{font-size:13px; color:var(--sub); margin-bottom:15px; line-height:1.55;}
 
@@ -421,7 +421,7 @@ function go(name){
 const MEDICON={anticoag:'🩸',antiplatelet:'🩸',nsaid:'💊',apap:'💊',sedative:'😴',anticholinergic:'🤧',opioid:'💊',digoxin:'❤️',diuretic:'💧',bp:'❤️',acei:'❤️',dm:'🩸',su:'🩸',statin:'💊',ppi:'💊',chei:'🧠'};
 function renderMeds(){
   const el=document.getElementById('medsBody');
-  if(!picked.length){ el.innerHTML='<div class="card" style="text-align:center;color:var(--sub);padding:26px 14px;">아직 등록된 약이 없습니다.<br>약봉투·알약 사진으로 추가해 보세요.</div>'; return; }
+  if(!picked.length){ el.innerHTML='<div class="card" style="text-align:center;color:var(--sub);padding:54px 16px;"><div style="font-size:34px;margin-bottom:10px">💊</div>아직 등록된 약이 없습니다.<br>약봉투·알약 사진으로 추가해 보세요.</div>'; return; }
   const pim=picked.filter(n=>byName[n].pim).length;
   let h=`<div class="medsum"><div class="c"><div class="v">${picked.length}</div><div class="l">복용 중인 약</div></div><div class="c"><div class="v" style="color:var(--coral)">${pim}</div><div class="l">주의 약물</div></div></div>`;
   picked.forEach((n,i)=>{ const d=byName[n]; const hasSame=SAME[n];
