@@ -424,6 +424,7 @@ if(_s){
   if(_s==='result'){gate.checked=true; checkBtn.disabled=false; checkBtn.click();
     setTimeout(()=>{ if(_p.get('shot')){ [...document.getElementById('view-home').children].forEach(c=>{ if(c.id!=='result') c.style.display='none'; }); document.getElementById('result').style.marginTop='4px'; } window.scrollTo(0,0); },90);}
   if(_s==='card'){ go('card'); }
+  if(_s==='meds'){ go('meds'); }
 }
 render();
 </script>
