@@ -16,7 +16,7 @@
   /* iPhone device */
   .device{width:430px; max-width:100%; background:#0C0D10; border-radius:60px; padding:13px;
           box-shadow:0 30px 70px rgba(16,30,45,.30), inset 0 0 0 2px #2a2c31; position:relative;}
-  .screen{background:var(--card); border-radius:48px; overflow:hidden; position:relative; display:flex; flex-direction:column; min-height:800px;}
+  .screen{background:var(--card); border-radius:48px; overflow:hidden; position:relative; display:flex; flex-direction:column; height:820px;}
   .island{position:absolute; top:13px; left:50%; transform:translateX(-50%); width:118px; height:33px;
           background:#000; border-radius:20px; z-index:30;}
 
@@ -41,7 +41,7 @@
   .brand .dot{color:var(--coral);}
   .tag{font-size:13px; opacity:.92; margin-top:8px; font-weight:500;}
 
-  .body{padding:6px 20px 18px; flex:1;}
+  .body{padding:6px 20px 18px; flex:1; overflow-y:auto;}
   h2{font-size:19px; margin-bottom:6px; letter-spacing:-.3px; color:var(--ink);}
   .hint{font-size:13px; color:var(--sub); margin-bottom:15px; line-height:1.55;}
 
@@ -246,11 +246,10 @@
      <div class="moreitem"><b>버전</b><span class="sub2">데모 v0.3</span></div>
      <p class="hint" style="margin-top:14px;">올약은 정보 제공 도구이며 질병을 진단하거나 약을 바꾸지 않습니다.</p>
    </div>
-  </div>
-
-  <div class="foot">
+   <div class="foot">
     본 화면은 시연용 데모입니다. 표시 약물·규칙은 예시이며 실제 서비스는 식약처 DUR·낱알식별 정보와 한국형 노인 부적절약물(PIM) 2018을 사용합니다.
     올약은 정보 제공 도구이며 <b>질병을 진단하거나 약을 바꾸지 않습니다</b>. 모든 결정은 의사·약사와 상의하세요.
+   </div>
   </div>
 
   <div class="tabbar">
