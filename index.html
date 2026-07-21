@@ -148,10 +148,16 @@
   .ocrstatus .osub{font-size:11px;color:var(--sub);margin-top:3px;line-height:1.4;word-break:break-all}
   .ocrstatus .prog{height:6px;background:#E3EBED;border-radius:99px;overflow:hidden;margin:6px 0 2px}
   .ocrstatus .prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--teal-d));transition:.2s}
+  .ocrcand{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+  .candbtn{border:1.5px solid var(--teal);background:#EAF5F5;color:var(--teal-d);font-weight:700;font-size:13.5px;border-radius:999px;padding:8px 12px;cursor:pointer;transition:.15s}
+  .candbtn:hover{background:#DDF0F0}
+  .candbtn:disabled{border-color:var(--green);background:#E9F7EF;color:var(--green);cursor:default}
+  .candall{width:100%;font-size:13.5px;padding:11px}
   .toast{position:absolute; left:50%; bottom:60px; transform:translateX(-50%); background:var(--ink); color:#fff; padding:11px 18px; border-radius:999px; font-size:13.5px; font-weight:600; box-shadow:0 8px 20px rgba(0,0,0,.22); opacity:0; transition:.3s; pointer-events:none; white-space:nowrap; z-index:40;}
   .toast.show{opacity:1; bottom:70px;}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+<script src="rules.js"></script>
 </head>
 <body>
 <div class="device">
@@ -172,7 +178,7 @@
         <div class="mark"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="8.5" width="18" height="7" rx="3.5" fill="#fff"/><rect x="11.4" y="8.5" width="9.6" height="7" rx="3.5" fill="#F06A4C"/></svg></div>
         <div class="brand">올약<span class="dot">.</span></div>
       </div>
-      <div class="tag">내 약, 한 눈에 — 어르신 복약안전 코파일럿</div>
+      <div class="tag">여러 병원 약, 자녀가 한 번에 — 어르신 복약안전</div>
     </div>
   </div>
 
@@ -249,6 +255,7 @@
    <div class="foot">
     본 화면은 시연용 데모입니다. 표시 약물·규칙은 예시이며 실제 서비스는 식약처 DUR·낱알식별 정보와 한국형 노인 부적절약물(PIM) 2018을 사용합니다.
     올약은 정보 제공 도구이며 <b>질병을 진단하거나 약을 바꾸지 않습니다</b>. 모든 결정은 의사·약사와 상의하세요.
+    <br><b>🔒 개인정보 보호:</b> 처방전·약봉투 사진에서 주민등록번호·전화번호 등 개인정보는 기기 안에서 자동으로 가려지며 서버에 저장하지 않습니다. 약 이름·용량만 사용합니다.
    </div>
   </div>
 
@@ -266,29 +273,8 @@
 </div>
 
 <script>
-const DRUGS = [
-  {n:"와파린", cat:"항응고제", cls:"anticoag"},
-  {n:"아스피린", cat:"항혈소판제", cls:"antiplatelet"},
-  {n:"이부프로펜", cat:"소염진통제(NSAID)", cls:"nsaid", pim:"위장출혈·신장 주의"},
-  {n:"나프록센", cat:"소염진통제(NSAID)", cls:"nsaid", pim:"위장출혈·신장 주의"},
-  {n:"아세트아미노펜", cat:"해열진통제", cls:"apap"},
-  {n:"졸피뎀", cat:"수면제", cls:"sedative", pim:"낙상·인지저하 주의"},
-  {n:"디아제팜", cat:"벤조디아제핀", cls:"sedative", pim:"낙상·과진정 주의"},
-  {n:"로라제팜", cat:"벤조디아제핀", cls:"sedative", pim:"낙상·과진정 주의"},
-  {n:"클로르페니라민", cat:"1세대 항히스타민", cls:"anticholinergic", pim:"항콜린·졸음 주의"},
-  {n:"아미트립틸린", cat:"삼환계 항우울제", cls:"anticholinergic", pim:"항콜린·낙상 주의"},
-  {n:"트라마돌", cat:"진통제(오피오이드)", cls:"opioid"},
-  {n:"디곡신", cat:"강심제", cls:"digoxin", pim:"고용량 주의"},
-  {n:"푸로세미드", cat:"이뇨제", cls:"diuretic"},
-  {n:"암로디핀", cat:"혈압약(칼슘차단제)", cls:"bp"},
-  {n:"리시노프릴", cat:"혈압약(ACE억제제)", cls:"acei"},
-  {n:"메트포르민", cat:"당뇨약", cls:"dm"},
-  {n:"글리메피리드", cat:"당뇨약(설폰요소제)", cls:"su"},
-  {n:"심바스타틴", cat:"고지혈증약", cls:"statin"},
-  {n:"오메프라졸", cat:"위산억제제", cls:"ppi"},
-  {n:"리바스티그민", cat:"치매치료제", cls:"chei"},
-];
-const CATCOLOR={anticoag:'#E0524D',antiplatelet:'#E0524D',nsaid:'#F0894A',apap:'#7C93A3',sedative:'#E8A100',anticholinergic:'#B06AC0',opioid:'#C0564D',digoxin:'#C98A2B',diuretic:'#3FA3C0',bp:'#2FA866',acei:'#2FA866',dm:'#2E8FD6',su:'#2E8FD6',statin:'#6B8E9E',ppi:'#6B8E9E',chei:'#7A6FD0'};
+const DRUGS = OLYAK_RULES.drugs;      // 룰셋은 rules.js로 분리(식약처 DUR + 한국형 PIM 2018 구조)
+const CATCOLOR = OLYAK_RULES.catColor;
 const byName = Object.fromEntries(DRUGS.map(d=>[d.n,d]));
 const dl=document.getElementById('druglist');
 DRUGS.forEach(d=>{const o=document.createElement('option'); o.value=d.n; o.label=d.cat; dl.appendChild(o);});
@@ -312,17 +298,22 @@ let _tt; function toast(m){ const t=document.getElementById('toast'); t.textCont
 document.getElementById('addBtn').onclick=()=>add();
 input.addEventListener('keydown',e=>{if(e.key==='Enter')add();});
 // ---- 사진 인식 (실제 OCR) ----
-const ALIAS={aspirin:"아스피린",amlodipine:"암로디핀",metformin:"메트포르민",ibuprofen:"이부프로펜",naproxen:"나프록센",
-  warfarin:"와파린",zolpidem:"졸피뎀",diazepam:"디아제팜",lorazepam:"로라제팜",tramadol:"트라마돌",digoxin:"디곡신",
-  furosemide:"푸로세미드",lisinopril:"리시노프릴",glimepiride:"글리메피리드",simvastatin:"심바스타틴",
-  omeprazole:"오메프라졸",rivastigmine:"리바스티그민",acetaminophen:"아세트아미노펜",tylenol:"아세트아미노펜",
-  chlorpheniramine:"클로르페니라민",amitriptyline:"아미트립틸린"};
+const ALIAS=OLYAK_RULES.alias;      // 성분/영문명 → 한글 약품 매핑(rules.js)
 function matchDrugs(text){
   const raw=(text||''); const norm=raw.replace(/\s/g,''); const low=raw.toLowerCase();
   const found=new Set();
   DRUGS.forEach(d=>{ if(norm.includes(d.n)) found.add(d.n); });           // 한글 약품명
   Object.entries(ALIAS).forEach(([en,kn])=>{ if(low.includes(en)) found.add(kn); }); // 영문명
   return [...found];
+}
+// ---- 개인정보(주민번호·전화·이름) 마스킹: 화면 표시·저장 전 제거 ----
+function maskPII(s){
+  return (s||'')
+    .replace(/\d{6}\s*[-–—]\s*\d{7}/g,'●●●●●●-●●●●●●●')               // 주민등록번호 13자리
+    .replace(/\d{6}\s*[-–—]\s*[1-4]\b/g,'●●●●●●-●')                   // 주민번호 앞 7자리
+    .replace(/\b01[016789]\s*[-–]?\s*\d{3,4}\s*[-–]?\s*\d{4}\b/g,'010-****-****') // 휴대폰
+    .replace(/\b0\d{1,2}\s*[-–]?\s*\d{3,4}\s*[-–]?\s*\d{4}\b/g,'●●●-●●●●')        // 유선전화
+    .replace(/\d{10,}/g,'●●●●●●●●●●');                               // 그 밖의 긴 숫자열
 }
 function openFile(id){ document.getElementById(id).click(); }
 document.getElementById('srcBag').onclick=()=>openFile('fileBag');
@@ -339,12 +330,16 @@ async function runOCR(file,kind){
   try{
     const {data:{text}}=await Tesseract.recognize(file,'kor+eng',{logger:m=>{ if(m.status==='recognizing text'){ const b=document.getElementById('ocrbar'); if(b)b.style.width=Math.round(m.progress*100)+'%'; }}});
     const matched=matchDrugs(text);
-    matched.forEach(n=>{ if(!picked.includes(n)) picked.push(n); }); render();
-    const snip=(text||'').replace(/\s+/g,' ').trim().slice(0,70);
+    const snip=maskPII((text||'').replace(/\s+/g,' ').trim()).slice(0,70); // 개인정보 가린 뒤 표시
+    const priv=`<div class="osub" style="color:var(--teal-d);font-weight:600">🔒 주민번호·전화번호는 자동으로 가리고 저장하지 않아요</div>`;
     if(matched.length){
-      box.innerHTML=`<img src="${url}"><div class="ost"><b style="color:var(--teal-d)">✓ ${matched.length}개 약을 인식했어요</b><div class="osub">${matched.join(', ')}</div><div class="osub" style="color:#aab4bc">읽은 글자: ${snip}…</div></div>`;
+      // 오인식 방지: 자동 추가하지 않고 후보로 보여준 뒤 확인해서 추가
+      box.innerHTML=`<img src="${url}"><div class="ost"><b style="color:var(--teal-d)">✓ ${matched.length}개 약 후보를 찾았어요</b><div class="osub">맞는 약만 눌러 추가하세요 (오인식 방지)</div><div class="ocrcand">${matched.map(n=>`<button class="candbtn" data-n="${n}">＋ ${n}</button>`).join('')}</div><button class="btn btn-ghost candall">인식된 약 모두 추가</button><div class="osub" style="color:#aab4bc;margin-top:6px">읽은 글자: ${snip}…</div>${priv}</div>`;
+      const commit=n=>{ if(byName[n]&&!picked.includes(n)){ picked.push(n); render(); } };
+      box.querySelectorAll('.candbtn').forEach(b=>b.onclick=()=>{ commit(b.dataset.n); b.disabled=true; b.textContent='✓ '+b.dataset.n; });
+      box.querySelector('.candall').onclick=()=>{ matched.forEach(commit); box.querySelectorAll('.candbtn').forEach(b=>{b.disabled=true; b.textContent='✓ '+b.dataset.n;}); toast('인식된 약을 추가했어요'); };
     } else {
-      box.innerHTML=`<img src="${url}"><div class="ost"><b>인식된 약을 찾지 못했어요</b><div class="osub">읽은 글자: ${snip||'(글자 인식 실패)'}</div><div class="osub">사진을 더 또렷하게 찍거나, 아래에서 직접 검색해 주세요.</div></div>`;
+      box.innerHTML=`<img src="${url}"><div class="ost"><b>인식된 약을 찾지 못했어요</b><div class="osub">읽은 글자: ${snip||'(글자 인식 실패)'}</div><div class="osub">사진을 더 또렷하게 찍거나, 아래에서 직접 검색해 주세요.</div>${priv}</div>`;
     }
   }catch(err){ box.innerHTML=`<img src="${url}"><div class="ost"><b>분석에 실패했어요</b><div class="osub">${(''+err).slice(0,80)}</div></div>`; }
 }
@@ -354,24 +349,43 @@ document.getElementById('seedBtn').onclick=()=>{picked=["와파린","아스피�
 const gate=document.getElementById('gateChk'); const checkBtn=document.getElementById('checkBtn');
 gate.onchange=()=>{checkBtn.disabled=!gate.checked;};
 
-const PAIRS=[
-  {a:"anticoag", b:"antiplatelet", sev:"high", t:"출혈 위험 (항응고제 + 항혈소판제)", d:"와파린과 아스피린을 함께 복용하면 출혈 위험이 크게 높아집니다."},
-  {a:"anticoag", b:"nsaid", sev:"high", t:"출혈 위험 (항응고제 + 소염진통제)", d:"항응고제와 NSAID 병용은 위장관 출혈 위험을 높입니다."},
-  {a:"antiplatelet", b:"nsaid", sev:"mid", t:"출혈 위험 증가 (항혈소판제 + NSAID)", d:"함께 복용 시 위장 출혈 위험이 증가할 수 있습니다."},
-  {a:"sedative", b:"opioid", sev:"high", t:"과진정·호흡억제 위험", d:"진정제와 오피오이드 병용은 호흡 억제와 낙상 위험을 키웁니다."},
-  {a:"sedative", b:"anticholinergic", sev:"mid", t:"졸음·낙상 위험 가중", d:"진정 작용이 겹쳐 어지럼과 낙상 위험이 높아집니다."},
-];
-function classPairKey(c1,c2){return [c1,c2].sort().join('|');}
+// ---- 위험판정 엔진 (결정론적 규칙, rules.js 룰셋 소비) ----
+const R = OLYAK_RULES;
 function analyze(){
-  const findings=[]; const cls=picked.map(n=>byName[n]);
+  const findings=[];
+  const clsOf = n => byName[n].cls;
+  // 1) 병용 (계열쌍) — 식약처 DUR 병용금기/주의
   for(let i=0;i<picked.length;i++) for(let j=i+1;j<picked.length;j++){
-    const k=classPairKey(cls[i].cls,cls[j].cls);
-    PAIRS.forEach(p=>{ if(classPairKey(p.a,p.b)===k){ findings.push({sev:p.sev, type:p.sev==='high'?'병용 위험':'병용 주의', title:`${picked[i]} + ${picked[j]} — ${p.t}`, desc:p.d}); }});
+    const c1=clsOf(picked[i]), c2=clsOf(picked[j]);
+    R.ddi.forEach(rule=>{
+      const [a,b]=rule.classes;
+      if((c1===a&&c2===b)||(c1===b&&c2===a)){
+        findings.push({sev:rule.sev, type:rule.kind, title:`${picked[i]} + ${picked[j]} — ${rule.title}`, desc:rule.desc, basis:rule.basis});
+      }
+    });
   }
-  const seen={}; picked.forEach((n,idx)=>{const c=cls[idx].cls;(seen[c]=seen[c]||[]).push(n);});
-  Object.entries(seen).forEach(([c,arr])=>{ if(arr.length>1 && ['nsaid','sedative'].includes(c)){ findings.push({sev:'mid', type:'중복 처방', title:`중복 — ${arr.join(', ')}`, desc:`같은 계열(${byName[arr[0]].cat}) 약을 2가지 이상 복용 중입니다. 중복 복용일 수 있습니다.`}); }});
-  picked.forEach((n,idx)=>{ if(cls[idx].pim) findings.push({sev:'mid', type:'어르신 주의약물(PIM)', title:`${n} — ${byName[n].cat}`, desc:`어르신에게 주의가 필요한 약물입니다. ${cls[idx].pim}.`}); });
-  return findings;
+  // 2) 삼중 위험 (각 그룹에서 1개씩) — triple whammy
+  R.triples.forEach(t=>{
+    const hit=t.groups.map(g=>picked.filter(n=>g.includes(clsOf(n))));
+    if(hit.every(h=>h.length)){
+      const names=hit.map(h=>h[0]).join(' + ');
+      findings.push({sev:t.sev, type:t.kind, title:`${t.title}`, desc:`${t.desc} (${names})`, basis:'DUR'});
+    }
+  });
+  // 3) 효능군 중복
+  const byCls={}; picked.forEach(n=>{(byCls[clsOf(n)]=byCls[clsOf(n)]||[]).push(n);});
+  R.dup.forEach(d=>{ const arr=byCls[d.cls]; if(arr&&arr.length>1){
+    findings.push({sev:d.sev||'mid', type:'효능군 중복', title:`중복 — ${arr.join(', ')}`, desc:d.note, basis:'DUR'});
+  }});
+  // 4) 한국형 PIM 2018 (노인 부적절)
+  picked.forEach(n=>{
+    const d=byName[n];
+    const p=R.pim.find(x=> x.name ? x.name===n : x.cls===d.cls);
+    if(p) findings.push({sev:'mid', type:'어르신 주의약물(PIM)', title:`${n} — ${d.cat}`, desc:`${p.reason}${p.alt?` (대안: ${p.alt})`:''}`, basis:'PIM 2018'});
+  });
+  // 중복 항목 제거(제목+유형)
+  const seen=new Set();
+  return findings.filter(f=>{ const k=f.type+'|'+f.title; if(seen.has(k))return false; seen.add(k); return true; });
 }
 
 document.getElementById('checkBtn').onclick=()=>{
@@ -384,8 +398,8 @@ document.getElementById('checkBtn').onclick=()=>{
     green:{c:'L-green', ic:'✅', big:'양호 — 초록', small:'입력하신 약에서 큰 위험 신호는 없습니다.'}
   }[level];
   const di={red:0,yellow:1,green:2}[level]; const dotc={0:'#E0524D',1:'#E8A100',2:'#2FA866'};
-  const antichol=picked.filter(n=>byName[n].cls==='anticholinergic').length;
-  const fallRisk=picked.filter(n=>['sedative','anticholinergic','opioid'].includes(byName[n].cls)).length;
+  const antichol=picked.filter(n=>R.scores.antichol.includes(byName[n].cls)).length;
+  const fallRisk=picked.filter(n=>R.scores.fall.includes(byName[n].cls)).length;
   let html=`<div class="dots">${[0,1,2].map(i=>`<div class="d ${i===di?'on':''}" style="background:${i===di?dotc[i]:'#DCE3E7'}"></div>`).join('')}</div>`;
   html+=`<div class="light ${meta.c}"><div class="ic">${meta.ic}</div><div><div class="big">${meta.big}</div><div class="small">${meta.small}</div></div></div>`;
   html+=`<div class="scoregrid"><div class="scorecard"><div class="snum">${antichol}</div><div class="slab">항콜린 부담 약물</div></div><div class="scorecard"><div class="snum">${fallRisk}</div><div class="slab">낙상위험 약물</div></div></div>`;
@@ -393,7 +407,7 @@ document.getElementById('checkBtn').onclick=()=>{
   if(f.length){
     html+=`<div class="safebar"><span class="ic">⚠️</span><span>약을 바꾸거나 끊는 결정은 반드시 의사·약사와 함께 하세요. 이 약들은 담당 의사가 특별한 이유로 처방했을 수 있습니다.</span></div>`;
     f.sort((a,b)=>(a.sev==='high'?0:1)-(b.sev==='high'?0:1));
-    f.forEach(x=>{ html+=`<div class="finding ${x.sev}"><span class="ftag ${x.sev}">${x.type}</span><div class="fttl">${x.title}</div><div class="fdesc">${x.desc}</div><div class="buffer">의사·약사와 상의하세요</div></div>`; });
+    f.forEach(x=>{ html+=`<div class="finding ${x.sev}"><span class="ftag ${x.sev}">${x.type}</span><div class="fttl">${x.title}</div><div class="fdesc">${x.desc}</div><div class="buffer">의사·약사와 상의하세요${x.basis?` · 근거 ${x.basis}`:''}</div></div>`; });
   } else { html+=`<div class="fdesc" style="text-align:center;padding:8px;">입력하신 약에서 위험 조합이 발견되지 않았습니다.</div>`; }
   html+=`<div class="actions"><button class="btn btn-ghost" onclick="alert('보호자에게 위험 요약을 공유했습니다. (데모)')">👪 보호자에게 공유</button><button class="btn btn-ghost" onclick="go('card')">📋 진료 요약 카드</button></div>`;
   const r=document.getElementById('result'); r.innerHTML=html; r.style.display='block'; r.scrollIntoView({behavior:'smooth'});
@@ -417,7 +431,7 @@ function go(name){
   if(name==='pharm') renderPharm();
   document.querySelector('.screen').scrollTop=0;
 }
-const MEDICON={anticoag:'🩸',antiplatelet:'🩸',nsaid:'💊',apap:'💊',sedative:'😴',anticholinergic:'🤧',opioid:'💊',digoxin:'❤️',diuretic:'💧',bp:'❤️',acei:'❤️',dm:'🩸',su:'🩸',statin:'💊',ppi:'💊',chei:'🧠'};
+const MEDICON=OLYAK_RULES.medIcon;
 function renderMeds(){
   const el=document.getElementById('medsBody');
   if(!picked.length){ el.innerHTML='<div class="card" style="text-align:center;color:var(--sub);padding:54px 16px;"><div style="font-size:34px;margin-bottom:10px">💊</div>아직 등록된 약이 없습니다.<br>약봉투·알약 사진으로 추가해 보세요.</div>'; return; }
