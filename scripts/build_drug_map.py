@@ -9,9 +9,11 @@
   - 매핑을 자체 사전으로 구축하지 않고, 공식 약제급여목록표를 "매월 동기화"한다.
   - 새 약이 나오면 목록표가 갱신되므로 매달 재생성하면 최신 상태가 유지된다.
 
-데이터 출처:
-  건강보험심사평가원 약제급여목록표 (매월 1일 갱신).
-  다운로드 경로/공공데이터 API는 README(scripts/README.md) 참고.
+데이터 출처(README 상세):
+  (A) 월 최신 목록: 심평원 약제급여목록표 페이지 — HWPX/PDF, 매월 1일.
+  (B) 기계판독 매핑: data.go.kr 약가마스터 2종(15067462 표준코드=한글상품명+일반명코드,
+      15067461 주성분=일반명코드+일반명)을 일반명코드로 조인. CSV/API, 단 연 1회 갱신.
+  → 최신성이 중요하면 (A)를 파싱하거나 API 갱신주기 확인. 자세한 절차는 scripts/README.md.
 
 의존성: 표준 라이브러리만 사용(CSV). .xlsx 입력은 openpyxl이 있으면 지원.
 
@@ -34,10 +36,12 @@ from pathlib import Path
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
 logger = logging.getLogger("build_drug_map")
 
-# 약제급여목록표에서 흔히 쓰이는 컬럼명 후보 (실제 파일에 맞춰 --name-col/--code-col로 덮어쓰기)
-PRODUCT_COL_CANDIDATES = ("제품명", "품명", "약품명", "상품명")
-CODE_COL_CANDIDATES = ("주성분코드", "성분코드", "일반명코드")
-INGREDIENT_COL_CANDIDATES = ("주성분", "성분명", "일반명")
+# 컬럼명 후보 (실제 파일에 맞춰 --name-col/--code-col로 덮어쓰기)
+# - 심평원 약제급여목록표(고시): 제품명 / 주성분코드
+# - data.go.kr 약가마스터_의약품표준코드(15067462): 한글상품명 / 일반명코드
+PRODUCT_COL_CANDIDATES = ("제품명", "한글상품명", "품명", "약품명", "상품명")
+CODE_COL_CANDIDATES = ("주성분코드", "일반명코드", "성분명코드", "성분코드")
+INGREDIENT_COL_CANDIDATES = ("주성분", "일반명", "성분명")
 
 # 제품명 정규화 시 제거하는 제형/용량 꼬리표 (매칭 정확도용)
 _FORM_SUFFIX = re.compile(
