@@ -144,5 +144,42 @@ window.OLYAK_RULES = (function () {
     ssri: "🧠", amiodarone: "❤️",
   };
 
-  return { drugs, ddi, triples, dup, pim, scores, alias, catColor, medIcon };
+  // ── 낱알식별 시드 데이터 (알약 사진 → 후보 제안용, 자동확정 금지)
+  //    실서비스는 식약처 낱알식별 정보 + 약학정보원 식별검색으로 교체.
+  //    drug = OLYAK_RULES.drugs의 한글명과 연결(확정 시 위험엔진에 합류).
+  //    ※ 흰색·원형처럼 외형이 겹치는 항목을 일부러 포함(제네릭 동형 → 후보 다수 → 사람이 선택).
+  const pills = [
+    { code: "645700080", drug: "아스피린",       product: "아스피린프로텍트정100mg", imprint: "AC",  shape: "원형",  color: "흰색",  size: "8mm" },
+    { code: "641902200", drug: "암로디핀",       product: "노바스크정5mg",           imprint: "5",   shape: "원형",  color: "흰색",  size: "7mm" },
+    { code: "640001880", drug: "클로르페니라민", product: "클로르페니라민정4mg",     imprint: "CP",  shape: "원형",  color: "흰색",  size: "6mm" },
+    { code: "645500010", drug: "와파린",         product: "와파린나트륨정5mg",       imprint: "5",   shape: "원형",  color: "분홍",  size: "7mm" },
+    { code: "642200330", drug: "졸피뎀",         product: "스틸녹스정10mg",          imprint: "10",  shape: "타원형", color: "흰색",  size: "9mm" },
+    { code: "649900120", drug: "메트포르민",     product: "다이아벡스정500mg",       imprint: "500", shape: "장방형", color: "흰색",  size: "12mm" },
+    { code: "643300770", drug: "이부프로펜",     product: "부루펜정200mg",           imprint: "IBU", shape: "원형",  color: "주황",  size: "9mm" },
+    { code: "648800210", drug: "오메프라졸",     product: "오메프라졸캡슐20mg",      imprint: "OME", shape: "캡슐",  color: "분홍",  size: "" },
+    { code: "641100440", drug: "리시노프릴",     product: "제스트릴정10mg",          imprint: "L10", shape: "원형",  color: "노랑",  size: "8mm" },
+    { code: "646600550", drug: "디아제팜",       product: "디아제팜정5mg",           imprint: "5",   shape: "원형",  color: "노랑",  size: "7mm" },
+    { code: "647700660", drug: "심바스타틴",     product: "조코정20mg",              imprint: "MSD",  shape: "타원형", color: "노랑",  size: "10mm" },
+    { code: "642900990", drug: "트라마돌",       product: "울트라셋캡슐",            imprint: "T50", shape: "캡슐",  color: "녹색",  size: "" },
+  ];
+
+  /** 알약 특징 질의 → 후보 목록(점수순). 각인 일치 최우선, 그다음 모양·색.
+   *  단독 확정용이 아니라 '후보 카드'용이며, 확정은 사람이 한다. */
+  function findPillCandidates(q) {
+    const imp = (q.imprint || "").toUpperCase().replace(/\s/g, "");
+    const scored = pills.map((p) => {
+      const basis = [];
+      let score = 0;
+      if (imp && p.imprint && (imp.includes(p.imprint.toUpperCase()) || p.imprint.toUpperCase().includes(imp))) {
+        score += 3; basis.push("각인 일치");
+      }
+      if (q.shape && q.shape === p.shape) { score += 1; basis.push("모양 일치"); }
+      if (q.color && q.color === p.color) { score += 1; basis.push("색 일치"); }
+      return { ...p, score, basis };
+    }).filter((p) => p.score > 0);
+    scored.sort((a, b) => b.score - a.score);
+    return scored.slice(0, 5); // top-5 후보
+  }
+
+  return { drugs, ddi, triples, dup, pim, scores, alias, catColor, medIcon, pills, findPillCandidates };
 })();
