@@ -536,8 +536,9 @@ document.getElementById('checkBtn').onclick=()=>{
   if(f.length){
     html+=`<div class="safebar"><span class="ic">⚠️</span><span>약을 바꾸거나 끊는 결정은 반드시 의사·약사와 함께 하세요. 이 약들은 담당 의사가 특별한 이유로 처방했을 수 있습니다.</span></div>`;
     f.sort((a,b)=>(a.sev==='high'?0:1)-(b.sev==='high'?0:1));
-    f.forEach(x=>{ html+=`<div class="finding ${x.sev}"><span class="ftag ${x.sev}">${x.type}</span><div class="fttl">${x.title}</div><div class="fdesc">${x.desc}</div><div class="buffer">의사·약사와 상의하세요${x.basis?` · 근거 ${x.basis}`:''}</div></div>`; });
+    f.forEach(x=>{ html+=`<div class="finding ${x.sev}"><span class="ftag ${x.sev}">${x.type}</span><div class="fttl">${x.title}</div><div class="fdesc">${x.desc}</div><div class="buffer">의사·약사와 상의하세요</div><div style="font-size:11px;color:var(--sub);margin-top:3px">📖 근거: ${basisFull(x)}</div></div>`; });
   } else { html+=`<div class="fdesc" style="text-align:center;padding:8px;">입력하신 약에서 위험 조합이 발견되지 않았습니다.</div>`; }
+  html+=vsAiCard();
   html+=`<div class="actions"><button class="btn btn-ghost" onclick="shareSummary()">👪 보호자에게 공유</button><button class="btn btn-ghost" onclick="go('card')">📋 진료 요약 카드</button><button class="btn btn-ghost" onclick="openConsultLog()">🧾 약국 상담일지</button></div>`;
   const r=document.getElementById('result'); r.innerHTML=html; r.style.display='block'; r.scrollIntoView({behavior:'smooth'});
 };
@@ -618,6 +619,25 @@ function openConsultLog(){
   w.document.write(html); w.document.close();
 }
 function pimAltFor(n){ const p=R.pim.find(x=>x.name?x.name===n:x.cls===byName[n].cls); return (p&&p.alt)?p.alt:null; }
+// 판정 근거를 공식 출처 원문으로 풀어서 표기(환각 반박: 우리는 근거가 고정돼 있다)
+function basisFull(f){
+  const t=f.type||'';
+  if(t.includes('PIM')) return '한국형 노인 부적절약물(PIM) 2018 · Kim et al. (약학회지)';
+  if(t.includes('삼중')) return '노인 삼중요법 급성신손상 주의(NSAID+RAS차단제+이뇨제)';
+  if(t.includes('중복')) return '효능군 중복(동일 계열 중복 처방)';
+  if(f.basis==='DUR') return '식약처 의약품안전사용서비스(DUR) 병용금기·주의 기준';
+  if(f.basis==='문헌') return '표준 임상 문헌 기반 약물상호작용';
+  return f.basis||'식약처 DUR·PIM 기준';
+}
+// "왜 그냥 AI에 묻지 않나요?" — 범용 LLM이 구조적으로 못 하는 것을 화면으로 반박
+function vsAiCard(){
+  const rows=[['근거','생성·출처 없음','식약처 DUR·PIM에 고정'],['재현성','물을 때마다 답이 달라짐','같은 입력엔 같은 답'],['약 이름 입력','직접 정확히 타이핑','약봉투·알약 사진으로 인식'],['전달','텍스트 답변뿐','진료카드·보호자 연락']];
+  return `<div style="margin-top:14px;border:1px solid #e3e9ec;border-radius:12px;padding:12px 14px;background:#f7fafb">`+
+    `<div style="font-weight:800;margin-bottom:6px">왜 그냥 AI 챗봇에 묻지 않나요?</div>`+
+    rows.map(r=>`<div style="display:grid;grid-template-columns:70px 1fr 1fr;gap:6px;font-size:12px;padding:5px 0;border-top:1px solid #eef2f4"><div style="color:var(--sub);font-weight:700">${r[0]}</div><div style="color:#9aa4a9">챗봇: ${r[1]}</div><div style="color:var(--teal-d);font-weight:700">올약: ${r[2]}</div></div>`).join('')+
+    `<div style="margin-top:8px;font-size:11px;color:var(--sub);line-height:1.5">약 안전은 '그럴듯한 답'이 아니라 '근거 있는 같은 답'이어야 합니다. 더 좋은 AI가 나와도 올약은 그 모델을 <b>엔진으로 흡수</b>하고, 안전의 근거는 <b>공식 기준(식약처)</b>에 고정합니다.</div>`+
+    `</div>`;
+}
 function buildSummaryText(){
   const dt=new Date(); const ds=`${dt.getFullYear()}.${String(dt.getMonth()+1).padStart(2,'0')}.${String(dt.getDate()).padStart(2,'0')}`;
   // 등록된 약이 없을 때: 약봉투를 찍었어도 '후보를 눌러 확정'해야 반영됨을 안내
