@@ -297,6 +297,9 @@ const dl=document.getElementById('druglist');
 DRUGS.forEach(d=>{const o=document.createElement('option'); o.value=d.n; o.label=d.cat; dl.appendChild(o);});
 
 let picked=[];
+let endedMeds=[];   // 복용을 마친 약(종료). 위험판정에서는 제외되고 상담일지에는 '종료'로 표기됨.
+function endMed(n){ const i=picked.indexOf(n); if(i>=0){ picked.splice(i,1); if(!endedMeds.includes(n)) endedMeds.push(n); } renderMeds(); render(); }
+function restoreMed(n){ const i=endedMeds.indexOf(n); if(i>=0){ endedMeds.splice(i,1); if(!picked.includes(n)) picked.push(n); } renderMeds(); render(); }
 const chipsEl=document.getElementById('chips');
 const input=document.getElementById('drugInput');
 function render(){
@@ -535,7 +538,7 @@ document.getElementById('checkBtn').onclick=()=>{
     f.sort((a,b)=>(a.sev==='high'?0:1)-(b.sev==='high'?0:1));
     f.forEach(x=>{ html+=`<div class="finding ${x.sev}"><span class="ftag ${x.sev}">${x.type}</span><div class="fttl">${x.title}</div><div class="fdesc">${x.desc}</div><div class="buffer">의사·약사와 상의하세요${x.basis?` · 근거 ${x.basis}`:''}</div></div>`; });
   } else { html+=`<div class="fdesc" style="text-align:center;padding:8px;">입력하신 약에서 위험 조합이 발견되지 않았습니다.</div>`; }
-  html+=`<div class="actions"><button class="btn btn-ghost" onclick="shareSummary()">👪 보호자에게 공유</button><button class="btn btn-ghost" onclick="go('card')">📋 진료 요약 카드</button></div>`;
+  html+=`<div class="actions"><button class="btn btn-ghost" onclick="shareSummary()">👪 보호자에게 공유</button><button class="btn btn-ghost" onclick="go('card')">📋 진료 요약 카드</button><button class="btn btn-ghost" onclick="openConsultLog()">🧾 약국 상담일지</button></div>`;
   const r=document.getElementById('result'); r.innerHTML=html; r.style.display='block'; r.scrollIntoView({behavior:'smooth'});
 };
 
@@ -560,17 +563,59 @@ function go(name){
 const MEDICON=OLYAK_RULES.medIcon;
 function renderMeds(){
   const el=document.getElementById('medsBody');
-  if(!picked.length){ el.innerHTML='<div class="card" style="text-align:center;color:var(--sub);padding:54px 16px;"><div style="font-size:34px;margin-bottom:10px">💊</div>아직 등록된 약이 없습니다.<br>약봉투·알약 사진으로 추가해 보세요.</div>'; return; }
+  if(!picked.length && !endedMeds.length){ el.innerHTML='<div class="card" style="text-align:center;color:var(--sub);padding:54px 16px;"><div style="font-size:34px;margin-bottom:10px">💊</div>아직 등록된 약이 없습니다.<br>약봉투·알약 사진으로 추가해 보세요.</div>'; return; }
   const pim=picked.filter(n=>byName[n].pim).length;
-  let h=`<div class="medsum"><div class="c"><div class="v">${picked.length}</div><div class="l">복용 중인 약</div></div><div class="c"><div class="v" style="color:var(--coral)">${pim}</div><div class="l">주의 약물</div></div></div>`;
+  let h=`<div class="medsum"><div class="c"><div class="v">${picked.length}</div><div class="l">복용 중인 약</div></div><div class="c"><div class="v" style="color:var(--coral)">${pim}</div><div class="l">주의 약물</div></div><div class="c"><div class="v" style="color:var(--sub)">${endedMeds.length}</div><div class="l">복용 종료</div></div></div>`;
   picked.forEach((n,i)=>{ const d=byName[n]; const hasSame=SAME[n];
-    h+=`<div class="medrow"><div class="mic">${MEDICON[d.cls]||'💊'}</div><div class="mx"><b>${n}</b><span>${d.cat}</span></div>${hasSame?`<span class="same" data-s="${i}">같은 성분</span>`:''}${d.pim?'<span class="pill warn">주의</span>':''}<span class="rm" data-i="${i}">×</span></div>`;
+    h+=`<div class="medrow"><div class="mic">${MEDICON[d.cls]||'💊'}</div><div class="mx"><b>${n}</b><span>${d.cat}</span></div>${hasSame?`<span class="same" data-s="${i}">같은 성분</span>`:''}${d.pim?'<span class="pill warn">주의</span>':''}<span class="endbtn" data-end="${n}" style="cursor:pointer;font-size:11px;color:var(--teal-d);border:1px solid #bfe0d9;border-radius:6px;padding:2px 7px;margin:0 4px">종료</span><span class="rm" data-i="${i}">×</span></div>`;
     if(hasSame){ h+=`<div class="samebox" id="same${i}" style="display:none"><b>💊 ${n}과 같은 성분 약</b><div class="sl">${SAME[n].join(' · ')}</div><div class="sn">성분은 같지만 제품·함량이 다를 수 있어요. 바꾸는 결정은 의사·약사와 상의하세요.</div></div>`; }
   });
-  h+=`<div class="sched"><div class="sh">⏰ 오늘 복약 시간</div><div class="ss"><div class="t">아침<b>3종</b></div><div class="t">점심<b>2종</b></div><div class="t">저녁<b>3종</b></div></div></div>`;
+  if(picked.length) h+=`<div class="sched"><div class="sh">⏰ 오늘 복약 시간</div><div class="ss"><div class="t">아침<b>3종</b></div><div class="t">점심<b>2종</b></div><div class="t">저녁<b>3종</b></div></div></div>`;
+  if(endedMeds.length){ h+=`<div class="endedbox" style="margin-top:12px;border-top:1px dashed #d8e0e4;padding-top:10px"><div class="sh" style="color:var(--sub);font-weight:700;margin-bottom:6px">✓ 복용 종료한 약</div>`+endedMeds.map(n=>`<div class="medrow" style="opacity:.7"><div class="mic">${MEDICON[byName[n].cls]||'💊'}</div><div class="mx"><b style="text-decoration:line-through">${n}</b><span>${byName[n].cat} · 종료</span></div><span class="rsbtn" data-rs="${n}" style="cursor:pointer;font-size:11px;color:var(--teal-d);border:1px solid #bfe0d9;border-radius:6px;padding:2px 7px">되돌리기</span></div>`).join('')+`</div>`; }
+  h+=`<div class="actions" style="margin-top:12px"><button class="btn btn-ghost" onclick="openConsultLog()">🧾 약국 상담일지 내보내기</button></div>`;
   el.innerHTML=h;
   el.querySelectorAll('.rm').forEach(x=>x.onclick=()=>{picked.splice(+x.dataset.i,1); renderMeds(); render();});
+  el.querySelectorAll('.endbtn').forEach(x=>x.onclick=()=>endMed(x.dataset.end));
+  el.querySelectorAll('.rsbtn').forEach(x=>x.onclick=()=>restoreMed(x.dataset.rs));
   el.querySelectorAll('.same').forEach(b=>b.onclick=()=>{ const box=document.getElementById('same'+b.dataset.s); box.style.display=(box.style.display==='none'?'block':'none'); });
+}
+
+// 약국용 복약 상담일지: 통합 목록 + 위험 요약 + 종료 약 표기 + 상담메모/서명 (인쇄→PDF 저장)
+function openConsultLog(){
+  const f=analyze();
+  const dt=new Date(); const ds=`${dt.getFullYear()}.${String(dt.getMonth()+1).padStart(2,'0')}.${String(dt.getDate()).padStart(2,'0')}`;
+  const antichol=picked.filter(n=>R.scores.antichol.includes(byName[n].cls)).length;
+  const fallRisk=picked.filter(n=>R.scores.fall.includes(byName[n].cls)).length;
+  const hi=f.filter(x=>x.sev==='high').length, mid=f.filter(x=>x.sev==='mid').length;
+  const rows=picked.map(n=>`<tr><td>${n}</td><td>${byName[n].cat}</td><td>복용중</td></tr>`).join('')
+    +endedMeds.map(n=>`<tr class="e"><td>${n}</td><td>${byName[n].cat}</td><td>종료</td></tr>`).join('');
+  const findRows=f.length?f.map(x=>`<tr><td>${x.sev==='high'?'위험':'주의'}</td><td>${x.type}</td><td>${x.title}${x.desc?'<br><span style="color:#5b6b73">'+x.desc+'</span>':''}${x.basis?` (근거 ${x.basis})`:''}</td></tr>`).join('')
+    :`<tr><td colspan="3">입력된 약 기준 특이 위험 신호 없음</td></tr>`;
+  const html=`<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>올약 상담일지 ${ds}</title><style>
+    body{font-family:-apple-system,'Apple SD Gothic Neo',sans-serif;color:#1a2a33;max-width:720px;margin:22px auto;padding:0 20px;font-size:13px;line-height:1.5}
+    h1{font-size:19px;margin:0 0 2px}.sub{color:#5b6b73;font-size:12px;margin-bottom:12px}
+    .grid{display:flex;gap:8px;margin:10px 0}.grid div{flex:1;border:1px solid #d8e0e4;border-radius:8px;padding:7px 9px;text-align:center}.grid b{display:block;font-size:16px;color:#127a6b}
+    table{width:100%;border-collapse:collapse;margin:6px 0 12px}th,td{border:1px solid #d8e0e4;padding:6px 8px;text-align:left;vertical-align:top}th{background:#f0f5f6;font-weight:700}tr.e td{color:#8a969c;text-decoration:line-through}
+    .sec{font-weight:700;margin:14px 0 4px;font-size:14px}.memo{border:1px solid #d8e0e4;border-radius:8px;min-height:82px;padding:8px}
+    .sig{margin-top:16px;display:flex;justify-content:space-between;color:#5b6b73}
+    .buf{margin-top:14px;font-size:11px;color:#5b6b73;border-top:1px solid #e3e9ec;padding-top:8px}
+    button{margin:16px 0;padding:9px 16px;border:0;border-radius:8px;background:#127a6b;color:#fff;font-weight:700;cursor:pointer}
+    @media print{button{display:none}body{margin:0}}
+  </style></head><body>
+    <h1>올약 복약 상담일지</h1>
+    <div class="sub">작성일 ${ds} · 약국 ____________ · 약사 ____________ · 대상(익명) ______ 님 (연령 ____)</div>
+    <div class="grid"><div>복용 중<b>${picked.length}종</b></div><div>종료<b>${endedMeds.length}종</b></div><div>위험<b style="color:#E0524D">빨강 ${hi}·노랑 ${mid}</b></div><div>노인점수<b>항콜린 ${antichol}·낙상 ${fallRisk}</b></div></div>
+    <div class="sec">통합 복약 목록 (여러 병원·약국)</div>
+    <table><thead><tr><th>약명</th><th>효능군</th><th>상태</th></tr></thead><tbody>${rows||'<tr><td colspan="3">등록된 약 없음</td></tr>'}</tbody></table>
+    <div class="sec">위험 신호</div>
+    <table><thead><tr><th style="width:52px">등급</th><th style="width:120px">유형</th><th>내용·근거</th></tr></thead><tbody>${findRows}</tbody></table>
+    <div class="sec">상담 메모</div><div class="memo"></div>
+    <div class="sig"><div>약사 확인: ________________ (서명)</div><div>다음 상담 예정: ____ / ____</div></div>
+    <div class="buf">본 상담일지는 올약이 자동 정리한 참고 자료입니다. 올약은 진단·처방을 하지 않는 정보제공 도구이며, 약 변경·중단 등 최종 판단과 책임은 담당 의사·약사에게 있습니다. 개인정보 보호를 위해 대상자는 반드시 익명(이니셜)으로 기재하세요.</div>
+    <button onclick="window.print()">🖨 인쇄 / PDF로 저장</button>
+  </body></html>`;
+  const w=window.open('','_blank'); if(!w){ toast('팝업이 차단되었습니다. 허용 후 다시 시도하세요.'); return; }
+  w.document.write(html); w.document.close();
 }
 function pimAltFor(n){ const p=R.pim.find(x=>x.name?x.name===n:x.cls===byName[n].cls); return (p&&p.alt)?p.alt:null; }
 function buildSummaryText(){
