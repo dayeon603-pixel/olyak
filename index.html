@@ -180,6 +180,42 @@
  <div class="screen">
   <div class="island"></div>
 
+  <div id="loginOverlay" style="position:absolute;inset:0;z-index:60;background:linear-gradient(160deg,#0f7a6b,#0b5f54);color:#fff;display:flex;flex-direction:column;justify-content:center;padding:30px 24px;overflow-y:auto">
+    <div style="text-align:center;margin-bottom:20px">
+      <div style="font-size:30px;font-weight:800">올약<span style="color:#F06A4C">.</span></div>
+      <div style="font-size:13px;opacity:.9;margin-top:6px">여러 병원 약, 가족이 한 번에</div>
+    </div>
+    <div style="background:#fff;color:#1a2a33;border-radius:16px;padding:18px 16px">
+      <div style="font-weight:800;margin-bottom:3px">시작하기</div>
+      <div style="font-size:11.5px;color:#8a969c;margin-bottom:12px">계정을 만들면 여러 병원 약과 보호자 연결이 저장됩니다.</div>
+      <input id="loginId" type="email" placeholder="이메일" style="width:100%;box-sizing:border-box;padding:11px;border:1px solid #d8e0e4;border-radius:9px;margin-bottom:8px;font-size:14px">
+      <input id="loginPw" type="password" placeholder="비밀번호" style="width:100%;box-sizing:border-box;padding:11px;border:1px solid #d8e0e4;border-radius:9px;margin-bottom:10px;font-size:14px">
+      <label style="display:flex;gap:7px;font-size:11.5px;color:#5b6b73;margin:0 0 12px;line-height:1.45"><input type="checkbox" id="loginAgree" style="margin-top:2px"><span>(필수) <a href="#" onclick="openLegal('terms');return false" style="color:#0f7a6b">이용약관</a>과 건강정보 수집·이용을 포함한 <a href="#" onclick="openLegal('privacy');return false" style="color:#0f7a6b">개인정보처리방침</a>에 동의합니다.</span></label>
+      <div style="display:flex;gap:8px">
+        <button onclick="signup()" style="flex:1;padding:12px;border:0;border-radius:9px;background:#0f7a6b;color:#fff;font-weight:800;font-size:14px;cursor:pointer">계정 만들기</button>
+        <button onclick="login()" style="flex:1;padding:12px;border:1px solid #0f7a6b;border-radius:9px;background:#fff;color:#0f7a6b;font-weight:800;font-size:14px;cursor:pointer">로그인</button>
+      </div>
+      <div style="font-size:10.5px;color:#aab3b8;text-align:center;margin-top:9px;line-height:1.5">실제 서버 인증은 준비 중이며, 현재 계정 정보는 이 기기 안에만 저장됩니다.</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;margin:16px 4px 12px;color:rgba(255,255,255,.6);font-size:11px"><div style="flex:1;height:1px;background:rgba(255,255,255,.3)"></div>또는<div style="flex:1;height:1px;background:rgba(255,255,255,.3)"></div></div>
+    <button onclick="guestEnter()" style="width:100%;padding:12px;border:1px solid rgba(255,255,255,.5);border-radius:10px;background:rgba(255,255,255,.08);color:#fff;font-weight:700;font-size:14px;cursor:pointer">게스트로 둘러보기</button>
+    <div style="text-align:center;margin-top:8px;font-size:11px;opacity:.9;line-height:1.5">게스트는 <b>데모(목업) 전용</b>입니다. 어떤 개인정보도 수집·저장·이용하지 않습니다.</div>
+    <div style="text-align:center;margin-top:16px;font-size:11.5px">
+      <a href="#" onclick="openLegal('terms');return false" style="color:#fff;text-decoration:underline">이용약관</a> ·
+      <a href="#" onclick="openLegal('privacy');return false" style="color:#fff;text-decoration:underline">개인정보처리방침</a> ·
+      <a href="#" onclick="openLegal('refund');return false" style="color:#fff;text-decoration:underline">환불정책</a>
+    </div>
+    <div style="text-align:center;margin-top:8px;font-size:10.5px;opacity:.75">올약은 진단·처방을 하지 않는 참고용 정보제공 서비스입니다.</div>
+  </div>
+
+  <div id="legalModal" style="position:absolute;inset:0;z-index:70;background:#fff;color:#1a2a33;display:none;flex-direction:column">
+    <div style="display:flex;align-items:center;gap:8px;padding:14px 16px;border-bottom:1px solid #e3e9ec">
+      <button onclick="closeLegal()" style="border:0;background:none;font-size:20px;cursor:pointer">←</button>
+      <b id="legalTitle" style="font-size:15px">약관</b>
+    </div>
+    <div id="legalBody" style="flex:1;overflow-y:auto;padding:16px;font-size:12.5px;line-height:1.65;color:#33454d"></div>
+  </div>
+
   <div class="topwrap">
     <div class="statusbar">
       <span class="sb-time">9:41</span>
@@ -273,6 +309,7 @@
     올약은 정보 제공 도구이며 <b>질병을 진단하거나 약을 바꾸지 않습니다</b>. 모든 결정은 의사·약사와 상의하세요.
     <br><b>⚠ 한계 고지:</b> 국가 차원의 병용금기 목록조차 모든 위험 조합을 완전히 포함하지는 않습니다. 올약은 <b>알려진 위험</b>을 걸러 참고를 돕는 도구이며, 목록에 없는 위험이 존재할 수 있으므로 최종 판단은 반드시 의사·약사와 함께 하세요.
     <br><b>🔒 개인정보 보호:</b> 처방전·약봉투 사진에서 주민등록번호·전화번호 등 개인정보는 기기 안에서 자동으로 가려지며 서버에 저장하지 않습니다. 약 이름·용량만 사용합니다.
+    <br><a href="#" onclick="openLegal('terms');return false" style="color:var(--teal-d);font-weight:600">이용약관</a> · <a href="#" onclick="openLegal('privacy');return false" style="color:var(--teal-d);font-weight:600">개인정보처리방침</a> · <a href="#" onclick="openLegal('refund');return false" style="color:var(--teal-d);font-weight:600">환불정책</a>
    </div>
   </div>
 
@@ -295,6 +332,56 @@ const CATCOLOR = OLYAK_RULES.catColor;
 const byName = Object.fromEntries(DRUGS.map(d=>[d.n,d]));
 const dl=document.getElementById('druglist');
 DRUGS.forEach(d=>{const o=document.createElement('option'); o.value=d.n; o.label=d.cat; dl.appendChild(o);});
+
+// ── 로그인/계정 (실제 계정 설계 = 기기 내 저장 MVP, 게스트 = 무수집) ──
+let guestMode=false;
+function enterApp(){ var o=document.getElementById('loginOverlay'); if(o) o.style.display='none'; }
+function _agree(){ var a=document.getElementById('loginAgree'); return a && a.checked; }
+function signup(){
+  var email=(document.getElementById('loginId').value||'').trim();
+  var pw=(document.getElementById('loginPw').value||'').trim();
+  if(!email||!pw){ toast('이메일과 비밀번호를 입력하세요.'); return; }
+  if(!_agree()){ toast('약관·개인정보 동의가 필요합니다.'); return; }
+  try{ localStorage.setItem('olyak_account', JSON.stringify({email:email, consent:true})); localStorage.setItem('olyak_session', email); }catch(e){}
+  guestMode=false; enterApp(); toast('환영합니다, '+email);
+}
+function login(){
+  var email=(document.getElementById('loginId').value||'').trim();
+  var acc=null; try{ acc=JSON.parse(localStorage.getItem('olyak_account')||'null'); }catch(e){}
+  if(acc && acc.email===email){ try{localStorage.setItem('olyak_session',email);}catch(e){} guestMode=false; enterApp(); toast('로그인되었습니다.'); }
+  else { toast('계정이 없습니다. "계정 만들기"를 눌러 주세요.'); }
+}
+function guestEnter(){
+  guestMode=true;
+  try{ localStorage.removeItem('olyak_session'); }catch(e){}   // 게스트: 세션·개인정보 저장 안 함
+  enterApp(); toast('게스트 모드 · 개인정보를 저장하지 않습니다');
+}
+// 이미 로그인한 계정이면 로그인 화면 건너뜀(실제 계정 흐름)
+try{ if(localStorage.getItem('olyak_session')) enterApp(); }catch(e){}
+
+const LEGAL = {
+ terms:{ t:'이용약관', h:
+  `<p><b>제1조 (서비스의 성격)</b> 올약(이하 "서비스")은 여러 병원·약국에서 처방받은 약의 병용금기·중복·노인주의 등 <b>알려진 위험 정보를 참고용으로 제공</b>하는 정보제공 도구입니다. 서비스는 진단·처방·조제를 하지 않으며, 「디지털의료제품법」상 정보제공형 비의료기기로 설계됩니다.</p>`+
+  `<p><b>제2조 (한계와 책임)</b> 국가 차원의 병용금기 목록조차 모든 위험 조합을 완전히 포함하지 못합니다. 서비스는 목록에 없는 위험을 보장하지 않으며, 약의 변경·중단 등 최종 판단과 책임은 이용자와 담당 의사·약사에게 있습니다.</p>`+
+  `<p><b>제3조 (이용자의 의무)</b> 이용자는 정확한 약 정보를 입력하고, 경고를 근거로 임의로 약을 바꾸거나 끊지 않으며 반드시 전문가와 상의합니다.</p>`+
+  `<p><b>제4조 (면책)</b> 서비스는 정보의 정확성을 위해 노력하나, 이용자가 서비스만을 근거로 내린 결정의 결과에 대해 법이 허용하는 범위에서 책임을 제한합니다.</p>`+
+  `<p style="color:#8a969c">※ 본 약관은 데모용 초안이며, 정식 서비스 시 법률 검토를 거쳐 확정됩니다.</p>` },
+ privacy:{ t:'개인정보처리방침', h:
+  `<p><b>1. 수집 항목</b> 복약 안전 점검을 위한 약 이름·성분·용량 등 건강정보(민감정보)와, 회원 식별을 위한 최소 정보(이메일 등). <b>게스트 이용 시에는 어떤 개인정보도 수집·저장하지 않습니다.</b></p>`+
+  `<p><b>2. 이용 목적</b> 병용금기·중복·노인주의 위험 점검, 보호자 공유, 진료 요약 카드 생성.</p>`+
+  `<p><b>3. 민감정보 처리</b> 건강정보는 「개인정보 보호법」 제23조에 따라 <b>별도 동의</b>를 받아 처리합니다. 처방전·약봉투 사진의 주민등록번호·전화번호 등은 <b>기기 안에서 자동 마스킹</b>되며 서버에 저장하지 않습니다.</p>`+
+  `<p><b>4. 최소수집·온디바이스</b> 인식·판정은 가능한 기기 내에서 처리하고, 서버에는 최소 데이터만 둡니다.</p>`+
+  `<p><b>5. 제3자 제공·파기</b> 이용자 동의 없이 제3자에게 제공하지 않으며, 목적 달성·탈퇴 시 지체 없이 파기합니다.</p>`+
+  `<p style="color:#8a969c">※ 본 방침은 데모용 초안이며, 정식 서비스 시 확정·게시됩니다.</p>` },
+ refund:{ t:'취소·환불 정책', h:
+  `<p><b>1. 무료 이용</b> 어르신·보호자 기본 기능과 게스트 이용은 무료입니다.</p>`+
+  `<p><b>2. 유료 구독</b> 프리미엄·약국 구독 등 유료 상품은 결제일로부터 <b>7일 이내 청약철회</b>가 가능합니다(「전자상거래 등에서의 소비자보호에 관한 법률」 기준). 이미 제공된 기간에 상응하는 금액은 공제될 수 있습니다.</p>`+
+  `<p><b>3. 정기결제 해지</b> 다음 결제일 이전에 해지하면 다음 주기부터 청구되지 않으며, 남은 기간은 이용할 수 있습니다.</p>`+
+  `<p><b>4. 환불 문의</b> 앱 내 고객문의 또는 등록된 연락처로 접수합니다.</p>`+
+  `<p style="color:#8a969c">※ 본 정책은 데모용 초안이며, 정식 결제 도입 시 확정됩니다.</p>` }
+};
+function openLegal(k){ var m=document.getElementById('legalModal'); document.getElementById('legalTitle').textContent=LEGAL[k].t; document.getElementById('legalBody').innerHTML=LEGAL[k].h; m.style.display='flex'; }
+function closeLegal(){ document.getElementById('legalModal').style.display='none'; }
 
 let picked=[];
 let endedMeds=[];   // 복용을 마친 약(종료). 위험판정에서는 제외되고 상담일지에는 '종료'로 표기됨.
