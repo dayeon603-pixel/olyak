@@ -574,14 +574,32 @@ function renderMeds(){
 }
 function pimAltFor(n){ const p=R.pim.find(x=>x.name?x.name===n:x.cls===byName[n].cls); return (p&&p.alt)?p.alt:null; }
 function buildSummaryText(){
-  const f=analyze();
   const dt=new Date(); const ds=`${dt.getFullYear()}.${String(dt.getMonth()+1).padStart(2,'0')}.${String(dt.getDate()).padStart(2,'0')}`;
-  let t=`[올약 복약 요약 ${ds}]\n현재 복용 약(${picked.length}): ${picked.join(', ')||'없음'}`;
-  if(f.length){ t+='\n\n확인 필요:\n'+f.map(x=>`- [${x.sev==='high'?'위험':'주의'}] ${x.title}${x.basis?` (근거 ${x.basis})`:''}`).join('\n'); }
-  else t+='\n\n특이사항 없음';
-  const alts=picked.map(n=>{const a=pimAltFor(n); return a?`- ${n}: ${a}`:null;}).filter(Boolean);
-  if(alts.length) t+='\n\n대안(참고, 의사·약사와 상의):\n'+alts.join('\n');
-  t+='\n\n※ 약 변경·중단은 반드시 의사·약사와 함께. 올약은 참고용 정보제공 도구입니다.';
+  // 등록된 약이 없을 때: 약봉투를 찍었어도 '후보를 눌러 확정'해야 반영됨을 안내
+  if(!picked.length){
+    return `[올약 복약 요약 ${ds}]\n`+
+      `아직 등록된 약이 없습니다.\n\n`+
+      `· 약봉투를 촬영하셨다면, 화면에 뜬 "후보 약"을 눌러야 목록에 추가됩니다. 오인식(잘못된 약이 자동으로 들어가는 것)을 막기 위해 자동으로 등록하지 않습니다.\n`+
+      `· 후보가 뜨지 않았다면, 사진을 더 또렷하게(밝은 곳·그림자 없이) 다시 찍거나 약 이름을 검색해 추가해 주세요.\n\n`+
+      `※ 올약은 진단·처방을 하지 않는 참고용 정보제공 도구입니다. 약 변경·중단은 반드시 의사·약사와 상의하세요.`;
+  }
+  const f=analyze();
+  const hi=f.filter(x=>x.sev==='high').length, mid=f.filter(x=>x.sev==='mid').length;
+  const antichol=picked.filter(n=>R.scores.antichol.includes(byName[n].cls)).length;
+  const fallRisk=picked.filter(n=>R.scores.fall.includes(byName[n].cls)).length;
+  let t=`[올약 복약 요약 ${ds}] · 보호자용`;
+  t+=`\n\n■ 현재 복용 약 (${picked.length}종)\n`+picked.map(n=>`  · ${n} (${byName[n].cat})`).join('\n');
+  t+=`\n\n■ 위험 신호 — 빨강 ${hi}건 · 노랑 ${mid}건`;
+  if(f.length){
+    t+='\n'+f.map(x=>`  ${x.sev==='high'?'[위험]':'[주의]'} ${x.title}\n     ↳ ${x.desc||''}${x.basis?` (근거: ${x.basis})`:''}`).join('\n');
+  } else { t+='\n  입력된 약 기준으로 특이 위험 신호 없음'; }
+  t+=`\n\n■ 노인 위험 점수\n  · 항콜린 부담 약물 ${antichol}개 · 낙상위험 약물 ${fallRisk}개`;
+  const alts=picked.map(n=>{const a=pimAltFor(n); return a?`  · ${n} → ${a}`:null;}).filter(Boolean);
+  if(alts.length) t+=`\n\n■ 대안 참고 (의사·약사와 상의)\n`+alts.join('\n');
+  t+=`\n\n■ 보호자 안내\n`+
+     `  · 어르신은 인지·기억의 어려움으로 약을 직접 확인·판단하기 어려우실 수 있습니다. 이 요약을 다음 진료 때 의사·약사에게 대신 제시해 주세요.\n`+
+     `  · [위험] 항목은 반드시 전문가와 상의 후 조정하고, 임의로 약을 바꾸거나 끊지 마세요.`;
+  t+=`\n\n※ 올약은 진단·처방을 하지 않는 참고용 정보제공 도구입니다. 목록에 없는 위험이 있을 수 있으니 최종 판단은 의사·약사와 함께 하세요.`;
   return t;
 }
 async function shareSummary(){
