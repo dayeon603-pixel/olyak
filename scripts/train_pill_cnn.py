@@ -63,6 +63,7 @@ class Config:
     img_size: int = 224
     out_dir: Path = Path("../models")
     seed: int = 42
+    smoke: bool = False   # 합성 데이터로 파이프라인 검증(실제 낱알 아님)
 
 
 def build_transforms(img_size: int) -> tuple:
@@ -84,21 +85,75 @@ def build_transforms(img_size: int) -> tuple:
     return train, val
 
 
-def build_model(n_classes: int):
-    """EfficientNet-B0 전이학습. 마지막 분류층 교체."""
+def build_model(n_classes: int, smoke: bool = False):
+    """실서비스: EfficientNet-B0 전이학습. 검증(smoke): 소형 CNN(가중치 다운로드 불필요)."""
+    if smoke:
+        return nn.Sequential(
+            nn.Conv2d(3, 16, 3, padding=1), nn.ReLU(), nn.MaxPool2d(2),
+            nn.Conv2d(16, 32, 3, padding=1), nn.ReLU(), nn.MaxPool2d(2),
+            nn.AdaptiveAvgPool2d(1), nn.Flatten(), nn.Linear(32, n_classes),
+        )
     model = models.efficientnet_b0(weights=models.EfficientNet_B0_Weights.DEFAULT)
     in_features = model.classifier[1].in_features
     model.classifier[1] = nn.Linear(in_features, n_classes)
     return model
 
 
+def make_synthetic_dataset(root: Path, n_classes: int = 8, per_train: int = 30, per_val: int = 10, size: int = 48) -> None:
+    """알약 인식 파이프라인 검증용 합성 데이터(실제 낱알 아님).
+
+    각 클래스 = (모양, 색, 각인글자) 조합. **일부러 외형 동일 쌍(look-alike)을 넣어**
+    100%가 안 나오도록(현실 반영) 만든다. 이미지엔 노이즈를 추가한다.
+    """
+    from PIL import Image, ImageDraw
+    rng = random.Random(0)
+    shapes = ["ellipse", "rect", "ellipse", "rect"]
+    colors = [(240, 240, 245), (243, 211, 78), (241, 176, 196), (103, 192, 138)]
+    glyphs = list("ACD5") + ["10", "IB", "SV", "L1"]
+    specs = []
+    for i in range(n_classes):
+        specs.append((shapes[i % len(shapes)], colors[i % len(colors)], glyphs[i % len(glyphs)]))
+    # 마지막 두 클래스를 앞 클래스와 동일 외형으로(제네릭 동형) → 분리 난이도 상승
+    if n_classes >= 4:
+        specs[-1] = specs[0]
+        specs[-2] = specs[1]
+
+    def draw(spec, path):
+        shape, color, glyph = spec
+        img = Image.new("RGB", (size, size), (250, 250, 250))
+        d = ImageDraw.Draw(img)
+        pad = 6
+        box = [pad, pad, size - pad, size - pad]
+        if shape == "ellipse":
+            d.ellipse(box, fill=color, outline=(120, 120, 120))
+        else:
+            d.rounded_rectangle(box, radius=4, fill=color, outline=(120, 120, 120))
+        d.text((size // 2 - 6, size // 2 - 6), glyph, fill=(40, 40, 40))
+        # 노이즈(조명·초점 변이 모사)
+        px = img.load()
+        for _ in range(int(size * size * 0.12)):
+            x, y = rng.randrange(size), rng.randrange(size)
+            v = rng.randint(-30, 30)
+            r, g, b = px[x, y]
+            px[x, y] = (max(0, min(255, r + v)), max(0, min(255, g + v)), max(0, min(255, b + v)))
+        img.save(path)
+
+    for split, n in (("train", per_train), ("val", per_val)):
+        for ci, spec in enumerate(specs):
+            d = root / split / f"cls{ci:02d}"
+            d.mkdir(parents=True, exist_ok=True)
+            for k in range(n):
+                draw(spec, d / f"{k}.png")
+
+
 def train(cfg: Config) -> None:
     if not _HAS_TORCH:
         sys.exit("PyTorch/torchvision 필요: pip install torch torchvision")
+    set_seed(cfg.seed)
+    if cfg.smoke:
+        make_synthetic_dataset(cfg.data_dir)   # 합성 데이터로 파이프라인 검증(실제 낱알 아님)
     if not cfg.data_dir.exists():
         sys.exit(f"데이터셋 없음: {cfg.data_dir} (식약처 낱알식별 이미지를 ImageFolder로 준비)")
-
-    set_seed(cfg.seed)
     device = "cuda" if torch.cuda.is_available() else ("mps" if torch.backends.mps.is_available() else "cpu")
     t_train, t_val = build_transforms(cfg.img_size)
 
@@ -106,10 +161,10 @@ def train(cfg: Config) -> None:
     train_ds = datasets.ImageFolder(cfg.data_dir / "train", t_train)
     val_ds = datasets.ImageFolder(cfg.data_dir / "val", t_val)
     classes = train_ds.classes  # 제품코드 목록
-    train_dl = DataLoader(train_ds, cfg.batch_size, shuffle=True, num_workers=4)
-    val_dl = DataLoader(val_ds, cfg.batch_size, shuffle=False, num_workers=4)
+    train_dl = DataLoader(train_ds, cfg.batch_size, shuffle=True, num_workers=0 if cfg.smoke else 4)
+    val_dl = DataLoader(val_ds, cfg.batch_size, shuffle=False, num_workers=0 if cfg.smoke else 4)
 
-    model = build_model(len(classes)).to(device)
+    model = build_model(len(classes), smoke=cfg.smoke).to(device)
     criterion = nn.CrossEntropyLoss(label_smoothing=cfg.label_smoothing)
     opt = torch.optim.AdamW(model.parameters(), lr=cfg.lr, weight_decay=cfg.weight_decay)
 
@@ -193,10 +248,20 @@ def main() -> int:
     ap.add_argument("--predict", type=str, help="추론할 이미지 경로")
     ap.add_argument("--topk", type=int, default=5)
     ap.add_argument("--model", type=str, default="../models/pill_cnn_best.pt")
+    ap.add_argument("--smoke", action="store_true", help="합성 데이터로 파이프라인 end-to-end 검증(실제 낱알 아님)")
     args = ap.parse_args()
 
     if args.predict:
         predict(args.predict, args.topk, args.model)
+    elif args.smoke:
+        import tempfile
+        d = Path(tempfile.mkdtemp()) / "pills"
+        print("=== 파이프라인 검증(합성 데이터, 실제 낱알 아님) ===")
+        train(Config(data_dir=d, epochs=12, batch_size=16, img_size=48,
+                     warmup_epochs=2, patience=6, smoke=True,
+                     out_dir=Path("/tmp/olyak_pill_models")))
+        print("검증 완료: 학습→평가→체크포인트 저장까지 파이프라인이 정상 동작함.")
+        print("주의: 위 정확도는 합성 데이터 수치이며 실제 알약 성능이 아니다. 100%가 아님이 정상.")
     else:
         train(Config(data_dir=args.data, epochs=args.epochs))
     return 0

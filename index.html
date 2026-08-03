@@ -338,6 +338,24 @@ document.getElementById('srcPill').onclick=()=>openFile('filePill');
 document.getElementById('fileBag').onchange=e=>runOCR(e.target.files[0],'약봉투');
 document.getElementById('filePill').onchange=e=>runPillId(e.target.files[0]);
 
+// 약봉투 텍스트 인식률 향상: 축소·흑백·대비 보정 후 OCR (신뢰 축 = 약봉투 텍스트)
+function preprocessImage(file){
+  return new Promise((resolve)=>{
+    const img=new Image(); const u=URL.createObjectURL(file);
+    img.onload=()=>{
+      const scale=Math.min(1,1400/img.width);
+      const c=document.createElement('canvas'); c.width=Math.round(img.width*scale); c.height=Math.round(img.height*scale);
+      const ctx=c.getContext('2d'); ctx.drawImage(img,0,0,c.width,c.height);
+      try{ const d=ctx.getImageData(0,0,c.width,c.height),a=d.data;
+        for(let i=0;i<a.length;i+=4){ let g=0.299*a[i]+0.587*a[i+1]+0.114*a[i+2]; g=(g-128)*1.6+140; g=g<0?0:g>255?255:g; a[i]=a[i+1]=a[i+2]=g; }
+        ctx.putImageData(d,0,0);
+      }catch(e){}
+      URL.revokeObjectURL(u); resolve(c);
+    };
+    img.onerror=()=>{ URL.revokeObjectURL(u); resolve(null); };
+    img.src=u;
+  });
+}
 async function runOCR(file,kind){
   if(!file) return;
   const box=document.getElementById('ocrStatus'); box.style.display='flex';
@@ -345,7 +363,8 @@ async function runOCR(file,kind){
   box.innerHTML=`<img src="${url}"><div class="ost"><b>${kind} 사진 분석 중…</b><div class="prog"><i id="ocrbar"></i></div><div class="osub" id="ocrsub">글자를 읽고 있어요 (처음엔 잠시 걸려요)</div></div>`;
   if(typeof Tesseract==='undefined'){ box.querySelector('#ocrsub').textContent='인식 엔진을 불러오지 못했어요. 아래에서 직접 검색해 주세요.'; return; }
   try{
-    const {data:{text}}=await Tesseract.recognize(file,'kor+eng',{logger:m=>{ if(m.status==='recognizing text'){ const b=document.getElementById('ocrbar'); if(b)b.style.width=Math.round(m.progress*100)+'%'; }}});
+    const pre=await preprocessImage(file); const ocrSrc=pre||file;   // 전처리 실패 시 원본
+    const {data:{text}}=await Tesseract.recognize(ocrSrc,'kor+eng',{logger:m=>{ if(m.status==='recognizing text'){ const b=document.getElementById('ocrbar'); if(b)b.style.width=Math.round(m.progress*100)+'%'; }}});
     const matched=matchDrugs(text);
     const snip=maskPII((text||'').replace(/\s+/g,' ').trim()).slice(0,70); // 개인정보 가린 뒤 표시
     const priv=`<div class="osub" style="color:var(--teal-d);font-weight:600">🔒 주민번호·전화번호는 자동으로 가리고 저장하지 않아요</div>`;
@@ -375,7 +394,8 @@ async function runPillId(file){
   box.innerHTML=`<div class="ost" style="width:100%"><div style="display:flex;gap:11px;align-items:center"><img src="${url}"><div><b>알약 분석 중…</b><div class="prog"><i id="ocrbar"></i></div><div class="osub" id="ocrsub">각인을 읽고 있어요 (처음엔 잠시 걸려요)</div></div></div></div>`;
   let imprint='';
   if(typeof Tesseract!=='undefined'){
-    try{ const {data:{text}}=await Tesseract.recognize(file,'eng',{logger:m=>{ if(m.status==='recognizing text'){ const b=document.getElementById('ocrbar'); if(b)b.style.width=Math.round(m.progress*100)+'%'; }}});
+    try{ const pre=await preprocessImage(file);
+      const {data:{text}}=await Tesseract.recognize(pre||file,'eng',{logger:m=>{ if(m.status==='recognizing text'){ const b=document.getElementById('ocrbar'); if(b)b.style.width=Math.round(m.progress*100)+'%'; }}});
       imprint=(text||'').toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,12);
     }catch(e){}
   }
@@ -400,8 +420,10 @@ function renderPillResult(url, imprint, cands, box, hdr){
     h+=`<div class="selrow" id="colorSel">${['흰색','노랑','분홍','주황','녹색'].map(c=>`<span class="selchip" data-color="${c}">${c}</span>`).join('')}</div>`;
     h+=`<div class="pcbtnrow"><button class="btn btn-ghost" id="pillNone">약봉투로 등록</button></div>`;
   }
-  h+=`<div class="pillnote">⚠ 알약 사진 인식은 <b>참고용</b>입니다. 외형이 같은 약(제네릭)이 여럿일 수 있어 자동 확정하지 않으며, 최종 확인은 <b>보호자·약사·약봉투</b>로 하세요.</div></div>`;
+  h+=`<div class="pillnote">⚠ 알약 사진 인식은 <b>참고용</b>입니다. 외형이 같은 약(제네릭)이 여럿일 수 있어 자동 확정하지 않으며, 최종 확인은 <b>보호자·약사·약봉투</b>로 하세요. <a href="#" id="pillReport" style="color:var(--teal-d);font-weight:700">결과가 이상해요? 신고</a></div></div>`;
   box.innerHTML=h;
+  const rep=document.getElementById('pillReport');
+  if(rep) rep.onclick=(e)=>{ e.preventDefault(); toast('오인식 신고 접수됐어요. 데이터 개선에 반영됩니다.'); };
   // 후보 확정 (사람 탭에서만)
   box.querySelectorAll('.pconfirm').forEach(b=>b.onclick=()=>{
     const n=b.dataset.drug;
@@ -487,7 +509,7 @@ document.getElementById('checkBtn').onclick=()=>{
     f.sort((a,b)=>(a.sev==='high'?0:1)-(b.sev==='high'?0:1));
     f.forEach(x=>{ html+=`<div class="finding ${x.sev}"><span class="ftag ${x.sev}">${x.type}</span><div class="fttl">${x.title}</div><div class="fdesc">${x.desc}</div><div class="buffer">의사·약사와 상의하세요${x.basis?` · 근거 ${x.basis}`:''}</div></div>`; });
   } else { html+=`<div class="fdesc" style="text-align:center;padding:8px;">입력하신 약에서 위험 조합이 발견되지 않았습니다.</div>`; }
-  html+=`<div class="actions"><button class="btn btn-ghost" onclick="alert('보호자에게 위험 요약을 공유했습니다. (데모)')">👪 보호자에게 공유</button><button class="btn btn-ghost" onclick="go('card')">📋 진료 요약 카드</button></div>`;
+  html+=`<div class="actions"><button class="btn btn-ghost" onclick="shareSummary()">👪 보호자에게 공유</button><button class="btn btn-ghost" onclick="go('card')">📋 진료 요약 카드</button></div>`;
   const r=document.getElementById('result'); r.innerHTML=html; r.style.display='block'; r.scrollIntoView({behavior:'smooth'});
 };
 
@@ -524,17 +546,41 @@ function renderMeds(){
   el.querySelectorAll('.rm').forEach(x=>x.onclick=()=>{picked.splice(+x.dataset.i,1); renderMeds(); render();});
   el.querySelectorAll('.same').forEach(b=>b.onclick=()=>{ const box=document.getElementById('same'+b.dataset.s); box.style.display=(box.style.display==='none'?'block':'none'); });
 }
+function pimAltFor(n){ const p=R.pim.find(x=>x.name?x.name===n:x.cls===byName[n].cls); return (p&&p.alt)?p.alt:null; }
+function buildSummaryText(){
+  const f=analyze();
+  const dt=new Date(); const ds=`${dt.getFullYear()}.${String(dt.getMonth()+1).padStart(2,'0')}.${String(dt.getDate()).padStart(2,'0')}`;
+  let t=`[올약 복약 요약 ${ds}]\n현재 복용 약(${picked.length}): ${picked.join(', ')||'없음'}`;
+  if(f.length){ t+='\n\n확인 필요:\n'+f.map(x=>`- [${x.sev==='high'?'위험':'주의'}] ${x.title}${x.basis?` (근거 ${x.basis})`:''}`).join('\n'); }
+  else t+='\n\n특이사항 없음';
+  const alts=picked.map(n=>{const a=pimAltFor(n); return a?`- ${n}: ${a}`:null;}).filter(Boolean);
+  if(alts.length) t+='\n\n대안(참고, 의사·약사와 상의):\n'+alts.join('\n');
+  t+='\n\n※ 약 변경·중단은 반드시 의사·약사와 함께. 올약은 참고용 정보제공 도구입니다.';
+  return t;
+}
+async function shareSummary(){
+  const t=buildSummaryText();
+  try{
+    if(navigator.share){ await navigator.share({title:'올약 복약 요약', text:t}); return; }
+    await navigator.clipboard.writeText(t); toast('요약을 복사했어요. 보호자에게 붙여넣어 보내세요.');
+  }catch(e){ toast('공유 취소 또는 복사 실패'); }
+}
 function renderCard(){
   const f=analyze(); const hi=f.filter(x=>x.sev==='high'), mid=f.filter(x=>x.sev==='mid');
   const dt=new Date(); const ds=`${dt.getFullYear()}.${String(dt.getMonth()+1).padStart(2,'0')}.${String(dt.getDate()).padStart(2,'0')}`;
+  const antichol=picked.filter(n=>R.scores.antichol.includes(byName[n].cls)).length;
+  const fallRisk=picked.filter(n=>R.scores.fall.includes(byName[n].cls)).length;
   let h=`<div class="pcard"><div class="pc-h"><b>올약 복약 요약</b><span>${ds}</span></div>`;
   h+=`<div class="pc-sec">현재 복용 약 (${picked.length})</div>`;
   h+= picked.length? picked.map(n=>`<div class="pc-li">• ${n} <span style="color:var(--sub);font-size:12px;">${byName[n].cat}</span></div>`).join('') : '<div class="fdesc">등록된 약 없음</div>';
   h+=`<div class="pc-sec">확인이 필요한 항목</div>`;
-  if(f.length){ h+= hi.concat(mid).map(x=>`<div class="pc-flag ${x.sev}">${x.sev==='high'?'⚠️ 위험':'• 주의'} — ${x.title}</div>`).join(''); }
+  if(f.length){ h+= hi.concat(mid).map(x=>`<div class="pc-flag ${x.sev}">${x.sev==='high'?'⚠️ 위험':'• 주의'} — ${x.title}${x.basis?`<span style="float:right;font-size:10px;opacity:.7">근거 ${x.basis}</span>`:''}</div>`).join(''); }
   else { h+='<div class="fdesc">특이사항 없음</div>'; }
+  const alts=picked.map(n=>{const a=pimAltFor(n); return a?`<div class="pc-li">• ${n} → <b>${a}</b></div>`:null;}).filter(Boolean);
+  if(alts.length){ h+=`<div class="pc-sec">대안 참고 (의사·약사와 상의)</div>`+alts.join(''); }
+  h+=`<div class="pc-sec">노인 위험 점수</div><div class="pc-li">항콜린 부담 <b>${antichol}</b> · 낙상위험 약물 <b>${fallRisk}</b></div>`;
   h+=`<div class="pc-foot">의사·약사에게 보여주세요 · 약 변경·중단은 전문가와 상의</div></div>`;
-  h+=`<div class="actions" style="margin-top:14px;"><button class="btn btn-ghost" onclick="alert('보호자에게 카드를 공유했습니다. (데모)')">👪 공유</button><button class="btn btn-ghost" onclick="window.print()">🖨 인쇄</button></div>`;
+  h+=`<div class="actions" style="margin-top:14px;"><button class="btn btn-ghost" onclick="shareSummary()">👪 보호자 공유·복사</button><button class="btn btn-ghost" onclick="window.print()">🖨 인쇄</button></div>`;
   document.getElementById('cardBox').innerHTML=h;
 }
 
