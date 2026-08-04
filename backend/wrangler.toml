@@ -7,6 +7,12 @@ kv_namespaces = [
   { binding = "OTP_KV", id = "101133a802e84430a9c0fa212c6a2076" }
 ]
 
+# OTP 코드 저장(강일관성 → 원자적 1회 소비)
+[[d1_databases]]
+binding = "OTP_DB"
+database_name = "olyak-otp"
+database_id = "0a58b025-7487-4fd9-9332-246afa341e29"
+
 [vars]
 # Resend에서 도메인 인증 후 보낸사람 주소로 교체 (테스트는 onboarding@resend.dev 로 계정 소유 이메일에만 발송 가능)
 FROM_EMAIL = "올약 <onboarding@resend.dev>"
