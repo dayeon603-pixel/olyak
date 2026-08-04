@@ -1,0 +1,17 @@
+name = "olyak-2fa"
+main = "src/worker.js"
+compatibility_date = "2024-11-01"
+
+# 배포 전: wrangler kv namespace create OTP_KV 로 만든 id를 아래에 채우기
+kv_namespaces = [
+  { binding = "OTP_KV", id = "REPLACE_WITH_KV_ID" }
+]
+
+[vars]
+# Resend에서 도메인 인증 후 보낸사람 주소로 교체 (테스트는 onboarding@resend.dev 로 계정 소유 이메일에만 발송 가능)
+FROM_EMAIL = "올약 <onboarding@resend.dev>"
+# 프론트(데모)가 올라간 오리진. GitHub Pages 기준.
+ALLOW_ORIGIN = "https://dayeon603-pixel.github.io"
+
+# 시크릿(커밋 금지)은 명령으로 등록:
+#   wrangler secret put RESEND_API_KEY

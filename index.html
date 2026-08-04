@@ -377,18 +377,44 @@ function login(){
   pendingAuth={mode:'login', email:email}; startTwofa(email);
 }
 // ── 2단계 인증(2FA) ── 데모: 실제 발송은 준비 중, 6자리면 통과
-function startTwofa(email){ var s=document.getElementById('twofaSub'); if(s) s.textContent=email+' 로 6자리 인증번호를 보냈습니다.'; var c=document.getElementById('twofaCode'); if(c) c.value=''; document.getElementById('twofaOverlay').style.display='flex'; }
-function resendTwofa(){ toast('인증번호를 재전송했습니다 (데모)'); }
+// OTP 백엔드 URL. 비우면 데모(아무 6자리 통과). Cloudflare Worker 배포 후 URL 입력 → 실제 이메일 OTP.
+const OTP_API = '';
+async function startTwofa(email){
+  var s=document.getElementById('twofaSub'); var c=document.getElementById('twofaCode'); if(c) c.value='';
+  document.getElementById('twofaOverlay').style.display='flex';
+  if(OTP_API){
+    if(s) s.textContent='인증번호를 보내는 중…';
+    try{
+      var r=await fetch(OTP_API+'/otp/request',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email})});
+      var d=await r.json();
+      if(d.ok){ if(s) s.textContent=email+' 로 인증번호를 보냈습니다. (5분 내 입력)'; }
+      else if(d.error==='cooldown'){ if(s) s.textContent='잠시 후 재전송할 수 있습니다.'; }
+      else { if(s) s.textContent='발송에 실패했습니다. 이메일을 확인하고 재전송해 주세요.'; }
+    }catch(e){ if(s) s.textContent='서버 연결 실패. 재전송을 눌러 주세요.'; }
+  } else {
+    if(s) s.textContent=email+' 로 6자리 인증번호를 보냈습니다. (데모: 아무 6자리 입력)';
+  }
+}
+function resendTwofa(){ if(OTP_API && pendingAuth){ startTwofa(pendingAuth.email); } else { toast('인증번호를 재전송했습니다 (데모)'); } }
 function cancelTwofa(){ document.getElementById('twofaOverlay').style.display='none'; pendingAuth=null; }
-function verifyTwofa(){
+async function verifyTwofa(){
   var code=(document.getElementById('twofaCode').value||'').trim();
   if(!/^\d{6}$/.test(code)){ toast('6자리 숫자를 입력하세요.'); return; }
+  if(OTP_API && pendingAuth){
+    try{
+      var r=await fetch(OTP_API+'/otp/verify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:pendingAuth.email, code:code})});
+      var d=await r.json();
+      if(!d.ok){ toast(d.error==='wrong' ? ('인증번호가 틀립니다'+(d.left!=null?' ('+d.left+'회 남음)':'')) : '인증에 실패했습니다. 재전송해 주세요.'); return; }
+      try{ if(d.token) localStorage.setItem('olyak_token', d.token); }catch(e){}
+    }catch(e){ toast('서버 연결에 실패했습니다.'); return; }
+  }
   document.getElementById('twofaOverlay').style.display='none';
   if(pendingAuth){ try{ localStorage.setItem('olyak_account', JSON.stringify({email:pendingAuth.email, consent:true})); localStorage.setItem('olyak_session', pendingAuth.email); }catch(e){} }
   guestMode=false;
   var onboarded=false; try{ onboarded=!!localStorage.getItem('olyak_onboarded'); }catch(e){}
-  if(pendingAuth && pendingAuth.mode==='signup' && !onboarded){ pendingAuth=null; showOnboard(); }
-  else { pendingAuth=null; enterApp(); toast('인증되었습니다.'); }
+  var mode = pendingAuth ? pendingAuth.mode : 'login';
+  pendingAuth=null;
+  if(mode==='signup' && !onboarded){ showOnboard(); } else { enterApp(); toast('인증되었습니다.'); }
 }
 // ── 온보딩 ──
 const OB=[
