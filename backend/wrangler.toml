@@ -4,7 +4,7 @@ compatibility_date = "2024-11-01"
 
 # 배포 전: wrangler kv namespace create OTP_KV 로 만든 id를 아래에 채우기
 kv_namespaces = [
-  { binding = "OTP_KV", id = "REPLACE_WITH_KV_ID" }
+  { binding = "OTP_KV", id = "101133a802e84430a9c0fa212c6a2076" }
 ]
 
 [vars]

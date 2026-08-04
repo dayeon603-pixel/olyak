@@ -399,7 +399,7 @@ function login(){
 }
 // ── 2단계 인증(2FA) ── OTP_API 설정 시 실제 이메일 OTP 발송·검증(1회용·5분). 미설정 시 계정 로그인 비활성(게스트 안내).
 // OTP 백엔드 URL. 비우면 계정 로그인 비활성(게스트만 이용). Cloudflare Worker 배포 후 URL 입력 → 실제 이메일 OTP 동작.
-const OTP_API = '';
+const OTP_API = 'https://olyak-2fa.dayeon603.workers.dev';
 async function startTwofa(email){
   var s=document.getElementById('twofaSub'); var c=document.getElementById('twofaCode'); if(c) c.value='';
   document.getElementById('twofaOverlay').style.display='flex';
