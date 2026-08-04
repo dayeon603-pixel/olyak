@@ -218,12 +218,12 @@
 
   <div id="twofaOverlay" style="position:absolute;inset:0;z-index:62;background:linear-gradient(160deg,#0f7a6b,#0b5f54);color:#fff;display:none;flex-direction:column;justify-content:center;padding:30px 26px">
     <div style="text-align:center;margin-bottom:18px">
-      <div style="font-size:40px">🔐</div>
+      <div style="color:#fff"><svg viewBox="0 0 24 24" width="38" height="38" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg></div>
       <div style="font-weight:800;font-size:18px;margin-top:6px">2단계 인증</div>
       <div id="twofaSub" style="font-size:12.5px;opacity:.9;margin-top:6px;line-height:1.5">등록하신 연락처로 6자리 인증번호를 보냈습니다.</div>
     </div>
     <div style="background:#fff;color:#1a2a33;border-radius:16px;padding:18px 16px">
-      <input id="twofaCode" inputmode="numeric" maxlength="6" placeholder="6자리 인증번호" style="width:100%;box-sizing:border-box;padding:12px;border:1px solid #d8e0e4;border-radius:9px;font-size:16px;letter-spacing:4px;text-align:center;margin-bottom:10px">
+      <input id="twofaCode" inputmode="numeric" maxlength="6" placeholder="000000" style="width:100%;box-sizing:border-box;padding:12px;border:1px solid #d8e0e4;border-radius:9px;font-size:20px;letter-spacing:8px;text-align:center;margin-bottom:10px;font-family:ui-monospace,'SFMono-Regular',Menlo,monospace">
       <button onclick="verifyTwofa()" style="width:100%;padding:12px;border:0;border-radius:9px;background:#0f7a6b;color:#fff;font-weight:800;font-size:14px;cursor:pointer">확인</button>
       <div style="display:flex;justify-content:space-between;margin-top:10px;font-size:11.5px"><a href="#" onclick="resendTwofa();return false" style="color:#0f7a6b">인증번호 재전송</a><a href="#" onclick="cancelTwofa();return false" style="color:#8a969c">뒤로</a></div>
       <div style="font-size:10.5px;color:#aab3b8;text-align:center;margin-top:10px;line-height:1.5">데모: 실제 SMS·이메일 발송은 준비 중입니다. 아무 6자리나 입력하면 통과합니다.</div>
@@ -261,8 +261,8 @@
     <p class="hint">약 이름을 몰라도 됩니다. 약봉투나 알약을 사진으로 찍으면 자동으로 읽어 드려요.</p>
 
     <div class="srcrow">
-      <div class="src" id="srcBag"><span class="si">📷</span><div class="st">약봉투 사진</div><div class="ss">처방전·약봉투 촬영</div></div>
-      <div class="src" id="srcPill"><span class="si">💊</span><div class="st">알약 사진</div><div class="ss">낱알 식별</div></div>
+      <div class="src" id="srcBag"><span class="si"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-2h6l2 2h3v11H4z"/><circle cx="12" cy="13" r="3.4"/></svg></span><div class="st">약봉투 사진</div><div class="ss">처방전·약봉투 촬영</div></div>
+      <div class="src" id="srcPill"><span class="si"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="6" rx="3"/><path d="M12 9v6"/></svg></span><div class="st">알약 사진</div><div class="ss">낱알 식별</div></div>
     </div>
     <input type="file" id="fileBag" accept="image/*" capture="environment" style="display:none">
     <input type="file" id="filePill" accept="image/*" capture="environment" style="display:none">
@@ -312,7 +312,7 @@
    <div class="view" id="view-pharm" style="display:none;">
      <h2>주변 약국</h2>
      <p class="hint">내 위치에서 가까운 약국을 찾고, 같은 성분 약은 약사와 상의하세요.</p>
-     <div class="pmap"><span class="pin me"></span><span class="pin"></span><span class="pin"></span><span class="pin"></span><div class="pmaplabel" id="pmaplabel">📍 내 위치 기준</div></div>
+     <div class="pmap"><span class="pin me"></span><span class="pin"></span><span class="pin"></span><span class="pin"></span><div class="pmaplabel" id="pmaplabel">내 위치 기준</div></div>
      <div id="pharmList"></div>
      <div class="infonote">데모 화면입니다. 실서비스는 공공데이터 '전국 약국 정보'(주소·좌표)와 지도(길찾기·전화)를 연동합니다.</div>
    </div>
@@ -332,17 +332,17 @@
    <div class="foot">
     본 화면은 시연용 데모입니다. 표시 약물·규칙은 예시이며 실제 서비스는 식약처 DUR·낱알식별 정보와 한국형 노인 부적절약물(PIM) 2018을 사용합니다.
     올약은 정보 제공 도구이며 <b>질병을 진단하거나 약을 바꾸지 않습니다</b>. 모든 결정은 의사·약사와 상의하세요.
-    <br><b>⚠ 한계 고지:</b> 국가 차원의 병용금기 목록조차 모든 위험 조합을 완전히 포함하지는 않습니다. 올약은 <b>알려진 위험</b>을 걸러 참고를 돕는 도구이며, 목록에 없는 위험이 존재할 수 있으므로 최종 판단은 반드시 의사·약사와 함께 하세요.
-    <br><b>🔒 개인정보 보호:</b> 처방전·약봉투 사진에서 주민등록번호·전화번호 등 개인정보는 기기 안에서 자동으로 가려지며 서버에 저장하지 않습니다. 약 이름·용량만 사용합니다.
+    <br><b>한계 고지:</b> 국가 차원의 병용금기 목록조차 모든 위험 조합을 완전히 포함하지는 않습니다. 올약은 <b>알려진 위험</b>을 걸러 참고를 돕는 도구이며, 목록에 없는 위험이 존재할 수 있으므로 최종 판단은 반드시 의사·약사와 함께 하세요.
+    <br><b>개인정보 보호:</b> 처방전·약봉투 사진에서 주민등록번호·전화번호 등 개인정보는 기기 안에서 자동으로 가려지며 서버에 저장하지 않습니다. 약 이름·용량만 사용합니다.
     <br><a href="#" onclick="openLegal('terms');return false" style="color:var(--teal-d);font-weight:600">이용약관</a> · <a href="#" onclick="openLegal('privacy');return false" style="color:var(--teal-d);font-weight:600">개인정보처리방침</a> · <a href="#" onclick="openLegal('refund');return false" style="color:var(--teal-d);font-weight:600">환불정책</a>
    </div>
   </div>
 
   <div class="tabbar">
-    <div class="tab active" data-s="home" onclick="go('home')"><span class="ti">🏠</span>홈</div>
-    <div class="tab" data-s="meds" onclick="go('meds')"><span class="ti">💊</span>내 약</div>
-    <div class="tab" data-s="card" onclick="go('card')"><span class="ti">📋</span>진료카드</div>
-    <div class="tab" data-s="pharm" onclick="go('pharm')"><span class="ti">🏪</span>약국</div>
+    <div class="tab active" data-s="home" onclick="go('home')"><span class="ti"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/></svg></span>홈</div>
+    <div class="tab" data-s="meds" onclick="go('meds')"><span class="ti"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="6" rx="3"/><path d="M12 9v6"/></svg></span>내 약</div>
+    <div class="tab" data-s="card" onclick="go('card')"><span class="ti"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h8l4 4v14H7z"/><path d="M9 12h8M9 16h8M9 8h4"/></svg></span>진료카드</div>
+    <div class="tab" data-s="pharm" onclick="go('pharm')"><span class="ti"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1-4h14l1 4"/><path d="M5 9v10h14V9"/><path d="M9 19v-5h6v5"/></svg></span>약국</div>
     <div class="tab" data-s="more" onclick="go('more')"><span class="ti">⋯</span>더보기</div>
   </div>
   <div class="homebar"></div>
@@ -357,6 +357,27 @@ const CATCOLOR = OLYAK_RULES.catColor;
 const byName = Object.fromEntries(DRUGS.map(d=>[d.n,d]));
 const dl=document.getElementById('druglist');
 DRUGS.forEach(d=>{const o=document.createElement('option'); o.value=d.n; o.label=d.cat; dl.appendChild(o);});
+
+// 라인 아이콘(이모지 대체). currentColor 사용.
+function svgIcon(n, s){ s=s||18; const P={
+  pill:'<rect x="3" y="9" width="18" height="6" rx="3"/><path d="M12 9v6"/>',
+  shield:'<path d="M12 3l7 3v5c0 4-3 7-7 9-4-2-7-5-7-9V6z"/>',
+  pin:'<path d="M12 21c4-4 6-7 6-10a6 6 0 10-12 0c0 3 2 6 6 10z"/><circle cx="12" cy="11" r="2"/>',
+  store:'<path d="M4 9l1-4h14l1 4"/><path d="M5 9v10h14V9"/><path d="M9 19v-5h6v5"/>',
+  users:'<circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5"/><path d="M16 6a3 3 0 010 6"/>',
+  doc:'<path d="M7 3h8l4 4v14H7z"/><path d="M9 12h8M9 16h8M9 8h4"/>',
+  home:'<path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/>',
+  list:'<path d="M8 7h11M8 12h11M8 17h11"/><circle cx="4" cy="7" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="17" r="1"/>',
+  dots:'<circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/>',
+  camera:'<path d="M4 8h3l2-2h6l2 2h3v11H4z"/><circle cx="12" cy="13" r="3.4"/>',
+  search:'<circle cx="11" cy="11" r="6"/><path d="M20 20l-4-4"/>',
+  check:'<path d="M5 12l4 4 10-10"/>',
+  alert:'<path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17v.4"/>',
+  share:'<circle cx="6" cy="12" r="2.4"/><circle cx="18" cy="6" r="2.4"/><circle cx="18" cy="18" r="2.4"/><path d="M8 11l8-4M8 13l8 4"/>',
+  book:'<path d="M5 4h9a3 3 0 013 3v13H8a3 3 0 01-3-3z"/><path d="M5 4v13"/>',
+  lock:'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/>',
+  dot:'<circle cx="12" cy="12" r="5"/>'
+}; return '<svg viewBox="0 0 24 24" width="'+s+'" height="'+s+'" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle">'+(P[n]||'')+'</svg>'; }
 
 // ── 로그인/계정 (실제 계정 설계 = 기기 내 저장 MVP, 게스트 = 무수집) ──
 let guestMode=false;
@@ -418,14 +439,14 @@ async function verifyTwofa(){
 }
 // ── 온보딩 ──
 const OB=[
-  {i:'💊',t:'여러 병원 약을 한 곳에',d:'내과·정형외과·의원에서 따로 받은 약을 한 번에 모아 봅니다.'},
-  {i:'🚦',t:'위험을 자동으로 점검',d:'병용금기·중복·노인주의 약물을 식약처 DUR과 한국형 PIM 기준으로 걸러 신호등으로 보여드립니다.'},
-  {i:'👪',t:'가족·의료진에게 전달',d:'보호자에게 공유하고, 다음 진료에 낼 요약 카드를 만듭니다.'}
+  {ic:'pill', t:'여러 병원 약을 한 곳에',d:'내과·정형외과·의원에서 따로 받은 약을 한 번에 모아 봅니다.'},
+  {ic:'shield',t:'위험을 자동으로 점검',d:'병용금기·중복·노인주의 약물을 식약처 DUR과 한국형 PIM 기준으로 걸러 신호등으로 보여드립니다.'},
+  {ic:'users', t:'가족·의료진에게 전달',d:'보호자에게 공유하고, 다음 진료에 낼 요약 카드를 만듭니다.'}
 ];
 let obIdx=0;
 function showOnboard(){ obIdx=0; document.getElementById('onboardOverlay').style.display='flex'; renderOb(); }
 function renderOb(){ var s=OB[obIdx];
-  document.getElementById('obBody').innerHTML=`<div style="font-size:60px;margin-bottom:16px">${s.i}</div><div style="font-size:20px;font-weight:800;margin-bottom:10px">${s.t}</div><div style="font-size:13.5px;color:#5b6b73;line-height:1.6;max-width:280px;margin:0 auto">${s.d}</div>`;
+  document.getElementById('obBody').innerHTML=`<div style="color:#0f7a6b;margin-bottom:18px">${svgIcon(s.ic,54)}</div><div style="font-size:20px;font-weight:800;margin-bottom:10px">${s.t}</div><div style="font-size:13.5px;color:#5b6b73;line-height:1.6;max-width:280px;margin:0 auto">${s.d}</div>`;
   document.getElementById('obDots').innerHTML=OB.map((_,i)=>`<span style="width:7px;height:7px;border-radius:50%;background:${i===obIdx?'#0f7a6b':'#d8e0e4'}"></span>`).join('');
   document.getElementById('obBtn').textContent = obIdx===OB.length-1?'시작하기':'다음';
 }
@@ -442,24 +463,40 @@ try{ if(localStorage.getItem('olyak_session')) enterApp(); }catch(e){}
 
 const LEGAL = {
  terms:{ t:'이용약관', h:
-  `<p><b>제1조 (서비스의 성격)</b> 올약(이하 "서비스")은 여러 병원·약국에서 처방받은 약의 병용금기·중복·노인주의 등 <b>알려진 위험 정보를 참고용으로 제공</b>하는 정보제공 도구입니다. 서비스는 진단·처방·조제를 하지 않으며, 「디지털의료제품법」상 정보제공형 비의료기기로 설계됩니다.</p>`+
-  `<p><b>제2조 (한계와 책임)</b> 국가 차원의 병용금기 목록조차 모든 위험 조합을 완전히 포함하지 못합니다. 서비스는 목록에 없는 위험을 보장하지 않으며, 약의 변경·중단 등 최종 판단과 책임은 이용자와 담당 의사·약사에게 있습니다.</p>`+
-  `<p><b>제3조 (이용자의 의무)</b> 이용자는 정확한 약 정보를 입력하고, 경고를 근거로 임의로 약을 바꾸거나 끊지 않으며 반드시 전문가와 상의합니다.</p>`+
-  `<p><b>제4조 (면책)</b> 서비스는 정보의 정확성을 위해 노력하나, 이용자가 서비스만을 근거로 내린 결정의 결과에 대해 법이 허용하는 범위에서 책임을 제한합니다.</p>`+
-  `<p style="color:#8a969c">※ 본 약관은 데모용 초안이며, 정식 서비스 시 법률 검토를 거쳐 확정됩니다.</p>` },
+  `<p><b>제1조 (목적)</b> 본 약관은 올약(이하 "서비스")의 이용 조건과 절차, 이용자와 운영자의 권리·의무·책임을 규정함을 목적으로 합니다.</p>`+
+  `<p><b>제2조 (서비스의 성격)</b> 서비스는 여러 병원·약국에서 처방받은 약의 병용금기·중복·노인주의 등 <b>알려진 위험 정보를 참고용으로 제공</b>하는 정보제공 도구입니다. 진단·처방·조제를 하지 않으며, 「디지털의료제품법」상 정보제공형 비의료기기로 설계됩니다.</p>`+
+  `<p><b>제3조 (정의)</b> ① "이용자"는 서비스를 이용하는 자를, "보호자"는 어르신을 대신해 약을 등록·관리하는 자를 말합니다. ② "게스트"는 계정 없이 둘러보는 이용 형태로, 개인정보를 수집·저장하지 않습니다. ③ "유료서비스"는 별도 요금이 부과되는 기능을 말합니다.</p>`+
+  `<p><b>제4조 (계정·인증)</b> ① 회원가입은 이메일 및 2단계 인증(OTP)으로 이루어집니다. ② 이용자는 계정 정보를 정확히 유지하고, 계정 도용·부정사용을 방지할 책임이 있습니다.</p>`+
+  `<p><b>제5조 (서비스의 한계와 의학적 책임)</b> 국가 차원의 병용금기 목록조차 모든 위험 조합을 완전히 포함하지 못합니다. 서비스는 목록에 없는 위험을 보장하지 않으며, 약의 변경·중단 등 <b>최종 판단과 책임은 이용자와 담당 의사·약사</b>에게 있습니다.</p>`+
+  `<p><b>제6조 (이용자의 의무)</b> 이용자는 정확한 약 정보를 입력하고, 경고를 근거로 임의로 약을 바꾸거나 끊지 않으며 반드시 전문가와 상의합니다.</p>`+
+  `<p><b>제7조 (유료서비스·결제)</b> 유료서비스의 요금·결제·환불은 본 약관 및 「취소·환불 정책」에 따릅니다.</p>`+
+  `<p><b>제8조 (지식재산권)</b> 서비스 및 콘텐츠에 대한 권리는 운영자에게 있으며, 이용자는 사전 동의 없이 이를 복제·배포·상업적 이용할 수 없습니다.</p>`+
+  `<p><b>제9조 (서비스 변경·중단)</b> 운영자는 운영·기술상 필요 시 서비스의 전부 또는 일부를 변경·중단할 수 있으며, 중대한 변경은 사전 고지합니다.</p>`+
+  `<p><b>제10조 (면책)</b> 서비스는 정보의 정확성을 위해 노력하나, 이용자가 서비스만을 근거로 내린 결정의 결과에 대해 법이 허용하는 범위에서 책임을 제한합니다.</p>`+
+  `<p><b>제11조 (준거법·분쟁)</b> 본 약관은 대한민국 법을 준거법으로 하며, 분쟁은 관계 법령에 따른 관할 법원에서 해결합니다.</p>`+
+  `<p style="color:#8a969c">부칙 · 시행일: 2026년 8월 4일 (데모 초안, 법률 검토 전)</p>` },
  privacy:{ t:'개인정보처리방침', h:
-  `<p><b>1. 수집 항목</b> 복약 안전 점검을 위한 약 이름·성분·용량 등 건강정보(민감정보)와, 회원 식별을 위한 최소 정보(이메일 등). <b>게스트 이용 시에는 어떤 개인정보도 수집·저장하지 않습니다.</b></p>`+
-  `<p><b>2. 이용 목적</b> 병용금기·중복·노인주의 위험 점검, 보호자 공유, 진료 요약 카드 생성.</p>`+
-  `<p><b>3. 민감정보 처리</b> 건강정보는 「개인정보 보호법」 제23조에 따라 <b>별도 동의</b>를 받아 처리합니다. 처방전·약봉투 사진의 주민등록번호·전화번호 등은 <b>기기 안에서 자동 마스킹</b>되며 서버에 저장하지 않습니다.</p>`+
-  `<p><b>4. 최소수집·온디바이스</b> 인식·판정은 가능한 기기 내에서 처리하고, 서버에는 최소 데이터만 둡니다.</p>`+
-  `<p><b>5. 제3자 제공·파기</b> 이용자 동의 없이 제3자에게 제공하지 않으며, 목적 달성·탈퇴 시 지체 없이 파기합니다.</p>`+
-  `<p style="color:#8a969c">※ 본 방침은 데모용 초안이며, 정식 서비스 시 확정·게시됩니다.</p>` },
+  `<p><b>1. 총칙</b> 운영자는 최소수집 원칙에 따라 필요한 범위에서만 개인정보를 처리하며, 「개인정보 보호법」을 준수합니다.</p>`+
+  `<p><b>2. 수집 항목</b> ① 회원: 이메일(식별·인증). ② 서비스 이용: 약 이름·성분·용량 등 건강정보(민감정보). ③ 자동수집: 오류 진단을 위한 최소한의 기술 정보. ④ <b>게스트는 어떤 개인정보도 수집·저장하지 않습니다.</b></p>`+
+  `<p><b>3. 수집·이용 목적</b> 병용금기·중복·노인주의 위험 점검, 보호자 공유, 진료 요약 카드 생성, 회원 인증 및 문의 응대.</p>`+
+  `<p><b>4. 민감정보 별도 동의</b> 건강정보는 「개인정보 보호법」 제23조에 따라 <b>별도의 명시적 동의</b>를 받아 처리합니다.</p>`+
+  `<p><b>5. 보유·이용 기간 및 파기</b> 목적 달성 또는 회원 탈퇴 시 지체 없이 파기합니다. 다만 관계 법령상 보존 의무가 있는 정보는 해당 기간 동안 분리 보관 후 파기합니다.</p>`+
+  `<p><b>6. 온디바이스 처리·마스킹</b> 인식·판정은 가능한 기기 내에서 처리하고, 처방전·약봉투 사진의 주민등록번호·전화번호 등은 <b>기기 안에서 자동 마스킹</b>되어 서버에 저장하지 않습니다.</p>`+
+  `<p><b>7. 제3자 제공·처리위탁</b> 이용자 동의 없이 제3자에게 제공하지 않습니다. 약국 연동 등 처리위탁이 필요한 경우 「개인정보 보호법」 제26조에 따라 수탁자·업무 범위를 고지하고 관리·감독합니다.</p>`+
+  `<p><b>8. 이용자의 권리</b> 이용자는 자신의 개인정보에 대해 열람·정정·삭제·처리정지 및 동의 철회를 요청할 수 있으며, 운영자는 지체 없이 조치합니다.</p>`+
+  `<p><b>9. 안전성 확보조치</b> 전송·저장 시 암호화, 접근 권한 최소화, 접근 기록 보관 등 기술적·관리적 보호조치를 시행합니다.</p>`+
+  `<p><b>10. 개인정보 보호책임자</b> 문의는 앱 내 고객문의 또는 운영자 등록 연락처로 접수합니다.</p>`+
+  `<p style="color:#8a969c">시행일: 2026년 8월 4일 (데모 초안, 정식 서비스 시 확정·게시)</p>` },
  refund:{ t:'취소·환불 정책', h:
-  `<p><b>1. 무료 이용</b> 어르신·보호자 기본 기능과 게스트 이용은 무료입니다.</p>`+
-  `<p><b>2. 유료 구독</b> 프리미엄·약국 구독 등 유료 상품은 결제일로부터 <b>7일 이내 청약철회</b>가 가능합니다(「전자상거래 등에서의 소비자보호에 관한 법률」 기준). 이미 제공된 기간에 상응하는 금액은 공제될 수 있습니다.</p>`+
-  `<p><b>3. 정기결제 해지</b> 다음 결제일 이전에 해지하면 다음 주기부터 청구되지 않으며, 남은 기간은 이용할 수 있습니다.</p>`+
-  `<p><b>4. 환불 문의</b> 앱 내 고객문의 또는 등록된 연락처로 접수합니다.</p>`+
-  `<p style="color:#8a969c">※ 본 정책은 데모용 초안이며, 정식 결제 도입 시 확정됩니다.</p>` }
+  `<p><b>1. 무료 이용</b> 어르신·보호자 기본 기능과 게스트 이용은 무료이며 환불 대상이 아닙니다.</p>`+
+  `<p><b>2. 유료 상품</b> 보호자 프리미엄(월 구독), 약국 구독(월정액), 기관 라이선스(연정액) 등이 있습니다.</p>`+
+  `<p><b>3. 청약철회</b> 유료 상품은 결제일로부터 <b>7일 이내</b> 청약철회가 가능합니다(「전자상거래 등에서의 소비자보호에 관한 법률」). 콘텐츠를 사용하지 않은 경우 전액 환불합니다.</p>`+
+  `<p><b>4. 중도 해지·부분 환불</b> ① 월 정기결제는 다음 결제일 이전 해지 시 다음 주기부터 청구되지 않고 잔여 기간은 이용할 수 있습니다. ② 연 라이선스는 잔여 기간을 <b>일할 계산</b>하여 환불할 수 있으며, 이미 이용한 기간에 해당하는 금액은 공제됩니다.</p>`+
+  `<p><b>5. 환불 수단·처리기간</b> 환불은 원결제수단으로 진행하며, 접수 확인 후 영업일 기준 3~5일 이내 처리합니다.</p>`+
+  `<p><b>6. 미성년자 결제</b> 법정대리인의 동의 없이 이루어진 미성년자의 결제는 본인 또는 법정대리인이 취소할 수 있습니다.</p>`+
+  `<p><b>7. 환불 제한</b> 부정 사용, 프로모션·무상 제공분 등 관계 법령·약관에서 정한 경우 환불이 제한될 수 있습니다.</p>`+
+  `<p><b>8. 문의</b> 앱 내 고객문의 또는 등록된 연락처로 접수합니다.</p>`+
+  `<p style="color:#8a969c">시행일: 2026년 8월 4일 (데모 초안, 정식 결제 도입 시 확정)</p>` }
 };
 function openLegal(k){ var m=document.getElementById('legalModal'); document.getElementById('legalTitle').textContent=LEGAL[k].t; document.getElementById('legalBody').innerHTML=LEGAL[k].h; m.style.display='flex'; }
 function closeLegal(){ document.getElementById('legalModal').style.display='none'; }
@@ -554,7 +591,7 @@ async function runOCR(file,kind){
   if(!file) return;
   const box=document.getElementById('ocrStatus'); box.style.display='flex';
   const url=URL.createObjectURL(file);
-  box.innerHTML=`<div class="ost" style="width:100%"><b>${kind} 사진 분석 중…</b><div class="prog"><i id="ocrbar"></i></div><div class="osub" id="ocrsub">🔒 개인정보 확인 중… 사진은 마스킹 후 표시됩니다</div></div>`;
+  box.innerHTML=`<div class="ost" style="width:100%"><b>${kind} 사진 분석 중…</b><div class="prog"><i id="ocrbar"></i></div><div class="osub" id="ocrsub">개인정보 확인 중… 사진은 마스킹 후 표시됩니다</div></div>`;
   if(typeof Tesseract==='undefined'){ box.querySelector('#ocrsub').textContent='인식 엔진을 불러오지 못했어요. 아래에서 직접 검색해 주세요.'; return; }
   try{
     const pre=await preprocessImage(file); const ocrSrc=pre||file;   // 전처리 실패 시 원본
@@ -564,7 +601,7 @@ async function runOCR(file,kind){
     const imgSrc = mres ? mres.url : url;
     const matched=matchDrugs(text);
     const snip=maskPII((text||'').replace(/\s+/g,' ').trim()).slice(0,70); // 텍스트도 가림
-    const priv=`<div class="osub" style="color:var(--teal-d);font-weight:600">🔒 주민번호·전화번호를 사진에서 자동으로 가리고${mres&&mres.masked?` (${mres.masked}곳)`:''} 저장하지 않아요</div>`;
+    const priv=`<div class="osub" style="color:var(--teal-d);font-weight:600">주민번호·전화번호를 사진에서 자동으로 가리고${mres&&mres.masked?` (${mres.masked}곳)`:''} 저장하지 않아요</div>`;
     if(matched.length){
       // 오인식 방지: 자동 추가하지 않고 후보로 보여준 뒤 확인해서 추가
       box.innerHTML=`<img src="${imgSrc}"><div class="ost"><b style="color:var(--teal-d)">✓ ${matched.length}개 약 후보를 찾았어요</b><div class="osub">맞는 약만 눌러 추가하세요 (오인식 방지)</div><div class="ocrcand">${matched.map(n=>`<button class="candbtn" data-n="${n}">＋ ${n}</button>`).join('')}</div><button class="btn btn-ghost candall">인식된 약 모두 추가</button><div class="osub" style="color:#aab4bc;margin-top:6px">읽은 글자: ${snip}…</div>${priv}</div>`;
@@ -617,7 +654,7 @@ function renderPillResult(url, imprint, cands, box, hdr){
     h+=`<div class="selrow" id="colorSel">${['흰색','노랑','분홍','주황','녹색'].map(c=>`<span class="selchip" data-color="${c}">${c}</span>`).join('')}</div>`;
     h+=`<div class="pcbtnrow"><button class="btn btn-ghost" id="pillNone">약봉투로 등록</button></div>`;
   }
-  h+=`<div class="pillnote">⚠ 알약 사진 인식은 <b>참고용</b>입니다. 외형이 같은 약(제네릭)이 여럿일 수 있어 자동 확정하지 않으며, 최종 확인은 <b>보호자·약사·약봉투</b>로 하세요. <a href="#" id="pillReport" style="color:var(--teal-d);font-weight:700">결과가 이상해요? 신고</a></div></div>`;
+  h+=`<div class="pillnote">알약 사진 인식은 <b>참고용</b>입니다. 외형이 같은 약(제네릭)이 여럿일 수 있어 자동 확정하지 않으며, 최종 확인은 <b>보호자·약사·약봉투</b>로 하세요. <a href="#" id="pillReport" style="color:var(--teal-d);font-weight:700">결과가 이상해요? 신고</a></div></div>`;
   box.innerHTML=h;
   const rep=document.getElementById('pillReport');
   if(rep) rep.onclick=(e)=>{ e.preventDefault(); toast('오인식 신고 접수됐어요. 데이터 개선에 반영됩니다.'); };
@@ -690,9 +727,9 @@ document.getElementById('checkBtn').onclick=()=>{
   const hasHigh=f.some(x=>x.sev==='high'); const hasMid=f.some(x=>x.sev==='mid');
   let level=hasHigh?'red':(hasMid?'yellow':'green');
   const meta={
-    red:{c:'L-red', ic:'⚠️', big:'위험 — 빨강', small:'위험한 약 조합이 있습니다. 다음 진료 때 꼭 보여주세요.'},
-    yellow:{c:'L-yellow', ic:'🟡', big:'주의 — 노랑', small:'확인이 필요한 약이 있습니다.'},
-    green:{c:'L-green', ic:'✅', big:'양호 — 초록', small:'입력하신 약에서 큰 위험 신호는 없습니다.'}
+    red:{c:'L-red', ic:svgIcon('alert',22), big:'위험 — 빨강', small:'위험한 약 조합이 있습니다. 다음 진료 때 꼭 보여주세요.'},
+    yellow:{c:'L-yellow', ic:svgIcon('dot',16), big:'주의 — 노랑', small:'확인이 필요한 약이 있습니다.'},
+    green:{c:'L-green', ic:svgIcon('check',22), big:'양호 — 초록', small:'입력하신 약에서 큰 위험 신호는 없습니다.'}
   }[level];
   const di={red:0,yellow:1,green:2}[level]; const dotc={0:'#E0524D',1:'#E8A100',2:'#2FA866'};
   const antichol=picked.filter(n=>R.scores.antichol.includes(byName[n].cls)).length;
@@ -702,12 +739,12 @@ document.getElementById('checkBtn').onclick=()=>{
   html+=`<div class="scoregrid"><div class="scorecard"><div class="snum">${antichol}</div><div class="slab">항콜린 부담 약물</div></div><div class="scorecard"><div class="snum">${fallRisk}</div><div class="slab">낙상위험 약물</div></div></div>`;
   html+=`<div class="infonote">위 점수는 정보 제공이며 진단이 아닙니다. 수치가 높으면 의사·약사와 상의하세요.</div>`;
   if(f.length){
-    html+=`<div class="safebar"><span class="ic">⚠️</span><span>약을 바꾸거나 끊는 결정은 반드시 의사·약사와 함께 하세요. 이 약들은 담당 의사가 특별한 이유로 처방했을 수 있습니다.</span></div>`;
+    html+=`<div class="safebar"><span class="ic">${svgIcon('alert',16)}</span><span>약을 바꾸거나 끊는 결정은 반드시 의사·약사와 함께 하세요. 이 약들은 담당 의사가 특별한 이유로 처방했을 수 있습니다.</span></div>`;
     f.sort((a,b)=>(a.sev==='high'?0:1)-(b.sev==='high'?0:1));
-    f.forEach(x=>{ html+=`<div class="finding ${x.sev}"><span class="ftag ${x.sev}">${x.type}</span><div class="fttl">${x.title}</div><div class="fdesc">${x.desc}</div><div class="buffer">의사·약사와 상의하세요</div><div style="font-size:11px;color:var(--sub);margin-top:3px">📖 근거: ${basisFull(x)}</div></div>`; });
+    f.forEach(x=>{ html+=`<div class="finding ${x.sev}"><span class="ftag ${x.sev}">${x.type}</span><div class="fttl">${x.title}</div><div class="fdesc">${x.desc}</div><div class="buffer">의사·약사와 상의하세요</div><div style="font-size:11px;color:var(--sub);margin-top:3px">${svgIcon('book',12)} 근거: ${basisFull(x)}</div></div>`; });
   } else { html+=`<div class="fdesc" style="text-align:center;padding:8px;">입력하신 약에서 위험 조합이 발견되지 않았습니다.</div>`; }
   html+=vsAiCard();
-  html+=`<div class="actions"><button class="btn btn-ghost" onclick="shareSummary()">👪 보호자에게 공유</button><button class="btn btn-ghost" onclick="go('card')">📋 진료 요약 카드</button><button class="btn btn-ghost" onclick="openConsultLog()">🧾 약국 상담일지</button></div>`;
+  html+=`<div class="actions"><button class="btn btn-ghost" onclick="shareSummary()">${svgIcon('share',15)} 보호자에게 공유</button><button class="btn btn-ghost" onclick="go('card')">${svgIcon('doc',15)} 진료 요약 카드</button><button class="btn btn-ghost" onclick="openConsultLog()">${svgIcon('list',15)} 약국 상담일지</button></div>`;
   const r=document.getElementById('result'); r.innerHTML=html; r.style.display='block'; r.scrollIntoView({behavior:'smooth'});
 };
 
@@ -729,20 +766,20 @@ function pharmRows(list, hasLoc){
     const status=pharmOpen(p)?'영업중':(p.close+'시 마감');
     const dist=hasLoc && p._d!=null ? distLabel(p._d)+' · ' : '';
     const nav="https://map.kakao.com/link/to/"+encodeURIComponent(p.n)+","+p.lat+","+p.lng;
-    return `<div class="pharmrow"><div class="pic">🏪</div><div class="px"><b>${p.n}</b><span>${dist}${status} · ${p.t}</span></div><div class="pacts"><button onclick="window.open('${nav}','_blank')">길찾기</button><button onclick="callPharm()">전화</button></div></div>`;
+    return `<div class="pharmrow"><div class="pic">${svgIcon('store',20)}</div><div class="px"><b>${p.n}</b><span>${dist}${status} · ${p.t}</span></div><div class="pacts"><button onclick="window.open('${nav}','_blank')">길찾기</button><button onclick="callPharm()">전화</button></div></div>`;
   }).join('');
 }
 function renderPharm(){
   const label=document.getElementById('pmaplabel');
-  const fallback=()=>{ const demo=[120,260,410,530]; PHARMS.forEach((p,i)=>p._d=demo[i]); pharmRows(PHARMS.slice(),true); if(label) label.textContent='📍 부산 동래구 기준 (예시)'; };
+  const fallback=()=>{ const demo=[120,260,410,530]; PHARMS.forEach((p,i)=>p._d=demo[i]); pharmRows(PHARMS.slice(),true); if(label) label.textContent='부산 동래구 기준 (예시)'; };
   if(navigator.geolocation){
-    if(label) label.textContent='📍 내 위치 확인 중…';
+    if(label) label.textContent='내 위치 확인 중…';
     navigator.geolocation.getCurrentPosition(pos=>{
       const la=pos.coords.latitude, lo=pos.coords.longitude;
       PHARMS.forEach(p=>p._d=haversineM(la,lo,p.lat,p.lng));
       const sorted=PHARMS.slice().sort((a,b)=>a._d-b._d);
       pharmRows(sorted,true);
-      if(label) label.textContent='📍 내 위치 기준 · 가까운 순';
+      if(label) label.textContent='내 위치 기준 · 가까운 순';
     }, ()=>fallback(), {timeout:6000, maximumAge:60000});
   } else { fallback(); }
 }
@@ -760,16 +797,16 @@ function go(name){
 const MEDICON=OLYAK_RULES.medIcon;
 function renderMeds(){
   const el=document.getElementById('medsBody');
-  if(!picked.length && !endedMeds.length){ el.innerHTML='<div class="card" style="text-align:center;color:var(--sub);padding:54px 16px;"><div style="font-size:34px;margin-bottom:10px">💊</div>아직 등록된 약이 없습니다.<br>약봉투·알약 사진으로 추가해 보세요.</div>'; return; }
+  if(!picked.length && !endedMeds.length){ el.innerHTML='<div class="card" style="text-align:center;color:var(--sub);padding:54px 16px;"><div style="color:var(--sub);margin-bottom:10px">'+svgIcon('pill',32)+'</div>아직 등록된 약이 없습니다.<br>약봉투·알약 사진으로 추가해 보세요.</div>'; return; }
   const pim=picked.filter(n=>byName[n].pim).length;
   let h=`<div class="medsum"><div class="c"><div class="v">${picked.length}</div><div class="l">복용 중인 약</div></div><div class="c"><div class="v" style="color:var(--coral)">${pim}</div><div class="l">주의 약물</div></div><div class="c"><div class="v" style="color:var(--sub)">${endedMeds.length}</div><div class="l">복용 종료</div></div></div>`;
   picked.forEach((n,i)=>{ const d=byName[n]; const hasSame=SAME[n];
-    h+=`<div class="medrow"><div class="mic">${MEDICON[d.cls]||'💊'}</div><div class="mx"><b>${n}</b><span>${d.cat}</span></div>${hasSame?`<span class="same" data-s="${i}">같은 성분</span>`:''}${d.pim?'<span class="pill warn">주의</span>':''}<span class="endbtn" data-end="${n}" style="cursor:pointer;font-size:11px;color:var(--teal-d);border:1px solid #bfe0d9;border-radius:6px;padding:2px 7px;margin:0 4px">종료</span><span class="rm" data-i="${i}">×</span></div>`;
-    if(hasSame){ h+=`<div class="samebox" id="same${i}" style="display:none"><b>💊 ${n}과 같은 성분 약</b><div class="sl">${SAME[n].join(' · ')}</div><div class="sn">성분은 같지만 제품·함량이 다를 수 있어요. 바꾸는 결정은 의사·약사와 상의하세요.</div></div>`; }
+    h+=`<div class="medrow"><div class="mic">${svgIcon('pill',18)}</div><div class="mx"><b>${n}</b><span>${d.cat}</span></div>${hasSame?`<span class="same" data-s="${i}">같은 성분</span>`:''}${d.pim?'<span class="pill warn">주의</span>':''}<span class="endbtn" data-end="${n}" style="cursor:pointer;font-size:11px;color:var(--teal-d);border:1px solid #bfe0d9;border-radius:6px;padding:2px 7px;margin:0 4px">종료</span><span class="rm" data-i="${i}">×</span></div>`;
+    if(hasSame){ h+=`<div class="samebox" id="same${i}" style="display:none"><b>${n}과 같은 성분 약</b><div class="sl">${SAME[n].join(' · ')}</div><div class="sn">성분은 같지만 제품·함량이 다를 수 있어요. 바꾸는 결정은 의사·약사와 상의하세요.</div></div>`; }
   });
   if(picked.length) h+=`<div class="sched"><div class="sh">⏰ 오늘 복약 시간</div><div class="ss"><div class="t">아침<b>3종</b></div><div class="t">점심<b>2종</b></div><div class="t">저녁<b>3종</b></div></div></div>`;
-  if(endedMeds.length){ h+=`<div class="endedbox" style="margin-top:12px;border-top:1px dashed #d8e0e4;padding-top:10px"><div class="sh" style="color:var(--sub);font-weight:700;margin-bottom:6px">✓ 복용 종료한 약</div>`+endedMeds.map(n=>`<div class="medrow" style="opacity:.7"><div class="mic">${MEDICON[byName[n].cls]||'💊'}</div><div class="mx"><b style="text-decoration:line-through">${n}</b><span>${byName[n].cat} · 종료</span></div><span class="rsbtn" data-rs="${n}" style="cursor:pointer;font-size:11px;color:var(--teal-d);border:1px solid #bfe0d9;border-radius:6px;padding:2px 7px">되돌리기</span></div>`).join('')+`</div>`; }
-  h+=`<div class="actions" style="margin-top:12px"><button class="btn btn-ghost" onclick="openConsultLog()">🧾 약국 상담일지 내보내기</button></div>`;
+  if(endedMeds.length){ h+=`<div class="endedbox" style="margin-top:12px;border-top:1px dashed #d8e0e4;padding-top:10px"><div class="sh" style="color:var(--sub);font-weight:700;margin-bottom:6px">✓ 복용 종료한 약</div>`+endedMeds.map(n=>`<div class="medrow" style="opacity:.7"><div class="mic">${svgIcon('pill',18)}</div><div class="mx"><b style="text-decoration:line-through">${n}</b><span>${byName[n].cat} · 종료</span></div><span class="rsbtn" data-rs="${n}" style="cursor:pointer;font-size:11px;color:var(--teal-d);border:1px solid #bfe0d9;border-radius:6px;padding:2px 7px">되돌리기</span></div>`).join('')+`</div>`; }
+  h+=`<div class="actions" style="margin-top:12px"><button class="btn btn-ghost" onclick="openConsultLog()">${svgIcon('list',15)} 약국 상담일지 내보내기</button></div>`;
   el.innerHTML=h;
   el.querySelectorAll('.rm').forEach(x=>x.onclick=()=>{picked.splice(+x.dataset.i,1); renderMeds(); render();});
   el.querySelectorAll('.endbtn').forEach(x=>x.onclick=()=>endMed(x.dataset.end));
@@ -809,7 +846,7 @@ function openConsultLog(){
     <div class="sec">상담 메모</div><div class="memo"></div>
     <div class="sig"><div>약사 확인: ________________ (서명)</div><div>다음 상담 예정: ____ / ____</div></div>
     <div class="buf">본 상담일지는 올약이 자동 정리한 참고 자료입니다. 올약은 진단·처방을 하지 않는 정보제공 도구이며, 약 변경·중단 등 최종 판단과 책임은 담당 의사·약사에게 있습니다. 개인정보 보호를 위해 대상자는 반드시 익명(이니셜)으로 기재하세요.</div>
-    <button onclick="window.print()">🖨 인쇄 / PDF로 저장</button>
+    <button onclick="window.print()">인쇄 / PDF로 저장</button>
   </body></html>`;
   const w=window.open('','_blank'); if(!w){ toast('팝업이 차단되었습니다. 허용 후 다시 시도하세요.'); return; }
   w.document.write(html); w.document.close();
@@ -879,13 +916,13 @@ function renderCard(){
   h+=`<div class="pc-sec">현재 복용 약 (${picked.length})</div>`;
   h+= picked.length? picked.map(n=>`<div class="pc-li">• ${n} <span style="color:var(--sub);font-size:12px;">${byName[n].cat}</span></div>`).join('') : '<div class="fdesc">등록된 약 없음</div>';
   h+=`<div class="pc-sec">확인이 필요한 항목</div>`;
-  if(f.length){ h+= hi.concat(mid).map(x=>`<div class="pc-flag ${x.sev}">${x.sev==='high'?'⚠️ 위험':'• 주의'} — ${x.title}${x.basis?`<span style="float:right;font-size:10px;opacity:.7">근거 ${x.basis}</span>`:''}</div>`).join(''); }
+  if(f.length){ h+= hi.concat(mid).map(x=>`<div class="pc-flag ${x.sev}">${x.sev==='high'?'위험':'• 주의'} — ${x.title}${x.basis?`<span style="float:right;font-size:10px;opacity:.7">근거 ${x.basis}</span>`:''}</div>`).join(''); }
   else { h+='<div class="fdesc">특이사항 없음</div>'; }
   const alts=picked.map(n=>{const a=pimAltFor(n); return a?`<div class="pc-li">• ${n} → <b>${a}</b></div>`:null;}).filter(Boolean);
   if(alts.length){ h+=`<div class="pc-sec">대안 참고 (의사·약사와 상의)</div>`+alts.join(''); }
   h+=`<div class="pc-sec">노인 위험 점수</div><div class="pc-li">항콜린 부담 <b>${antichol}</b> · 낙상위험 약물 <b>${fallRisk}</b></div>`;
   h+=`<div class="pc-foot">의사·약사에게 보여주세요 · 약 변경·중단은 전문가와 상의</div></div>`;
-  h+=`<div class="actions" style="margin-top:14px;"><button class="btn btn-ghost" onclick="shareSummary()">👪 보호자 공유·복사</button><button class="btn btn-ghost" onclick="window.print()">🖨 인쇄</button></div>`;
+  h+=`<div class="actions" style="margin-top:14px;"><button class="btn btn-ghost" onclick="shareSummary()">보호자 공유·복사</button><button class="btn btn-ghost" onclick="window.print()">인쇄</button></div>`;
   document.getElementById('cardBox').innerHTML=h;
 }
 

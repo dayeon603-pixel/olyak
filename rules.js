@@ -138,10 +138,10 @@ window.OLYAK_RULES = (function () {
     musclerelax: "#B58A5A", ssri: "#8A6FD0", amiodarone: "#C0564D",
   };
   const medIcon = {
-    anticoag: "🩸", noac: "🩸", antiplatelet: "🩸", nsaid: "💊", apap: "💊", sedative: "😴", zdrug: "😴",
-    anticholinergic: "🤧", opioid: "💊", digoxin: "❤️", diuretic: "💧", kdiuretic: "💧", bp: "❤️", acei: "❤️",
-    arb: "❤️", bb: "❤️", dm: "🩸", su: "🩸", statin: "💊", ppi: "💊", chei: "🧠", musclerelax: "💪",
-    ssri: "🧠", amiodarone: "❤️",
+    anticoag: "RX", noac: "RX", antiplatelet: "RX", nsaid: "RX", apap: "RX", sedative: "RX", zdrug: "RX",
+    anticholinergic: "RX", opioid: "RX", digoxin: "RX", diuretic: "RX", kdiuretic: "RX", bp: "RX", acei: "RX",
+    arb: "RX", bb: "RX", dm: "RX", su: "RX", statin: "RX", ppi: "RX", chei: "RX",
+    musclerelax: "RX", ssri: "RX", amiodarone: "RX",
   };
 
   // ── 낱알식별 시드 데이터 (알약 사진 → 후보 제안용, 자동확정 금지)
