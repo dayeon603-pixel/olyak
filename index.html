@@ -10,7 +10,7 @@
     --ink:#191F28; --sub:#8B95A1; --bg:#F2F4F6; --card:#FFFFFF; --line:#EDF0F3;
     --red:#F04452; --yellow:#F59F00; --green:#15C47E;
   }
-  *{box-sizing:border-box; margin:0; padding:0; font-family:-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif; -webkit-font-smoothing:antialiased;}
+  *{box-sizing:border-box; margin:0; padding:0; font-family:'Pretendard Variable',Pretendard,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif; -webkit-font-smoothing:antialiased; letter-spacing:-.2px;}
   body{background:#DDE2E7; display:flex; justify-content:center; align-items:flex-start; padding:22px 14px; min-height:100vh;}
 
   /* iPhone device */
@@ -32,17 +32,17 @@
   .batt::after{content:""; position:absolute; right:-3px; top:3px; width:2px; height:6px; background:var(--ink); border-radius:0 1px 1px 0;}
   .batt i{height:100%; width:80%; background:var(--ink); border-radius:1px;}
 
-  .header{padding:6px 22px 16px; background:#fff;}
+  .header{padding:8px 22px 18px; background:#fff;}
   .brandrow{display:flex; align-items:center; gap:10px;}
-  .mark{width:34px; height:34px; border-radius:10px; background:var(--teal); display:flex; align-items:center; justify-content:center;}
+  .mark{width:34px; height:34px; border-radius:11px; background:var(--teal); display:flex; align-items:center; justify-content:center;}
   .mark svg{width:20px; height:20px;}
-  .brand{font-size:24px; font-weight:800; letter-spacing:-.6px; line-height:1; color:var(--ink);}
+  .brand{font-size:25px; font-weight:800; letter-spacing:-.7px; line-height:1; color:var(--ink);}
   .brand .dot{color:var(--coral);}
-  .tag{font-size:13px; color:var(--sub); margin-top:7px; font-weight:500;}
+  .tag{font-size:13.5px; color:var(--sub); margin-top:8px; font-weight:500; letter-spacing:-.3px;}
 
-  .body{padding:16px 18px 22px; flex:1; overflow-y:auto; background:var(--bg);}
-  h2{font-size:20px; font-weight:800; margin-bottom:5px; letter-spacing:-.4px; color:var(--ink);}
-  .hint{font-size:13.5px; color:var(--sub); margin-bottom:16px; line-height:1.55;}
+  .body{padding:20px 18px 24px; flex:1; overflow-y:auto; background:var(--bg);}
+  h2{font-size:21px; font-weight:800; margin-bottom:6px; letter-spacing:-.5px; color:var(--ink); line-height:1.35;}
+  .hint{font-size:14px; color:var(--sub); margin-bottom:18px; line-height:1.6;}
 
   .srcrow{display:flex; gap:10px; margin-bottom:12px;}
   .src{flex:1; background:#fff; border:none; border-radius:16px; padding:16px 8px; text-align:center; cursor:pointer; transition:.15s; box-shadow:0 2px 8px rgba(17,24,39,.04);}
@@ -171,6 +171,7 @@
   .toast{position:absolute; left:50%; bottom:60px; transform:translateX(-50%); background:var(--ink); color:#fff; padding:11px 18px; border-radius:999px; font-size:13.5px; font-weight:600; box-shadow:0 8px 20px rgba(0,0,0,.22); opacity:0; transition:.3s; pointer-events:none; white-space:nowrap; z-index:40;}
   .toast.show{opacity:1; bottom:70px;}
 </style>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 <script src="rules.js"></script>
 </head>
