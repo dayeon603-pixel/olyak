@@ -397,8 +397,8 @@ function login(){
   if(!(acc && acc.email===email)){ toast('계정이 없습니다. "계정 만들기"를 눌러 주세요.'); return; }
   pendingAuth={mode:'login', email:email}; startTwofa(email);
 }
-// ── 2단계 인증(2FA) ── 데모: 실제 발송은 준비 중, 6자리면 통과
-// OTP 백엔드 URL. 비우면 데모(아무 6자리 통과). Cloudflare Worker 배포 후 URL 입력 → 실제 이메일 OTP.
+// ── 2단계 인증(2FA) ── OTP_API 설정 시 실제 이메일 OTP 발송·검증(1회용·5분). 미설정 시 계정 로그인 비활성(게스트 안내).
+// OTP 백엔드 URL. 비우면 계정 로그인 비활성(게스트만 이용). Cloudflare Worker 배포 후 URL 입력 → 실제 이메일 OTP 동작.
 const OTP_API = '';
 async function startTwofa(email){
   var s=document.getElementById('twofaSub'); var c=document.getElementById('twofaCode'); if(c) c.value='';
