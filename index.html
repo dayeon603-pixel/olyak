@@ -226,7 +226,7 @@
       <input id="twofaCode" inputmode="numeric" maxlength="6" placeholder="000000" style="width:100%;box-sizing:border-box;padding:12px;border:1px solid #d8e0e4;border-radius:9px;font-size:20px;letter-spacing:8px;text-align:center;margin-bottom:10px;font-family:ui-monospace,'SFMono-Regular',Menlo,monospace">
       <button onclick="verifyTwofa()" style="width:100%;padding:12px;border:0;border-radius:9px;background:#0f7a6b;color:#fff;font-weight:800;font-size:14px;cursor:pointer">확인</button>
       <div style="display:flex;justify-content:space-between;margin-top:10px;font-size:11.5px"><a href="#" onclick="resendTwofa();return false" style="color:#0f7a6b">인증번호 재전송</a><a href="#" onclick="cancelTwofa();return false" style="color:#8a969c">뒤로</a></div>
-      <div style="font-size:10.5px;color:#aab3b8;text-align:center;margin-top:10px;line-height:1.5">데모: 실제 SMS·이메일 발송은 준비 중입니다. 아무 6자리나 입력하면 통과합니다.</div>
+      <div style="font-size:10.5px;color:#aab3b8;text-align:center;margin-top:10px;line-height:1.5">인증번호는 5분간 유효하며 한 번만 사용할 수 있습니다.</div>
     </div>
   </div>
 
@@ -413,7 +413,7 @@ async function startTwofa(email){
       else { if(s) s.textContent='발송에 실패했습니다. 이메일을 확인하고 재전송해 주세요.'; }
     }catch(e){ if(s) s.textContent='서버 연결 실패. 재전송을 눌러 주세요.'; }
   } else {
-    if(s) s.textContent=email+' 로 6자리 인증번호를 보냈습니다. (데모: 아무 6자리 입력)';
+    if(s) s.textContent='인증 서버 연결이 필요합니다. 지금은 "게스트로 둘러보기"를 이용해 주세요.';
   }
 }
 function resendTwofa(){ if(OTP_API && pendingAuth){ startTwofa(pendingAuth.email); } else { toast('인증번호를 재전송했습니다 (데모)'); } }
@@ -421,7 +421,8 @@ function cancelTwofa(){ document.getElementById('twofaOverlay').style.display='n
 async function verifyTwofa(){
   var code=(document.getElementById('twofaCode').value||'').trim();
   if(!/^\d{6}$/.test(code)){ toast('6자리 숫자를 입력하세요.'); return; }
-  if(OTP_API && pendingAuth){
+  if(!OTP_API){ toast('인증 서버가 아직 연결되지 않았습니다. "게스트로 둘러보기"를 이용해 주세요.'); return; }
+  if(pendingAuth){
     try{
       var r=await fetch(OTP_API+'/otp/verify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:pendingAuth.email, code:code})});
       var d=await r.json();
