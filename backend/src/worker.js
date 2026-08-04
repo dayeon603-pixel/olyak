@@ -33,8 +33,9 @@ async function sendEmail(env, to, code) {
     <div style="height:1px;background:#e3e9ec;margin:14px 0"></div>
     <p style="font-size:15px;margin:0 0 6px"><b>이메일 인증</b></p>
     <p style="font-size:14px;line-height:1.6;color:#33454d;margin:0 0 18px">안녕하세요. 올약 계정 인증을 위한 요청을 받았습니다. 계속하시려면 아래 인증번호를 입력해 주세요.</p>
-    <div style="background:#f2f7f6;border:1px solid #d7e6e2;border-radius:12px;text-align:center;padding:18px 0;margin:0 0 18px">
-      <div style="font-size:32px;font-weight:800;letter-spacing:10px;color:#0f7a6b;font-family:ui-monospace,Menlo,monospace">${code}</div>
+    <div style="background:#f6f8f9;border:1px solid #e0e6e9;border-radius:10px;text-align:center;padding:20px 0;margin:2px 0 20px">
+      <div style="font-size:10.5px;letter-spacing:2px;color:#8a969c;font-weight:700;margin:0 0 8px">인증번호</div>
+      <div style="font-size:34px;font-weight:700;letter-spacing:12px;color:#1a2a33;font-family:ui-monospace,'SFMono-Regular',Menlo,monospace;padding-left:12px">${code}</div>
     </div>
     <p style="font-size:13.5px;line-height:1.6;color:#33454d;margin:0 0 6px">이 인증번호는 <b>5분간</b> 유효하며 <b>한 번만</b> 사용할 수 있습니다.</p>
     <p style="font-size:12.5px;line-height:1.6;color:#5b6b73;margin:0 0 4px">보안을 위해 이 코드를 누구에게도 공유하지 마세요. 올약은 어떤 경우에도 인증번호를 묻지 않습니다.</p>
