@@ -320,6 +320,7 @@
 
    <div class="view" id="view-more" style="display:none;">
      <h2>더보기</h2>
+     <div class="moreitem" onclick="go('ward')" style="cursor:pointer"><b>요양원 간병인 대시보드</b><span class="badge" style="background:var(--teal)">B2B</span></div>
      <div class="moreitem"><b>보호자 연동</b><span class="badge">연결됨</span></div>
      <div class="moreitem"><b>알림 설정</b><span class="arrow">›</span></div>
      <div class="moreitem" onclick="showOnboard()" style="cursor:pointer"><b>이용 안내 다시 보기</b><span class="arrow">›</span></div>
@@ -329,6 +330,13 @@
      <div class="moreitem" onclick="logout()" style="cursor:pointer"><b>로그아웃</b><span class="arrow">›</span></div>
      <div class="moreitem"><b>버전</b><span class="sub2">데모 v0.4</span></div>
      <p class="hint" style="margin-top:14px;">올약은 정보 제공 도구이며 질병을 진단하거나 약을 바꾸지 않습니다.</p>
+   </div>
+
+   <div class="view" id="view-ward" style="display:none;">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><span onclick="go('more')" style="cursor:pointer;font-size:22px;color:var(--sub);line-height:1">‹</span><h2 style="margin:0">요양원 간병인 대시보드</h2></div>
+    <p class="hint">여러 어르신의 시설약·가족 반입약·자가복용을 한 화면에서 관리하고, 출처가 다른 중복(크로스소스)을 자동으로 잡습니다.</p>
+    <div id="wardList"></div>
+    <div class="infonote">데모: 예시 입소자 데이터입니다. 실서비스는 시설 투약기록·가족 반입약 등록·케어포 연동으로 채웁니다.</div>
    </div>
    <div class="foot">
     본 화면은 시연용 데모입니다. 표시 약물·규칙은 예시이며 실제 서비스는 식약처 DUR·낱알식별 정보와 한국형 노인 부적절약물(PIM) 2018을 사용합니다.
@@ -821,6 +829,36 @@ function renderPharm(){
 }
 
 // ---- 화면 전환 ----
+// ── 요양원 간병인 다인 대시보드 (여러 입소자 한 화면 + 크로스소스 요약) ──
+const RESIDENTS=[
+  {name:'김O자', room:'201호', meds:[['이부프로펜','시설'],['나프록센','가족'],['암로디핀','시설']]},
+  {name:'박O수', room:'203호', meds:[['와파린','시설'],['아스피린','시설'],['졸피뎀','시설']]},
+  {name:'이O순', room:'205호', meds:[['메트포르민','시설'],['암로디핀','시설']]},
+  {name:'최O호', room:'207호', meds:[['디아제팜','시설'],['졸피뎀','가족'],['클로르페니라민','자가']]}
+];
+function wardRisk(names, srcMap){
+  const clsOf=n=>byName[n].cls; let high=0, mid=0, cross=0;
+  for(let i=0;i<names.length;i++)for(let j=i+1;j<names.length;j++){
+    const c1=clsOf(names[i]),c2=clsOf(names[j]);
+    R.ddi.forEach(r=>{const a=r.classes[0],b=r.classes[1]; if((c1===a&&c2===b)||(c1===b&&c2===a)){ if(r.sev==='high')high++; else mid++; }});
+  }
+  const byCls={}; names.forEach(n=>{(byCls[clsOf(n)]=byCls[clsOf(n)]||[]).push(n);});
+  Object.keys(byCls).forEach(cls=>{ const arr=byCls[cls]; if(arr.length>1){ mid++; const srcs=[...new Set(arr.map(n=>(srcMap[n]||'가족')))]; if(srcs.length>1){ cross++; high++; } }});
+  names.forEach(n=>{ const d=byName[n]; if(R.pim.find(x=>x.name?x.name===n:x.cls===d.cls)) mid++; });
+  return {level: high?'red':(mid?'yellow':'green'), high, cross, count:names.length};
+}
+function renderWard(){
+  const dc={red:'#F04452',yellow:'#F59F00',green:'#15C47E'};
+  document.getElementById('wardList').innerHTML=RESIDENTS.map((r,i)=>{
+    const names=r.meds.map(m=>m[0]); const sm={}; r.meds.forEach(m=>sm[m[0]]=m[1]);
+    const rk=wardRisk(names,sm);
+    return `<div class="medrow" style="align-items:center"><span style="width:12px;height:12px;border-radius:50%;background:${dc[rk.level]};flex:none;margin-right:4px"></span><div class="mx"><b>${r.name} · ${r.room}</b><span>약 ${rk.count}종${rk.cross?` · <span style="color:#F04452;font-weight:700">크로스소스 ${rk.cross}건</span>`:''}</span></div><button onclick="openResident(${i})" style="border:none;background:var(--teal);color:#fff;font-weight:700;font-size:12px;border-radius:9px;padding:8px 12px;cursor:pointer;flex:none">열기</button></div>`;
+  }).join('');
+}
+function openResident(i){
+  const r=RESIDENTS[i]; picked=r.meds.map(m=>m[0]); medSource={}; r.meds.forEach(m=>medSource[m[0]]=m[1]);
+  render(); go('home'); toast(r.name+' 어르신 약을 불러왔어요 — 분석하기를 눌러보세요');
+}
 function go(name){
   document.querySelectorAll('.view').forEach(v=>v.style.display='none');
   document.getElementById('view-'+name).style.display='block';
@@ -828,6 +866,7 @@ function go(name){
   if(name==='meds') renderMeds();
   if(name==='card') renderCard();
   if(name==='pharm') renderPharm();
+  if(name==='ward') renderWard();
   document.querySelector('.screen').scrollTop=0;
 }
 const MEDICON=OLYAK_RULES.medIcon;
