@@ -505,6 +505,11 @@ function closeLegal(){ document.getElementById('legalModal').style.display='none
 
 let picked=[];
 let endedMeds=[];   // 복용을 마친 약(종료). 위험판정에서는 제외되고 상담일지에는 '종료'로 표기됨.
+// 크로스소스 태깅: 약이 어디서 왔는지(시설 준 약 / 가족 반입약 / 본인 자가복용). 요양원 사각지대 탐지의 핵심.
+let medSource={};
+const SRC_CYCLE=['시설','가족','자가'];
+function srcColor(s){ return s==='시설'?'#0E7C86':(s==='가족'?'#3182F6':'#F0522F'); }
+function cycleSource(n){ const cur=medSource[n]||'가족'; medSource[n]=SRC_CYCLE[(SRC_CYCLE.indexOf(cur)+1)%3]; renderMeds(); }
 function endMed(n){ const i=picked.indexOf(n); if(i>=0){ picked.splice(i,1); if(!endedMeds.includes(n)) endedMeds.push(n); } renderMeds(); render(); }
 function restoreMed(n){ const i=endedMeds.indexOf(n); if(i>=0){ endedMeds.splice(i,1); if(!picked.includes(n)) picked.push(n); } renderMeds(); render(); }
 const chipsEl=document.getElementById('chips');
@@ -518,8 +523,8 @@ function render(){
   });
   document.querySelectorAll('.chip .x').forEach(x=>x.onclick=()=>{picked.splice(+x.dataset.i,1); render();});
 }
-function addMany(arr,msg){ arr.forEach(n=>{if(byName[n]&&!picked.includes(n))picked.push(n);}); render(); toast(msg); }
-function add(name){ const n=(name||input.value).trim(); if(!n||!byName[n]||picked.includes(n)){input.value=''; return;} picked.push(n); input.value=''; render(); }
+function addMany(arr,msg){ arr.forEach(n=>{if(byName[n]&&!picked.includes(n)){picked.push(n); if(!medSource[n])medSource[n]='가족';}}); render(); toast(msg); }
+function add(name){ const n=(name||input.value).trim(); if(!n||!byName[n]||picked.includes(n)){input.value=''; return;} picked.push(n); if(!medSource[n])medSource[n]='가족'; input.value=''; render(); }
 let _tt; function toast(m){ const t=document.getElementById('toast'); t.textContent=m; t.classList.add('show'); clearTimeout(_tt); _tt=setTimeout(()=>t.classList.remove('show'),2200); }
 
 document.getElementById('addBtn').onclick=()=>add();
@@ -680,7 +685,7 @@ function renderPillResult(url, imprint, cands, box, hdr){
   }
 }
 document.getElementById('clearBtn').onclick=()=>{picked=[]; render(); document.getElementById('result').style.display='none';};
-document.getElementById('seedBtn').onclick=()=>{picked=["와파린","아스피린","졸피뎀","클로르페니라민","암로디핀"]; render();};
+document.getElementById('seedBtn').onclick=()=>{picked=["이부프로펜","나프록센","와파린","졸피뎀","암로디핀"]; medSource={"이부프로펜":"시설","나프록센":"가족","와파린":"시설","졸피뎀":"시설","암로디핀":"가족"}; render(); toast('요양원 크로스소스 예시: 시설 이부프로펜 + 가족 나프록센');};
 
 const gate=document.getElementById('gateChk'); const checkBtn=document.getElementById('checkBtn');
 gate.onchange=()=>{checkBtn.disabled=!gate.checked;};
@@ -713,6 +718,11 @@ function analyze(){
   R.dup.forEach(d=>{ const arr=byCls[d.cls]; if(arr&&arr.length>1){
     findings.push({sev:d.sev||'mid', type:'효능군 중복', title:`중복 — ${arr.join(', ')}`, desc:d.note, basis:'DUR'});
   }});
+  // 3b) 크로스소스 중복 — 같은 계열 약이 서로 다른 출처(시설·가족·자가)에서 온 경우 = 요양원 사각지대(감기약 사건)
+  Object.keys(byCls).forEach(cls=>{ const arr=byCls[cls]; if(arr.length>1){
+    const srcs=[...new Set(arr.map(n=>medSource[n]||'가족'))];
+    if(srcs.length>1) findings.push({sev:'high', type:'크로스소스 중복', title:`${arr.join(', ')} — 출처가 다른 같은 계열`, desc:`서로 다른 곳(${srcs.join('·')})에서 받은 같은 계열 약을 함께 복용 중입니다. 시설·가족·본인이 각자 준 약이라, 통합해 보지 않으면 아무도 몰랐던 중복입니다.`, basis:'크로스소스'});
+  }});
   // 4) 한국형 PIM 2018 (노인 부적절)
   picked.forEach(n=>{
     const d=byName[n];
@@ -738,7 +748,11 @@ document.getElementById('checkBtn').onclick=()=>{
   const fallRisk=picked.filter(n=>R.scores.fall.includes(byName[n].cls)).length;
   let html=`<div class="dots">${[0,1,2].map(i=>`<div class="d ${i===di?'on':''}" style="background:${i===di?dotc[i]:'#DCE3E7'}"></div>`).join('')}</div>`;
   html+=`<div class="light ${meta.c}"><div class="ic">${meta.ic}</div><div><div class="big">${meta.big}</div><div class="small">${meta.small}</div></div></div>`;
-  html+=`<div class="scoregrid"><div class="scorecard"><div class="snum">${antichol}</div><div class="slab">항콜린 부담 약물</div></div><div class="scorecard"><div class="snum">${fallRisk}</div><div class="slab">낙상위험 약물</div></div></div>`;
+  const pimCount=f.filter(x=>x.type&&x.type.includes('PIM')).length;
+  const crossCount=f.filter(x=>x.type&&x.type.includes('크로스소스')).length;
+  html+=`<div style="font-weight:800;font-size:14px;color:var(--ink);margin:2px 2px 8px">노인 복약 안전 점수</div>`;
+  html+=`<div class="scoregrid"><div class="scorecard"><div class="snum">${antichol}</div><div class="slab">항콜린 부담</div></div><div class="scorecard"><div class="snum">${fallRisk}</div><div class="slab">낙상위험</div></div><div class="scorecard"><div class="snum" style="color:var(--coral)">${pimCount}</div><div class="slab">노인주의(PIM)</div></div></div>`;
+  if(crossCount) html+=`<div class="safebar" style="background:#FDE7E3;color:#B23A35"><span class="ic">${svgIcon('alert',16)}</span><span><b>크로스소스 중복 ${crossCount}건</b> — 시설·가족·본인이 각자 준 약이 겹칩니다. 소비자 앱·요양원 SW가 못 보는 사각지대입니다.</span></div>`;
   html+=`<div class="infonote">위 점수는 정보 제공이며 진단이 아닙니다. 수치가 높으면 의사·약사와 상의하세요.</div>`;
   if(f.length){
     html+=`<div class="safebar"><span class="ic">${svgIcon('alert',16)}</span><span>약을 바꾸거나 끊는 결정은 반드시 의사·약사와 함께 하세요. 이 약들은 담당 의사가 특별한 이유로 처방했을 수 있습니다.</span></div>`;
@@ -803,7 +817,7 @@ function renderMeds(){
   const pim=picked.filter(n=>byName[n].pim).length;
   let h=`<div class="medsum"><div class="c"><div class="v">${picked.length}</div><div class="l">복용 중인 약</div></div><div class="c"><div class="v" style="color:var(--coral)">${pim}</div><div class="l">주의 약물</div></div><div class="c"><div class="v" style="color:var(--sub)">${endedMeds.length}</div><div class="l">복용 종료</div></div></div>`;
   picked.forEach((n,i)=>{ const d=byName[n]; const hasSame=SAME[n];
-    h+=`<div class="medrow"><div class="mic">${svgIcon('pill',18)}</div><div class="mx"><b>${n}</b><span>${d.cat}</span></div>${hasSame?`<span class="same" data-s="${i}">같은 성분</span>`:''}${d.pim?'<span class="pill warn">주의</span>':''}<span class="endbtn" data-end="${n}" style="cursor:pointer;font-size:11px;color:var(--teal-d);border:1px solid #bfe0d9;border-radius:6px;padding:2px 7px;margin:0 4px">종료</span><span class="rm" data-i="${i}">×</span></div>`;
+    h+=`<div class="medrow"><div class="mic">${svgIcon('pill',18)}</div><div class="mx"><b>${n}</b><span>${d.cat}</span></div><span class="srcchip" data-src="${n}" title="출처 변경" style="cursor:pointer;font-size:10px;font-weight:800;color:#fff;background:${srcColor(medSource[n]||'가족')};border-radius:6px;padding:3px 7px;margin:0 3px">${medSource[n]||'가족'}</span>${hasSame?`<span class="same" data-s="${i}">같은 성분</span>`:''}${d.pim?'<span class="pill warn">주의</span>':''}<span class="endbtn" data-end="${n}" style="cursor:pointer;font-size:11px;color:var(--teal-d);border:1px solid #bfe0d9;border-radius:6px;padding:2px 7px;margin:0 4px">종료</span><span class="rm" data-i="${i}">×</span></div>`;
     if(hasSame){ h+=`<div class="samebox" id="same${i}" style="display:none"><b>${n}과 같은 성분 약</b><div class="sl">${SAME[n].join(' · ')}</div><div class="sn">성분은 같지만 제품·함량이 다를 수 있어요. 바꾸는 결정은 의사·약사와 상의하세요.</div></div>`; }
   });
   if(picked.length) h+=`<div class="sched"><div class="sh">⏰ 오늘 복약 시간</div><div class="ss"><div class="t">아침<b>3종</b></div><div class="t">점심<b>2종</b></div><div class="t">저녁<b>3종</b></div></div></div>`;
@@ -813,6 +827,7 @@ function renderMeds(){
   el.querySelectorAll('.rm').forEach(x=>x.onclick=()=>{picked.splice(+x.dataset.i,1); renderMeds(); render();});
   el.querySelectorAll('.endbtn').forEach(x=>x.onclick=()=>endMed(x.dataset.end));
   el.querySelectorAll('.rsbtn').forEach(x=>x.onclick=()=>restoreMed(x.dataset.rs));
+  el.querySelectorAll('.srcchip').forEach(x=>x.onclick=()=>cycleSource(x.dataset.src));
   el.querySelectorAll('.same').forEach(b=>b.onclick=()=>{ const box=document.getElementById('same'+b.dataset.s); box.style.display=(box.style.display==='none'?'block':'none'); });
 }
 
@@ -859,6 +874,7 @@ function basisFull(f){
   const t=f.type||'';
   if(t.includes('PIM')) return '한국형 노인 부적절약물(PIM) 2018 · Kim et al. (약학회지)';
   if(t.includes('삼중')) return '노인 삼중요법 급성신손상 주의(NSAID+RAS차단제+이뇨제)';
+  if(t.includes('크로스소스')) return '올약 크로스소스 통합 점검(시설약+가족반입약+자가복용) — 소비자앱·요양원SW 미탐지';
   if(t.includes('중복')) return '효능군 중복(동일 계열 중복 처방)';
   if(f.basis==='DUR') return '식약처 의약품안전사용서비스(DUR) 병용금기·주의 기준';
   if(f.basis==='문헌') return '표준 임상 문헌 기반 약물상호작용';
