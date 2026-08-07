@@ -195,7 +195,7 @@
     </div>
     <input id="loginId" type="email" placeholder="이메일" style="width:100%;box-sizing:border-box;padding:15px 16px;border:none;border-radius:13px;margin-bottom:9px;font-size:15px;background:#F2F4F6;color:#191F28">
     <input id="loginPw" type="password" placeholder="비밀번호" style="width:100%;box-sizing:border-box;padding:15px 16px;border:none;border-radius:13px;margin-bottom:12px;font-size:15px;background:#F2F4F6;color:#191F28">
-    <label style="display:flex;gap:8px;font-size:12px;color:#6B7684;margin:0 2px 14px;line-height:1.45"><input type="checkbox" id="loginAgree" style="margin-top:2px"><span>(필수) <a href="#" onclick="openLegal('terms');return false" style="color:#0E7C86;font-weight:600">이용약관</a>과 건강정보 수집·이용을 포함한 <a href="#" onclick="openLegal('privacy');return false" style="color:#0E7C86;font-weight:600">개인정보처리방침</a>에 동의합니다.</span></label>
+    <div style="font-size:11px;color:#8B95A1;margin:0 2px 14px;line-height:1.45">계정을 만들면 <a href="#" onclick="openLegal('terms');return false" style="color:#0E7C86;font-weight:600">이용약관</a>·<a href="#" onclick="openLegal('privacy');return false" style="color:#0E7C86;font-weight:600">개인정보처리방침</a>에 동의하는 것으로 간주됩니다.</div>
     <button onclick="signup()" style="width:100%;padding:16px;border:0;border-radius:14px;background:linear-gradient(135deg,#16C2B2,#0E7C86);color:#fff;font-weight:800;font-size:16px;cursor:pointer;margin-bottom:9px;box-shadow:0 8px 18px rgba(14,124,134,.24)">계정 만들기</button>
     <button onclick="login()" style="width:100%;padding:16px;border:0;border-radius:14px;background:#F2F4F6;color:#0A565E;font-weight:800;font-size:16px;cursor:pointer">로그인</button>
     <div style="font-size:11px;color:#B0B8C1;text-align:center;margin-top:10px;line-height:1.5">이메일 2단계 인증으로 로그인하며, 계정 정보는 이 기기에 저장됩니다.</div>
@@ -391,7 +391,7 @@ function svgIcon(n, s){ s=s||18; const P={
 // ── 로그인/계정 (실제 계정 설계 = 기기 내 저장 MVP, 게스트 = 무수집) ──
 let guestMode=false;
 function enterApp(){ var o=document.getElementById('loginOverlay'); if(o) o.style.display='none'; }
-function _agree(){ var a=document.getElementById('loginAgree'); return a && a.checked; }
+function _agree(){ return true; }  // 동의는 '계정 만들기' 행위로 간주(체크박스 제거)
 let pendingAuth=null; // {mode:'signup'|'login', email}
 function signup(){
   var email=(document.getElementById('loginId').value||'').trim();
