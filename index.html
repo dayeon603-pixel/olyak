@@ -315,7 +315,7 @@
      <p class="hint">내 위치에서 가까운 약국을 찾고, 같은 성분 약은 약사와 상의하세요.</p>
      <div class="pmap"><span class="pin me"></span><span class="pin"></span><span class="pin"></span><span class="pin"></span><div class="pmaplabel" id="pmaplabel">내 위치 기준</div></div>
      <div id="pharmList"></div>
-     <div class="infonote">데모 화면입니다. 실서비스는 공공데이터 '전국 약국 정보'(주소·좌표)와 지도(길찾기·전화)를 연동합니다.</div>
+     <div class="infonote">내 위치를 기반으로 실제 주변 약국을 검색합니다(OpenStreetMap). 위치 권한을 허용해 주세요. 전화·정밀 정보는 공공데이터 전국약국정보로 확장 예정입니다.</div>
    </div>
 
    <div class="view" id="view-more" style="display:none;">
@@ -348,9 +348,9 @@
   </div>
 
   <div class="tabbar">
-    <div class="tab active" data-s="home" onclick="go('home')"><span class="ti"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/></svg></span>홈</div>
     <div class="tab" data-s="meds" onclick="go('meds')"><span class="ti"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="6" rx="3"/><path d="M12 9v6"/></svg></span>내 약</div>
     <div class="tab" data-s="card" onclick="go('card')"><span class="ti"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h8l4 4v14H7z"/><path d="M9 12h8M9 16h8M9 8h4"/></svg></span>진료카드</div>
+    <div class="tab active" data-s="home" onclick="go('home')"><span class="ti"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/></svg></span>홈</div>
     <div class="tab" data-s="pharm" onclick="go('pharm')"><span class="ti"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1-4h14l1 4"/><path d="M5 9v10h14V9"/><path d="M9 19v-5h6v5"/></svg></span>약국</div>
     <div class="tab" data-s="more" onclick="go('more')"><span class="ti">⋯</span>더보기</div>
   </div>
@@ -445,51 +445,59 @@ async function verifyTwofa(){
   var onboarded=false; try{ onboarded=!!localStorage.getItem('olyak_onboarded'); }catch(e){}
   var mode = pendingAuth ? pendingAuth.mode : 'login';
   pendingAuth=null;
-  if(mode==='signup' && !onboarded){ showOnboard(); } else { enterApp(); toast('인증되었습니다.'); }
+  if(mode==='signup' && !onboarded){ startSurvey('signup'); } else { enterApp(); go('home'); toast('인증되었습니다.'); }
 }
-// ── 온보딩 ──
-const OB=[
-  {ic:'pill', t:'여러 병원 약을 한 곳에',d:'내과·정형외과·의원에서 따로 받은 약을 한 번에 모아 봅니다.'},
-  {ic:'shield',t:'위험을 자동으로 점검',d:'병용금기·중복·노인주의 약물을 식약처 DUR과 한국형 PIM 기준으로 걸러 신호등으로 보여드립니다.'},
-  {ic:'users', t:'가족·의료진에게 전달',d:'보호자에게 공유하고, 다음 진료에 낼 요약 카드를 만듭니다.'}
+// ── 온보딩/설문 ── 게스트=세그먼트(B2C·B2B·B2G)만 물음(개인정보 저장 안 함), 회원가입=세그먼트+나이·성별·신체특징 상세
+let surveyMode='', userSeg='', detailIdx=0, detailAns={};
+const SEGMENTS=[
+  {k:'b2c', t:'개인·보호자 (B2C)', d:'내 약 또는 부모님 약을 관리해요'},
+  {k:'b2b', t:'요양원·간병인 (B2B)', d:'여러 어르신 투약을 한 화면에서 관리해요'},
+  {k:'b2g', t:'지자체·공단 담당자 (B2G)', d:'관내 시설 복약안전을 모니터링해요'}
 ];
-let obIdx=0;
-// 역할 설문(가입 시 세그먼트 → 맞춤 화면). 한 엔진으로 B2C·B2B2C·B2B·B2G를 한 앱에서 담는 진입점.
-let userRole='';
-const ROLES=[
-  {k:'어르신', t:'어르신 본인', d:'내 약을 직접 관리해요'},
-  {k:'보호자', t:'보호자·가족', d:'부모님 약을 대신 챙겨요'},
-  {k:'간병인', t:'요양원·간병인', d:'여러 어르신 투약을 관리해요'},
-  {k:'시민', t:'일반 시민', d:'내 약·상비약 안전을 확인해요'}
+const DETAILQ=[
+  {k:'age',  t:'연세(나이대)가 어떻게 되세요?', opts:['60대 미만','60대','70대','80대 이상']},
+  {k:'sex',  t:'성별을 선택해 주세요', opts:['여성','남성','선택 안 함']},
+  {k:'cond', t:'해당하는 신체 특징·기저질환을 골라 주세요', opts:['고혈압','당뇨','신장질환','간질환','해당 없음'], multi:true},
+  {k:'nmed', t:'평소 복용하는 약은 몇 종인가요?', opts:['1~2종','3~4종','5~9종','10종 이상']}
 ];
-function showOnboard(){ document.getElementById('onboardOverlay').style.display='flex'; renderRole(); }
-function renderRole(){
+function startSurvey(mode){ surveyMode=mode; userSeg=''; detailIdx=0; detailAns={}; document.getElementById('onboardOverlay').style.display='flex'; renderSeg(); }
+function showOnboard(){ startSurvey('guest'); }
+function applySeg(seg){
+  var heroB=document.querySelector('.hero .hero-txt b');
+  var map={b2c:'부모님 약,<br>가족이 한 번에', b2b:'여러 어르신 약,<br>한 화면에서 안전하게', b2g:'관내 복약안전,<br>한눈에 모니터링'};
+  if(heroB && map[seg]) heroB.innerHTML=map[seg];
+  if(surveyMode==='signup'){ try{ localStorage.setItem('olyak_seg', seg); }catch(e){} }
+}
+function renderSeg(){
   var ob=document.getElementById('obBody');
-  ob.innerHTML=`<div style="font-size:20px;font-weight:800;margin-bottom:6px">어떤 분이신가요?</div><div style="font-size:13px;color:#5b6b73;margin-bottom:18px">역할에 맞는 화면을 보여드려요</div>`+ROLES.map(r=>`<div class="rolebtn" data-k="${r.k}" style="display:flex;align-items:center;justify-content:space-between;background:#F6F8FA;border-radius:14px;padding:15px 16px;margin-bottom:10px;cursor:pointer;text-align:left"><div><b style="font-size:15px">${r.t}</b><div style="font-size:12px;color:#8B95A1;margin-top:3px">${r.d}</div></div><span style="color:#C4CCD3;font-size:18px">›</span></div>`).join('');
+  ob.innerHTML='<div style="font-size:20px;font-weight:800;margin-bottom:6px">어떤 유형이신가요?</div><div style="font-size:13px;color:#5b6b73;margin-bottom:18px">유형에 맞는 화면을 보여드려요</div>'+SEGMENTS.map(function(s){return '<div class="rolebtn" data-k="'+s.k+'" style="display:flex;align-items:center;justify-content:space-between;background:#F6F8FA;border-radius:14px;padding:15px 16px;margin-bottom:10px;cursor:pointer;text-align:left"><div><b style="font-size:15px">'+s.t+'</b><div style="font-size:12px;color:#8B95A1;margin-top:3px">'+s.d+'</div></div><span style="color:#C4CCD3;font-size:18px">›</span></div>';}).join('');
   document.getElementById('obDots').innerHTML='';
   document.getElementById('obBtn').style.display='none';
-  ob.querySelectorAll('.rolebtn').forEach(b=>b.onclick=()=>{ userRole=b.dataset.k; try{localStorage.setItem('olyak_role',userRole);}catch(e){} obIdx=0; document.getElementById('obBtn').style.display=''; renderOb(); applyRole(); });
+  ob.querySelectorAll('.rolebtn').forEach(function(b){ b.onclick=function(){ userSeg=b.dataset.k; applySeg(userSeg); if(surveyMode==='guest'){ finishSurvey(); } else { detailIdx=0; renderDetail(); } }; });
 }
-function applyRole(){
-  var heroB=document.querySelector('.hero .hero-txt b');
-  var map={어르신:'내 약,<br>한 번에 안전하게', 보호자:'부모님 약,<br>가족이 한 번에', 간병인:'여러 어르신 약,<br>한 화면에서 안전하게', 시민:'내 약·상비약,<br>안전하게 확인'};
-  if(heroB && map[userRole]) heroB.innerHTML=map[userRole];
+function renderDetail(){
+  var q=DETAILQ[detailIdx]; var sel=detailAns[q.k]||(q.multi?[]:null);
+  document.getElementById('obBody').innerHTML='<div style="font-size:19px;font-weight:800;margin-bottom:16px;text-align:center">'+q.t+'</div>'+q.opts.map(function(o){var on=q.multi?sel.indexOf(o)>=0:sel===o; return '<div class="optbtn" data-o="'+o+'" style="display:flex;align-items:center;justify-content:space-between;border:'+(on?'2px solid #0f7a6b':'1px solid #E5E8EB')+';background:'+(on?'#EAF5F2':'#fff')+';color:#1a2a33;border-radius:12px;padding:13px 15px;margin-bottom:9px;cursor:pointer;font-weight:600;font-size:14px"><span>'+o+'</span>'+(on?'<span style="color:#0f7a6b;font-weight:800">✓</span>':'')+'</div>';}).join('')+(q.multi?'<div style="font-size:11px;color:#8B95A1;margin-top:2px">여러 개 선택 가능</div>':'');
+  document.getElementById('obDots').innerHTML=DETAILQ.map(function(_,i){return '<span style="width:7px;height:7px;border-radius:50%;background:'+(i===detailIdx?'#0f7a6b':'#d8e0e4')+'"></span>';}).join('');
+  var btn=document.getElementById('obBtn'); btn.style.display=''; btn.textContent=detailIdx===DETAILQ.length-1?'완료':'다음'; btn.onclick=detailNext;
+  document.querySelectorAll('#obBody .optbtn').forEach(function(b){ b.onclick=function(){ var o=b.dataset.o; if(q.multi){ var arr=detailAns[q.k]||[]; var i=arr.indexOf(o); if(i>=0)arr.splice(i,1); else arr.push(o); detailAns[q.k]=arr; } else { detailAns[q.k]=o; } renderDetail(); }; });
 }
-function renderOb(){ var s=OB[obIdx];
-  document.getElementById('obBody').innerHTML=`<div style="color:#0f7a6b;margin-bottom:18px">${svgIcon(s.ic,54)}</div><div style="font-size:20px;font-weight:800;margin-bottom:10px">${s.t}</div><div style="font-size:13.5px;color:#5b6b73;line-height:1.6;max-width:280px;margin:0 auto">${s.d}</div>`;
-  document.getElementById('obDots').innerHTML=OB.map((_,i)=>`<span style="width:7px;height:7px;border-radius:50%;background:${i===obIdx?'#0f7a6b':'#d8e0e4'}"></span>`).join('');
-  document.getElementById('obBtn').textContent = obIdx===OB.length-1?'시작하기':'다음';
+function detailNext(){ if(detailIdx<DETAILQ.length-1){ detailIdx++; renderDetail(); } else finishSurvey(); }
+function obNext(){ detailNext(); }
+function obFinish(){ finishSurvey(); }
+function finishSurvey(){
+  document.getElementById('onboardOverlay').style.display='none';
+  if(surveyMode==='signup'){ try{ var acc=JSON.parse(localStorage.getItem('olyak_account')||'{}'); acc.segment=userSeg; acc.profile=detailAns; localStorage.setItem('olyak_account',JSON.stringify(acc)); localStorage.setItem('olyak_onboarded','1'); }catch(e){} }
+  enterApp(); go('home'); toast(surveyMode==='guest'?'게스트 모드 · 개인정보를 저장하지 않습니다':'설문 완료 · 시작합니다');
 }
-function obNext(){ if(obIdx<OB.length-1){ obIdx++; renderOb(); } else obFinish(); }
-function obFinish(){ document.getElementById('onboardOverlay').style.display='none'; try{localStorage.setItem('olyak_onboarded','1');}catch(e){} enterApp(); toast('시작합니다'); }
 function logout(){ try{ localStorage.removeItem('olyak_session'); }catch(e){} guestMode=false; var o=document.getElementById('loginOverlay'); if(o) o.style.display='flex'; toast('로그아웃되었습니다'); }
 function guestEnter(){
   guestMode=true;
   try{ localStorage.removeItem('olyak_session'); }catch(e){}   // 게스트: 세션·개인정보 저장 안 함
-  enterApp(); toast('게스트 모드 · 개인정보를 저장하지 않습니다');
+  startSurvey('guest');
 }
 // 이미 로그인한 계정이면 로그인 화면 건너뜀(실제 계정 흐름)
-try{ if(localStorage.getItem('olyak_session')) enterApp(); }catch(e){}
+try{ if(localStorage.getItem('olyak_session')){ enterApp(); go('home'); } }catch(e){}
 
 const LEGAL = {
  terms:{ t:'이용약관', h:
@@ -794,7 +802,7 @@ document.getElementById('checkBtn').onclick=()=>{
 
 // ---- 같은 성분 약(동일성분의약품) · 예시 ----
 const SAME={"암로디핀":["노바스크정","아모디핀정","암로핀정"],"아스피린":["아스피린프로텍트정","아스트릭스캡슐"],"오메프라졸":["오엠피정","로섹캡슐"],"심바스타틴":["조코정","심바스트정"],"메트포르민":["글루코파지정","다이아벡스정"],"이부프로펜":["부루펜정","이지엔6애니"]};
-// ---- 주변 약국 · 예시 ----
+// ---- 주변 약국 · 실위치 기반(OpenStreetMap Overpass, API키 불필요) + 예시 폴백 ----
 const PHARMS=[
   {n:"행복한약국",     t:"동래구 명륜로",   lat:35.2100, lng:129.0785, close:21},
   {n:"24시 온누리약국", t:"연제구 거제대로", lat:35.1762, lng:129.0760, close:24},
@@ -802,30 +810,46 @@ const PHARMS=[
   {n:"우리동네약국",   t:"동래구 충렬대로", lat:35.2052, lng:129.0850, close:22}
 ];
 function haversineM(la1,lo1,la2,lo2){ const R=6371000, rad=x=>x*Math.PI/180; const dLa=rad(la2-la1), dLo=rad(lo2-lo1); const s=Math.sin(dLa/2)**2+Math.cos(rad(la1))*Math.cos(rad(la2))*Math.sin(dLo/2)**2; return Math.round(R*2*Math.atan2(Math.sqrt(s),Math.sqrt(1-s))); }
-function pharmOpen(p){ if(p.close>=24) return true; const h=new Date().getHours(); return h>=8 && h<p.close; }
+function pharmOpen(p){ if(p.close==null) return null; if(p.close>=24) return true; const h=new Date().getHours(); return h>=8 && h<p.close; }
 function distLabel(m){ return m>=1000 ? (m/1000).toFixed(1)+'km' : m+'m'; }
-function callPharm(){ toast('전화번호는 실서비스에서 공공데이터 전국 약국 정보로 연동됩니다'); }
+function callPharm(){ toast('전화 연동은 실서비스에서 공공데이터 전국 약국 정보로 제공됩니다'); }
 function pharmRows(list, hasLoc){
   document.getElementById('pharmList').innerHTML=list.map(p=>{
-    const status=pharmOpen(p)?'영업중':(p.close+'시 마감');
-    const dist=hasLoc && p._d!=null ? distLabel(p._d)+' · ' : '';
+    const op=pharmOpen(p);
+    const status=op===true?'영업중':(op===false?(p.close+'시 마감'):'');
+    const dist=hasLoc && p._d!=null ? distLabel(p._d) : '';
+    const meta=[dist,status,p.t].filter(Boolean).join(' · ');
     const nav="https://map.kakao.com/link/to/"+encodeURIComponent(p.n)+","+p.lat+","+p.lng;
-    return `<div class="pharmrow"><div class="pic">${svgIcon('store',20)}</div><div class="px"><b>${p.n}</b><span>${dist}${status} · ${p.t}</span></div><div class="pacts"><button onclick="window.open('${nav}','_blank')">길찾기</button><button onclick="callPharm()">전화</button></div></div>`;
+    return `<div class="pharmrow"><div class="pic">${svgIcon('store',20)}</div><div class="px"><b>${p.n}</b><span>${meta}</span></div><div class="pacts"><button onclick="window.open('${nav}','_blank')">길찾기</button><button onclick="callPharm()">전화</button></div></div>`;
   }).join('');
+}
+async function fetchNearbyPharmacies(la,lo){
+  const q='[out:json][timeout:15];node(around:2500,'+la+','+lo+')[amenity=pharmacy];out 40;';
+  const url='https://overpass-api.de/api/interpreter?data='+encodeURIComponent(q);
+  const r=await fetch(url); const d=await r.json();
+  return (d.elements||[]).filter(e=>e.tags && e.tags.name).map(e=>({
+    n:e.tags.name, lat:e.lat, lng:e.lon,
+    t:(e.tags['addr:street']||e.tags['addr:full']||e.tags.operator||''),
+    close:(e.tags.opening_hours==='24/7'?24:null),
+    _d:haversineM(la,lo,e.lat,e.lon)
+  }));
 }
 function renderPharm(){
   const label=document.getElementById('pmaplabel');
-  const fallback=()=>{ const demo=[120,260,410,530]; PHARMS.forEach((p,i)=>p._d=demo[i]); pharmRows(PHARMS.slice(),true); if(label) label.textContent='부산 동래구 기준 (예시)'; };
-  if(navigator.geolocation){
-    if(label) label.textContent='내 위치 확인 중…';
-    navigator.geolocation.getCurrentPosition(pos=>{
-      const la=pos.coords.latitude, lo=pos.coords.longitude;
-      PHARMS.forEach(p=>p._d=haversineM(la,lo,p.lat,p.lng));
-      const sorted=PHARMS.slice().sort((a,b)=>a._d-b._d);
-      pharmRows(sorted,true);
-      if(label) label.textContent='내 위치 기준 · 가까운 순';
-    }, ()=>fallback(), {timeout:6000, maximumAge:60000});
-  } else { fallback(); }
+  const fallback=(msg)=>{ const demo=[120,260,410,530]; PHARMS.forEach((p,i)=>p._d=demo[i]); pharmRows(PHARMS.slice(),true); if(label) label.textContent=msg||'예시 데이터 (위치 권한 필요)'; };
+  if(!navigator.geolocation){ fallback('이 기기는 위치를 지원하지 않습니다 (예시)'); return; }
+  if(label) label.textContent='내 위치 확인 중…';
+  navigator.geolocation.getCurrentPosition(async pos=>{
+    const la=pos.coords.latitude, lo=pos.coords.longitude;
+    if(label) label.textContent='주변 약국 검색 중…';
+    try{
+      let list=await fetchNearbyPharmacies(la,lo);
+      list.sort((a,b)=>a._d-b._d);
+      if(list.length===0){ fallback('주변에서 약국을 찾지 못했습니다 (예시)'); return; }
+      pharmRows(list.slice(0,6),true);
+      if(label) label.textContent='내 위치 기준 · 가까운 순 ('+list.length+'곳)';
+    }catch(e){ fallback('약국 검색 서버 연결 실패 (예시)'); }
+  }, ()=>fallback('위치 권한이 없어 예시를 표시합니다'), {timeout:8000, maximumAge:60000, enableHighAccuracy:true});
 }
 
 // ---- 화면 전환 ----
