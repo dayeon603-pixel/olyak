@@ -321,6 +321,7 @@
    <div class="view" id="view-more" style="display:none;">
      <h2>더보기</h2>
      <div class="moreitem" onclick="go('ward')" style="cursor:pointer"><b>요양원 간병인 대시보드</b><span class="badge" style="background:var(--teal)">B2B</span></div>
+     <div class="moreitem" onclick="go('b2g')" style="cursor:pointer"><b>지자체·공단 대시보드</b><span class="badge" style="background:var(--teal)">B2G</span></div>
      <div class="moreitem"><b>보호자 연동</b><span class="badge">연결됨</span></div>
      <div class="moreitem"><b>알림 설정</b><span class="arrow">›</span></div>
      <div class="moreitem" onclick="showOnboard()" style="cursor:pointer"><b>이용 안내 다시 보기</b><span class="arrow">›</span></div>
@@ -337,6 +338,25 @@
     <p class="hint">여러 어르신의 시설약·가족 반입약·자가복용을 한 화면에서 관리하고, 출처가 다른 중복(크로스소스)을 자동으로 잡습니다.</p>
     <div id="wardList"></div>
     <div class="infonote">데모: 예시 입소자 데이터입니다. 실서비스는 시설 투약기록·가족 반입약 등록·케어포 연동으로 채웁니다.</div>
+   </div>
+
+   <div class="view" id="view-b2g" style="display:none;">
+    <div style="display:inline-block;font-size:11px;font-weight:800;color:var(--teal-d);background:#E3F3EF;padding:4px 10px;border-radius:8px;margin-bottom:8px">B2G · 지자체·공단 대시보드</div>
+    <h2 style="margin:0">대구시 복약안전 현황</h2>
+    <p class="hint">다제약물 관리사업 · 관내 노인요양시설 담당자용</p>
+    <div style="display:flex;gap:10px;margin-bottom:12px">
+      <div style="flex:1;background:#fff;border:1px solid #eef1f4;border-radius:14px;padding:14px"><div style="font-size:12px;color:var(--sub)">도입 시설</div><div style="font-size:22px;font-weight:800;color:var(--teal)">56<span style="font-size:12px;color:var(--sub);font-weight:600"> / 280곳</span></div><div style="font-size:11px;color:var(--sub)">커버리지 20%</div></div>
+      <div style="flex:1;background:#fff;border:1px solid #eef1f4;border-radius:14px;padding:14px"><div style="font-size:12px;color:var(--sub)">이달 감지 위험</div><div style="font-size:22px;font-weight:800;color:#D64545">142<span style="font-size:12px;color:var(--sub);font-weight:600">건</span></div><div style="font-size:11px;color:var(--sub)">크로스소스 포함</div></div>
+    </div>
+    <div style="background:#fff;border:1px solid #eef1f4;border-radius:14px;padding:15px;margin-bottom:12px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:9px"><span style="color:var(--sub)">위험 조치 완료율</span><b style="color:var(--teal)">88%</b></div><div style="height:8px;background:#eef1f4;border-radius:99px;overflow:hidden"><div style="width:88%;height:100%;background:var(--teal);border-radius:99px"></div></div></div>
+    <h2 style="font-size:16px">시설별 위험 현황</h2>
+    <div style="background:#fff;border:1px solid #eef1f4;border-radius:14px;overflow:hidden;margin-bottom:12px">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 15px;border-bottom:1px solid #f1f3f5"><div style="display:flex;align-items:center;gap:9px"><span style="width:10px;height:10px;border-radius:99px;background:#D64545"></span><b>늘봄요양원</b></div><span style="color:#D64545;font-weight:700;font-size:13px">위험 5건</span></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 15px;border-bottom:1px solid #f1f3f5"><div style="display:flex;align-items:center;gap:9px"><span style="width:10px;height:10px;border-radius:99px;background:#E7A33C"></span><b>햇살노인요양원</b></div><span style="color:#C6851F;font-weight:700;font-size:13px">위험 2건</span></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 15px;border-bottom:1px solid #f1f3f5"><div style="display:flex;align-items:center;gap:9px"><span style="width:10px;height:10px;border-radius:99px;background:var(--teal)"></span><b>푸른돌봄센터</b></div><span style="color:var(--teal-d);font-weight:700;font-size:13px">이상 없음</span></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 15px"><div style="display:flex;align-items:center;gap:9px"><span style="width:10px;height:10px;border-radius:99px;background:#E7A33C"></span><b>한마음요양원</b></div><span style="color:#C6851F;font-weight:700;font-size:13px">위험 1건</span></div>
+    </div>
+    <div class="infonote">공공 예산으로 관내 시설에 무상 배포. 담당자는 시설별 복약 위험·조치율을 한 화면에서 모니터링합니다. 데모: 예시 집계 수치.</div>
    </div>
    <div class="foot">
     본 화면은 시연용 데모입니다. 표시 약물·규칙은 예시이며 실제 서비스는 식약처 DUR·낱알식별 정보와 한국형 노인 부적절약물(PIM) 2018을 사용합니다.
@@ -488,7 +508,7 @@ function obFinish(){ finishSurvey(); }
 function finishSurvey(){
   document.getElementById('onboardOverlay').style.display='none';
   if(surveyMode==='signup'){ try{ var acc=JSON.parse(localStorage.getItem('olyak_account')||'{}'); acc.segment=userSeg; acc.profile=detailAns; localStorage.setItem('olyak_account',JSON.stringify(acc)); localStorage.setItem('olyak_onboarded','1'); }catch(e){} }
-  enterApp(); go('home'); toast(surveyMode==='guest'?'게스트 모드 · 개인정보를 저장하지 않습니다':'설문 완료 · 시작합니다');
+  enterApp(); var landing={b2c:'home',b2b:'ward',b2g:'b2g'}[userSeg]||'home'; go(landing); toast(surveyMode==='guest'?'게스트 모드 · 개인정보를 저장하지 않습니다':'설문 완료 · 시작합니다');
 }
 function logout(){ try{ localStorage.removeItem('olyak_session'); }catch(e){} guestMode=false; var o=document.getElementById('loginOverlay'); if(o) o.style.display='flex'; toast('로그아웃되었습니다'); }
 function guestEnter(){
@@ -497,7 +517,7 @@ function guestEnter(){
   startSurvey('guest');
 }
 // 이미 로그인한 계정이면 로그인 화면 건너뜀(실제 계정 흐름)
-try{ if(localStorage.getItem('olyak_session')){ enterApp(); go('home'); } }catch(e){}
+try{ if(localStorage.getItem('olyak_session')){ enterApp(); var _sg=localStorage.getItem('olyak_seg'); go({b2c:'home',b2b:'ward',b2g:'b2g'}[_sg]||'home'); } }catch(e){}
 
 const LEGAL = {
  terms:{ t:'이용약관', h:
