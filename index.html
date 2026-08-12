@@ -178,6 +178,56 @@
   .selchip.on{border-color:var(--teal);background:#EAF5F5;color:var(--teal-d);font-weight:700}
   .toast{position:absolute; left:50%; bottom:60px; transform:translateX(-50%); background:var(--ink); color:#fff; padding:11px 18px; border-radius:999px; font-size:13.5px; font-weight:600; box-shadow:0 8px 20px rgba(0,0,0,.22); opacity:0; transition:.3s; pointer-events:none; white-space:nowrap; z-index:40;}
   .toast.show{opacity:1; bottom:70px;}
+
+  /* ===== 접근성: 큰글씨 모드 (어르신 대상) ===== */
+  .screen.a11y{font-size:112%;}
+  .screen.a11y h2{font-size:24px;}
+  .screen.a11y .hint,.screen.a11y .fdesc{font-size:15.5px; line-height:1.7;}
+  .screen.a11y .chip,.screen.a11y input[type=text],.screen.a11y .btn{font-size:17px;}
+  .screen.a11y .fttl{font-size:17.5px;}
+  .screen.a11y .light .big{font-size:26px;}
+  .screen.a11y .tab{font-size:12px;}
+  .a11ybtn{position:absolute; right:16px; top:60px; z-index:35; display:flex; align-items:center; gap:5px;
+           background:rgba(255,255,255,.94); backdrop-filter:blur(8px); border:1px solid var(--line); color:var(--teal-d);
+           font-size:11.5px; font-weight:800; border-radius:999px; padding:7px 11px; cursor:pointer;
+           box-shadow:0 3px 10px rgba(16,40,55,.10); transition:.16s;}
+  .a11ybtn:active{transform:scale(.94);}
+  .a11ybtn.on{background:var(--teal); color:#fff; border-color:var(--teal);}
+
+  /* ===== 분석 시퀀스 오버레이 ===== */
+  .anz{position:absolute; inset:0; z-index:55; background:rgba(255,255,255,.97); backdrop-filter:blur(6px);
+       display:none; flex-direction:column; justify-content:center; padding:36px 30px;}
+  .anz.show{display:flex; animation:anzIn .25s ease;}
+  @keyframes anzIn{from{opacity:0} to{opacity:1}}
+  .anz-ring{width:74px; height:74px; margin:0 auto 22px; position:relative;}
+  .anz-ring svg{width:100%; height:100%; transform:rotate(-90deg);}
+  .anz-ring .trk{stroke:#E7EDEF; stroke-width:7; fill:none;}
+  .anz-ring .bar{stroke:url(#anzg); stroke-width:7; fill:none; stroke-linecap:round;
+                 stroke-dasharray:201; stroke-dashoffset:201; transition:stroke-dashoffset .5s cubic-bezier(.4,0,.2,1);}
+  .anz-pct{position:absolute; inset:0; display:grid; place-items:center; font-size:17px; font-weight:800; color:var(--teal-d); letter-spacing:-.5px;}
+  .anz-ttl{text-align:center; font-size:18px; font-weight:800; color:var(--ink); letter-spacing:-.5px;}
+  .anz-sub{text-align:center; font-size:12.5px; color:var(--sub); margin-top:6px; margin-bottom:26px;}
+  .anz-step{display:flex; align-items:center; gap:11px; padding:11px 13px; border-radius:13px; margin-bottom:7px;
+            background:#F7F9FA; opacity:.42; transition:.3s;}
+  .anz-step.on{opacity:1; background:#EAF5F5;}
+  .anz-step.done{opacity:1; background:#fff; box-shadow:0 2px 8px rgba(17,24,39,.05);}
+  .anz-step .sic{width:26px; height:26px; border-radius:9px; flex:none; display:grid; place-items:center;
+                 background:#DDE5E8; color:#fff; transition:.3s;}
+  .anz-step.on .sic{background:var(--teal); animation:pulse 1s ease infinite;}
+  .anz-step.done .sic{background:var(--green);}
+  @keyframes pulse{0%,100%{transform:scale(1)} 50%{transform:scale(1.13)}}
+  .anz-step .stx{flex:1;}
+  .anz-step .stx b{font-size:13.5px; font-weight:700; color:var(--ink); display:block;}
+  .anz-step .stx span{font-size:11px; color:var(--sub); display:block; margin-top:2px;}
+  .anz-step .scnt{font-size:11.5px; font-weight:800; color:var(--teal-d); font-variant-numeric:tabular-nums;}
+
+  /* ===== 결과 진입 모션 ===== */
+  @keyframes riseIn{from{opacity:0; transform:translateY(14px)} to{opacity:1; transform:none}}
+  .stagger{opacity:0; animation:riseIn .42s cubic-bezier(.22,1,.36,1) forwards;}
+  .snum{font-variant-numeric:tabular-nums;}
+  .btn,.src,.chip,.moreitem{-webkit-tap-highlight-color:transparent;}
+  .btn:focus-visible,.src:focus-visible{outline:3px solid rgba(14,124,134,.35); outline-offset:2px;}
+  @media (prefers-reduced-motion:reduce){ .stagger,.anz.show{animation:none; opacity:1;} }
 </style>
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
@@ -187,6 +237,24 @@
 <div class="device">
  <div class="screen">
   <div class="island"></div>
+
+  <!-- 접근성: 큰글씨 모드 (어르신 대상) -->
+  <button class="a11ybtn" id="a11yBtn" onclick="toggleA11y()" aria-pressed="false" title="큰글씨 모드">
+    <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 19 L9 5 L14 19"/><path d="M6 14h6"/><path d="M17 19V9"/><path d="M14.4 11.4 17 9l2.6 2.4"/></svg>
+    <span id="a11yLbl">큰글씨</span>
+  </button>
+
+  <!-- 분석 시퀀스 오버레이 -->
+  <div class="anz" id="anzOverlay" role="status" aria-live="polite">
+    <svg width="0" height="0"><defs><linearGradient id="anzg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#16C2B2"/><stop offset="1" stop-color="#0C6B74"/></linearGradient></defs></svg>
+    <div class="anz-ring">
+      <svg viewBox="0 0 74 74"><circle class="trk" cx="37" cy="37" r="32"/><circle class="bar" id="anzBar" cx="37" cy="37" r="32"/></svg>
+      <div class="anz-pct" id="anzPct">0%</div>
+    </div>
+    <div class="anz-ttl">복약 위험을 점검하고 있습니다</div>
+    <div class="anz-sub" id="anzSub">결정론적 규칙 엔진 · 생성형 AI 미사용</div>
+    <div id="anzSteps"></div>
+  </div>
 
   <div id="loginOverlay" style="position:absolute;inset:0;z-index:60;background:#fff;color:#191F28;display:flex;flex-direction:column;justify-content:center;padding:32px 24px;overflow-y:auto">
     <div style="text-align:center;margin-bottom:26px">
@@ -320,16 +388,7 @@
 
    <div class="view" id="view-more" style="display:none;">
      <h2>더보기</h2>
-     <div class="moreitem" onclick="go('ward')" style="cursor:pointer"><b>요양원 간병인 대시보드</b><span class="badge" style="background:var(--teal)">B2B</span></div>
-     <div class="moreitem" onclick="go('b2g')" style="cursor:pointer"><b>지자체·공단 대시보드</b><span class="badge" style="background:var(--teal)">B2G</span></div>
-     <div class="moreitem"><b>보호자 연동</b><span class="badge">연결됨</span></div>
-     <div class="moreitem"><b>알림 설정</b><span class="arrow">›</span></div>
-     <div class="moreitem" onclick="showOnboard()" style="cursor:pointer"><b>이용 안내 다시 보기</b><span class="arrow">›</span></div>
-     <div class="moreitem" onclick="openLegal('terms')" style="cursor:pointer"><b>이용약관</b><span class="arrow">›</span></div>
-     <div class="moreitem" onclick="openLegal('privacy')" style="cursor:pointer"><b>개인정보처리방침</b><span class="arrow">›</span></div>
-     <div class="moreitem" onclick="openLegal('refund')" style="cursor:pointer"><b>취소·환불정책</b><span class="arrow">›</span></div>
-     <div class="moreitem" onclick="logout()" style="cursor:pointer"><b>로그아웃</b><span class="arrow">›</span></div>
-     <div class="moreitem"><b>버전</b><span class="sub2">데모 v0.4</span></div>
+     <div id="moreBody"></div>
      <p class="hint" style="margin-top:14px;">올약은 정보 제공 도구이며 질병을 진단하거나 약을 바꾸지 않습니다.</p>
    </div>
 
@@ -342,10 +401,10 @@
 
    <div class="view" id="view-b2g" style="display:none;">
     <div style="display:inline-block;font-size:11px;font-weight:800;color:var(--teal-d);background:#E3F3EF;padding:4px 10px;border-radius:8px;margin-bottom:8px">B2G · 지자체·공단 대시보드</div>
-    <h2 style="margin:0">대구시 복약안전 현황</h2>
+    <h2 style="margin:0">부산시 복약안전 현황</h2>
     <p class="hint">다제약물 관리사업 · 관내 노인요양시설 담당자용</p>
     <div style="display:flex;gap:10px;margin-bottom:12px">
-      <div style="flex:1;background:#fff;border:1px solid #eef1f4;border-radius:14px;padding:14px"><div style="font-size:12px;color:var(--sub)">도입 시설</div><div style="font-size:22px;font-weight:800;color:var(--teal)">56<span style="font-size:12px;color:var(--sub);font-weight:600"> / 280곳</span></div><div style="font-size:11px;color:var(--sub)">커버리지 20%</div></div>
+      <div style="flex:1;background:#fff;border:1px solid #eef1f4;border-radius:14px;padding:14px"><div style="font-size:12px;color:var(--sub)">도입 시설</div><div style="font-size:22px;font-weight:800;color:var(--teal)">72<span style="font-size:12px;color:var(--sub);font-weight:600"> / 480곳</span></div><div style="font-size:11px;color:var(--sub)">커버리지 15% (3년 목표)</div></div>
       <div style="flex:1;background:#fff;border:1px solid #eef1f4;border-radius:14px;padding:14px"><div style="font-size:12px;color:var(--sub)">이달 감지 위험</div><div style="font-size:22px;font-weight:800;color:#D64545">142<span style="font-size:12px;color:var(--sub);font-weight:600">건</span></div><div style="font-size:11px;color:var(--sub)">크로스소스 포함</div></div>
     </div>
     <div style="background:#fff;border:1px solid #eef1f4;border-radius:14px;padding:15px;margin-bottom:12px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:9px"><span style="color:var(--sub)">위험 조치 완료율</span><b style="color:var(--teal)">88%</b></div><div style="height:8px;background:#eef1f4;border-radius:99px;overflow:hidden"><div style="width:88%;height:100%;background:var(--teal);border-radius:99px"></div></div></div>
@@ -358,6 +417,43 @@
     </div>
     <div class="infonote">공공 예산으로 관내 시설에 무상 배포. 담당자는 시설별 복약 위험·조치율을 한 화면에서 모니터링합니다. 데모: 예시 집계 수치.</div>
    </div>
+
+   <div class="view" id="view-triage" style="display:none;">
+    <h2>위험현황</h2>
+    <p class="hint">모든 입소자의 위험 신호를 심각도순으로 한 화면에서 확인하고 확인 처리하세요.</p>
+    <div id="triageList"></div>
+    <div class="infonote">데모: 예시 입소자 데이터 기준입니다. 실서비스는 시설 투약기록과 실시간 연동됩니다.</div>
+   </div>
+
+   <div class="view" id="view-checklog" style="display:none;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+      <h2 style="margin:0">확인로그</h2>
+      <button class="btn btn-ghost" style="padding:9px 12px;font-size:12.5px" onclick="exportCheckLog()">내보내기</button>
+    </div>
+    <p class="hint">위험현황에서 확인 처리한 기록이 시간순으로 남습니다.</p>
+    <div id="checklogList"></div>
+    <div class="infonote">데모: 담당자명은 예시(고정값)입니다. 실서비스는 근무자 로그인 계정과 연동됩니다.</div>
+   </div>
+
+   <div class="view" id="view-facilities" style="display:none;">
+    <div style="display:inline-block;font-size:11px;font-weight:800;color:var(--teal-d);background:#E3F3EF;padding:4px 10px;border-radius:8px;margin-bottom:8px">B2G · 시설 목록</div>
+    <h2 style="margin:0">관내 시설</h2>
+    <p class="hint">시설을 눌러 상세 현황과 추이를 확인하세요.</p>
+    <div id="facilitiesList"></div>
+    <div class="infonote">데모: 예시 시설 데이터입니다. 실서비스는 관내 시설 실데이터로 채웁니다.</div>
+   </div>
+
+   <div class="view" id="view-facility-detail" style="display:none;">
+    <div id="facilityDetailBody"></div>
+   </div>
+
+   <div class="view" id="view-report" style="display:none;">
+    <div style="display:inline-block;font-size:11px;font-weight:800;color:var(--teal-d);background:#E3F3EF;padding:4px 10px;border-radius:8px;margin-bottom:8px">B2G · 리포트</div>
+    <h2 style="margin:0">복약안전 리포트</h2>
+    <p class="hint">기간을 선택하고 관내 집계 리포트를 생성하세요.</p>
+    <div id="reportBody"></div>
+   </div>
+
    <div class="foot">
     본 화면은 시연용 데모입니다. 표시 약물·규칙은 예시이며 실제 서비스는 식약처 DUR·낱알식별 정보와 한국형 노인 부적절약물(PIM) 2018을 사용합니다.
     올약은 정보 제공 도구이며 <b>질병을 진단하거나 약을 바꾸지 않습니다</b>. 모든 결정은 의사·약사와 상의하세요.
@@ -367,13 +463,7 @@
    </div>
   </div>
 
-  <div class="tabbar">
-    <div class="tab" data-s="meds" onclick="go('meds')"><span class="ti"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="6" rx="3"/><path d="M12 9v6"/></svg></span>내 약</div>
-    <div class="tab" data-s="card" onclick="go('card')"><span class="ti"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h8l4 4v14H7z"/><path d="M9 12h8M9 16h8M9 8h4"/></svg></span>진료카드</div>
-    <div class="tab active" data-s="home" onclick="go('home')"><span class="ti"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/></svg></span>홈</div>
-    <div class="tab" data-s="pharm" onclick="go('pharm')"><span class="ti"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1-4h14l1 4"/><path d="M5 9v10h14V9"/><path d="M9 19v-5h6v5"/></svg></span>약국</div>
-    <div class="tab" data-s="more" onclick="go('more')"><span class="ti">⋯</span>더보기</div>
-  </div>
+  <div class="tabbar" id="tabbar"></div>
   <div class="homebar"></div>
 
   <div class="toast" id="toast"></div>
@@ -405,8 +495,54 @@ function svgIcon(n, s){ s=s||18; const P={
   share:'<circle cx="6" cy="12" r="2.4"/><circle cx="18" cy="6" r="2.4"/><circle cx="18" cy="18" r="2.4"/><path d="M8 11l8-4M8 13l8 4"/>',
   book:'<path d="M5 4h9a3 3 0 013 3v13H8a3 3 0 01-3-3z"/><path d="M5 4v13"/>',
   lock:'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/>',
-  dot:'<circle cx="12" cy="12" r="5"/>'
-}; return '<svg viewBox="0 0 24 24" width="'+s+'" height="'+s+'" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle">'+(P[n]||'')+'</svg>'; }
+  dot:'<circle cx="12" cy="12" r="5"/>',
+  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/>',
+  building:'<rect x="4" y="3" width="16" height="18" rx="1"/><path d="M9 8h1M14 8h1M9 12h1M14 12h1M9 16h1M14 16h1"/>',
+  chart:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>'
+}; return '<svg viewBox="0 0 24 24" width="'+s+'" height="'+s+'" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle" aria-hidden="true">'+(P[n]||'')+'</svg>'; }
+
+// ── 세그먼트별 탭바(B2C/B2B/B2G 화면이 서로 다름) ──
+let CURRENT_SEG='b2c';
+const SEG_TABS={
+  b2c:['meds','card','home','pharm','more'],
+  b2b:['ward','triage','checklog','more'],
+  b2g:['b2g','facilities','report','more']
+};
+const SEG_DRILL={ b2c:[], b2b:['home'], b2g:['facility-detail'] };
+const TABBAR_CONFIG={
+  b2c:[
+    {k:'meds', label:'내 약', icon:'pill'},
+    {k:'card', label:'진료카드', icon:'doc'},
+    {k:'home', label:'홈', icon:'home'},
+    {k:'pharm', label:'약국', icon:'store'},
+    {k:'more', label:'더보기', icon:'dots'}
+  ],
+  b2b:[
+    {k:'ward', label:'입소자', icon:'users'},
+    {k:'triage', label:'위험현황', icon:'alert'},
+    {k:'checklog', label:'확인로그', icon:'clock'},
+    {k:'more', label:'더보기', icon:'dots'}
+  ],
+  b2g:[
+    {k:'b2g', label:'현황', icon:'chart'},
+    {k:'facilities', label:'시설', icon:'building'},
+    {k:'report', label:'리포트', icon:'doc'},
+    {k:'more', label:'더보기', icon:'dots'}
+  ]
+};
+function renderTabbar(){
+  const bar=document.getElementById('tabbar');
+  const cfg=TABBAR_CONFIG[CURRENT_SEG]||TABBAR_CONFIG.b2c;
+  bar.innerHTML=cfg.map(t=>`<div class="tab" data-s="${t.k}" onclick="go('${t.k}')"><span class="ti">${svgIcon(t.icon,20)}</span>${t.label}</div>`).join('');
+}
+// 드릴다운 화면(view id)이 어느 탭 소속인지 반환. 세그먼트 탭 목록에 없으면 소유 탭으로 매핑.
+function ownerTab(seg, name){
+  const tabs=SEG_TABS[seg]||SEG_TABS.b2c;
+  if(tabs.indexOf(name)>=0) return name;
+  if(seg==='b2b' && name==='home') return 'ward';
+  if(seg==='b2g' && name==='facility-detail') return 'facilities';
+  return tabs[0];
+}
 
 // ── 로그인/계정 (실제 계정 설계 = 기기 내 저장 MVP, 게스트 = 무수집) ──
 let guestMode=false;
@@ -460,12 +596,29 @@ async function verifyTwofa(){
     }catch(e){ toast('서버 연결에 실패했습니다.'); return; }
   }
   document.getElementById('twofaOverlay').style.display='none';
-  if(pendingAuth){ try{ localStorage.setItem('olyak_account', JSON.stringify({email:pendingAuth.email, consent:true})); localStorage.setItem('olyak_session', pendingAuth.email); }catch(e){} }
-  guestMode=false;
-  var onboarded=false; try{ onboarded=!!localStorage.getItem('olyak_onboarded'); }catch(e){}
   var mode = pendingAuth ? pendingAuth.mode : 'login';
+  var email = pendingAuth ? pendingAuth.email : '';
+  var acc=null; try{ acc=JSON.parse(localStorage.getItem('olyak_account')||'null'); }catch(e){}
+  if(mode==='signup'){
+    // 신규 이메일이면 새 계정으로 교체(기기 내 단일 계정 MVP) — 이전 계정의 온보딩 상태를 물려받지 않음
+    if(!(acc && acc.email===email)){ acc={email:email, consent:true, onboarded:false, segment:'', profile:{}}; }
+    try{ localStorage.setItem('olyak_account', JSON.stringify(acc)); localStorage.setItem('olyak_session', email); }catch(e){}
+  } else if(pendingAuth){
+    try{ localStorage.setItem('olyak_session', email); }catch(e){}
+  }
+  guestMode=false;
   pendingAuth=null;
-  if(mode==='signup' && !onboarded){ startSurvey('signup'); } else { enterApp(); go('home'); toast('인증되었습니다.'); }
+  var onboarded=!!(acc && acc.onboarded);
+  if(mode==='signup' && !onboarded){
+    startSurvey('signup');
+  } else {
+    CURRENT_SEG=(acc && acc.segment) || 'b2c';
+    if(CURRENT_SEG==='b2c') loadMedState();
+    renderTabbar();
+    enterApp();
+    go({b2c:'home',b2b:'ward',b2g:'b2g'}[CURRENT_SEG] || 'home');
+    toast('인증되었습니다.');
+  }
 }
 // ── 온보딩/설문 ── 게스트=세그먼트(B2C·B2B·B2G)만 물음(개인정보 저장 안 함), 회원가입=세그먼트+나이·성별·신체특징 상세
 let surveyMode='', userSeg='', detailIdx=0, detailAns={};
@@ -483,10 +636,11 @@ const DETAILQ=[
 function startSurvey(mode){ surveyMode=mode; userSeg=''; detailIdx=0; detailAns={}; document.getElementById('onboardOverlay').style.display='flex'; renderSeg(); }
 function showOnboard(){ startSurvey('guest'); }
 function applySeg(seg){
+  // 게스트·회원가입 모두 CURRENT_SEG를 즉시 반영(세그먼트 상태 leak의 근본 수정)
+  CURRENT_SEG=seg;
   var heroB=document.querySelector('.hero .hero-txt b');
   var map={b2c:'부모님 약,<br>가족이 한 번에', b2b:'여러 어르신 약,<br>한 화면에서 안전하게', b2g:'관내 복약안전,<br>한눈에 모니터링'};
   if(heroB && map[seg]) heroB.innerHTML=map[seg];
-  if(surveyMode==='signup'){ try{ localStorage.setItem('olyak_seg', seg); }catch(e){} }
 }
 function renderSeg(){
   var ob=document.getElementById('obBody');
@@ -507,17 +661,59 @@ function obNext(){ detailNext(); }
 function obFinish(){ finishSurvey(); }
 function finishSurvey(){
   document.getElementById('onboardOverlay').style.display='none';
-  if(surveyMode==='signup'){ try{ var acc=JSON.parse(localStorage.getItem('olyak_account')||'{}'); acc.segment=userSeg; acc.profile=detailAns; localStorage.setItem('olyak_account',JSON.stringify(acc)); localStorage.setItem('olyak_onboarded','1'); }catch(e){} }
-  enterApp(); var landing={b2c:'home',b2b:'ward',b2g:'b2g'}[userSeg]||'home'; go(landing); toast(surveyMode==='guest'?'게스트 모드 · 개인정보를 저장하지 않습니다':'설문 완료 · 시작합니다');
+  if(surveyMode==='signup'){
+    try{
+      var acc=JSON.parse(localStorage.getItem('olyak_account')||'{}');
+      acc.segment=userSeg; acc.profile=detailAns; acc.onboarded=true;   // 세그먼트+온보딩 상태를 계정 객체 안에 폴드(전역 플래그 제거)
+      localStorage.setItem('olyak_account',JSON.stringify(acc));
+    }catch(e){}
+  }
+  CURRENT_SEG=userSeg||'b2c';
+  if(CURRENT_SEG==='b2c') loadMedState();
+  renderTabbar();
+  enterApp();
+  var landing={b2c:'home',b2b:'ward',b2g:'b2g'}[userSeg]||'home'; go(landing);
+  toast(surveyMode==='guest'?'게스트 모드 · 개인정보를 저장하지 않습니다':'설문 완료 · 시작합니다');
 }
-function logout(){ try{ localStorage.removeItem('olyak_session'); }catch(e){} guestMode=false; var o=document.getElementById('loginOverlay'); if(o) o.style.display='flex'; toast('로그아웃되었습니다'); }
+// olyak_ 접두 저장 항목을 전부 제거(세션·세그먼트·온보딩·계정·토큰·역할 등) — 로그아웃 시 상태 leak 차단
+function clearOlyakStorage(){
+  try{
+    var keys=[];
+    for(var i=0;i<localStorage.length;i++){ var k=localStorage.key(i); if(k && k.indexOf('olyak_')===0) keys.push(k); }
+    keys.forEach(function(k){ localStorage.removeItem(k); });
+  }catch(e){}
+}
+function logout(){
+  clearOlyakStorage();
+  guestMode=false;
+  CURRENT_SEG='b2c';
+  picked=[]; endedMeds=[]; medSource={};
+  document.querySelectorAll('.view').forEach(function(v){ v.style.display='none'; });
+  var o=document.getElementById('loginOverlay'); if(o) o.style.display='flex';
+  toast('로그아웃되었습니다');
+}
 function guestEnter(){
   guestMode=true;
-  try{ localStorage.removeItem('olyak_session'); }catch(e){}   // 게스트: 세션·개인정보 저장 안 함
+  clearOlyakStorage();                 // 게스트: 이전 계정의 잔여 상태를 남기지 않음(세션·개인정보 저장 안 함)
+  picked=[]; endedMeds=[]; medSource={};
+  CURRENT_SEG='b2c';
   startSurvey('guest');
 }
-// 이미 로그인한 계정이면 로그인 화면 건너뜀(실제 계정 흐름)
-try{ if(localStorage.getItem('olyak_session')){ enterApp(); var _sg=localStorage.getItem('olyak_seg'); go({b2c:'home',b2b:'ward',b2g:'b2g'}[_sg]||'home'); } }catch(e){}
+// 이미 로그인한 계정이면 로그인 화면 건너뜀(실제 계정 흐름). picked 등 let 선언 이후 실행되도록 하단에서 호출한다.
+function restoreSession(){
+  try{
+    if(localStorage.getItem('olyak_session')){
+      var _acc=null; try{ _acc=JSON.parse(localStorage.getItem('olyak_account')||'null'); }catch(e){}
+      CURRENT_SEG=(_acc && _acc.segment) || 'b2c';
+      if(CURRENT_SEG==='b2c') loadMedState();
+      renderTabbar();
+      enterApp();
+      go({b2c:'home',b2b:'ward',b2g:'b2g'}[CURRENT_SEG] || 'home');
+    } else {
+      renderTabbar();
+    }
+  }catch(e){}
+}
 
 const LEGAL = {
  terms:{ t:'이용약관', h:
@@ -565,7 +761,22 @@ let endedMeds=[];   // 복용을 마친 약(종료). 위험판정에서는 제�
 let medSource={};
 const SRC_CYCLE=['시설','가족','자가'];
 function srcColor(s){ return s==='시설'?'#0E7C86':(s==='가족'?'#3182F6':'#F0522F'); }
-function cycleSource(n){ const cur=medSource[n]||'가족'; medSource[n]=SRC_CYCLE[(SRC_CYCLE.indexOf(cur)+1)%3]; renderMeds(); }
+// B2C 약 입력 상태(picked/medSource/endedMeds) 저장·복원. 게스트는 세션 내에서만 유지(저장 안 함).
+// B2B 화면(입소자 열기)도 내부적으로 같은 picked를 재사용하지만, 그 값은 B2C 개인 약 목록이 아니므로 저장하지 않는다.
+function saveMedState(){
+  if(guestMode || CURRENT_SEG!=='b2c') return;
+  try{ localStorage.setItem('olyak_meds', JSON.stringify({picked:picked, medSource:medSource, endedMeds:endedMeds})); }catch(e){}
+}
+function loadMedState(){
+  try{
+    var raw=localStorage.getItem('olyak_meds'); if(!raw) return;
+    var d=JSON.parse(raw);
+    if(d && Array.isArray(d.picked)) picked=d.picked.filter(function(n){ return !!byName[n]; });
+    if(d && d.medSource && typeof d.medSource==='object') medSource=d.medSource;
+    if(d && Array.isArray(d.endedMeds)) endedMeds=d.endedMeds.filter(function(n){ return !!byName[n]; });
+  }catch(e){}
+}
+function cycleSource(n){ const cur=medSource[n]||'가족'; medSource[n]=SRC_CYCLE[(SRC_CYCLE.indexOf(cur)+1)%3]; renderMeds(); saveMedState(); }
 function endMed(n){ const i=picked.indexOf(n); if(i>=0){ picked.splice(i,1); if(!endedMeds.includes(n)) endedMeds.push(n); } renderMeds(); render(); }
 function restoreMed(n){ const i=endedMeds.indexOf(n); if(i>=0){ endedMeds.splice(i,1); if(!picked.includes(n)) picked.push(n); } renderMeds(); render(); }
 const chipsEl=document.getElementById('chips');
@@ -574,10 +785,11 @@ function render(){
   chipsEl.innerHTML='';
   picked.forEach((n,i)=>{
     const d=byName[n]; const el=document.createElement('div'); el.className='chip';
-    el.innerHTML=`<span class="dotcat" style="background:${CATCOLOR[d.cls]||'#9AA7B0'}"></span><span><b>${n}</b> <span class="cat">${d.cat}</span></span><span class="x" data-i="${i}">×</span>`;
+    el.innerHTML=`<span class="dotcat" style="background:${CATCOLOR[d.cls]||'#9AA7B0'}"></span><span><b>${n}</b> <span class="cat">${d.cat}</span></span><span class="x" data-i="${i}" role="button" tabindex="0" aria-label="${n} 삭제">×</span>`;
     chipsEl.appendChild(el);
   });
   document.querySelectorAll('.chip .x').forEach(x=>x.onclick=()=>{picked.splice(+x.dataset.i,1); render();});
+  saveMedState();
 }
 function addMany(arr,msg){ arr.forEach(n=>{if(byName[n]&&!picked.includes(n)){picked.push(n); if(!medSource[n])medSource[n]='가족';}}); render(); toast(msg); }
 function add(name){ const n=(name||input.value).trim(); if(!n||!byName[n]||picked.includes(n)){input.value=''; return;} picked.push(n); if(!medSource[n])medSource[n]='가족'; input.value=''; render(); }
@@ -790,7 +1002,62 @@ function analyze(){
   return findings.filter(f=>{ const k=f.type+'|'+f.title; if(seen.has(k))return false; seen.add(k); return true; });
 }
 
+// ---- 접근성: 큰글씨 모드 ----
+function toggleA11y(){
+  const s=document.querySelector('.screen'), b=document.getElementById('a11yBtn');
+  const on=s.classList.toggle('a11y');
+  b.classList.toggle('on', on); b.setAttribute('aria-pressed', on?'true':'false');
+  document.getElementById('a11yLbl').textContent = on ? '기본크기' : '큰글씨';
+  try{ localStorage.setItem('olyak_a11y', on?'1':'0'); }catch(e){}
+  toast(on ? '큰글씨 모드를 켰습니다' : '기본 글씨 크기로 돌아왔습니다');
+}
+(function restoreA11y(){
+  try{ if(localStorage.getItem('olyak_a11y')==='1'){
+    const s=document.querySelector('.screen'), b=document.getElementById('a11yBtn');
+    s.classList.add('a11y'); b.classList.add('on'); b.setAttribute('aria-pressed','true');
+    document.getElementById('a11yLbl').textContent='기본크기';
+  }}catch(e){}
+})();
+
+// ---- 분석 시퀀스: 3계층 엔진을 그대로 시각화 ----
+function runAnalysisSequence(done){
+  const ov=document.getElementById('anzOverlay'), bar=document.getElementById('anzBar'),
+        pct=document.getElementById('anzPct'), box=document.getElementById('anzSteps');
+  const nSrc=[...new Set(picked.map(n=>medSource[n]||'가족'))].length;
+  const steps=[
+    {t:'성분코드 정규화',      s:'심평원 약제급여목록표 기준',       c:`${picked.length}종`},
+    {t:'식약처 DUR 대조',      s:'병용금기·연령금기·효능군 중복',    c:`${R.ddi.length}규칙`},
+    {t:'한국형 PIM 2018 판정', s:'노인 부적절약물 목록',            c:`${R.pim.length}항목`},
+    {t:'크로스소스 교차검증',  s:'시설·가족·자가 출처 통합 대조',    c:`${nSrc}개 출처`}
+  ];
+  box.innerHTML=steps.map((s,i)=>`<div class="anz-step" id="anzS${i}">
+     <span class="sic">${svgIcon('check',13)}</span>
+     <span class="stx"><b>${s.t}</b><span>${s.s}</span></span>
+     <span class="scnt">${s.c}</span></div>`).join('');
+  bar.style.strokeDashoffset=201; pct.textContent='0%'; ov.classList.add('show');
+
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const dur = reduce ? 60 : 520;
+  let i=0;
+  (function tick(){
+    if(i>0) document.getElementById('anzS'+(i-1)).className='anz-step done';
+    if(i<steps.length){
+      document.getElementById('anzS'+i).className='anz-step on';
+      const p=Math.round(((i+1)/steps.length)*100);
+      bar.style.strokeDashoffset = 201 - (201*p/100);
+      pct.textContent=p+'%';
+      i++; setTimeout(tick, dur);
+    } else {
+      setTimeout(()=>{ ov.classList.remove('show'); done(); }, reduce?40:300);
+    }
+  })();
+}
+
 document.getElementById('checkBtn').onclick=()=>{
+  runAnalysisSequence(renderAnalysisResult);
+};
+
+function renderAnalysisResult(){
   const f=analyze();
   const hasHigh=f.some(x=>x.sev==='high'); const hasMid=f.some(x=>x.sev==='mid');
   let level=hasHigh?'red':(hasMid?'yellow':'green');
@@ -818,7 +1085,22 @@ document.getElementById('checkBtn').onclick=()=>{
   html+=vsAiCard();
   html+=`<div class="actions"><button class="btn btn-ghost" onclick="shareSummary()">${svgIcon('share',15)} 보호자에게 공유</button><button class="btn btn-ghost" onclick="go('card')">${svgIcon('doc',15)} 진료 요약 카드</button><button class="btn btn-ghost" onclick="openConsultLog()">${svgIcon('list',15)} 약국 상담일지</button></div>`;
   const r=document.getElementById('result'); r.innerHTML=html; r.style.display='block'; r.scrollIntoView({behavior:'smooth'});
-};
+
+  // 진입 모션: 카드 순차 등장
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!reduce){
+    r.querySelectorAll('.light,.scoregrid,.safebar,.infonote,.finding,.actions').forEach((el,i)=>{
+      el.classList.add('stagger'); el.style.animationDelay=(i*52)+'ms';
+    });
+    // 점수 카운트업
+    r.querySelectorAll('.scorecard .snum').forEach(el=>{
+      const target=parseInt(el.textContent,10)||0; if(target===0) return;
+      let cur=0; el.textContent='0';
+      const step=Math.max(1,Math.round(target/12));
+      const iv=setInterval(()=>{ cur=Math.min(target,cur+step); el.textContent=cur; if(cur>=target) clearInterval(iv); }, 34);
+    });
+  }
+}
 
 // ---- 같은 성분 약(동일성분의약품) · 예시 ----
 const SAME={"암로디핀":["노바스크정","아모디핀정","암로핀정"],"아스피린":["아스피린프로텍트정","아스트릭스캡슐"],"오메프라졸":["오엠피정","로섹캡슐"],"심바스타틴":["조코정","심바스트정"],"메트포르민":["글루코파지정","다이아벡스정"],"이부프로펜":["부루펜정","이지엔6애니"]};
@@ -1048,12 +1330,50 @@ function renderCard(){
 }
 
 const _p=new URLSearchParams(location.search), _s=_p.get('state');
-if(_p.get('shot')){ document.body.style.background='#E9EDF1'; document.body.style.padding='70px 60px'; }
+if(_p.get('shot')){
+  document.body.style.background='#E9EDF1'; document.body.style.padding='14px 13px';
+  enterApp();                                   // 캡처 시 로그인 오버레이 건너뜀
+  var _ob=document.getElementById('onboardOverlay'); if(_ob) _ob.style.display='none';
+  var _a11 =document.getElementById('a11yBtn');    if(_a11) _a11.style.display='none';
+}
+if(_p.get('a11y')==='1'){ document.querySelector('.screen').classList.add('a11y'); }
+if(_p.get('anz')==='1'){                        // 분석 시퀀스 정지 컷(자료용)
+  picked=["이부프로펜","나프록센","와파린","졸피뎀","암로디핀"];
+  medSource={"이부프로펜":"시설","나프록센":"가족","와파린":"시설","졸피뎀":"시설","암로디핀":"가족"};
+  render();
+  setTimeout(function(){                         // 티커 없이 3/4 진행 상태로 정지
+    var ov=document.getElementById('anzOverlay');
+    var nSrc=[...new Set(picked.map(n=>medSource[n]||'가족'))].length;
+    var steps=[
+      ['성분코드 정규화','심평원 약제급여목록표 기준',picked.length+'종','done'],
+      ['식약처 DUR 대조','병용금기·연령금기·효능군 중복',R.ddi.length+'규칙','done'],
+      ['한국형 PIM 2018 판정','노인 부적절약물 목록',R.pim.length+'항목','on'],
+      ['크로스소스 교차검증','시설·가족·자가 출처 통합 대조',nSrc+'개 출처','']
+    ];
+    document.getElementById('anzSteps').innerHTML = steps.map(function(s){
+      return '<div class="anz-step '+s[3]+'"><span class="sic">'+svgIcon('check',13)+'</span>'
+           + '<span class="stx"><b>'+s[0]+'</b><span>'+s[1]+'</span></span>'
+           + '<span class="scnt">'+s[2]+'</span></div>';
+    }).join('');
+    var b=document.getElementById('anzBar');
+    b.style.transition='none'; b.style.strokeDashoffset=String(201-(201*0.75));
+    document.getElementById('anzPct').textContent='75%';
+    ov.classList.add('show');
+  }, 60);
+}
 if(_p.get('screen')) go(_p.get('screen'));
 if(_s){
-  picked=(_s==='input')?["와파린","아스피린","졸피뎀"]:["와파린","아스피린","졸피뎀","클로르페니라민","암로디핀"];
+  if(_s==='cross'){   // 크로스소스 중복 시나리오(요양원 사각지대) — 자료용
+    picked=["이부프로펜","나프록센","와파린","졸피뎀","암로디핀"];
+    medSource={"이부프로펜":"시설","나프록센":"가족","와파린":"시설","졸피뎀":"시설","암로디핀":"가족"};
+  } else {
+    picked=(_s==='input')?["와파린","아스피린","졸피뎀"]:["와파린","아스피린","졸피뎀","클로르페니라민","암로디핀"];
+  }
   render();
-  if(_s==='result'){gate.checked=true; checkBtn.disabled=false; checkBtn.click();
+  if(_s==='cross'){ gate.checked=true; checkBtn.disabled=false; renderAnalysisResult();
+    setTimeout(()=>{ if(_p.get('shot')){ [...document.getElementById('view-home').children].forEach(c=>{ if(c.id!=='result') c.style.display='none'; }); document.getElementById('result').style.marginTop='4px'; } var bd=document.querySelector('.body'); if(bd) bd.scrollTop=0; window.scrollTo(0,0); },90); }
+  if(_s==='result'){gate.checked=true; checkBtn.disabled=false;
+    if(_p.get('shot')) renderAnalysisResult(); else checkBtn.click();
     setTimeout(()=>{ if(_p.get('shot')){ [...document.getElementById('view-home').children].forEach(c=>{ if(c.id!=='result') c.style.display='none'; }); document.getElementById('result').style.marginTop='4px'; } var bd=document.querySelector('.body'); if(bd) bd.scrollTop=0; window.scrollTo(0,0); },90);}
   if(_s==='card'){ go('card'); }
   if(_s==='meds'){ go('meds'); }

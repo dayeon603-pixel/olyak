@@ -1,0 +1,6 @@
+# Cloudflare Wrangler 로컬 캐시 (계정 ID 포함 — 커밋 금지)
+.wrangler/
+backend/.wrangler/
+
+# OS
+.DS_Store
