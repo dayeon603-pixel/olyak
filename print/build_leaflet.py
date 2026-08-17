@@ -331,7 +331,7 @@ HTML = f"""<meta charset="utf-8">
       <h3>사용 후기를 들려주세요</h3>
       <p>더 쓰기 편한 올약을 만드는 데<br>큰 도움이 됩니다. 3분이면 됩니다.</p>
       <div class="event">응답해 주신 모든 분께 출시 후 프로 3개월 무료
-        <small>추첨으로 1분께 프로 3년 이용권을 드립니다</small></div>
+        <small>추첨으로 1분께 프로 10개월 이용권을 드립니다</small></div>
     </div>
 
     <div class="notice">
