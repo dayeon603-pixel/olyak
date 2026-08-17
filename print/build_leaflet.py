@@ -64,8 +64,8 @@ HTML = f"""<meta charset="utf-8">
   p {{ margin: 0 0 2.4mm; }}
   .eyebrow {{ font-size: 7.2pt; letter-spacing: .16em; color: {TEAL_MID}; font-weight: 800; margin-bottom: 1.8mm; }}
   .rule {{ height: 1mm; width: 13mm; background: {ACCENT}; border-radius: 1mm; margin: 2.5mm 0 3.5mm; }}
-  h2.ptitle {{ font-size: 15.5pt; line-height: 1.3; color: {TEAL}; }}
-  .body {{ font-size: 9.1pt; }}
+  h2.ptitle {{ font-size: 16.5pt; line-height: 1.3; color: {TEAL}; }}
+  .body {{ font-size: 9.8pt; }}
 
   /* 표지 */
   .cover {{ background: {TEAL}; color: #fff; display: flex; flex-direction: column; position: relative; overflow: visible; }}
@@ -73,6 +73,9 @@ HTML = f"""<meta charset="utf-8">
   .cover::before {{ content: ''; position: absolute; top: -2mm; right: -2mm; bottom: -2mm; left: 0;
                     background: {TEAL}; z-index: 0; }}
   .cover > * {{ position: relative; z-index: 1; }}
+  .covershot {{ margin: 5mm auto 0; width: 44mm; }}
+  .covershot img {{ width: 100%; display: block; border-radius: 3mm;
+                    box-shadow: 0 0 0 0.4mm rgba(255,255,255,.18); }}
   .cover .eyebrow {{ color: #8fc9bf; }}
   .logo {{ font-size: 38pt; font-weight: 900; letter-spacing: -0.04em; line-height: 1; }}
   .logo span {{ color: #ff6b4a; }}
@@ -83,53 +86,53 @@ HTML = f"""<meta charset="utf-8">
 
   .problem {{ background: #fbf1ec; border-left: 1.1mm solid {ACCENT}; padding: 3.6mm 4mm; border-radius: 0 2mm 2mm 0; margin: 3.5mm 0; }}
   .problem h3 {{ font-size: 9.8pt; color: {ACCENT}; margin-bottom: 1.3mm; }}
-  .problem p {{ font-size: 8.6pt; margin: 0; color: #5a3f34; line-height: 1.6; }}
+  .problem p {{ font-size: 9pt; margin: 0; color: #5a3f34; line-height: 1.6; }}
 
-  .feat {{ display: flex; gap: 3mm; padding: 3.9mm 0; border-bottom: 0.25mm solid #e4ebe9; }}
+  .feat {{ display: flex; gap: 3.2mm; padding: 4.9mm 0; border-bottom: 0.25mm solid #e4ebe9; }}
   .feat:last-child {{ border-bottom: 0; }}
-  .ficon {{ flex: 0 0 8.2mm; height: 8.2mm; border-radius: 2mm; background: {TEAL_LIGHT}; color: {TEAL};
+  .ficon {{ flex: 0 0 9mm; height: 9mm; border-radius: 2mm; background: {TEAL_LIGHT}; color: {TEAL};
             font-size: 9.4pt; font-weight: 900; display: flex; align-items: center; justify-content: center; }}
-  .feat h4 {{ font-size: 9.5pt; margin-bottom: 0.7mm; }}
-  .feat p {{ font-size: 8.2pt; color: {MUTED}; margin: 0; line-height: 1.5; }}
+  .feat h4 {{ font-size: 10.2pt; margin-bottom: 0.7mm; }}
+  .feat p {{ font-size: 8.8pt; color: {MUTED}; margin: 0; line-height: 1.5; }}
 
   .lights {{ display: flex; gap: 1.8mm; margin: 3mm 0 1.5mm; }}
-  .light {{ flex: 1; border-radius: 2mm; padding: 3.2mm 1.5mm; text-align: center; font-size: 7.6pt; font-weight: 800; color: #fff; line-height: 1.35; }}
+  .light {{ flex: 1; border-radius: 2mm; padding: 4.2mm 1.5mm; text-align: center; font-size: 8.2pt; font-weight: 800; color: #fff; line-height: 1.35; }}
   .l-red {{ background: #c0392b; }} .l-amber {{ background: #d98613; }} .l-green {{ background: #2b7a55; }}
 
   /* 사용법 */
   ol.steps {{ list-style: none; margin: 0; padding: 0; }}
-  .step {{ display: flex; gap: 2.8mm; padding: 2.6mm 0; border-bottom: 0.25mm solid #e4ebe9; }}
+  .step {{ display: flex; gap: 3mm; padding: 3.4mm 0; border-bottom: 0.25mm solid #e4ebe9; }}
   .step:last-child {{ border-bottom: 0; }}
   .stepnum {{ flex: 0 0 6.4mm; height: 6.4mm; border-radius: 50%; background: {TEAL}; color: #fff;
               font-size: 8pt; font-weight: 900; display: flex; align-items: center; justify-content: center; }}
-  .stepbody h4 {{ font-size: 8.8pt; margin-bottom: 0.8mm; }}
-  .stepbody p {{ font-size: 7.6pt; color: {MUTED}; margin: 0; line-height: 1.5; }}
+  .stepbody h4 {{ font-size: 9.4pt; margin-bottom: 0.8mm; }}
+  .stepbody p {{ font-size: 8.2pt; color: {MUTED}; margin: 0; line-height: 1.5; }}
 
   .shotrow {{ display: flex; gap: 3mm; margin-top: 3.5mm; }}
   .shot {{ margin: 0; flex: 1; }}
   .shot img {{ width: 100%; border: 0.3mm solid #dde5e3; border-radius: 2mm; display: block; }}
   .shot figcaption {{ font-size: 6.8pt; color: {MUTED}; text-align: center; margin-top: 1.2mm; font-weight: 700; }}
-  .shot-single {{ width: 41mm; margin: 3.5mm auto 0; }}
+  .shot-single {{ width: 38mm; margin: 3mm auto 0; }}
 
   /* QR */
-  .qrbox {{ background: {TEAL_LIGHT}; border-radius: 3mm; padding: 4mm; text-align: center; }}
+  .qrbox {{ background: {TEAL_LIGHT}; border-radius: 3mm; padding: 3.6mm; text-align: center; }}
   .qrbox img {{ width: 28mm; height: 28mm; display: block; margin: 0 auto 2.2mm; border-radius: 1.2mm; }}
-  .qrbox h3 {{ font-size: 10pt; color: {TEAL}; margin-bottom: 1mm; }}
-  .qrbox p {{ font-size: 7.5pt; color: {MUTED}; margin: 0; line-height: 1.55; }}
+  .qrbox h3 {{ font-size: 10.6pt; color: {TEAL}; margin-bottom: 1mm; }}
+  .qrbox p {{ font-size: 8pt; color: {MUTED}; margin: 0; line-height: 1.55; }}
   .qrbox .url {{ font-size: 7pt; color: {TEAL_MID}; font-weight: 700; margin-top: 1.4mm; word-break: break-all; }}
   .qr-placeholder {{ width: 31mm; height: 31mm; margin: 0 auto 2.2mm; border: 0.6mm dashed {TEAL_MID};
                      border-radius: 1.2mm; display: flex; align-items: center; justify-content: center;
                      font-size: 7.2pt; color: {TEAL_MID}; font-weight: 800; text-align: center; background: #fff; line-height: 1.45; }}
 
   .notice {{ background: #fff8e6; border: 0.3mm solid #e8d089; border-radius: 2.5mm; padding: 3.2mm; margin-top: 3mm; }}
-  .notice h3 {{ font-size: 9pt; color: #8a6314; margin-bottom: 1.8mm; }}
+  .notice h3 {{ font-size: 9.6pt; color: #8a6314; margin-bottom: 1.8mm; }}
   .notice ul {{ margin: 0; padding-left: 3.6mm; }}
-  .notice li {{ font-size: 6.9pt; color: #6b5316; line-height: 1.45; margin-bottom: 1.1mm; }}
+  .notice li {{ font-size: 7.5pt; color: #6b5316; line-height: 1.45; margin-bottom: 1.1mm; }}
   .notice li:last-child {{ margin-bottom: 0; }}
 
   .foot {{ position: absolute; left: 7.5mm; right: 7.5mm; bottom: 6mm;
            font-size: 6.8pt; color: #8b9a96; border-top: 0.25mm solid #e4ebe9; padding-top: 2mm; }}
-  .contact {{ font-size: 8.2pt; color: {MUTED}; line-height: 1.7; }}
+  .contact {{ font-size: 8.8pt; color: {MUTED}; line-height: 1.7; }}
 
   /* --- 마감 다듬기 --- */
   .eyebrow {{ display: inline-block; padding-bottom: 1.4mm; border-bottom: 0.35mm solid #d3e0dd; }}
@@ -137,14 +140,14 @@ HTML = f"""<meta charset="utf-8">
 
   /* 이용 유형 (B2C/B2B/B2G) */
   .modes {{ margin: 3.5mm 0 0; }}
-  .mode {{ display: flex; gap: 2.8mm; align-items: flex-start; padding: 2.9mm 0; border-bottom: 0.25mm solid #e4ebe9; }}
+  .mode {{ display: flex; gap: 3mm; align-items: flex-start; padding: 3.9mm 0; border-bottom: 0.25mm solid #e4ebe9; }}
   .mode:last-child {{ border-bottom: 0; }}
   .mtag {{ flex: 0 0 12mm; font-size: 6.9pt; font-weight: 900; letter-spacing: .04em; color: #fff;
            background: {TEAL_MID}; border-radius: 1.4mm; padding: 1.1mm 0; text-align: center; margin-top: 0.4mm; }}
   .mtag.on {{ background: {ACCENT}; }}
-  .mode h4 {{ font-size: 9pt; margin-bottom: 0.6mm; }}
-  .mode p {{ font-size: 7.8pt; color: {MUTED}; margin: 0; line-height: 1.5; }}
-  .modenote {{ font-size: 7.4pt; color: {TEAL_MID}; background: {TEAL_LIGHT}; border-radius: 2mm;
+  .mode h4 {{ font-size: 9.8pt; margin-bottom: 0.6mm; }}
+  .mode p {{ font-size: 8.4pt; color: {MUTED}; margin: 0; line-height: 1.5; }}
+  .modenote {{ font-size: 8pt; color: {TEAL_MID}; background: {TEAL_LIGHT}; border-radius: 2mm;
                padding: 2.8mm 3mm; margin-top: 3mm; line-height: 1.55; font-weight: 600; }}
 
   /* 짧은 기능 줄 */
@@ -152,10 +155,10 @@ HTML = f"""<meta charset="utf-8">
   .mini:last-child {{ border-bottom: 0; }}
   .mininum {{ flex: 0 0 5.6mm; height: 5.6mm; border-radius: 50%; background: {TEAL}; color: #fff;
               font-size: 7.2pt; font-weight: 900; display: flex; align-items: center; justify-content: center; }}
-  .mini b {{ font-size: 8.6pt; }}
-  .mini span {{ font-size: 7.6pt; color: {MUTED}; }}
+  .mini b {{ font-size: 9.2pt; }}
+  .mini span {{ font-size: 8.2pt; color: {MUTED}; }}
 
-  .event {{ margin-top: 2.2mm; padding-top: 2mm; border-top: 0.35mm dashed #b9d2cc;
+  .event {{ margin-top: 2.8mm; padding-top: 2.6mm; border-top: 0.35mm dashed #b9d2cc;
             font-size: 7.4pt; color: {TEAL}; font-weight: 700; line-height: 1.5; }}
   .event small {{ display: block; font-weight: 500; color: {MUTED}; font-size: 6.9pt; margin-top: 0.8mm; }}
   .contact b {{ color: {TEAL}; }}
@@ -252,6 +255,7 @@ HTML = f"""<meta charset="utf-8">
     <div class="eyebrow">복약안전 코파일럿</div>
     <div class="logo">올약<span>.</span></div>
     <p class="tag">여러 병원에서 따로 받은<br>부모님 약, 한 번에 등록하면<br>위험한 조합을 자동으로<br>걸러 드립니다.</p>
+    <figure class="covershot"><img src="{IMG['result']}" alt="올약 위험 점검 결과 화면"></figure>
     <p class="sub">식약처 의약품안전사용서비스(DUR) 기준과 한국형 노인 부적절 약물 기준을 바탕으로 판정합니다. 판정은 정해진 규칙으로만 이루어집니다.</p>
     <div class="cover-foot"><b>케어브리지 (CareBridge)</b><br>노인 다약제 복약안전 앱</div>
   </div>
@@ -331,7 +335,6 @@ HTML = f"""<meta charset="utf-8">
       </ul>
     </div>
 
-    <div class="foot" style="position:static;margin-top:3mm">케어브리지 · 올약 · dayeon603@gmail.com</div>
   </div>
 </section>
 """
