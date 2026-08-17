@@ -73,9 +73,14 @@ HTML = f"""<meta charset="utf-8">
   .cover::before {{ content: ''; position: absolute; top: -2mm; right: -2mm; bottom: -2mm; left: 0;
                     background: {TEAL}; z-index: 0; }}
   .cover > * {{ position: relative; z-index: 1; }}
-  .covershot {{ margin: 5mm auto 0; width: 44mm; }}
-  .covershot img {{ width: 100%; display: block; border-radius: 3mm;
-                    box-shadow: 0 0 0 0.4mm rgba(255,255,255,.18); }}
+  .coverlist {{ margin: 8mm 0 0; }}
+  .cl-title {{ font-size: 8pt; font-weight: 800; letter-spacing: .12em; color: #8fc9bf;
+               padding-bottom: 2mm; border-bottom: 0.35mm solid #2f5e58; margin-bottom: 1mm; }}
+  .cl-item {{ display: flex; gap: 3.2mm; align-items: flex-start; padding: 5.4mm 0; border-bottom: 0.25mm solid #275450; }}
+  .cl-item:last-child {{ border-bottom: 0; }}
+  .cl-item > span {{ flex: 0 0 auto; font-size: 8.4pt; font-weight: 900; color: #ff8f6f; margin-top: 0.4mm; }}
+  .cl-item b {{ display: block; font-size: 10pt; color: #f2fbf8; margin-bottom: 1mm; }}
+  .cl-item p {{ font-size: 8.2pt; color: #a9cfc8; margin: 0; line-height: 1.5; }}
   .cover .eyebrow {{ color: #8fc9bf; }}
   .logo {{ font-size: 38pt; font-weight: 900; letter-spacing: -0.04em; line-height: 1; }}
   .logo span {{ color: #ff6b4a; }}
@@ -108,7 +113,7 @@ HTML = f"""<meta charset="utf-8">
   .stepbody h4 {{ font-size: 9.4pt; margin-bottom: 0.8mm; }}
   .stepbody p {{ font-size: 8.2pt; color: {MUTED}; margin: 0; line-height: 1.5; }}
 
-  .shotrow {{ display: flex; gap: 3mm; margin-top: 3.5mm; }}
+  .shotrow {{ display: flex; gap: 3mm; margin-top: 9mm; }}
   .shot {{ margin: 0; flex: 1; }}
   .shot img {{ width: 100%; border: 0.3mm solid #dde5e3; border-radius: 2mm; display: block; }}
   .shot figcaption {{ font-size: 6.8pt; color: {MUTED}; text-align: center; margin-top: 1.2mm; font-weight: 700; }}
@@ -255,7 +260,12 @@ HTML = f"""<meta charset="utf-8">
     <div class="eyebrow">복약안전 코파일럿</div>
     <div class="logo">올약<span>.</span></div>
     <p class="tag">여러 병원에서 따로 받은<br>부모님 약, 한 번에 등록하면<br>위험한 조합을 자동으로<br>걸러 드립니다.</p>
-    <figure class="covershot"><img src="{IMG['result']}" alt="올약 위험 점검 결과 화면"></figure>
+    <div class="coverlist">
+      <div class="cl-title">이런 것을 확인해 드립니다</div>
+      <div class="cl-item"><span>01</span><div><b>함께 먹으면 위험한 조합</b><p>병용금기와 병용주의 기준으로 확인합니다.</p></div></div>
+      <div class="cl-item"><span>02</span><div><b>이름이 달라도 같은 성분</b><p>병원이 달라 생긴 중복을 찾아냅니다.</p></div></div>
+      <div class="cl-item"><span>03</span><div><b>어르신께 주의가 필요한 약</b><p>항콜린 부담, 낙상 위험, 노인주의 항목을 점수로 보여 드립니다.</p></div></div>
+    </div>
     <p class="sub">식약처 의약품안전사용서비스(DUR) 기준과 한국형 노인 부적절 약물 기준을 바탕으로 판정합니다. 판정은 정해진 규칙으로만 이루어집니다.</p>
     <div class="cover-foot"><b>케어브리지 (CareBridge)</b><br>노인 다약제 복약안전 앱</div>
   </div>
