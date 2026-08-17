@@ -623,9 +623,9 @@ async function verifyTwofa(){
 // ── 온보딩/설문 ── 게스트=세그먼트(B2C·B2B·B2G)만 물음(개인정보 저장 안 함), 회원가입=세그먼트+나이·성별·신체특징 상세
 let surveyMode='', userSeg='', detailIdx=0, detailAns={};
 const SEGMENTS=[
-  {k:'b2c', t:'개인·보호자 (B2C)', d:'내 약 또는 부모님 약을 관리해요'},
-  {k:'b2b', t:'요양원·간병인 (B2B)', d:'여러 어르신 투약을 한 화면에서 관리해요'},
-  {k:'b2g', t:'지자체·공단 담당자 (B2G)', d:'관내 시설 복약안전을 모니터링해요'}
+  {k:'b2c', t:'개인·보호자 (B2C)', d:'내 약 또는 부모님 약을 관리해요', p:'월 4,900원'},
+  {k:'b2b', t:'요양원·간병인 (B2B)', d:'여러 어르신 투약을 한 화면에서 관리해요', p:'시설당 월 100,000원'},
+  {k:'b2g', t:'지자체·공단 담당자 (B2G)', d:'관내 시설 복약안전을 모니터링해요', p:'기관 협의'}
 ];
 const DETAILQ=[
   {k:'age',  t:'연세(나이대)가 어떻게 되세요?', opts:['60대 미만','60대','70대','80대 이상']},
@@ -644,7 +644,8 @@ function applySeg(seg){
 }
 function renderSeg(){
   var ob=document.getElementById('obBody');
-  ob.innerHTML='<div style="font-size:20px;font-weight:800;margin-bottom:6px">어떤 유형이신가요?</div><div style="font-size:13px;color:#5b6b73;margin-bottom:18px">유형에 맞는 화면을 보여드려요</div>'+SEGMENTS.map(function(s){return '<div class="rolebtn" data-k="'+s.k+'" style="display:flex;align-items:center;justify-content:space-between;background:#F6F8FA;border-radius:14px;padding:15px 16px;margin-bottom:10px;cursor:pointer;text-align:left"><div><b style="font-size:15px">'+s.t+'</b><div style="font-size:12px;color:#8B95A1;margin-top:3px">'+s.d+'</div></div><span style="color:#C4CCD3;font-size:18px">›</span></div>';}).join('');
+  ob.innerHTML='<div style="font-size:20px;font-weight:800;margin-bottom:6px">어떤 유형이신가요?</div><div style="font-size:13px;color:#5b6b73;margin-bottom:18px">유형에 맞는 화면을 보여드려요</div>'+SEGMENTS.map(function(s){return '<div class="rolebtn" data-k="'+s.k+'" style="display:flex;align-items:center;justify-content:space-between;background:#F6F8FA;border-radius:14px;padding:15px 16px;margin-bottom:10px;cursor:pointer;text-align:left"><div><b style="font-size:15px">'+s.t+'</b><div style="font-size:12px;color:#8B95A1;margin-top:3px">'+s.d+'</div><div style="margin-top:7px"><span style="font-size:12px;font-weight:800;color:#0F6B5F">'+s.p+'</span><span style="font-size:10px;font-weight:700;color:#8B7A2E;background:#FFF4D6;border-radius:5px;padding:2px 6px;margin-left:6px">출시 예정</span></div></div><span style="color:#C4CCD3;font-size:18px;flex:0 0 auto;margin-left:10px">›</span></div>';}).join('')
+    +'<div style="margin-top:2px;font-size:11px;line-height:1.55;color:#8B95A1;background:#F6F8FA;border-radius:10px;padding:10px 12px;text-align:left">지금은 <b style="color:#0F6B5F">모든 기능을 무료로</b> 체험하실 수 있습니다. 위 금액은 <b>출시 예정</b> 가격이며 변경될 수 있고, 현재 결제 기능은 제공하지 않습니다.</div>';
   document.getElementById('obDots').innerHTML='';
   document.getElementById('obBtn').style.display='none';
   ob.querySelectorAll('.rolebtn').forEach(function(b){ b.onclick=function(){ userSeg=b.dataset.k; applySeg(userSeg); if(surveyMode==='guest'){ finishSurvey(); } else { detailIdx=0; renderDetail(); } }; });
