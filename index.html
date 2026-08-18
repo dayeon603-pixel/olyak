@@ -75,6 +75,13 @@
   .chip b{font-weight:700;} .chip .cat{font-size:11px; color:var(--sub);}
   .chip .x{cursor:pointer; color:#B0B8C1; font-weight:700; font-size:18px; line-height:1; margin-left:2px;} .chip .x:hover{color:var(--coral);}
 
+  .condbox{background:#fff; border:none; border-radius:16px; padding:14px 14px 12px; margin-bottom:14px; box-shadow:0 2px 8px rgba(17,24,39,.04);}
+  .condbox .ctit{font-size:14.5px; font-weight:800; color:var(--ink); display:flex; align-items:center; justify-content:space-between; gap:8px;}
+  .condbox .csub{font-size:12px; color:var(--sub); margin:4px 0 10px; line-height:1.55;}
+  .condwrap{display:flex; flex-wrap:wrap; gap:7px;}
+  .condchip{border:1px solid #E3E9EC; background:#F7F9FA; color:#4A5B63; border-radius:999px; padding:7px 11px; font-size:13px; cursor:pointer; user-select:none; transition:.13s;}
+  .condchip.on{background:var(--teal); border-color:var(--teal); color:#fff; font-weight:700;}
+  .condmore{border:none; background:none; color:var(--teal-d); font-size:12.5px; font-weight:700; cursor:pointer; padding:8px 0 0;}
   .gate{background:#fff; border:none; border-radius:16px; padding:16px; margin-bottom:14px; box-shadow:0 2px 8px rgba(17,24,39,.04);}
   .gate .sub{font-size:12.5px; color:var(--sub); margin-bottom:11px;}
   .gate label{font-size:14.5px; display:flex; align-items:center; gap:10px; cursor:pointer; font-weight:500; color:var(--ink);}
@@ -231,6 +238,7 @@
 </style>
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+<script src="pim_data.js"></script>
 <script src="rules.js"></script>
 </head>
 <body>
@@ -352,6 +360,13 @@
       <button class="btn btn-ghost" id="clearBtn" style="flex:1;">전체 지우기</button>
     </div>
 
+    <div class="condbox">
+      <div class="ctit"><span>기저질환 · 병력</span><span id="condCount" style="font-size:12px;color:var(--sub);font-weight:600">선택 안 함</span></div>
+      <div class="csub">치매·낙상 병력처럼 <b>환자 상태를 함께 봐야 판정되는 기준</b>이 있습니다(한국형 PIM 2018 표2, 18개 조건). 해당하는 것만 눌러 주세요. 모르면 비워 두셔도 됩니다.</div>
+      <div class="condwrap" id="condWrap"></div>
+      <button class="condmore" id="condMore" type="button">전체 보기</button>
+    </div>
+
     <div class="gate">
       <div class="sub">정확한 점검을 위해 확인해 주세요.</div>
       <label><input type="checkbox" id="gateChk"> 복용 중인 약을 <b>모두</b> 입력했습니다.</label>
@@ -455,7 +470,8 @@
    </div>
 
    <div class="foot">
-    본 화면은 시연용 데모입니다. 표시 약물·규칙은 예시이며 실제 서비스는 식약처 DUR·낱알식별 정보와 한국형 노인 부적절약물(PIM) 2018을 사용합니다.
+    본 화면은 시연용 데모입니다. 노인 부적절약물 판정은 한국형 PIM 2018(Kim MY et al., Ann Geriatr Med Res 2018;22(3):121-129) <b>표1 63항목 + 표2 18개 조건, 고유 102항목 전체</b>를 반영했습니다.
+    병용·중복 규칙은 임상 표준 항목을 코드화한 시드이며, 실서비스는 식약처 DUR API(성분기준 92만건+)와 낱알식별 정보로 이 층을 교체·확장합니다.
     올약은 정보 제공 도구이며 <b>질병을 진단하거나 약을 바꾸지 않습니다</b>. 모든 결정은 의사·약사와 상의하세요.
     <br><b>한계 고지:</b> 국가 차원의 병용금기 목록조차 모든 위험 조합을 완전히 포함하지는 않습니다. 올약은 <b>알려진 위험</b>을 걸러 참고를 돕는 도구이며, 목록에 없는 위험이 존재할 수 있으므로 최종 판단은 반드시 의사·약사와 함께 하세요.
     <br><b>개인정보 보호:</b> 처방전·약봉투 사진에서 주민등록번호·전화번호 등 개인정보는 기기 안에서 자동으로 가려지며 서버에 저장하지 않습니다. 약 이름·용량만 사용합니다.
@@ -757,6 +773,23 @@ function openLegal(k){ var m=document.getElementById('legalModal'); document.get
 function closeLegal(){ document.getElementById('legalModal').style.display='none'; }
 
 let picked=[];
+// 기저질환·병력(한국형 PIM 2018 표2 조건부 판정용). id는 pim_data.js의 조건 id.
+let conditions=[];
+let condShowAll=false;
+const COND_PRIMARY=['dementia','falls','ulcer','ckd','hf','htn','dm','bph','glaucoma'];  // 요양원 현장 빈도 상위 우선 노출
+function saveCondState(){ if(guestMode || CURRENT_SEG!=='b2c') return; try{ localStorage.setItem('olyak_conds', JSON.stringify(conditions)); }catch(e){} }
+function loadCondState(){ try{ var raw=localStorage.getItem('olyak_conds'); if(!raw) return; var d=JSON.parse(raw); if(Array.isArray(d)) conditions=d.filter(function(id){ return R.conditions.some(function(c){return c.id===id;}); }); }catch(e){} }
+function toggleCond(id){ const i=conditions.indexOf(id); if(i>=0) conditions.splice(i,1); else conditions.push(id); renderConds(); saveCondState(); }
+function renderConds(){
+  const wrap=document.getElementById('condWrap'); if(!wrap) return;
+  const list=condShowAll ? R.conditions : R.conditions.filter(c=>COND_PRIMARY.includes(c.id)||conditions.includes(c.id));
+  wrap.innerHTML=list.map(c=>`<span class="condchip ${conditions.includes(c.id)?'on':''}" data-cid="${c.id}" role="button" tabindex="0">${c.label}</span>`).join('');
+  wrap.querySelectorAll('.condchip').forEach(el=>{ el.onclick=()=>toggleCond(el.dataset.cid); el.onkeydown=e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggleCond(el.dataset.cid); } }; });
+  const cnt=document.getElementById('condCount');
+  if(cnt) cnt.textContent = conditions.length ? conditions.length+'개 선택' : '선택 안 함';
+  const more=document.getElementById('condMore');
+  if(more) more.textContent = condShowAll ? '자주 쓰는 항목만 보기' : `전체 보기 (${R.conditions.length}개 조건)`;
+}
 let endedMeds=[];   // 복용을 마친 약(종료). 위험판정에서는 제외되고 상담일지에는 '종료'로 표기됨.
 // 크로스소스 태깅: 약이 어디서 왔는지(시설 준 약 / 가족 반입약 / 본인 자가복용). 요양원 사각지대 탐지의 핵심.
 let medSource={};
@@ -776,6 +809,7 @@ function loadMedState(){
     if(d && d.medSource && typeof d.medSource==='object') medSource=d.medSource;
     if(d && Array.isArray(d.endedMeds)) endedMeds=d.endedMeds.filter(function(n){ return !!byName[n]; });
   }catch(e){}
+  loadCondState();
 }
 function cycleSource(n){ const cur=medSource[n]||'가족'; medSource[n]=SRC_CYCLE[(SRC_CYCLE.indexOf(cur)+1)%3]; renderMeds(); saveMedState(); }
 function endMed(n){ const i=picked.indexOf(n); if(i>=0){ picked.splice(i,1); if(!endedMeds.includes(n)) endedMeds.push(n); } renderMeds(); render(); }
@@ -954,7 +988,7 @@ function renderPillResult(url, imprint, cands, box, hdr){
   }
 }
 document.getElementById('clearBtn').onclick=()=>{picked=[]; render(); document.getElementById('result').style.display='none';};
-document.getElementById('seedBtn').onclick=()=>{picked=["이부프로펜","나프록센","와파린","졸피뎀","암로디핀"]; medSource={"이부프로펜":"시설","나프록센":"가족","와파린":"시설","졸피뎀":"시설","암로디핀":"가족"}; render(); toast('요양원 크로스소스 예시: 시설 이부프로펜 + 가족 나프록센');};
+document.getElementById('seedBtn').onclick=()=>{picked=["이부프로펜","나프록센","와파린","졸피뎀","암로디핀"]; medSource={"이부프로펜":"시설","나프록센":"가족","와파린":"시설","졸피뎀":"시설","암로디핀":"가족"}; conditions=['dementia','falls']; render(); renderConds(); saveCondState(); toast('요양원 예시: 시설 이부프로펜 + 가족 나프록센 · 치매·낙상 병력');};
 
 const gate=document.getElementById('gateChk'); const checkBtn=document.getElementById('checkBtn');
 gate.onchange=()=>{checkBtn.disabled=!gate.checked;};
@@ -992,11 +1026,24 @@ function analyze(){
     const srcs=[...new Set(arr.map(n=>medSource[n]||'가족'))];
     if(srcs.length>1) findings.push({sev:'high', type:'크로스소스 중복', title:`${arr.join(', ')} — 출처가 다른 같은 계열`, desc:`서로 다른 곳(${srcs.join('·')})에서 받은 같은 계열 약을 함께 복용 중입니다. 시설·가족·본인이 각자 준 약이라, 통합해 보지 않으면 아무도 몰랐던 중복입니다.`, basis:'크로스소스'});
   }});
-  // 4) 한국형 PIM 2018 (노인 부적절)
+  // 4) 한국형 PIM 2018 표1 — 조건 무관 63항목. 성분키 완전일치만 판정한다(계열 추정 금지 = 거짓양성 차단).
   picked.forEach(n=>{
     const d=byName[n];
-    const p=R.pim.find(x=> x.name ? x.name===n : x.cls===d.cls);
-    if(p) findings.push({sev:'mid', type:'어르신 주의약물(PIM)', title:`${n} — ${d.cat}`, desc:`${p.reason}${p.alt?` (대안: ${p.alt})`:''}`, basis:'PIM 2018'});
+    const p=R.pimTable1Hit(d);
+    if(!p) return;
+    const dose = p.dose ? ` 용량 기준 ${p.dose} — 실제 용량은 약봉투로 확인하세요.` : '';
+    findings.push({sev:'mid', type:'어르신 주의약물(PIM)', title:`${n} — ${d.cat}`,
+      desc:`${p.reason}(한국형 PIM 2018 표1).${dose}`, basis:'PIM 2018 표1'});
+  });
+  // 5) 한국형 PIM 2018 표2 — 기저질환·병력이 있어야 성립하는 조건부 18개 조건.
+  //    환자 상태를 입력하지 않으면 아예 판정하지 않는다(추정으로 경고를 만들지 않음).
+  const pickedDrugs = picked.map(n=>byName[n]);
+  R.pimTable2Hits(conditions, pickedDrugs).forEach(h=>{
+    const names=h.drugs.map(d=>d.n).join(', ');
+    findings.push({sev:'mid', type:'조건부 주의(PIM 표2)',
+      title:`${h.cond.label} + ${h.matcher.kr} — ${names}`,
+      desc:`${h.cond.reason}. 이 판정은 '${h.cond.condition}' 상태를 입력했기 때문에 성립합니다(한국형 PIM 2018 표2).${h.matcher.note?` ${h.matcher.note}.`:''}`,
+      basis:'PIM 2018 표2'});
   });
   // 중복 항목 제거(제목+유형)
   const seen=new Set();
@@ -1028,7 +1075,8 @@ function runAnalysisSequence(done){
   const steps=[
     {t:'성분코드 정규화',      s:'심평원 약제급여목록표 기준',       c:`${picked.length}종`},
     {t:'식약처 DUR 대조',      s:'병용금기·연령금기·효능군 중복',    c:`${R.ddi.length}규칙`},
-    {t:'한국형 PIM 2018 판정', s:'노인 부적절약물 목록',            c:`${R.pim.length}항목`},
+    {t:'한국형 PIM 표1 판정',  s:'조건 무관 노인 부적절약물',       c:`${R.coverage.table1}항목`},
+    {t:'한국형 PIM 표2 판정',  s:'기저질환·병력 조건부 매칭',        c:`${conditions.length}/${R.coverage.table2Conditions}조건`},
     {t:'크로스소스 교차검증',  s:'시설·가족·자가 출처 통합 대조',    c:`${nSrc}개 출처`}
   ];
   box.innerHTML=steps.map((s,i)=>`<div class="anz-step" id="anzS${i}">
@@ -1068,14 +1116,17 @@ function renderAnalysisResult(){
     green:{c:'L-green', ic:svgIcon('check',22), big:'양호 — 초록', small:'입력하신 약에서 큰 위험 신호는 없습니다.'}
   }[level];
   const di={red:0,yellow:1,green:2}[level]; const dotc={0:'#E0524D',1:'#E8A100',2:'#2FA866'};
-  const antichol=picked.filter(n=>R.scores.antichol.includes(byName[n].cls)).length;
-  const fallRisk=picked.filter(n=>R.scores.fall.includes(byName[n].cls)).length;
+  const hasKey=(n,keys)=>R.keysOf(byName[n]).some(k=>keys.includes(k));
+  const antichol=picked.filter(n=>hasKey(n,R.scores.antichol)).length;
+  const fallRisk=picked.filter(n=>hasKey(n,R.scores.fall)).length;
   let html=`<div class="dots">${[0,1,2].map(i=>`<div class="d ${i===di?'on':''}" style="background:${i===di?dotc[i]:'#DCE3E7'}"></div>`).join('')}</div>`;
   html+=`<div class="light ${meta.c}"><div class="ic">${meta.ic}</div><div><div class="big">${meta.big}</div><div class="small">${meta.small}</div></div></div>`;
   const pimCount=f.filter(x=>x.type&&x.type.includes('PIM')).length;
   const crossCount=f.filter(x=>x.type&&x.type.includes('크로스소스')).length;
   html+=`<div style="font-weight:800;font-size:14px;color:var(--ink);margin:2px 2px 8px">노인 복약 안전 점수</div>`;
   html+=`<div class="scoregrid"><div class="scorecard"><div class="snum">${antichol}</div><div class="slab">항콜린 부담</div></div><div class="scorecard"><div class="snum">${fallRisk}</div><div class="slab">낙상위험</div></div><div class="scorecard"><div class="snum" style="color:var(--coral)">${pimCount}</div><div class="slab">노인주의(PIM)</div></div></div>`;
+  const condCount=f.filter(x=>x.type&&x.type.includes('표2')).length;
+  if(condCount) html+=`<div class="safebar" style="background:#FFF4E0;color:#8A5A00"><span class="ic">${svgIcon('alert',16)}</span><span><b>기저질환 조건부 판정 ${condCount}건</b> — 입력하신 기저질환·병력(${conditions.length}개)이 있어야만 성립하는 기준입니다(한국형 PIM 2018 표2).</span></div>`;
   if(crossCount) html+=`<div class="safebar" style="background:#FDE7E3;color:#B23A35"><span class="ic">${svgIcon('alert',16)}</span><span><b>크로스소스 중복 ${crossCount}건</b> — 시설·가족·본인이 각자 준 약이 겹칩니다. 소비자 앱·요양원 SW가 못 보는 사각지대입니다.</span></div>`;
   html+=`<div class="infonote">위 점수는 정보 제공이며 진단이 아닙니다. 수치가 높으면 의사·약사와 상의하세요.</div>`;
   if(f.length){
@@ -1171,7 +1222,7 @@ function wardRisk(names, srcMap){
   }
   const byCls={}; names.forEach(n=>{(byCls[clsOf(n)]=byCls[clsOf(n)]||[]).push(n);});
   Object.keys(byCls).forEach(cls=>{ const arr=byCls[cls]; if(arr.length>1){ mid++; const srcs=[...new Set(arr.map(n=>(srcMap[n]||'가족')))]; if(srcs.length>1){ cross++; high++; } }});
-  names.forEach(n=>{ const d=byName[n]; if(R.pim.find(x=>x.name?x.name===n:x.cls===d.cls)) mid++; });
+  names.forEach(n=>{ if(R.pimTable1Hit(byName[n])) mid++; });
   return {level: high?'red':(mid?'yellow':'green'), high, cross, count:names.length};
 }
 function renderWard(){
@@ -1200,10 +1251,10 @@ const MEDICON=OLYAK_RULES.medIcon;
 function renderMeds(){
   const el=document.getElementById('medsBody');
   if(!picked.length && !endedMeds.length){ el.innerHTML='<div class="card" style="text-align:center;color:var(--sub);padding:54px 16px;"><div style="color:var(--sub);margin-bottom:10px">'+svgIcon('pill',32)+'</div>아직 등록된 약이 없습니다.<br>약봉투·알약 사진으로 추가해 보세요.</div>'; return; }
-  const pim=picked.filter(n=>byName[n].pim).length;
+  const pim=picked.filter(n=>R.pimTable1Hit(byName[n])).length;
   let h=`<div class="medsum"><div class="c"><div class="v">${picked.length}</div><div class="l">복용 중인 약</div></div><div class="c"><div class="v" style="color:var(--coral)">${pim}</div><div class="l">주의 약물</div></div><div class="c"><div class="v" style="color:var(--sub)">${endedMeds.length}</div><div class="l">복용 종료</div></div></div>`;
   picked.forEach((n,i)=>{ const d=byName[n]; const hasSame=SAME[n];
-    h+=`<div class="medrow"><div class="mic">${svgIcon('pill',18)}</div><div class="mx"><b>${n}</b><span>${d.cat}</span></div><span class="srcchip" data-src="${n}" title="출처 변경" style="cursor:pointer;font-size:10px;font-weight:800;color:#fff;background:${srcColor(medSource[n]||'가족')};border-radius:6px;padding:3px 7px;margin:0 3px">${medSource[n]||'가족'}</span>${hasSame?`<span class="same" data-s="${i}">같은 성분</span>`:''}${d.pim?'<span class="pill warn">주의</span>':''}<span class="endbtn" data-end="${n}" style="cursor:pointer;font-size:11px;color:var(--teal-d);border:1px solid #bfe0d9;border-radius:6px;padding:2px 7px;margin:0 4px">종료</span><span class="rm" data-i="${i}">×</span></div>`;
+    h+=`<div class="medrow"><div class="mic">${svgIcon('pill',18)}</div><div class="mx"><b>${n}</b><span>${d.cat}</span></div><span class="srcchip" data-src="${n}" title="출처 변경" style="cursor:pointer;font-size:10px;font-weight:800;color:#fff;background:${srcColor(medSource[n]||'가족')};border-radius:6px;padding:3px 7px;margin:0 3px">${medSource[n]||'가족'}</span>${hasSame?`<span class="same" data-s="${i}">같은 성분</span>`:''}${R.pimTable1Hit(d)?'<span class="pill warn">주의</span>':''}<span class="endbtn" data-end="${n}" style="cursor:pointer;font-size:11px;color:var(--teal-d);border:1px solid #bfe0d9;border-radius:6px;padding:2px 7px;margin:0 4px">종료</span><span class="rm" data-i="${i}">×</span></div>`;
     if(hasSame){ h+=`<div class="samebox" id="same${i}" style="display:none"><b>${n}과 같은 성분 약</b><div class="sl">${SAME[n].join(' · ')}</div><div class="sn">성분은 같지만 제품·함량이 다를 수 있어요. 바꾸는 결정은 의사·약사와 상의하세요.</div></div>`; }
   });
   if(picked.length) h+=`<div class="sched"><div class="sh">⏰ 오늘 복약 시간</div><div class="ss"><div class="t">아침<b>3종</b></div><div class="t">점심<b>2종</b></div><div class="t">저녁<b>3종</b></div></div></div>`;
@@ -1254,11 +1305,18 @@ function openConsultLog(){
   const w=window.open('','_blank'); if(!w){ toast('팝업이 차단되었습니다. 허용 후 다시 시도하세요.'); return; }
   w.document.write(html); w.document.close();
 }
-function pimAltFor(n){ const p=R.pim.find(x=>x.name?x.name===n:x.cls===byName[n].cls); return (p&&p.alt)?p.alt:null; }
+// 대안 제시는 계열 단위로만(논문은 대안을 명시하지 않으므로 임상 통용 대안을 별도 표로 둔다)
+const PIM_ALT={ nsaid:'아세트아미노펜 우선, 필요 시 최단기간', sedative:'비약물 수면요법 우선, 필요 시 단기·최소용량',
+  zdrug:'수면위생 개선 우선', anticholinergic:'2세대 항히스타민 등 항콜린 부담 적은 약',
+  musclerelax:'물리치료·비약물 요법 우선', su:'단기작용 SU 또는 DPP-4 억제제 등',
+  digoxin:'저용량 유지 및 농도 모니터링', antipsy:'비약물 행동중재 우선, 최소용량·최단기간',
+  alpha1:'기립저혈압 위험 낮은 계열 검토', h2ra:'PPI 등 대체 검토', antipark:'항콜린 부담 낮은 파킨슨약 검토' };
+function pimAltFor(n){ const d=byName[n]; if(!R.pimTable1Hit(d)) return null; return PIM_ALT[d.cls]||null; }
 // 판정 근거를 공식 출처 원문으로 풀어서 표기(환각 반박: 우리는 근거가 고정돼 있다)
 function basisFull(f){
   const t=f.type||'';
-  if(t.includes('PIM')) return '한국형 노인 부적절약물(PIM) 2018 · Kim et al. (약학회지)';
+  if(t.includes('표2')) return '한국형 노인 부적절약물(PIM) 2018 표2 — 기저질환·병력 조건부 18개 조건 · Kim MY et al., Ann Geriatr Med Res 2018;22(3):121-129';
+  if(t.includes('PIM')) return '한국형 노인 부적절약물(PIM) 2018 표1 — 조건 무관 63항목 · Kim MY et al., Ann Geriatr Med Res 2018;22(3):121-129';
   if(t.includes('삼중')) return '노인 삼중요법 급성신손상 주의(NSAID+RAS차단제+이뇨제)';
   if(t.includes('크로스소스')) return '올약 크로스소스 통합 점검(시설약+가족반입약+자가복용) — 소비자앱·요양원SW 미탐지';
   if(t.includes('중복')) return '효능군 중복(동일 계열 중복 처방)';
@@ -1348,7 +1406,8 @@ if(_p.get('anz')==='1'){                        // 분석 시퀀스 정지 컷(�
     var steps=[
       ['성분코드 정규화','심평원 약제급여목록표 기준',picked.length+'종','done'],
       ['식약처 DUR 대조','병용금기·연령금기·효능군 중복',R.ddi.length+'규칙','done'],
-      ['한국형 PIM 2018 판정','노인 부적절약물 목록',R.pim.length+'항목','on'],
+      ['한국형 PIM 표1 판정','조건 무관 노인 부적절약물',R.coverage.table1+'항목','done'],
+      ['한국형 PIM 표2 판정','기저질환·병력 조건부 매칭',conditions.length+'/'+R.coverage.table2Conditions+'조건','on'],
       ['크로스소스 교차검증','시설·가족·자가 출처 통합 대조',nSrc+'개 출처','']
     ];
     document.getElementById('anzSteps').innerHTML = steps.map(function(s){
@@ -1367,6 +1426,7 @@ if(_s){
   if(_s==='cross'){   // 크로스소스 중복 시나리오(요양원 사각지대) — 자료용
     picked=["이부프로펜","나프록센","와파린","졸피뎀","암로디핀"];
     medSource={"이부프로펜":"시설","나프록센":"가족","와파린":"시설","졸피뎀":"시설","암로디핀":"가족"};
+    conditions=['dementia','falls'];
   } else {
     picked=(_s==='input')?["와파린","아스피린","졸피뎀"]:["와파린","아스피린","졸피뎀","클로르페니라민","암로디핀"];
   }
@@ -1380,6 +1440,9 @@ if(_s){
   if(_s==='meds'){ go('meds'); }
   if(_s==='pharm'){ go('pharm'); }
 }
+if(_p.get('cond')) conditions=_p.get('cond').split(',').filter(id=>R.conditions.some(c=>c.id===id));
+document.getElementById('condMore').onclick=()=>{ condShowAll=!condShowAll; renderConds(); };
+renderConds();
 render();
 </script>
 </body>
