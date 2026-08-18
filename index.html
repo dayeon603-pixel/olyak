@@ -347,7 +347,7 @@
     <div class="or">또는 직접 검색</div>
 
     <div class="row">
-      <input type="text" id="drugInput" list="druglist" placeholder="약 이름 검색 (예: 와파린)">
+      <input type="text" id="drugInput" list="druglist" placeholder="약 이름 검색 (예: 노바스크, 와파린)">
       <button class="btn btn-add" id="addBtn">추가</button>
     </div>
     <datalist id="druglist"></datalist>
@@ -491,7 +491,8 @@ const DRUGS = OLYAK_RULES.drugs;      // 룰셋은 rules.js로 분리(식약처 
 const CATCOLOR = OLYAK_RULES.catColor;
 const byName = Object.fromEntries(DRUGS.map(d=>[d.n,d]));
 const dl=document.getElementById('druglist');
-DRUGS.forEach(d=>{const o=document.createElement('option'); o.value=d.n; o.label=d.cat; dl.appendChild(o);});
+// 성분명과 제품명(브랜드)을 함께 넣는다. 어르신·보호자는 '노바스크'로 기억하지 '암로디핀'으로 기억하지 않는다.
+OLYAK_RULES.searchIndex().forEach(r=>{const o=document.createElement('option'); o.value=r.label; o.label=(r.kind==='제품'?'제품명 · '+r.hint:r.hint); dl.appendChild(o);});
 
 // 라인 아이콘(이모지 대체). currentColor 사용.
 function svgIcon(n, s){ s=s||18; const P={
@@ -827,20 +828,27 @@ function render(){
   saveMedState();
 }
 function addMany(arr,msg){ arr.forEach(n=>{if(byName[n]&&!picked.includes(n)){picked.push(n); if(!medSource[n])medSource[n]='가족';}}); render(); toast(msg); }
-function add(name){ const n=(name||input.value).trim(); if(!n||!byName[n]||picked.includes(n)){input.value=''; return;} picked.push(n); if(!medSource[n])medSource[n]='가족'; input.value=''; render(); }
+function add(name){
+  const q=(name||input.value).trim(); if(!q){ input.value=''; return; }
+  if(byName[q]){ if(!picked.includes(q)){ picked.push(q); if(!medSource[q])medSource[q]='가족'; } input.value=''; render(); return; }
+  // 제품명·영문명으로 검색한 경우 성분으로 바꿔 등록하고, 무엇으로 해석했는지 알려 준다.
+  const hits=OLYAK_RULES.resolveQuery(q);
+  if(!hits.length){ toast('"'+q+'"은(는) 아직 등록되지 않은 약이에요. 성분명이나 다른 제품명으로 검색해 보세요.'); input.value=''; return; }
+  const added=[];
+  hits.forEach(h=>{ if(byName[h.name]&&!picked.includes(h.name)){ picked.push(h.name); if(!medSource[h.name])medSource[h.name]='가족'; added.push(h.name); } });
+  input.value=''; render();
+  if(added.length) toast(q+' → '+added.join(', ')+' 성분으로 등록했어요');
+  else toast('이미 등록된 약이에요');
+}
 let _tt; function toast(m){ const t=document.getElementById('toast'); t.textContent=m; t.classList.add('show'); clearTimeout(_tt); _tt=setTimeout(()=>t.classList.remove('show'),2200); }
 
 document.getElementById('addBtn').onclick=()=>add();
 input.addEventListener('keydown',e=>{if(e.key==='Enter')add();});
 // ---- 사진 인식 (실제 OCR) ----
 const ALIAS=OLYAK_RULES.alias;      // 성분/영문명 → 한글 약품 매핑(rules.js)
-function matchDrugs(text){
-  const raw=(text||''); const norm=raw.replace(/\s/g,''); const low=raw.toLowerCase();
-  const found=new Set();
-  DRUGS.forEach(d=>{ if(norm.includes(d.n)) found.add(d.n); });           // 한글 약품명
-  Object.entries(ALIAS).forEach(([en,kn])=>{ if(low.includes(en)) found.add(kn); }); // 영문명
-  return [...found];
-}
+// 약봉투에는 성분명이 아니라 제품명이 찍힌다. rules.js의 제품명 사전으로 성분까지 해석한다.
+// 반환값은 [{name, via}] 이며 via(=근거)를 화면에 함께 보여 준 뒤 사람이 확인해 등록한다.
+function matchDrugs(text){ return OLYAK_RULES.matchText(text); }
 // ---- 개인정보(주민번호·전화·이름) 마스킹: 화면 표시·저장 전 제거 ----
 function maskPII(s){
   return (s||'')
@@ -914,10 +922,10 @@ async function runOCR(file,kind){
     const priv=`<div class="osub" style="color:var(--teal-d);font-weight:600">주민번호·전화번호를 사진에서 자동으로 가리고${mres&&mres.masked?` (${mres.masked}곳)`:''} 저장하지 않아요</div>`;
     if(matched.length){
       // 오인식 방지: 자동 추가하지 않고 후보로 보여준 뒤 확인해서 추가
-      box.innerHTML=`<img src="${imgSrc}"><div class="ost"><b style="color:var(--teal-d)">✓ ${matched.length}개 약 후보를 찾았어요</b><div class="osub">맞는 약만 눌러 추가하세요 (오인식 방지)</div><div class="ocrcand">${matched.map(n=>`<button class="candbtn" data-n="${n}">＋ ${n}</button>`).join('')}</div><button class="btn btn-ghost candall">인식된 약 모두 추가</button><div class="osub" style="color:#aab4bc;margin-top:6px">읽은 글자: ${snip}…</div>${priv}</div>`;
+      box.innerHTML=`<img src="${imgSrc}"><div class="ost"><b style="color:var(--teal-d)">✓ ${matched.length}개 약 후보를 찾았어요</b><div class="osub">맞는 약만 눌러 추가하세요 (오인식 방지)</div><div class="ocrcand">${matched.map(m=>`<button class="candbtn" data-n="${m.name}">＋ ${m.name}${m.via&&m.via!=='성분명'?` <span style="opacity:.7;font-weight:600">· ${m.via}</span>`:''}</button>`).join('')}</div><button class="btn btn-ghost candall">인식된 약 모두 추가</button><div class="osub" style="color:#aab4bc;margin-top:6px">읽은 글자: ${snip}…</div>${priv}</div>`;
       const commit=n=>{ if(byName[n]&&!picked.includes(n)){ picked.push(n); render(); } };
       box.querySelectorAll('.candbtn').forEach(b=>b.onclick=()=>{ commit(b.dataset.n); b.disabled=true; b.textContent='✓ '+b.dataset.n; });
-      box.querySelector('.candall').onclick=()=>{ matched.forEach(commit); box.querySelectorAll('.candbtn').forEach(b=>{b.disabled=true; b.textContent='✓ '+b.dataset.n;}); toast('인식된 약을 추가했어요'); };
+      box.querySelector('.candall').onclick=()=>{ matched.forEach(m=>commit(m.name)); box.querySelectorAll('.candbtn').forEach(b=>{b.disabled=true; b.textContent='✓ '+b.dataset.n;}); toast('인식된 약을 추가했어요'); };
     } else {
       box.innerHTML=`<img src="${imgSrc}"><div class="ost"><b>인식된 약을 찾지 못했어요</b><div class="osub">읽은 글자: ${snip||'(글자 인식 실패)'}</div><div class="osub">사진을 더 또렷하게 찍거나, 아래에서 직접 검색해 주세요.</div>${priv}</div>`;
     }
@@ -944,7 +952,9 @@ async function runPillId(file){
     }catch(e){}
   }
   const cands=OLYAK_RULES.findPillCandidates({imprint});
-  renderPillResult(url, imprint, cands, box, cands.length? `각인 "${imprint||'?'}" 기준 ${cands.length}개 후보` : '각인을 못 읽었어요');
+  renderPillResult(url, imprint, cands, box,
+    cands.length ? `각인 "${imprint}" 기준 ${cands.length}개 후보`
+                 : (imprint ? `각인 "${imprint}"에 맞는 알약을 못 찾았어요` : '각인을 못 읽었어요'), 'imprint');
 }
 function pillCard(p){
   return `<div class="pcand"><div class="pv" style="${pillVisual(p)}"></div>`+
@@ -952,17 +962,23 @@ function pillCard(p){
     `<div class="pbasis">${(p.basis||[]).map(b=>`<span>${b}</span>`).join('')}</div></div>`+
     `<button class="pconfirm" data-drug="${p.drug}" data-prod="${p.product}">이 약</button></div>`;
 }
-function renderPillResult(url, imprint, cands, box, hdr){
+// mode: 'imprint'(각인 인식 직후) | 'filter'(모양·색으로 좁힌 결과)
+function renderPillResult(url, imprint, cands, box, hdr, mode){
+  mode = mode || 'imprint';
   let h=`<div class="ost" style="width:100%"><div style="display:flex;gap:10px;align-items:center;margin-bottom:8px"><img src="${url}"><div class="pillhdr">${hdr}<div class="osub" style="font-weight:400">실물과 대조해 <b>맞는 약만</b> 확인하세요. 자동으로 확정하지 않습니다.</div></div></div>`;
   if(cands.length){
     h+=cands.map(pillCard).join('');
     h+=`<div class="pcbtnrow"><button class="btn btn-ghost" id="pillNone">일치하는 약이 없어요</button></div>`;
+  } else if(mode==='filter'){
+    // 모양·색으로 좁혔는데도 후보가 없는 경우: 같은 화면을 반복해 보여 주지 않고 확실한 경로로 넘긴다.
+    h+=`<div class="osub"><b>이 조건에 맞는 알약이 낱알 DB에 없습니다.</b><br>현재 데모 낱알 DB는 ${OLYAK_RULES.pills.length}종입니다. 실서비스는 식약처 「의약품 낱알식별 정보」 공공DB 전체를 동기화합니다.</div>`;
+    h+=`<div class="pcbtnrow"><button class="btn btn-add" id="pillToBag">약봉투 사진으로 등록</button><button class="btn btn-ghost" id="pillRetry">조건 다시 고르기</button></div>`;
   } else {
     // 각인 실패 → 모양·색으로 후보 좁히기
     h+=`<div class="osub">각인이 안 읽혔어요. 모양과 색을 골라 후보를 찾으세요.</div>`;
     h+=`<div class="selrow" id="shapeSel">${['원형','타원형','장방형','캡슐'].map(s=>`<span class="selchip" data-shape="${s}">${s}</span>`).join('')}</div>`;
     h+=`<div class="selrow" id="colorSel">${['흰색','노랑','분홍','주황','녹색'].map(c=>`<span class="selchip" data-color="${c}">${c}</span>`).join('')}</div>`;
-    h+=`<div class="pcbtnrow"><button class="btn btn-ghost" id="pillNone">약봉투로 등록</button></div>`;
+    h+=`<div class="pcbtnrow"><button class="btn btn-add" id="pillToBag">약봉투 사진이 더 정확해요</button></div>`;
   }
   h+=`<div class="pillnote">알약 사진 인식은 <b>참고용</b>입니다. 외형이 같은 약(제네릭)이 여럿일 수 있어 자동 확정하지 않으며, 최종 확인은 <b>보호자·약사·약봉투</b>로 하세요. <a href="#" id="pillReport" style="color:var(--teal-d);font-weight:700">결과가 이상해요? 신고</a></div></div>`;
   box.innerHTML=h;
@@ -976,13 +992,19 @@ function renderPillResult(url, imprint, cands, box, hdr){
     toast(`확정: ${b.dataset.prod}`);
   });
   const none=document.getElementById('pillNone');
-  if(none) none.onclick=()=>{ box.innerHTML=`<div class="ost" style="width:100%"><b>알겠어요.</b><div class="osub">더 안전한 방법으로 등록하세요: <b>약봉투 사진</b> 또는 <b>아래 검색</b>. 약봉투에는 약 이름이 그대로 적혀 있어 정확합니다.</div></div>`; };
+  if(none) none.onclick=()=>{ box.innerHTML=`<div class="ost" style="width:100%"><b>알겠어요.</b><div class="osub">더 안전한 방법으로 등록하세요: <b>약봉투 사진</b> 또는 <b>아래 검색</b>. 약봉투에는 약 이름이 그대로 적혀 있어 정확합니다.</div><div class="pcbtnrow"><button class="btn btn-add" id="pillToBag2">약봉투 사진 찍기</button></div></div>`;
+    const b2=document.getElementById('pillToBag2'); if(b2) b2.onclick=()=>openFile('fileBag'); };
+  // 약봉투 경로로 바로 넘기기(신뢰 축). 텍스트 안내로 끝내지 않고 카메라를 연다.
+  const toBag=document.getElementById('pillToBag');
+  if(toBag) toBag.onclick=()=>openFile('fileBag');
+  const retry=document.getElementById('pillRetry');
+  if(retry) retry.onclick=()=>renderPillResult(url, imprint, [], box, '모양과 색을 다시 골라 주세요', 'imprint');
   // 모양·색 선택 → 재검색
   const shapeSel=document.getElementById('shapeSel'), colorSel=document.getElementById('colorSel');
   if(shapeSel){
     let sel={shape:null,color:null};
     const pick=(grp,key,val,el)=>{ grp.querySelectorAll('.selchip').forEach(c=>c.classList.remove('on')); el.classList.add('on'); sel[key]=val;
-      if(sel.shape&&sel.color){ const c=OLYAK_RULES.findPillCandidates(sel); renderPillResult(url,'',c,box, c.length?`${sel.shape}·${sel.color} ${c.length}개 후보`:'해당 후보 없음'); } };
+      if(sel.shape&&sel.color){ const c=OLYAK_RULES.findPillCandidates(sel); renderPillResult(url,'',c,box, c.length?`${sel.shape}·${sel.color} ${c.length}개 후보`:`${sel.shape}·${sel.color} 후보 없음`, 'filter'); } };
     shapeSel.querySelectorAll('.selchip').forEach(c=>c.onclick=()=>pick(shapeSel,'shape',c.dataset.shape,c));
     colorSel.querySelectorAll('.selchip').forEach(c=>c.onclick=()=>pick(colorSel,'color',c.dataset.color,c));
   }
@@ -1272,8 +1294,8 @@ function renderMeds(){
 function openConsultLog(){
   const f=analyze();
   const dt=new Date(); const ds=`${dt.getFullYear()}.${String(dt.getMonth()+1).padStart(2,'0')}.${String(dt.getDate()).padStart(2,'0')}`;
-  const antichol=picked.filter(n=>R.scores.antichol.includes(byName[n].cls)).length;
-  const fallRisk=picked.filter(n=>R.scores.fall.includes(byName[n].cls)).length;
+  const antichol=picked.filter(n=>R.keysOf(byName[n]).some(k=>R.scores.antichol.includes(k))).length;
+  const fallRisk=picked.filter(n=>R.keysOf(byName[n]).some(k=>R.scores.fall.includes(k))).length;
   const hi=f.filter(x=>x.sev==='high').length, mid=f.filter(x=>x.sev==='mid').length;
   const rows=picked.map(n=>`<tr><td>${n}</td><td>${byName[n].cat}</td><td>복용중</td></tr>`).join('')
     +endedMeds.map(n=>`<tr class="e"><td>${n}</td><td>${byName[n].cat}</td><td>종료</td></tr>`).join('');
@@ -1345,8 +1367,8 @@ function buildSummaryText(){
   }
   const f=analyze();
   const hi=f.filter(x=>x.sev==='high').length, mid=f.filter(x=>x.sev==='mid').length;
-  const antichol=picked.filter(n=>R.scores.antichol.includes(byName[n].cls)).length;
-  const fallRisk=picked.filter(n=>R.scores.fall.includes(byName[n].cls)).length;
+  const antichol=picked.filter(n=>R.keysOf(byName[n]).some(k=>R.scores.antichol.includes(k))).length;
+  const fallRisk=picked.filter(n=>R.keysOf(byName[n]).some(k=>R.scores.fall.includes(k))).length;
   let t=`[올약 복약 요약 ${ds}] · 보호자용`;
   t+=`\n\n■ 현재 복용 약 (${picked.length}종)\n`+picked.map(n=>`  · ${n} (${byName[n].cat})`).join('\n');
   t+=`\n\n■ 위험 신호 — 빨강 ${hi}건 · 노랑 ${mid}건`;
@@ -1372,8 +1394,9 @@ async function shareSummary(){
 function renderCard(){
   const f=analyze(); const hi=f.filter(x=>x.sev==='high'), mid=f.filter(x=>x.sev==='mid');
   const dt=new Date(); const ds=`${dt.getFullYear()}.${String(dt.getMonth()+1).padStart(2,'0')}.${String(dt.getDate()).padStart(2,'0')}`;
-  const antichol=picked.filter(n=>R.scores.antichol.includes(byName[n].cls)).length;
-  const fallRisk=picked.filter(n=>R.scores.fall.includes(byName[n].cls)).length;
+  const keyHit=(n,keys)=>R.keysOf(byName[n]).some(k=>keys.includes(k));
+  const antichol=picked.filter(n=>keyHit(n,R.scores.antichol)).length;
+  const fallRisk=picked.filter(n=>keyHit(n,R.scores.fall)).length;
   let h=`<div class="pcard"><div class="pc-h"><b>올약 복약 요약</b><span>${ds}</span></div>`;
   h+=`<div class="pc-sec">현재 복용 약 (${picked.length})</div>`;
   h+= picked.length? picked.map(n=>`<div class="pc-li">• ${n} <span style="color:var(--sub);font-size:12px;">${byName[n].cat}</span></div>`).join('') : '<div class="fdesc">등록된 약 없음</div>';

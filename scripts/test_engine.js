@@ -235,6 +235,53 @@ check('없는 각인 → 후보 0(폴백)', R.findPillCandidates({ imprint: 'ZZZ
 check('후보는 최대 5개', R.findPillCandidates({ shape: '원형' }).length <= 5);
 check('후보 약물명이 마스터에 존재', R.findPillCandidates({ imprint: '5' }).every(p => !!byName[p.drug]));
 
+// ══ 11. 실사용 입력 경로 (제품명 · 약봉투 OCR · 검색) ═══════════════════
+section('11. 제품명·OCR 입력 해석');
+const q = (t) => R.resolveQuery(t).map(x => x.name);
+check('제품명 검색: 노바스크 → 암로디핀', q('노바스크').join() === '암로디핀');
+check('제품명 검색: 리피토 → 아토르바스타틴', q('리피토').join() === '아토르바스타틴');
+check('제품명 검색: 스틸녹스 → 졸피뎀', q('스틸녹스').join() === '졸피뎀');
+check('제품명 검색: 아리셉트 → 도네페질', q('아리셉트').join() === '도네페질');
+check('복합제: 아모잘탄 → 암로디핀+로사르탄', q('아모잘탄').sort().join() === ['암로디핀','로사르탄'].sort().join());
+check('복합제: 울트라셋 → 트라마돌+아세트아미노펜', q('울트라셋').sort().join() === ['트라마돌','아세트아미노펜'].sort().join());
+check('성분명 검색은 그대로', q('와파린').join() === '와파린');
+check('영문 성분명 검색: warfarin', q('warfarin').join() === '와파린');
+check('없는 약은 빈 결과', q('없는약이름입니다').length === 0);
+check('제품명 사전 전 항목이 약물 마스터로 해석됨',
+  Object.values(R.products).every(arr => arr.every(n => !!byName[n])));
+check('제품명 키는 2자 이상(오탐 방지)', Object.keys(R.products).every(k => k.length >= 2));
+check('제품명 사전 규모 100종 이상', Object.keys(R.products).length >= 100);
+check('검색 자동완성에 성분명+제품명 모두 포함',
+  R.searchIndex().length === R.drugs.length + Object.keys(R.products).length);
+const BAG = 'OO약국 홍길동 790101-1234567 노바스크정 5mg 1일1회 타이레놀8시간이알서방정 650mg 스틸녹스정 10mg 취침전';
+const bagHit = R.matchText(BAG).map(x => x.name);
+check('약봉투 OCR 시뮬: 제품명 3종 모두 성분으로 해석', ['암로디핀','아세트아미노펜','졸피뎀'].every(n => bagHit.includes(n)));
+check('약봉투 OCR 결과에 판정 근거(via) 표기', R.matchText(BAG).every(x => !!x.via));
+check('성분명이 찍힌 약봉투도 인식', R.matchText('와파린나트륨정 5mg 이부프로펜정 200mg').map(x=>x.name).includes('와파린'));
+check('표기 흔들림 보정: 아세타미노펜 → 아세트아미노펜', R.matchText('아세타미노펜정 500mg').map(x=>x.name).includes('아세트아미노펜'));
+check('OCR 결과가 실제 판정으로 이어짐(노바스크+타이레놀 = 초록)',
+  signal(analyze(bagHit.filter(n => n !== '졸피뎀'))) === 'green');
+check('약봉투 스틸녹스 인식분은 PIM 판정으로 이어짐', hasType(analyze(['졸피뎀']), 'PIM'));
+
+// ══ 12. 실사용 약물 보강 후 거짓양성 재검증 ════════════════════════════
+section('12. 보강 약물 거짓양성 재검증');
+check('아세클로페낙 마스터 등재', !!byName['아세클로페낙']);
+check('멜록시캄 마스터 등재', !!byName['멜록시캄']);
+check('와파린+아세클로페낙 = 빨강(NSAID 규칙 참여)', signal(analyze(['와파린','아세클로페낙'])) === 'red');
+check('아세클로페낙은 PIM 표1 미등재 → 노인주의 아님', !hasType(analyze(['아세클로페낙']), 'PIM'));
+check('멜록시캄은 PIM 표1 미등재 → 노인주의 아님', !hasType(analyze(['멜록시캄']), 'PIM'));
+check('탐스로신은 요로선택적이라 낙상 조건의 말초 알파-1 차단제에 안 걸림',
+  countType(analyze(['탐스로신'], ['falls']), '표2') === 0);
+check('독사조신은 낙상 조건의 말초 알파-1 차단제로 걸림',
+  countType(analyze(['독사조신'], ['falls']), '표2') >= 1);
+check('2세대 항히스타민(세티리진)은 항콜린 아님 → PIM 아님', !hasType(analyze(['세티리진']), 'PIM'));
+check('2세대 항히스타민은 치매 조건 항콜린제에 안 걸림',
+  countType(analyze(['세티리진'], ['dementia']), '표2') === 0);
+check('1세대 항히스타민(클로르페니라민)은 치매 조건에 걸림',
+  countType(analyze(['클로르페니라민'], ['dementia']), '표2') >= 1);
+check('DPP-4·SGLT-2 당뇨약은 설폰요소제 중복에 안 걸림', !hasType(analyze(['시타글립틴','리나글립틴']), '중복'));
+check('보강 약물 전부 색·아이콘 매핑 존재', R.drugs.every(d => R.catColor[d.cls] && R.medIcon[d.cls]));
+
 // ── 결과 ──
 console.log(`\n엔진 테스트: ${pass} 통과 / ${fail} 실패 (총 ${pass + fail}건)`);
 if (fail) console.log('실패 목록:\n - ' + failed.join('\n - '));

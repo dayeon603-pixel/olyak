@@ -70,6 +70,26 @@ window.OLYAK_RULES = (function () {
     { n: "시스플라틴",    ing: "cisplatin",       cls: "onco",            cat: "항암제" },
     { n: "시클로포스파미드", ing: "cyclophosphamide", cls: "onco",        cat: "항암제" },
     { n: "빈크리스틴",    ing: "vincristine",     cls: "onco",            cat: "항암제" },
+    // 국내 노인 다빈도 처방약 (검색·OCR 실사용 커버리지). PIM 표1 미등재이므로 노인주의로는 걸리지 않는다.
+    { n: "아세클로페낙",  ing: "aceclofenac",     cls: "nsaid",           cat: "소염진통제(NSAID)",   tags: ["nsaid", "nsaid_ns"] },
+    { n: "멜록시캄",      ing: "meloxicam",       cls: "nsaid",           cat: "소염진통제(NSAID)",   tags: ["nsaid", "nsaid_ns"] },
+    { n: "텔미사르탄",    ing: "telmisartan",     cls: "arb",             cat: "혈압약(ARB)" },
+    { n: "칸데사르탄",    ing: "candesartan",     cls: "arb",             cat: "혈압약(ARB)" },
+    { n: "라베프라졸",    ing: "rabeprazole",     cls: "ppi",             cat: "위산억제제(PPI)" },
+    { n: "판토프라졸",    ing: "pantoprazole",    cls: "ppi",             cat: "위산억제제(PPI)" },
+    { n: "로수바스타틴",  ing: "rosuvastatin",    cls: "statin",          cat: "고지혈증약(스타틴)" },
+    { n: "시타글립틴",    ing: "sitagliptin",     cls: "dm2",             cat: "당뇨약(DPP-4 억제제)" },
+    { n: "리나글립틴",    ing: "linagliptin",     cls: "dm2",             cat: "당뇨약(DPP-4 억제제)" },
+    { n: "다파글리플로진", ing: "dapagliflozin",  cls: "dm2",             cat: "당뇨약(SGLT-2 억제제)" },
+    { n: "레보세티리진",  ing: "levocetirizine",  cls: "antihist2",       cat: "2세대 항히스타민" },
+    { n: "세티리진",      ing: "cetirizine",      cls: "antihist2",       cat: "2세대 항히스타민" },
+    { n: "로라타딘",      ing: "loratadine",      cls: "antihist2",       cat: "2세대 항히스타민" },
+    // 탐스로신은 요로선택적이라 PIM 표2의 '말초 알파-1 차단제'(독사조신·프라조신·테라조신)와 구분한다.
+    { n: "탐스로신",      ing: "tamsulosin",      cls: "alpha1a",         cat: "전립선약(요로선택적)" },
+    { n: "실로스타졸",    ing: "cilostazol",      cls: "antiplatelet",    cat: "항혈소판제" },
+    { n: "알렌드로네이트", ing: "alendronate",    cls: "bisphos",         cat: "골다공증약" },
+    { n: "레보티록신",    ing: "levothyroxine",   cls: "thyroid",         cat: "갑상선호르몬제" },
+    { n: "콜린알포세레이트", ing: "cholinealfoscerate", cls: "nootropic",  cat: "뇌기능개선제" },
   ];
 
   // ── PIM 표1 63종 자동 합류 (사전 미등재 성분의 한글명·효능군 매핑 = data/pim_kr_2018.json)
@@ -85,6 +105,8 @@ window.OLYAK_RULES = (function () {
     drugs.push(d); byIng.set(p.ing, d);
   });
   drugs.forEach((d) => { if (!d.tags) d.tags = []; });
+
+  const byName2 = new Map(drugs.map((d) => [d.n, d]));
 
   /** 판정 키 = 주 효능군 + 부가 태그. 병용 규칙은 cls만, PIM 조건부는 키 전체를 본다. */
   function keysOf(d) { return [d.cls, ...(d.tags || [])]; }
@@ -207,6 +229,8 @@ window.OLYAK_RULES = (function () {
     musclerelax: "#B58A5A", ssri: "#8A6FD0", amiodarone: "#C0564D", antiarr: "#C0564D",
     cortico: "#C98A2B", anticonv: "#7A6FD0", xanthine: "#3FA3C0", stimulant: "#C0564D", decongest: "#C0564D",
     hormone: "#C77FA8", vaso: "#3FA3C0", onco: "#7C93A3",
+    dm2: "#2E8FD6", antihist2: "#8FAEC0", alpha1a: "#2E8F6B", bisphos: "#6B8E9E",
+    thyroid: "#C77FA8", nootropic: "#7A6FD0",
   };
   const medIcon = {};
   Object.keys(catColor).forEach((k) => { medIcon[k] = "RX"; });
@@ -248,10 +272,112 @@ window.OLYAK_RULES = (function () {
     return scored.slice(0, 5); // top-5 후보(사람이 실물 대조 후 확정)
   }
 
+
+  // ── 제품명(브랜드) → 성분 매핑 ────────────────────────────────────────────
+  //    약봉투·처방전에는 성분명이 아니라 제품명이 인쇄된다("노바스크정 5mg").
+  //    이 사전이 없으면 OCR이 글자를 정확히 읽어도 약을 한 건도 찾지 못한다.
+  //    실서비스는 심평원 약제급여목록표(주성분코드↔제품명, 매월 1일 갱신)로 이 사전을 통째로 대체한다.
+  //    아래는 국내 노인 다빈도 처방·일반약 중심의 시드이며, 매핑은 화면에 "제품명 → 성분"으로 표시해
+  //    사용자가 눈으로 확인한 뒤 등록하도록 했다(자동 확정 금지).
+  const products = {
+    // 해열·진통·소염
+    "타이레놀": ["아세트아미노펜"], "세토펜": ["아세트아미노펜"], "써스펜": ["아세트아미노펜"],
+    "게보린": ["아세트아미노펜", "카페인"], "부루펜": ["이부프로펜"], "애드빌": ["이부프로펜"],
+    "이지엔6프로": ["덱시부프로펜"], "탁센": ["나프록센"], "낙센": ["나프록센"],
+    "볼타렌": ["디클로페낙"], "에어탈": ["아세클로페낙"], "모빅": ["멜록시캄"],
+    "펠덴": ["피록시캄"], "폰탈": ["메페남산"], "쎄레브렉스": ["세레콕시브"], "세레브렉스": ["세레콕시브"],
+    "울트라셋": ["트라마돌", "아세트아미노펜"], "트리돌": ["트라마돌"], "데메롤": ["페티딘"],
+    // 항혈전·항응고
+    "아스피린프로텍트": ["아스피린"], "아스트릭스": ["아스피린"], "플라빅스": ["클로피도그렐"],
+    "프레탈": ["실로스타졸"], "쿠마딘": ["와파린"], "엘리퀴스": ["아픽사반"], "자렐토": ["리바록사반"],
+    "프라닥사": ["다비가트란"], "릭시아나": ["에독사반"],
+    // 혈압·심장
+    "노바스크": ["암로디핀"], "아모디핀": ["암로디핀"], "아달라트": ["니페디핀"],
+    "아모잘탄": ["암로디핀", "로사르탄"], "코자": ["로사르탄"], "디오반": ["발사르탄"],
+    "미카르디스": ["텔미사르탄"], "아타칸": ["칸데사르탄"], "라식스": ["푸로세미드"],
+    "알닥톤": ["스피로놀락톤"], "다이크로짇": ["히드로클로로티아지드"], "콩코르": ["비소프롤롤"],
+    "딜라트렌": ["카르베딜롤"], "이솝틴": ["베라파밀"], "헤르벤": ["딜티아젬"],
+    "코다론": ["아미오다론"], "디고신": ["디곡신"],
+    "하이트린": ["테라조신"], "카듀라": ["독사조신"], "미니프레스": ["프라조신"], "하루날": ["탐스로신"],
+    // 당뇨·고지혈
+    "다이아벡스": ["메트포르민"], "글루코파지": ["메트포르민"], "아마릴": ["글리메피리드"],
+    "다오닐": ["글리벤클라미드"], "액토스": ["피오글리타존"], "자누비아": ["시타글립틴"],
+    "트라젠타": ["리나글립틴"], "포시가": ["다파글리플로진"],
+    "조코": ["심바스타틴"], "리피토": ["아토르바스타틴"], "크레스토": ["로수바스타틴"],
+    // 위장
+    "로섹": ["오메프라졸"], "넥시움": ["에스오메프라졸"], "파리에트": ["라베프라졸"],
+    "판토록": ["판토프라졸"], "타가메트": ["시메티딘"], "맥페란": ["메토클로프라미드"],
+    // 신경·정신
+    "자낙스": ["알프라졸람"], "아티반": ["로라제팜"], "바리움": ["디아제팜"], "리보트릴": ["클로나제팜"],
+    "할시온": ["트리아졸람"], "스틸녹스": ["졸피뎀"], "렉사프로": ["에스시탈로프람"],
+    "팍실": ["파록세틴"], "세로자트": ["파록세틴"], "할돌": ["할로페리돌"], "리스페달": ["리스페리돈"],
+    "자이프렉사": ["올란자핀"], "쎄로켈": ["쿠에티아핀"], "세로켈": ["쿠에티아핀"], "클로자릴": ["클로자핀"],
+    "아리셉트": ["도네페질"], "엑셀론": ["리바스티그민"], "글리아티린": ["콜린알포세레이트"],
+    "테그레톨": ["카르바마제핀"], "트리렙탈": ["옥스카르바제핀"], "뉴론틴": ["가바펜틴"],
+    "리리카": ["프레가발린"], "콘서타": ["메틸페니데이트"], "페니드": ["메틸페니데이트"],
+    // 항히스타민·감기
+    "페니라민": ["클로르페니라민"], "아타락스": ["히드록시진"], "유시락스": ["히드록시진"],
+    "지르텍": ["세티리진"], "씨잘": ["레보세티리진"], "클라리틴": ["로라타딘"],
+    "액티피드": ["트리프롤리딘", "슈도에페드린"], "드라마민": ["디멘히드리네이트"],
+    // 비뇨·내분비·기타
+    "디트루판": ["옥시부티닌"], "미니린": ["데스모프레신"], "포사맥스": ["알렌드로네이트"],
+    "씬지로이드": ["레보티록신"], "소론도": ["프레드니솔론"], "테오라인": ["테오필린"],
+  };
+
+  // 성분명 표기 흔들림 보정 (약봉투·처방전에서 자주 보이는 이형 표기)
+  const ingAlias = {
+    "아세타미노펜": "아세트아미노펜", "하이드로클로로티아지드": "히드로클로로티아지드",
+    "글리벤클라마이드": "글리벤클라미드", "히드록시진염산염": "히드록시진",
+    "졸피뎀타르타르산염": "졸피뎀", "클로르페니라민말레산염": "클로르페니라민",
+    "암로디핀베실산염": "암로디핀", "로사르탄칼륨": "로사르탄",
+  };
+
+  /** 약봉투·처방전 OCR 텍스트에서 등록 후보를 뽑는다.
+   *  반환: [{ name: 한글 성분명, via: '성분명'|'제품명 노바스크'|'영문 warfarin' }]
+   *  자동 등록하지 않는다. 화면에 근거(via)를 함께 보여 주고 사람이 확인해 추가한다. */
+  function matchText(text) {
+    const raw = text || "";
+    const norm = raw.replace(/\s/g, "");
+    const low = raw.toLowerCase();
+    const out = new Map();
+    const put = (name, via) => { if (byName2.has(name) && !out.has(name)) out.set(name, { name, via }); };
+    Object.keys(ingAlias).forEach((k) => { if (norm.includes(k)) put(ingAlias[k], "성분명 " + k); });
+    drugs.forEach((d) => { if (d.n.length >= 2 && norm.includes(d.n)) put(d.n, "성분명"); });
+    Object.keys(products).forEach((k) => {
+      if (norm.includes(k)) products[k].forEach((n) => put(n, "제품명 " + k));
+    });
+    Object.entries(alias).forEach(([en, kn]) => { if (en.length >= 4 && low.includes(en)) put(kn, "영문 " + en); });
+    return [...out.values()];
+  }
+
+  /** 검색창 입력 해석: 성분명 그대로 / 제품명 / 영문명 무엇을 쳐도 성분으로 돌려준다. */
+  function resolveQuery(q) {
+    const t = (q || "").trim();
+    if (!t) return [];
+    if (byName2.has(t)) return [{ name: t, via: "성분명" }];
+    const hits = matchText(t);
+    if (hits.length) return hits;
+    const low = t.toLowerCase();
+    const pk = Object.keys(products).find((k) => k.startsWith(t) || t.startsWith(k));
+    if (pk) return products[pk].map((n) => ({ name: n, via: "제품명 " + pk }));
+    const dk = drugs.find((d) => d.n.startsWith(t) || (d.ing && d.ing.startsWith(low)));
+    return dk ? [{ name: dk.n, via: "성분명" }] : [];
+  }
+
+  /** 검색 자동완성 목록: 성분명 + 제품명(제품명은 성분을 함께 표기) */
+  function searchIndex() {
+    const rows = drugs.map((d) => ({ label: d.n, hint: d.cat, kind: "성분" }));
+    Object.keys(products).forEach((k) => {
+      rows.push({ label: k, hint: products[k].join("·"), kind: "제품" });
+    });
+    return rows;
+  }
+
   return {
     drugs, keysOf, ddi, triples, dup,
     pimTable1, pimTable2, pimTable1Hit, pimTable2Hits, conditions, coverage,
     scores, alias, catColor, medIcon, pills, findPillCandidates,
+    products, matchText, resolveQuery, searchIndex,
     meta: { source: PIM.source, doi: PIM.doi, engineApplied: PIM.engineApplied },
   };
 })();
