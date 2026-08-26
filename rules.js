@@ -380,7 +380,9 @@ window.OLYAK_RULES = (function () {
   //    새 데이터를 반영하면 date를 갱신하고 sw.js의 CACHE 버전을 함께 올린다.
   const dataSources = [
     { name: "한국형 노인 부적절약물(PIM) 2018", detail: `표1 ${PIM.coverage.table1}항목 + 표2 ${PIM.coverage.table2Conditions}개 조건 = 고유 ${PIM.coverage.unique}항목 전량`,
-      origin: "Kim MY et al., Ann Geriatr Med Res 2018;22(3):121-129", date: PIM.engineApplied, status: "반영" },
+      origin: "Kim MY et al., Ann Geriatr Med Res 2018;22(3):121-129 · 원문 대조 완료", date: PIM.engineApplied, status: "반영" },
+    { name: "WHO ATC 표준 코드", detail: `표1 63항목 중 ${PIM.table1.filter(function(x){return x.atc;}).length}항목에 5단계 코드 부여`,
+      origin: "WHO ATC/DDD Index · 9항목 표본 대조(전수 미완료)", date: "2026-08", status: "반영" },
     { name: "병용·중복 판정 규칙", detail: `병용 ${ddi.length}종 · 삼중 ${triples.length}종 · 효능군 중복 ${dup.length}계열`,
       origin: "식약처 고시 병용금기 기준의 임상 표준 항목", date: "2026-08", status: "시드" },
     { name: "제품명 → 성분 사전", detail: `${Object.keys(products).length}종 (약봉투·처방전은 제품명으로 인쇄됨)`,

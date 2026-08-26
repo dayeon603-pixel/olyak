@@ -12,6 +12,7 @@ const src = JSON.parse(fs.readFileSync(path.join(root, 'data/pim_kr_2018.json'),
 const t1 = src.table1_regardless_of_condition.map(x => ({
   drug: x.drug, kr: x.kr, ing: x.ing, cls: x.cls, cat: x.cat,
   tags: x.tags || [], reason: x.reason, dose: x.dose || null, group: x.class,
+  atc: x.atc || null, atcNote: x.atc_note || null,
 }));
 const t2 = src.table2_by_condition.map(c => ({
   id: c.id, label: c.label, kind: c.kind, condition: c.condition,
@@ -37,7 +38,7 @@ const out = `/* 자동 생성 파일 — 직접 수정하지 마세요.
 window.OLYAK_PIM = ${JSON.stringify({
   source: src.source, doi: src.doi, digitized: src.digitized,
   engineApplied: src.engine_applied, note: src.note,
-  coverage, table1: t1, table2: t2,
+  coverage, atcMapping: src.atc_mapping, table1: t1, table2: t2,
 }, null, 1)};
 `;
 fs.writeFileSync(path.join(root, 'pim_data.js'), out, 'utf8');

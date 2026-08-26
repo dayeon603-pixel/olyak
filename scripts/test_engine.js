@@ -282,6 +282,18 @@ check('1세대 항히스타민(클로르페니라민)은 치매 조건에 걸림
 check('DPP-4·SGLT-2 당뇨약은 설폰요소제 중복에 안 걸림', !hasType(analyze(['시타글립틴','리나글립틴']), '중복'));
 check('보강 약물 전부 색·아이콘 매핑 존재', R.drugs.every(d => R.catColor[d.cls] && R.medIcon[d.cls]));
 
+// ══ 13. ATC 표준 코드 ═══════════════════════════════════════════════
+section('13. ATC 표준 코드');
+const ATC_RE = /^[A-Z]\d{2}[A-Z]{2}\d{2}$/;
+const atcCoded = R.pimTable1.filter((x) => x.atc);
+check('표1 63항목 중 59항목에 ATC 부여', atcCoded.length === 59);
+check('부여된 ATC 전부 5단계 형식', atcCoded.every((x) => ATC_RE.test(x.atc)));
+check('ATC 코드 중복 없음', new Set(atcCoded.map((x) => x.atc)).size === atcCoded.length);
+check('미부여 4항목에 사유 명시', R.pimTable1.filter((x) => !x.atc).every((x) => !!x.atcNote));
+check('WHO 인덱스 대조분 유지: 졸피뎀 N05CF02', R.pimTable1.find((x) => x.ing === 'zolpidem').atc === 'N05CF02');
+check('WHO 인덱스 대조분 유지: 디멘히드리네이트 R06AA11', R.pimTable1.find((x) => x.ing === 'dimenhydrinate').atc === 'R06AA11');
+check('데이터 출처 화면에 ATC 노출', R.dataSources.some((d) => d.name.includes('ATC') && d.status === '반영'));
+
 // ── 결과 ──
 console.log(`\n엔진 테스트: ${pass} 통과 / ${fail} 실패 (총 ${pass + fail}건)`);
 if (fail) console.log('실패 목록:\n - ' + failed.join('\n - '));

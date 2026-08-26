@@ -17,6 +17,63 @@ window.OLYAK_PIM = {
   "table2Only": 39,
   "unique": 102
  },
+ "atcMapping": {
+  "system": "WHO ATC/DDD, 5단계(화학물질) 코드",
+  "assigned_by": "케어브리지 매핑 계층 (논문 원문에는 ATC 코드가 없음)",
+  "table1_coded": 59,
+  "table1_uncoded": 4,
+  "uncoded_reasons": [
+   {
+    "drug": "Clidinium-chlordiazepoxide",
+    "reason": "클리디늄·클로르디아제폭시드 복합제. 단일 성분 ATC로 특정되지 않음"
+   },
+   {
+    "drug": "Scopolamine",
+    "reason": "염 형태에 따라 A04AD01(하이오신)·A03BB01(부틸브로마이드)로 갈려 단일 코드 불가"
+   },
+   {
+    "drug": "Estrogens ± progestins",
+    "reason": "에스트로겐±프로게스틴은 성분군이며 제제별로 G03C·G03F로 분산되어 단일 코드 불가"
+   },
+   {
+    "drug": "Insulin, sliding scale",
+    "reason": "슬라이딩 스케일은 투여 요법이지 성분이 아니므로 ATC 대상 아님"
+   }
+  ],
+  "dual_class_notes": [
+   {
+    "drug": "Aspirin (>325 mg/day)",
+    "note": "저용량 항혈소판 용도는 B01AC06. PIM 기준(>325mg/일)은 진통 용량이라 N02BA01로 부여"
+   },
+   {
+    "drug": "Ketorolac",
+    "note": "안과용 점안제는 S01BC05. 전신 제제 기준으로 부여"
+   },
+   {
+    "drug": "Orphenadrine",
+    "note": "구연산염은 M03BC01, 염산염은 N04AB02. 근이완 용도 기준으로 부여"
+   }
+  ],
+  "verification": "형식·자리수·중복 자동 검증 + WHO ATC 인덱스 9항목 표본 대조(오류 1건 발견·수정). 전수 대조는 미완료.",
+  "spot_check": {
+   "date": "2026-08-26",
+   "source": "WHO ATC/DDD Index (atcddd.fhi.no)",
+   "checked": [
+    "R06AA02 diphenhydramine",
+    "R06AA11 dimenhydrinate",
+    "R06AB04 chlorphenamine",
+    "R06AX07 triprolidine",
+    "N04AC01 benzatropine",
+    "M01AE01 ibuprofen",
+    "M01AE02 naproxen",
+    "M01AE14 dexibuprofen",
+    "orphenadrine 이중분류(N04AB/M03BC)"
+   ],
+   "errors_found": 1,
+   "errors_detail": "Dimenhydrinate를 R06AA52(diphenhydramine, combinations)로 잘못 부여 → R06AA11로 수정",
+   "status": "9항목 표본 대조 완료. 나머지 코드는 형식·중복 자동 검증만 수행."
+  }
+ },
  "table1": [
   {
    "drug": "Chlorpromazine",
@@ -30,7 +87,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "치매 환자에서 사망·뇌졸중 위험 증가",
    "dose": null,
-   "group": "1st-gen antipsychotic"
+   "group": "1st-gen antipsychotic",
+   "atc": "N05AA01",
+   "atcNote": null
   },
   {
    "drug": "Haloperidol",
@@ -43,7 +102,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "치매 환자에서 사망·뇌졸중 위험 증가",
    "dose": null,
-   "group": "1st-gen antipsychotic"
+   "group": "1st-gen antipsychotic",
+   "atc": "N05AD01",
+   "atcNote": null
   },
   {
    "drug": "Risperidone",
@@ -56,7 +117,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "치매 환자에서 사망·뇌졸중 위험 증가",
    "dose": null,
-   "group": "2nd-gen antipsychotic"
+   "group": "2nd-gen antipsychotic",
+   "atc": "N05AX08",
+   "atcNote": null
   },
   {
    "drug": "Olanzapine",
@@ -70,7 +133,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "치매 환자에서 사망·뇌졸중 위험 증가",
    "dose": null,
-   "group": "2nd-gen antipsychotic"
+   "group": "2nd-gen antipsychotic",
+   "atc": "N05AH03",
+   "atcNote": null
   },
   {
    "drug": "Clozapine",
@@ -84,7 +149,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "치매 환자에서 사망·뇌졸중 위험 증가",
    "dose": null,
-   "group": "2nd-gen antipsychotic"
+   "group": "2nd-gen antipsychotic",
+   "atc": "N05AH02",
+   "atcNote": null
   },
   {
    "drug": "Quetiapine",
@@ -98,7 +165,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "치매 환자에서 사망·뇌졸중 위험 증가",
    "dose": null,
-   "group": "2nd-gen antipsychotic"
+   "group": "2nd-gen antipsychotic",
+   "atc": "N05AH04",
+   "atcNote": null
   },
   {
    "drug": "Amitriptyline",
@@ -113,7 +182,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "강한 항콜린 작용, 진정, 기립성 저혈압",
    "dose": null,
-   "group": "TCA"
+   "group": "TCA",
+   "atc": "N06AA09",
+   "atcNote": null
   },
   {
    "drug": "Amoxapine",
@@ -128,7 +199,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "강한 항콜린 작용, 진정, 기립성 저혈압",
    "dose": null,
-   "group": "TCA"
+   "group": "TCA",
+   "atc": "N06AA17",
+   "atcNote": null
   },
   {
    "drug": "Clomipramine",
@@ -143,7 +216,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "강한 항콜린 작용, 진정, 기립성 저혈압",
    "dose": null,
-   "group": "TCA"
+   "group": "TCA",
+   "atc": "N06AA04",
+   "atcNote": null
   },
   {
    "drug": "Doxepin (>6 mg/day)",
@@ -158,7 +233,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "강한 항콜린 작용, 진정, 기립성 저혈압",
    "dose": ">6 mg/일",
-   "group": "TCA"
+   "group": "TCA",
+   "atc": "N06AA12",
+   "atcNote": null
   },
   {
    "drug": "Nortriptyline",
@@ -173,7 +250,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "강한 항콜린 작용, 진정, 기립성 저혈압",
    "dose": null,
-   "group": "TCA"
+   "group": "TCA",
+   "atc": "N06AA10",
+   "atcNote": null
   },
   {
    "drug": "Imipramine",
@@ -188,7 +267,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "강한 항콜린 작용, 진정, 기립성 저혈압",
    "dose": null,
-   "group": "TCA"
+   "group": "TCA",
+   "atc": "N06AA02",
+   "atcNote": null
   },
   {
    "drug": "Alprazolam",
@@ -201,7 +282,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "의존·인지저하·섬망·낙상·골절·교통사고 위험",
    "dose": null,
-   "group": "benzodiazepine (short/intermediate)"
+   "group": "benzodiazepine (short/intermediate)",
+   "atc": "N05BA12",
+   "atcNote": null
   },
   {
    "drug": "Lorazepam",
@@ -214,7 +297,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "의존·인지저하·섬망·낙상·골절 위험",
    "dose": null,
-   "group": "benzodiazepine (short/intermediate)"
+   "group": "benzodiazepine (short/intermediate)",
+   "atc": "N05BA06",
+   "atcNote": null
   },
   {
    "drug": "Temazepam",
@@ -227,7 +312,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "의존·인지저하·섬망·낙상·골절 위험",
    "dose": null,
-   "group": "benzodiazepine (short/intermediate)"
+   "group": "benzodiazepine (short/intermediate)",
+   "atc": "N05CD07",
+   "atcNote": null
   },
   {
    "drug": "Triazolam",
@@ -240,7 +327,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "의존·인지저하·섬망·낙상·골절 위험",
    "dose": null,
-   "group": "benzodiazepine (short/intermediate)"
+   "group": "benzodiazepine (short/intermediate)",
+   "atc": "N05CD05",
+   "atcNote": null
   },
   {
    "drug": "Chlordiazepoxide",
@@ -253,7 +342,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "의존·인지저하·섬망·낙상·골절 위험",
    "dose": null,
-   "group": "benzodiazepine (long-acting)"
+   "group": "benzodiazepine (long-acting)",
+   "atc": "N05BA02",
+   "atcNote": null
   },
   {
    "drug": "Clonazepam",
@@ -266,7 +357,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "의존·인지저하·섬망·낙상·골절 위험",
    "dose": null,
-   "group": "benzodiazepine (long-acting)"
+   "group": "benzodiazepine (long-acting)",
+   "atc": "N03AE01",
+   "atcNote": null
   },
   {
    "drug": "Diazepam",
@@ -279,7 +372,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "의존·인지저하·섬망·낙상·골절 위험",
    "dose": null,
-   "group": "benzodiazepine (long-acting)"
+   "group": "benzodiazepine (long-acting)",
+   "atc": "N05BA01",
+   "atcNote": null
   },
   {
    "drug": "Flurazepam",
@@ -292,7 +387,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "의존·인지저하·섬망·낙상·골절 위험",
    "dose": null,
-   "group": "benzodiazepine (long-acting)"
+   "group": "benzodiazepine (long-acting)",
+   "atc": "N05CD01",
+   "atcNote": null
   },
   {
    "drug": "Bromazepam",
@@ -305,7 +402,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "의존·인지저하·섬망·낙상·골절 위험",
    "dose": null,
-   "group": "benzodiazepine (long-acting)"
+   "group": "benzodiazepine (long-acting)",
+   "atc": "N05BA08",
+   "atcNote": null
   },
   {
    "drug": "Clobazam",
@@ -319,7 +418,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "의존·인지저하·섬망·낙상·골절 위험",
    "dose": null,
-   "group": "benzodiazepine (long-acting)"
+   "group": "benzodiazepine (long-acting)",
+   "atc": "N05BA09",
+   "atcNote": null
   },
   {
    "drug": "Flunitrazepam",
@@ -332,7 +433,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "의존·인지저하·섬망·낙상·골절 위험",
    "dose": null,
-   "group": "benzodiazepine (long-acting)"
+   "group": "benzodiazepine (long-acting)",
+   "atc": "N05CD03",
+   "atcNote": null
   },
   {
    "drug": "Zolpidem",
@@ -345,7 +448,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "벤조디아제핀과 유사한 안전성 프로파일(낙상·섬망)",
    "dose": null,
-   "group": "Z-drug"
+   "group": "Z-drug",
+   "atc": "N05CF02",
+   "atcNote": null
   },
   {
    "drug": "Benztropine",
@@ -358,7 +463,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "항콜린 부작용(혼돈·구갈·변비 등)",
    "dose": null,
-   "group": "anticholinergic antiparkinsonian"
+   "group": "anticholinergic antiparkinsonian",
+   "atc": "N04AC01",
+   "atcNote": null
   },
   {
    "drug": "Trihexyphenidyl",
@@ -371,7 +478,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "항콜린 부작용",
    "dose": null,
-   "group": "anticholinergic antiparkinsonian"
+   "group": "anticholinergic antiparkinsonian",
+   "atc": "N04AA01",
+   "atcNote": null
   },
   {
    "drug": "Chlorpheniramine",
@@ -384,7 +493,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "항콜린 부작용",
    "dose": null,
-   "group": "1st-gen antihistamine"
+   "group": "1st-gen antihistamine",
+   "atc": "R06AB04",
+   "atcNote": null
   },
   {
    "drug": "Dimenhydrinate",
@@ -397,7 +508,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "항콜린 부작용",
    "dose": null,
-   "group": "1st-gen antihistamine"
+   "group": "1st-gen antihistamine",
+   "atc": "R06AA11",
+   "atcNote": null
   },
   {
    "drug": "Diphenhydramine",
@@ -410,7 +523,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "항콜린 부작용",
    "dose": null,
-   "group": "1st-gen antihistamine"
+   "group": "1st-gen antihistamine",
+   "atc": "R06AA02",
+   "atcNote": null
   },
   {
    "drug": "Hydroxyzine",
@@ -423,7 +538,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "항콜린 부작용",
    "dose": null,
-   "group": "1st-gen antihistamine"
+   "group": "1st-gen antihistamine",
+   "atc": "N05BB01",
+   "atcNote": null
   },
   {
    "drug": "Triprolidine",
@@ -436,7 +553,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "항콜린 부작용",
    "dose": null,
-   "group": "1st-gen antihistamine"
+   "group": "1st-gen antihistamine",
+   "atc": "R06AX07",
+   "atcNote": null
   },
   {
    "drug": "Dronedarone",
@@ -447,7 +566,9 @@ window.OLYAK_PIM = {
    "tags": [],
    "reason": "다른 항부정맥제보다 임상 결과 나쁨/부작용 많음",
    "dose": null,
-   "group": "antiarrhythmic"
+   "group": "antiarrhythmic",
+   "atc": "C01BD07",
+   "atcNote": null
   },
   {
    "drug": "Amiodarone",
@@ -458,7 +579,9 @@ window.OLYAK_PIM = {
    "tags": [],
    "reason": "다른 항부정맥제보다 부작용 많음(QT·갑상선·폐)",
    "dose": null,
-   "group": "antiarrhythmic"
+   "group": "antiarrhythmic",
+   "atc": "C01BD01",
+   "atcNote": null
   },
   {
    "drug": "Flecainide",
@@ -469,7 +592,9 @@ window.OLYAK_PIM = {
    "tags": [],
    "reason": "다른 항부정맥제보다 부작용 많음",
    "dose": null,
-   "group": "antiarrhythmic"
+   "group": "antiarrhythmic",
+   "atc": "C01BC04",
+   "atcNote": null
   },
   {
    "drug": "Digoxin",
@@ -480,7 +605,9 @@ window.OLYAK_PIM = {
    "tags": [],
    "reason": "심방세동·심부전 노인에서 사망 위험 증가 가능",
    "dose": null,
-   "group": "cardiac glycoside"
+   "group": "cardiac glycoside",
+   "atc": "C01AA05",
+   "atcNote": null
   },
   {
    "drug": "Ticlopidine",
@@ -493,7 +620,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "혈구 이상; 효능 근거 약함",
    "dose": null,
-   "group": "antiplatelet"
+   "group": "antiplatelet",
+   "atc": "B01AC05",
+   "atcNote": null
   },
   {
    "drug": "Metoclopramide",
@@ -506,7 +635,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "추체외로 증상(지연성 운동이상)",
    "dose": null,
-   "group": "prokinetic/dopamine antagonist"
+   "group": "prokinetic/dopamine antagonist",
+   "atc": "A03FA01",
+   "atcNote": null
   },
   {
    "drug": "Cimetidine",
@@ -519,7 +650,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "혼돈·섬망 유발 가능",
    "dose": null,
-   "group": "H2 antagonist"
+   "group": "H2 antagonist",
+   "atc": "A02BA01",
+   "atcNote": null
   },
   {
    "drug": "Clidinium-chlordiazepoxide",
@@ -533,7 +666,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "항콜린 부작용; 효과 불확실",
    "dose": null,
-   "group": "antispasmodic"
+   "group": "antispasmodic",
+   "atc": null,
+   "atcNote": "클리디늄·클로르디아제폭시드 복합제. 단일 성분 ATC로 특정되지 않음"
   },
   {
    "drug": "Scopolamine",
@@ -546,7 +681,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "항콜린 부작용; 효과 불확실",
    "dose": null,
-   "group": "antispasmodic"
+   "group": "antispasmodic",
+   "atc": null,
+   "atcNote": "염 형태에 따라 A04AD01(하이오신)·A03BB01(부틸브로마이드)로 갈려 단일 코드 불가"
   },
   {
    "drug": "Doxazosin",
@@ -559,7 +696,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "기립성 저혈압 위험 높음",
    "dose": null,
-   "group": "peripheral alpha-1 blocker"
+   "group": "peripheral alpha-1 blocker",
+   "atc": "C02CA04",
+   "atcNote": null
   },
   {
    "drug": "Prazosin",
@@ -572,7 +711,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "기립성 저혈압 위험 높음",
    "dose": null,
-   "group": "peripheral alpha-1 blocker"
+   "group": "peripheral alpha-1 blocker",
+   "atc": "C02CA01",
+   "atcNote": null
   },
   {
    "drug": "Terazosin",
@@ -585,7 +726,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "기립성 저혈압 위험 높음",
    "dose": null,
-   "group": "peripheral alpha-1 blocker"
+   "group": "peripheral alpha-1 blocker",
+   "atc": "G04CA03",
+   "atcNote": null
   },
   {
    "drug": "Desmopressin",
@@ -596,7 +739,9 @@ window.OLYAK_PIM = {
    "tags": [],
    "reason": "저나트륨혈증 위험 높음",
    "dose": null,
-   "group": "vasopressin analog"
+   "group": "vasopressin analog",
+   "atc": "H01BA02",
+   "atcNote": null
   },
   {
    "drug": "Oxybutynin",
@@ -609,7 +754,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "항콜린 부작용",
    "dose": null,
-   "group": "bladder antimuscarinic"
+   "group": "bladder antimuscarinic",
+   "atc": "G04BD04",
+   "atcNote": null
   },
   {
    "drug": "Estrogens ± progestins",
@@ -620,7 +767,9 @@ window.OLYAK_PIM = {
    "tags": [],
    "reason": "발암 가능성(유방·자궁); 심혈관·인지 보호 없음",
    "dose": null,
-   "group": "hormone"
+   "group": "hormone",
+   "atc": null,
+   "atcNote": "에스트로겐±프로게스틴은 성분군이며 제제별로 G03C·G03F로 분산되어 단일 코드 불가"
   },
   {
    "drug": "Growth hormone",
@@ -631,7 +780,9 @@ window.OLYAK_PIM = {
    "tags": [],
    "reason": "부종·관절통·손목터널·여성형유방·공복혈당 상승",
    "dose": null,
-   "group": "hormone"
+   "group": "hormone",
+   "atc": "H01AC01",
+   "atcNote": null
   },
   {
    "drug": "Insulin, sliding scale",
@@ -642,7 +793,9 @@ window.OLYAK_PIM = {
    "tags": [],
    "reason": "혈당 개선 없이 저혈당 위험 증가",
    "dose": "슬라이딩 스케일 단독요법",
-   "group": "insulin regimen"
+   "group": "insulin regimen",
+   "atc": null,
+   "atcNote": "슬라이딩 스케일은 투여 요법이지 성분이 아니므로 ATC 대상 아님"
   },
   {
    "drug": "Glibenclamide (glyburide)",
@@ -653,7 +806,9 @@ window.OLYAK_PIM = {
    "tags": [],
    "reason": "저혈당 위험 증가",
    "dose": null,
-   "group": "sulfonylurea"
+   "group": "sulfonylurea",
+   "atc": "A10BB01",
+   "atcNote": null
   },
   {
    "drug": "Pethidine (meperidine)",
@@ -667,7 +822,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "다른 오피오이드보다 CNS 부작용 많음",
    "dose": null,
-   "group": "opioid"
+   "group": "opioid",
+   "atc": "N02AB02",
+   "atcNote": null
   },
   {
    "drug": "Pentazocine",
@@ -680,7 +837,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "다른 오피오이드보다 CNS 부작용 많음",
    "dose": null,
-   "group": "opioid"
+   "group": "opioid",
+   "atc": "N02AD01",
+   "atcNote": null
   },
   {
    "drug": "Aspirin (>325 mg/day)",
@@ -693,7 +852,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "위장출혈·소화성궤양·신손상 위험",
    "dose": ">325 mg/일",
-   "group": "NSAID/antiplatelet"
+   "group": "NSAID/antiplatelet",
+   "atc": "N02BA01",
+   "atcNote": "저용량 항혈소판 용도는 B01AC06. PIM 기준(>325mg/일)은 진통 용량이라 N02BA01로 부여"
   },
   {
    "drug": "Diclofenac",
@@ -707,7 +868,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "위장출혈·궤양·신손상 위험",
    "dose": null,
-   "group": "NSAID"
+   "group": "NSAID",
+   "atc": "M01AB05",
+   "atcNote": null
   },
   {
    "drug": "Indomethacin",
@@ -721,7 +884,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "위장출혈·궤양·신손상; CNS 부작용 많음",
    "dose": null,
-   "group": "NSAID"
+   "group": "NSAID",
+   "atc": "M01AB01",
+   "atcNote": null
   },
   {
    "drug": "Ibuprofen",
@@ -735,7 +900,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "위장출혈·궤양·신손상 위험",
    "dose": null,
-   "group": "NSAID"
+   "group": "NSAID",
+   "atc": "M01AE01",
+   "atcNote": null
   },
   {
    "drug": "Dexibuprofen",
@@ -749,7 +916,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "위장출혈·궤양·신손상 위험",
    "dose": null,
-   "group": "NSAID"
+   "group": "NSAID",
+   "atc": "M01AE14",
+   "atcNote": null
   },
   {
    "drug": "Ketorolac",
@@ -763,7 +932,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "위장출혈·궤양·신손상 위험(주사제 포함)",
    "dose": null,
-   "group": "NSAID"
+   "group": "NSAID",
+   "atc": "M01AB15",
+   "atcNote": "안과용 점안제는 S01BC05. 전신 제제 기준으로 부여"
   },
   {
    "drug": "Mefenamic acid",
@@ -777,7 +948,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "위장출혈·궤양·신손상 위험",
    "dose": null,
-   "group": "NSAID"
+   "group": "NSAID",
+   "atc": "M01AG01",
+   "atcNote": null
   },
   {
    "drug": "Naproxen",
@@ -791,7 +964,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "위장출혈·궤양·신손상 위험",
    "dose": null,
-   "group": "NSAID"
+   "group": "NSAID",
+   "atc": "M01AE02",
+   "atcNote": null
   },
   {
    "drug": "Piroxicam",
@@ -805,7 +980,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "위장출혈·궤양·신손상 위험",
    "dose": null,
-   "group": "NSAID"
+   "group": "NSAID",
+   "atc": "M01AC01",
+   "atcNote": null
   },
   {
    "drug": "Sulindac",
@@ -819,7 +996,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "위장출혈·궤양·신손상 위험",
    "dose": null,
-   "group": "NSAID"
+   "group": "NSAID",
+   "atc": "M01AB02",
+   "atcNote": null
   },
   {
    "drug": "Methocarbamol",
@@ -830,7 +1009,9 @@ window.OLYAK_PIM = {
    "tags": [],
    "reason": "진정 내약성 낮음; 골절 위험; 효과 불확실",
    "dose": null,
-   "group": "skeletal muscle relaxant"
+   "group": "skeletal muscle relaxant",
+   "atc": "M03BA03",
+   "atcNote": null
   },
   {
    "drug": "Orphenadrine",
@@ -843,7 +1024,9 @@ window.OLYAK_PIM = {
    ],
    "reason": "진정 내약성 낮음; 골절 위험; 효과 불확실",
    "dose": null,
-   "group": "skeletal muscle relaxant"
+   "group": "skeletal muscle relaxant",
+   "atc": "M03BC01",
+   "atcNote": "구연산염은 M03BC01, 염산염은 N04AB02. 근이완 용도 기준으로 부여"
   }
  ],
  "table2": [
@@ -872,7 +1055,8 @@ window.OLYAK_PIM = {
     {
      "ing": "zolpidem",
      "kr": "졸피뎀",
-     "token": "Zolpidem"
+     "token": "Zolpidem",
+     "atc": "N05CF02"
     },
     {
      "tag": "h2ra",
@@ -882,7 +1066,8 @@ window.OLYAK_PIM = {
     {
      "ing": "pethidine",
      "kr": "페티딘",
-     "token": "Pethidine"
+     "token": "Pethidine",
+     "atc": "N02AB02"
     }
    ]
   },
@@ -916,7 +1101,8 @@ window.OLYAK_PIM = {
     {
      "ing": "zolpidem",
      "kr": "졸피뎀",
-     "token": "Zolpidem"
+     "token": "Zolpidem",
+     "atc": "N05CF02"
     },
     {
      "cls": "opioid",
@@ -940,27 +1126,33 @@ window.OLYAK_PIM = {
     {
      "ing": "caffeine",
      "kr": "카페인",
-     "token": "Caffeine"
+     "token": "Caffeine",
+     "atc": "N06BC01"
     },
     {
      "ing": "methylphenidate",
      "kr": "메틸페니데이트",
-     "token": "Methylphenidate"
+     "token": "Methylphenidate",
+     "atc": "N06BA04"
     },
     {
      "ing": "phenylephrine",
      "kr": "페닐레프린",
-     "token": "Phenylephrine"
+     "token": "Phenylephrine",
+     "atc": "R01BA03",
+     "atc_note": "전신 제제 기준. 점안·국소 제제는 다른 코드"
     },
     {
      "ing": "pseudoephedrine",
      "kr": "슈도에페드린",
-     "token": "Pseudoephedrine"
+     "token": "Pseudoephedrine",
+     "atc": "R01BA02"
     },
     {
      "ing": "theophylline",
      "kr": "테오필린",
-     "token": "Theophylline"
+     "token": "Theophylline",
+     "atc": "R03DA04"
     }
    ]
   },
@@ -979,7 +1171,8 @@ window.OLYAK_PIM = {
     {
      "ing": "metoclopramide",
      "kr": "메토클로프라미드",
-     "token": "Metoclopramide"
+     "token": "Metoclopramide",
+     "atc": "A03FA01"
     }
    ]
   },
@@ -993,12 +1186,14 @@ window.OLYAK_PIM = {
     {
      "ing": "verapamil",
      "kr": "베라파밀",
-     "token": "Verapamil"
+     "token": "Verapamil",
+     "atc": "C08DA01"
     },
     {
      "ing": "diltiazem",
      "kr": "딜티아젬",
-     "token": "Diltiazem"
+     "token": "Diltiazem",
+     "atc": "C08DB01"
     },
     {
      "tag": "nsaid",
@@ -1013,7 +1208,8 @@ window.OLYAK_PIM = {
     {
      "ing": "pioglitazone",
      "kr": "피오글리타존",
-     "token": "Pioglitazone"
+     "token": "Pioglitazone",
+     "atc": "A10BG03"
     },
     {
      "tag": "tca",
@@ -1060,7 +1256,9 @@ window.OLYAK_PIM = {
     {
      "ing": "aspirin",
      "kr": "아스피린",
-     "token": "Aspirin"
+     "token": "Aspirin",
+     "atc": "N02BA01",
+     "atc_note": "저용량 항혈소판 용도는 B01AC06. PIM 기준(>325mg/일)은 진통 용량이라 N02BA01로 부여"
     }
    ]
   },
@@ -1077,7 +1275,11 @@ window.OLYAK_PIM = {
       "clopidogrel"
      ],
      "kr": "아스피린+클로피도그렐 병용",
-     "token": "Aspirin + clopidogrel 병용"
+     "token": "Aspirin + clopidogrel 병용",
+     "atc_all": [
+      "N02BA01",
+      "B01AC04"
+     ]
     }
    ]
   },
@@ -1092,7 +1294,9 @@ window.OLYAK_PIM = {
      "ing": "aspirin",
      "kr": "아스피린(>325 mg/일)",
      "dose": ">325 mg/일",
-     "token": "Aspirin (>325 mg/day)"
+     "token": "Aspirin (>325 mg/day)",
+     "atc": "N02BA01",
+     "atc_note": "저용량 항혈소판 용도는 B01AC06. PIM 기준(>325mg/일)은 진통 용량이라 N02BA01로 부여"
     },
     {
      "tag": "nsaid_ns",
@@ -1178,32 +1382,38 @@ window.OLYAK_PIM = {
     {
      "ing": "carbamazepine",
      "kr": "카르바마제핀",
-     "token": "carbamazepine"
+     "token": "carbamazepine",
+     "atc": "N03AF01"
     },
     {
      "ing": "oxcarbazepine",
      "kr": "옥스카르바제핀",
-     "token": "oxcarbazepine"
+     "token": "oxcarbazepine",
+     "atc": "N03AF02"
     },
     {
      "ing": "carboplatin",
      "kr": "카보플라틴",
-     "token": "carboplatin"
+     "token": "carboplatin",
+     "atc": "L01XA02"
     },
     {
      "ing": "cyclophosphamide",
      "kr": "시클로포스파미드",
-     "token": "cyclophosphamide"
+     "token": "cyclophosphamide",
+     "atc": "L01AA01"
     },
     {
      "ing": "cisplatin",
      "kr": "시스플라틴",
-     "token": "cisplatin"
+     "token": "cisplatin",
+     "atc": "L01XA01"
     },
     {
      "ing": "vincristine",
      "kr": "빈크리스틴",
-     "token": "vincristine"
+     "token": "vincristine",
+     "atc": "L01CA02"
     }
    ]
   },
@@ -1218,7 +1428,8 @@ window.OLYAK_PIM = {
      "ing": "theophylline",
      "kr": "테오필린(단독요법)",
      "note": "단독요법 여부는 사람이 확인",
-     "token": "Theophylline (단독요법)"
+     "token": "Theophylline (단독요법)",
+     "atc": "R03DA04"
     }
    ]
   },
@@ -1232,17 +1443,21 @@ window.OLYAK_PIM = {
     {
      "ing": "aspirin",
      "kr": "아스피린",
-     "token": "Aspirin"
+     "token": "Aspirin",
+     "atc": "N02BA01",
+     "atc_note": "저용량 항혈소판 용도는 B01AC06. PIM 기준(>325mg/일)은 진통 용량이라 N02BA01로 부여"
     },
     {
      "ing": "clopidogrel",
      "kr": "클로피도그렐",
-     "token": "Clopidogrel"
+     "token": "Clopidogrel",
+     "atc": "B01AC04"
     },
     {
      "ing": "ticlopidine",
      "kr": "티클로피딘",
-     "token": "Ticlopidine"
+     "token": "Ticlopidine",
+     "atc": "B01AC05"
     },
     {
      "tag": "nsaid",
@@ -1252,27 +1467,32 @@ window.OLYAK_PIM = {
     {
      "ing": "warfarin",
      "kr": "와파린",
-     "token": "Warfarin"
+     "token": "Warfarin",
+     "atc": "B01AA03"
     },
     {
      "ing": "dabigatran",
      "kr": "다비가트란",
-     "token": "dabigatran"
+     "token": "dabigatran",
+     "atc": "B01AE07"
     },
     {
      "ing": "rivaroxaban",
      "kr": "리바록사반",
-     "token": "rivaroxaban"
+     "token": "rivaroxaban",
+     "atc": "B01AF01"
     },
     {
      "ing": "apixaban",
      "kr": "아픽사반",
-     "token": "apixaban"
+     "token": "apixaban",
+     "atc": "B01AF02"
     },
     {
      "ing": "edoxaban",
      "kr": "에독사반",
-     "token": "edoxaban"
+     "token": "edoxaban",
+     "atc": "B01AF03"
     }
    ]
   },
