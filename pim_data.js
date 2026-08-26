@@ -9,7 +9,7 @@ window.OLYAK_PIM = {
  "doi": "10.4235/agmr.2018.22.3.121",
  "digitized": "2026-07",
  "engineApplied": "2026-08",
- "note": "2차 요약 경로로 추출. 용량 기준(>325 mg/day aspirin, >6 mg/day doxepin, CrCl<30)과 사유 문구는 원문 PDF로 재확인 필요. 임상 반영 전 약사·교수 검토 권장. kr/ing/cls/tags·match 필드는 엔진 반영을 위해 케어브리지가 추가한 매핑 계층이며 논문 원문에는 없다.",
+ "note": "항목 구성은 2026-08-26 원문 대조 완료(VERIFICATION.md). 사유 문구·용량 임계값의 자구 대조와 약사·임상의 검토는 미완료. kr/ing/cls/tags·match 필드는 엔진 반영을 위해 케어브리지가 추가한 매핑 계층이며 논문 원문에는 없다. 임상 의사결정에 그대로 사용하지 말 것.",
  "coverage": {
   "table1": 63,
   "table2Conditions": 18,
