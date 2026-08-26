@@ -373,11 +373,32 @@ window.OLYAK_RULES = (function () {
     return rows;
   }
 
+
+  // ── 데이터 출처·기준일 ────────────────────────────────────────────────
+  //    "이 데이터가 오래된 것이면 어떻게 하느냐"에 화면으로 답하기 위한 표.
+  //    status: 반영=현재 엔진에서 동작 / 시드=대표 항목만 코드화 / 예정=연동 계획
+  //    새 데이터를 반영하면 date를 갱신하고 sw.js의 CACHE 버전을 함께 올린다.
+  const dataSources = [
+    { name: "한국형 노인 부적절약물(PIM) 2018", detail: `표1 ${PIM.coverage.table1}항목 + 표2 ${PIM.coverage.table2Conditions}개 조건 = 고유 ${PIM.coverage.unique}항목 전량`,
+      origin: "Kim MY et al., Ann Geriatr Med Res 2018;22(3):121-129", date: PIM.engineApplied, status: "반영" },
+    { name: "병용·중복 판정 규칙", detail: `병용 ${ddi.length}종 · 삼중 ${triples.length}종 · 효능군 중복 ${dup.length}계열`,
+      origin: "식약처 고시 병용금기 기준의 임상 표준 항목", date: "2026-08", status: "시드" },
+    { name: "제품명 → 성분 사전", detail: `${Object.keys(products).length}종 (약봉투·처방전은 제품명으로 인쇄됨)`,
+      origin: "자체 구축", date: "2026-08", status: "시드" },
+    { name: "낱알식별 정보", detail: `${pills.length}종 (각인·모양·색·분할선)`,
+      origin: "식약처 「의약품 낱알식별 정보」 구조", date: "2026-08", status: "시드" },
+    { name: "식약처 병용금기 성분정보 API", detail: "성분기준 92만건+ 무료 API",
+      origin: "공공데이터포털", date: "", status: "예정" },
+    { name: "심평원 약제급여목록표", detail: "주성분코드 ↔ 제품명, 매월 1일 갱신",
+      origin: "건강보험심사평가원", date: "", status: "예정" },
+  ];
+  const dataStamp = `한국형 PIM 2018 ${PIM.coverage.unique}항목 · 엔진 반영 ${PIM.engineApplied}`;
+
   return {
     drugs, keysOf, ddi, triples, dup,
     pimTable1, pimTable2, pimTable1Hit, pimTable2Hits, conditions, coverage,
     scores, alias, catColor, medIcon, pills, findPillCandidates,
-    products, matchText, resolveQuery, searchIndex,
+    products, matchText, resolveQuery, searchIndex, dataSources, dataStamp,
     meta: { source: PIM.source, doi: PIM.doi, engineApplied: PIM.engineApplied },
   };
 })();

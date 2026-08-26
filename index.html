@@ -3,7 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>올약 — 어르신 복약안전 코파일럿 (데모)</title>
+<title>올약 — 어르신 복약안전</title>
+<meta name="description" content="여러 병원에서 따로 받은 약을 한 번에 모아 병용·중복·노인 부적절약물을 걸러 드립니다.">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0E7C86">
+<link rel="icon" href="icons/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="올약">
+<meta name="mobile-web-app-capable" content="yes">
 <style>
   :root{
     --teal:#0E7C86; --teal2:#13A1A2; --teal-d:#0A565E; --coral:#F06A4C; --coral-d:#D8553A;
@@ -75,6 +84,19 @@
   .chip b{font-weight:700;} .chip .cat{font-size:11px; color:var(--sub);}
   .chip .x{cursor:pointer; color:#B0B8C1; font-weight:700; font-size:18px; line-height:1; margin-left:2px;} .chip .x:hover{color:var(--coral);}
 
+  .installbar{position:absolute; left:12px; right:12px; bottom:74px; z-index:55; background:var(--ink); color:#fff;
+    border-radius:14px; padding:12px 14px; display:none; align-items:center; gap:10px; box-shadow:0 8px 24px rgba(17,24,39,.22);}
+  .installbar b{font-size:13.5px; display:block;}
+  .installbar span{font-size:11.5px; color:#C7D0D8; display:block; margin-top:2px; line-height:1.45;}
+  .installbar button{border:none; border-radius:9px; padding:9px 12px; font-size:12.5px; font-weight:800; cursor:pointer; flex:none;}
+  .installbar .go{background:var(--teal2); color:#fff;}
+  .installbar .no{background:transparent; color:#8B95A1; padding:9px 4px;}
+  .srcrow2{background:#fff; border-radius:14px; padding:12px 14px; margin-bottom:10px; box-shadow:0 2px 8px rgba(17,24,39,.04);}
+  .srcrow2 .sh{display:flex; align-items:center; gap:8px; justify-content:space-between;}
+  .srcrow2 b{font-size:13.5px; color:var(--ink);}
+  .srcrow2 .dt{font-size:11.5px; color:var(--sub); margin-top:3px; line-height:1.5;}
+  .stag{font-size:10.5px; font-weight:800; border-radius:6px; padding:3px 7px; flex:none;}
+  .stag.on{background:#E4F6F1; color:#0A6B5E;} .stag.seed{background:#FFF1DC; color:#8A5A00;} .stag.plan{background:#EDF0F3; color:#6B7A85;}
   .condbox{background:#fff; border:none; border-radius:16px; padding:14px 14px 12px; margin-bottom:14px; box-shadow:0 2px 8px rgba(17,24,39,.04);}
   .condbox .ctit{font-size:14.5px; font-weight:800; color:var(--ink); display:flex; align-items:center; justify-content:space-between; gap:8px;}
   .condbox .csub{font-size:12px; color:var(--sub); margin:4px 0 10px; line-height:1.55;}
@@ -407,6 +429,12 @@
      <p class="hint" style="margin-top:14px;">올약은 정보 제공 도구이며 질병을 진단하거나 약을 바꾸지 않습니다.</p>
    </div>
 
+   <div class="view" id="view-datasrc" style="display:none;">
+    <h2>판정 데이터 출처</h2>
+    <p class="hint">올약이 무엇으로 판정하는지, 언제 기준인지 그대로 공개합니다.</p>
+    <div id="datasrcBody"></div>
+   </div>
+
    <div class="view" id="view-ward" style="display:none;">
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><span onclick="go('more')" style="cursor:pointer;font-size:22px;color:var(--sub);line-height:1">‹</span><h2 style="margin:0">요양원 간병인 대시보드</h2></div>
     <p class="hint">여러 어르신의 시설약·가족 반입약·자가복용을 한 화면에서 관리하고, 출처가 다른 중복(크로스소스)을 자동으로 잡습니다.</p>
@@ -482,6 +510,10 @@
   <div class="tabbar" id="tabbar"></div>
   <div class="homebar"></div>
 
+  <div class="installbar" id="installBar">
+    <div style="flex:1"><b>올약을 홈 화면에 추가하세요</b><span id="installSub">설치하지 않아도 앱처럼 열리고, 인터넷이 없어도 위험 점검이 작동합니다.</span></div>
+    <button class="go" id="installGo">추가</button><button class="no" id="installNo">나중에</button>
+  </div>
   <div class="toast" id="toast"></div>
  </div>
 </div>
@@ -525,7 +557,7 @@ const SEG_TABS={
   b2b:['ward','triage','checklog','more'],
   b2g:['b2g','facilities','report','more']
 };
-const SEG_DRILL={ b2c:[], b2b:['home'], b2g:['facility-detail'] };
+const SEG_DRILL={ b2c:['datasrc'], b2b:['home','datasrc'], b2g:['facility-detail','datasrc'] };
 const TABBAR_CONFIG={
   b2c:[
     {k:'meds', label:'내 약', icon:'pill'},
@@ -556,6 +588,7 @@ function renderTabbar(){
 function ownerTab(seg, name){
   const tabs=SEG_TABS[seg]||SEG_TABS.b2c;
   if(tabs.indexOf(name)>=0) return name;
+  if(name==='datasrc') return 'more';
   if(seg==='b2b' && name==='home') return 'ward';
   if(seg==='b2g' && name==='facility-detail') return 'facilities';
   return tabs[0];
@@ -665,7 +698,7 @@ function renderSeg(){
     +'<div style="margin-top:2px;font-size:11px;line-height:1.55;color:#8B95A1;background:#F6F8FA;border-radius:10px;padding:10px 12px;text-align:left">지금은 <b style="color:#0F6B5F">모든 기능을 무료로</b> 체험하실 수 있습니다. 위 금액은 <b>출시 예정</b> 가격이며 변경될 수 있고, 현재 결제 기능은 제공하지 않습니다.</div>';
   document.getElementById('obDots').innerHTML='';
   document.getElementById('obBtn').style.display='none';
-  ob.querySelectorAll('.rolebtn').forEach(function(b){ b.onclick=function(){ userSeg=b.dataset.k; applySeg(userSeg); if(surveyMode==='guest'){ finishSurvey(); } else { detailIdx=0; renderDetail(); } }; });
+  ob.querySelectorAll('.rolebtn').forEach(function(b){ b.onclick=function(){ userSeg=b.dataset.k; applySeg(userSeg); if(surveyMode==='guest'||surveyMode==='switch'){ finishSurvey(); } else { detailIdx=0; renderDetail(); } }; });
 }
 function renderDetail(){
   var q=DETAILQ[detailIdx]; var sel=detailAns[q.k]||(q.multi?[]:null);
@@ -679,10 +712,11 @@ function obNext(){ detailNext(); }
 function obFinish(){ finishSurvey(); }
 function finishSurvey(){
   document.getElementById('onboardOverlay').style.display='none';
-  if(surveyMode==='signup'){
+  if(surveyMode==='signup' || (surveyMode==='switch' && !guestMode)){
     try{
       var acc=JSON.parse(localStorage.getItem('olyak_account')||'{}');
-      acc.segment=userSeg; acc.profile=detailAns; acc.onboarded=true;   // 세그먼트+온보딩 상태를 계정 객체 안에 폴드(전역 플래그 제거)
+      acc.segment=userSeg; acc.onboarded=true;   // 세그먼트+온보딩 상태를 계정 객체 안에 폴드(전역 플래그 제거)
+      if(surveyMode==='signup') acc.profile=detailAns;
       localStorage.setItem('olyak_account',JSON.stringify(acc));
     }catch(e){}
   }
@@ -691,7 +725,7 @@ function finishSurvey(){
   renderTabbar();
   enterApp();
   var landing={b2c:'home',b2b:'ward',b2g:'b2g'}[userSeg]||'home'; go(landing);
-  toast(surveyMode==='guest'?'게스트 모드 · 개인정보를 저장하지 않습니다':'설문 완료 · 시작합니다');
+  toast(surveyMode==='switch'?'이용 유형을 바꿨습니다':(surveyMode==='guest'?'게스트 모드 · 개인정보를 저장하지 않습니다':'설문 완료 · 시작합니다'));
 }
 // olyak_ 접두 저장 항목을 전부 제거(세션·세그먼트·온보딩·계정·토큰·역할 등) — 로그아웃 시 상태 leak 차단
 function clearOlyakStorage(){
@@ -1017,6 +1051,7 @@ gate.onchange=()=>{checkBtn.disabled=!gate.checked;};
 
 // ---- 위험판정 엔진 (결정론적 규칙, rules.js 룰셋 소비) ----
 const R = OLYAK_RULES;
+const APP_VERSION='v1.0';   // 배포 버전. sw.js CACHE 버전과 함께 올린다.
 function analyze(){
   const findings=[];
   const clsOf = n => byName[n].cls;
@@ -1267,6 +1302,8 @@ function go(name){
   if(name==='card') renderCard();
   if(name==='pharm') renderPharm();
   if(name==='ward') renderWard();
+  if(name==='more') renderMore();
+  if(name==='datasrc') renderDataSources();
   document.querySelector('.screen').scrollTop=0;
 }
 const MEDICON=OLYAK_RULES.medIcon;
@@ -1467,6 +1504,66 @@ if(_p.get('cond')) conditions=_p.get('cond').split(',').filter(id=>R.conditions.
 document.getElementById('condMore').onclick=()=>{ condShowAll=!condShowAll; renderConds(); };
 renderConds();
 render();
+
+// ── PWA: 서비스워커 등록 (오프라인에서도 판정 엔진이 동작) ──
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>{ navigator.serviceWorker.register('sw.js').catch(()=>{}); });
+}
+// ── 홈 화면 추가 유도 ──
+// Android·데스크톱 Chrome은 beforeinstallprompt로 네이티브 설치, iOS Safari는 이벤트가 없어 방법을 안내한다.
+(function installFlow(){
+  const bar=document.getElementById('installBar');
+  const standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone===true;
+  let dismissed=false; try{ dismissed = localStorage.getItem('olyak_install_off')==='1'; }catch(e){}
+  if(standalone || dismissed) return;
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  let deferred=null;
+  const show=()=>{ bar.style.display='flex'; };
+  window.addEventListener('beforeinstallprompt',(e)=>{ e.preventDefault(); deferred=e; show(); });
+  if(isIOS){
+    document.getElementById('installSub').textContent='사파리 아래 공유 버튼을 누르고 "홈 화면에 추가"를 선택하세요. 인터넷이 없어도 위험 점검이 작동합니다.';
+    document.getElementById('installGo').textContent='확인';
+    setTimeout(show, 2600);
+  }
+  document.getElementById('installGo').onclick=async()=>{
+    if(deferred){ deferred.prompt(); try{ await deferred.userChoice; }catch(e){} deferred=null; }
+    bar.style.display='none';
+  };
+  document.getElementById('installNo').onclick=()=>{
+    bar.style.display='none';
+    try{ localStorage.setItem('olyak_install_off','1'); }catch(e){}
+  };
+  window.addEventListener('appinstalled',()=>{ bar.style.display='none'; toast('올약이 홈 화면에 추가됐어요'); });
+})();
+
+// ── 데이터 출처·기준일 화면 ──
+// "이 데이터가 오래된 것이면?"에 말이 아니라 화면으로 답한다. 반영/시드/예정을 구분해 표기한다.
+function renderDataSources(){
+  const tag={ '반영':'on', '시드':'seed', '예정':'plan' };
+  let h=R.dataSources.map(d=>`<div class="srcrow2"><div class="sh"><b>${d.name}</b><span class="stag ${tag[d.status]}">${d.status}${d.date?' · '+d.date:''}</span></div><div class="dt">${d.detail}<br>출처: ${d.origin}</div></div>`).join('');
+  h+=`<div class="infonote">판정 규칙은 공공 고시 기준에 고정돼 있고 생성형 AI가 만들지 않습니다. 갱신 주기가 있는 항목은 새 기준일이 나오면 반영하며, 그때 이 화면의 날짜가 함께 바뀝니다.</div>`;
+  h+=`<div class="row" style="margin-top:12px"><button class="btn btn-ghost" style="flex:1" onclick="go('more')">돌아가기</button></div>`;
+  document.getElementById('datasrcBody').innerHTML=h;
+}
+// ── 더보기 메뉴 ──
+function moreRow(icon,label,sub,fn){
+  return `<div class="medrow" style="cursor:pointer" onclick="${fn}"><div class="mic">${svgIcon(icon,18)}</div><div class="mx"><b>${label}</b>${sub?`<span>${sub}</span>`:''}</div><span style="color:var(--sub);font-size:18px;flex:none">›</span></div>`;
+}
+function renderMore(){
+  const segLabel={b2c:'개인 · 보호자', b2b:'요양원 · 간병인', b2g:'지자체 · 공단'}[CURRENT_SEG]||'개인 · 보호자';
+  let h='';
+  h+=moreRow('book','판정 데이터 출처', R.dataStamp, "go('datasrc')");
+  h+=moreRow('users','이용 유형 바꾸기', segLabel, "startSurvey('switch')");
+  h+=moreRow('check','큰글씨 모드', '어르신이 보기 편한 크기로', "toggleA11y()");
+  if(CURRENT_SEG==='b2c') h+=moreRow('list','약국 상담일지', '약사에게 보여줄 한 장', "openConsultLog()");
+  h+=moreRow('doc','이용약관', '', "openLegal('terms')");
+  h+=moreRow('doc','개인정보 처리방침', '민감정보·온디바이스 마스킹', "openLegal('privacy')");
+  h+=moreRow('doc','취소·환불 정책', '', "openLegal('refund')");
+  h+=`<div class="srcrow2" style="margin-top:10px"><div class="sh"><b>올약 (Olyak)</b><span class="stag plan">${APP_VERSION}</span></div><div class="dt">팀 케어브리지 · 문의 dayeon603@gmail.com<br>${R.dataStamp}</div></div>`;
+  h+=`<div class="infonote">${guestMode?'게스트로 보고 계십니다. 입력하신 약은 이 기기에만 남고 저장되지 않습니다.':'입력하신 약은 이 기기 안에만 저장됩니다.'}</div>`;
+  if(!guestMode) h+=`<div class="row" style="margin-top:10px"><button class="btn btn-ghost" style="flex:1" onclick="logout()">로그아웃</button></div>`;
+  document.getElementById('moreBody').innerHTML=h;
+}
 </script>
 </body>
 </html>
