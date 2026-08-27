@@ -261,6 +261,7 @@
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 <script src="pim_data.js"></script>
+<script src="dur_data.js"></script>
 <script src="rules.js"></script>
 </head>
 <body>
@@ -1055,7 +1056,17 @@ const APP_VERSION='v1.0';   // 배포 버전. sw.js CACHE 버전과 함께 올�
 function analyze(){
   const findings=[];
   const clsOf = n => byName[n].cls;
-  // 1) 병용 (계열쌍) — 식약처 DUR 병용금기/주의
+  // 0) 국가 병용금기 — 식약처 고시 별표1 원문 대조. 계열 추정이 아니라 성분 조합 완전일치다.
+  //    고시에 있으면 근거를 '식약처 고시'로 표기하고 빨강으로 판정한다.
+  const pickedDrugs0 = picked.map(n=>byName[n]);
+  R.durHits(pickedDrugs0).forEach(h=>{
+    const [a,b]=h.drugs;
+    findings.push({sev:'high', type:'병용금기(고시)',
+      title:`${a.n} + ${b.n} — 식약처 고시 병용금기`,
+      desc:`두 성분은 식약처 고시 「의약품 병용금기 성분 등의 지정에 관한 규정」 별표1에 병용금기로 등재된 조합입니다(고시 연번 ${h.rule.no}).${h.rule.note?` 단서: ${h.rule.note}.`:''} 함께 복용하지 않도록 의사·약사와 상의하세요.`,
+      basis:'고시'});
+  });
+  // 1) 병용 (계열쌍) — 고시에 없는 조합까지 넓게 보기 위한 임상 표준 규칙
   for(let i=0;i<picked.length;i++) for(let j=i+1;j<picked.length;j++){
     const c1=clsOf(picked[i]), c2=clsOf(picked[j]);
     R.ddi.forEach(rule=>{
@@ -1131,7 +1142,8 @@ function runAnalysisSequence(done){
   const nSrc=[...new Set(picked.map(n=>medSource[n]||'가족'))].length;
   const steps=[
     {t:'성분코드 정규화',      s:'심평원 약제급여목록표 기준',       c:`${picked.length}종`},
-    {t:'식약처 DUR 대조',      s:'병용금기·연령금기·효능군 중복',    c:`${R.ddi.length}규칙`},
+    {t:'식약처 고시 병용금기 대조', s:'고시 별표1 성분 조합 완전일치', c:`${R.durMeta?R.durMeta.indexed.toLocaleString():0}건`},
+    {t:'계열 단위 병용·중복',   s:'고시 밖 조합까지 확대 점검',       c:`${R.ddi.length}규칙`},
     {t:'한국형 PIM 표1 판정',  s:'조건 무관 노인 부적절약물',       c:`${R.coverage.table1}항목`},
     {t:'한국형 PIM 표2 판정',  s:'기저질환·병력 조건부 매칭',        c:`${conditions.length}/${R.coverage.table2Conditions}조건`},
     {t:'크로스소스 교차검증',  s:'시설·가족·자가 출처 통합 대조',    c:`${nSrc}개 출처`}
@@ -1374,6 +1386,7 @@ function pimAltFor(n){ const d=byName[n]; if(!R.pimTable1Hit(d)) return null; re
 // 판정 근거를 공식 출처 원문으로 풀어서 표기(환각 반박: 우리는 근거가 고정돼 있다)
 function basisFull(f){
   const t=f.type||'';
+  if(f.basis==='고시') return '식품의약품안전처 고시 「의약품 병용금기 성분 등의 지정에 관한 규정」 별표1 (2022-06-30 기준)';
   if(t.includes('표2')) return '한국형 노인 부적절약물(PIM) 2018 표2 — 기저질환·병력 조건부 18개 조건 · Kim MY et al., Ann Geriatr Med Res 2018;22(3):121-129';
   if(t.includes('PIM')) return '한국형 노인 부적절약물(PIM) 2018 표1 — 조건 무관 63항목 · Kim MY et al., Ann Geriatr Med Res 2018;22(3):121-129';
   if(t.includes('삼중')) return '노인 삼중요법 급성신손상 주의(NSAID+RAS차단제+이뇨제)';
@@ -1465,7 +1478,7 @@ if(_p.get('anz')==='1'){                        // 분석 시퀀스 정지 컷(�
     var nSrc=[...new Set(picked.map(n=>medSource[n]||'가족'))].length;
     var steps=[
       ['성분코드 정규화','심평원 약제급여목록표 기준',picked.length+'종','done'],
-      ['식약처 DUR 대조','병용금기·연령금기·효능군 중복',R.ddi.length+'규칙','done'],
+      ['식약처 고시 병용금기 대조','고시 별표1 완전일치',(R.durMeta?R.durMeta.indexed.toLocaleString():0)+'건','done'],
       ['한국형 PIM 표1 판정','조건 무관 노인 부적절약물',R.coverage.table1+'항목','done'],
       ['한국형 PIM 표2 판정','기저질환·병력 조건부 매칭',conditions.length+'/'+R.coverage.table2Conditions+'조건','on'],
       ['크로스소스 교차검증','시설·가족·자가 출처 통합 대조',nSrc+'개 출처','']

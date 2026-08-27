@@ -9,6 +9,7 @@ const path = require('path');
 const root = path.join(__dirname, '..');
 global.window = {};
 eval(fs.readFileSync(path.join(root, 'pim_data.js'), 'utf8'));
+eval(fs.readFileSync(path.join(root, 'dur_data.js'), 'utf8'));
 eval(fs.readFileSync(path.join(root, 'rules.js'), 'utf8'));
 const R = global.window.OLYAK_RULES;
 const RAW = JSON.parse(fs.readFileSync(path.join(root, 'data/pim_kr_2018.json'), 'utf8'));
@@ -21,6 +22,9 @@ function analyze(picked, conds, srcMap) {
   conds = conds || []; srcMap = srcMap || {};
   const findings = [];
   const clsOf = n => byName[n].cls;
+  R.durHits(picked.map(n => byName[n])).forEach(h => {
+    findings.push({ sev: 'high', type: '병용금기(고시)', title: `${h.drugs[0].n} + ${h.drugs[1].n} — 식약처 고시 병용금기` });
+  });
   for (let i = 0; i < picked.length; i++) for (let j = i + 1; j < picked.length; j++) {
     const c1 = clsOf(picked[i]), c2 = clsOf(picked[j]);
     R.ddi.forEach(rule => { const [a, b] = rule.classes;
@@ -293,6 +297,29 @@ check('미부여 4항목에 사유 명시', R.pimTable1.filter((x) => !x.atc).ev
 check('WHO 인덱스 대조분 유지: 졸피뎀 N05CF02', R.pimTable1.find((x) => x.ing === 'zolpidem').atc === 'N05CF02');
 check('WHO 인덱스 대조분 유지: 디멘히드리네이트 R06AA11', R.pimTable1.find((x) => x.ing === 'dimenhydrinate').atc === 'R06AA11');
 check('데이터 출처 화면에 ATC 노출', R.dataSources.some((d) => d.name.includes('ATC') && d.status === '반영'));
+
+// ══ 14. 국가 병용금기 (식약처 고시 별표1) ══════════════════════════
+section('14. 국가 병용금기');
+check('고시 목록 로드됨', R.durMeta && R.durMeta.indexed > 1000);
+check('색인 건수 1,185', R.durMeta.indexed === 1185);
+check('추출 실패 건수 명시', typeof R.durMeta.unresolved === 'number');
+check('출처에 고시명 명시', /병용금기 성분 등의 지정에 관한 규정/.test(R.durMeta.source));
+check('아미오다론+아미트립틸린 = 고시 병용금기', !!R.durContraindication('amiodarone', 'amitriptyline'));
+check('케토롤락+아스피린 = 고시 병용금기', !!R.durContraindication('ketorolac', 'aspirin'));
+check('조회는 순서 무관', !!R.durContraindication('amitriptyline', 'amiodarone'));
+check('고시에 없는 조합은 null (와파린+이부프로펜)', R.durContraindication('warfarin', 'ibuprofen') === null);
+check('무관한 조합은 null', R.durContraindication('amlodipine', 'metformin') === null);
+check('고시 병용금기가 판정에 반영됨', hasType(analyze(['아미오다론', '아미트립틸린']), '병용금기(고시)'));
+check('고시 병용금기 = 빨강', signal(analyze(['아미오다론', '아미트립틸린'])) === 'red');
+check('고시 미등재 조합은 고시 판정 안 뜸', !hasType(analyze(['와파린', '이부프로펜']), '병용금기(고시)'));
+check('근거 표기 정합성: DUR로 표기한 규칙은 고시에 실재', (() => {
+  const byCls = {}; R.drugs.forEach(d => { (byCls[d.cls] = byCls[d.cls] || []).push(d); });
+  return R.ddi.filter(r => r.basis === 'DUR').every(r => {
+    const A = byCls[r.classes[0]] || [], B = byCls[r.classes[1]] || [];
+    return A.some(a => B.some(b => R.durContraindication(a.ing, b.ing)));
+  });
+})());
+check('데이터 출처 화면에 고시 노출', R.dataSources.some(d => d.name.includes('고시') && d.status === '반영'));
 
 // ── 결과 ──
 console.log(`\n엔진 테스트: ${pass} 통과 / ${fail} 실패 (총 ${pass + fail}건)`);

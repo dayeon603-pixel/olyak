@@ -13,6 +13,7 @@
 window.OLYAK_RULES = (function () {
   const PIM = window.OLYAK_PIM;
   if (!PIM) throw new Error("pim_data.js를 rules.js보다 먼저 로드해야 합니다.");
+  const DUR = window.OLYAK_DUR || null;   // 국가 병용금기 목록(선택). 없으면 계열 규칙만 쓴다.
 
   // ── 약물 마스터
   //    n=한글 표기, ing=성분키, cls=주 효능군(색/중복/병용 판정 축), cat=표시명,
@@ -112,35 +113,39 @@ window.OLYAK_RULES = (function () {
   function keysOf(d) { return [d.cls, ...(d.tags || [])]; }
 
   // ── 병용 규칙 (계열쌍) : sev high=신호등 빨강 기여, mid=노랑
-  // basis: 판정 근거 표기(DUR=식약처 병용, 문헌=표준 임상)
+  // basis 표기 원칙: **DUR = 식약처 고시 별표1에 실제로 등재된 조합만**. 그 밖은 문헌.
+  //   초기에는 임상적으로 위험한 조합을 관행적으로 DUR로 표기했으나, 고시 원문(1,185건)을
+  //   엔진에 넣고 대조한 결과 11건 중 10건이 고시에 없는 조합이었다. 전부 문헌으로 정정했다.
+  //   와파린+NSAID처럼 임상적으로 명백히 위험해도 고시 병용금기가 아닌 조합이 있다.
+  //   근거의 층위를 섞으면 "근거가 공공 고시에 고정돼 있다"는 설명 자체가 틀린 말이 된다.
   const ddi = [
-    { classes: ["anticoag", "antiplatelet"], sev: "high", kind: "병용금기", basis: "DUR", title: "출혈 위험 (항응고제 + 항혈소판제)", desc: "함께 복용하면 출혈 위험이 크게 높아집니다." },
-    { classes: ["anticoag", "nsaid"],        sev: "high", kind: "병용금기", basis: "DUR", title: "위장출혈 위험 (항응고제 + NSAID)", desc: "항응고제와 소염진통제 병용은 위장관 출혈 위험을 크게 높입니다." },
+    { classes: ["anticoag", "antiplatelet"], sev: "high", kind: "병용금기", basis: "문헌", title: "출혈 위험 (항응고제 + 항혈소판제)", desc: "함께 복용하면 출혈 위험이 크게 높아집니다." },
+    { classes: ["anticoag", "nsaid"],        sev: "high", kind: "병용금기", basis: "문헌", title: "위장출혈 위험 (항응고제 + NSAID)", desc: "항응고제와 소염진통제 병용은 위장관 출혈 위험을 크게 높입니다." },
     { classes: ["anticoag", "amiodarone"],   sev: "high", kind: "병용주의", basis: "문헌", title: "INR 상승·출혈 (와파린 + 아미오다론)", desc: "아미오다론이 와파린 효과를 높여 출혈 위험이 커집니다." },
     { classes: ["anticoag", "ssri"],         sev: "mid",  kind: "병용주의", basis: "문헌", title: "출혈 위험 증가 (항응고제 + SSRI)", desc: "SSRI가 혈소판 기능을 낮춰 출혈 위험이 더해질 수 있습니다." },
-    { classes: ["noac", "nsaid"],            sev: "high", kind: "병용금기", basis: "DUR", title: "출혈 위험 (NOAC + NSAID)", desc: "NOAC 항응고제와 NSAID 병용은 위장출혈 위험을 높입니다." },
+    { classes: ["noac", "nsaid"],            sev: "high", kind: "병용금기", basis: "문헌", title: "출혈 위험 (NOAC + NSAID)", desc: "NOAC 항응고제와 NSAID 병용은 위장출혈 위험을 높입니다." },
     { classes: ["noac", "antiplatelet"],     sev: "high", kind: "병용주의", basis: "문헌", title: "출혈 위험 (NOAC + 항혈소판제)", desc: "출혈 위험이 증가합니다. 병용 필요 시 전문가 판단이 필요합니다." },
     { classes: ["antiplatelet", "nsaid"],    sev: "mid",  kind: "병용주의", basis: "DUR", title: "위장출혈 위험 (항혈소판제 + NSAID)", desc: "함께 복용 시 위장 출혈 위험이 증가할 수 있습니다." },
     { classes: ["antiplatelet", "ssri"],     sev: "mid",  kind: "병용주의", basis: "문헌", title: "출혈 위험 (항혈소판제 + SSRI)", desc: "출혈 경향이 더해질 수 있습니다." },
-    { classes: ["sedative", "opioid"],       sev: "high", kind: "병용금기", basis: "DUR", title: "호흡억제·과진정 (진정제 + 오피오이드)", desc: "벤조디아제핀과 오피오이드 병용은 호흡 억제와 낙상 위험을 크게 키웁니다." },
+    { classes: ["sedative", "opioid"],       sev: "high", kind: "병용금기", basis: "문헌", title: "호흡억제·과진정 (진정제 + 오피오이드)", desc: "벤조디아제핀과 오피오이드 병용은 호흡 억제와 낙상 위험을 크게 키웁니다." },
     { classes: ["zdrug", "opioid"],          sev: "high", kind: "병용주의", basis: "문헌", title: "호흡억제·과진정 (수면제 + 오피오이드)", desc: "진정이 겹쳐 호흡 억제·낙상 위험이 높아집니다." },
     { classes: ["sedative", "zdrug"],        sev: "mid",  kind: "병용주의", basis: "문헌", title: "과진정 중복 (벤조 + 수면제)", desc: "진정 작용이 겹쳐 어지럼·낙상 위험이 높아집니다." },
     { classes: ["sedative", "anticholinergic"], sev: "mid", kind: "병용주의", basis: "문헌", title: "졸음·낙상 가중 (진정제 + 항콜린제)", desc: "진정·항콜린 작용이 겹쳐 낙상·인지저하 위험이 높아집니다." },
     { classes: ["musclerelax", "sedative"],  sev: "mid",  kind: "병용주의", basis: "문헌", title: "과진정 (근이완제 + 진정제)", desc: "진정이 겹쳐 낙상 위험이 커집니다." },
     { classes: ["opioid", "ssri"],           sev: "mid",  kind: "병용주의", basis: "문헌", title: "세로토닌증후군 주의 (트라마돌 + SSRI)", desc: "트라마돌과 SSRI 병용 시 드물게 세로토닌증후군이 생길 수 있습니다." },
-    { classes: ["digoxin", "diuretic"],      sev: "high", kind: "병용주의", basis: "DUR", title: "디곡신 독성 위험 (디곡신 + 이뇨제)", desc: "이뇨제로 칼륨이 낮아지면 디곡신 독성 위험이 커집니다." },
+    { classes: ["digoxin", "diuretic"],      sev: "high", kind: "병용주의", basis: "문헌", title: "디곡신 독성 위험 (디곡신 + 이뇨제)", desc: "이뇨제로 칼륨이 낮아지면 디곡신 독성 위험이 커집니다." },
     { classes: ["digoxin", "amiodarone"],    sev: "high", kind: "병용주의", basis: "문헌", title: "디곡신 농도 상승 (디곡신 + 아미오다론)", desc: "아미오다론이 디곡신 혈중농도를 높여 독성 위험이 커집니다." },
-    { classes: ["acei", "kdiuretic"],        sev: "high", kind: "병용주의", basis: "DUR", title: "고칼륨혈증 위험 (ACE억제제 + 칼륨보존이뇨제)", desc: "혈중 칼륨이 위험하게 높아질 수 있습니다." },
-    { classes: ["arb", "kdiuretic"],         sev: "high", kind: "병용주의", basis: "DUR", title: "고칼륨혈증 위험 (ARB + 칼륨보존이뇨제)", desc: "혈중 칼륨이 위험하게 높아질 수 있습니다." },
+    { classes: ["acei", "kdiuretic"],        sev: "high", kind: "병용주의", basis: "문헌", title: "고칼륨혈증 위험 (ACE억제제 + 칼륨보존이뇨제)", desc: "혈중 칼륨이 위험하게 높아질 수 있습니다." },
+    { classes: ["arb", "kdiuretic"],         sev: "high", kind: "병용주의", basis: "문헌", title: "고칼륨혈증 위험 (ARB + 칼륨보존이뇨제)", desc: "혈중 칼륨이 위험하게 높아질 수 있습니다." },
     { classes: ["acei", "arb"],              sev: "mid",  kind: "병용주의", basis: "문헌", title: "이중 차단 주의 (ACE억제제 + ARB)", desc: "신기능 저하·고칼륨 위험이 있어 병용은 권장되지 않습니다." },
     { classes: ["su", "bb"],                 sev: "mid",  kind: "병용주의", basis: "문헌", title: "저혈당 증상 은폐 (설폰요소제 + 베타차단제)", desc: "베타차단제가 저혈당의 경고 증상(두근거림 등)을 가릴 수 있습니다." },
     { classes: ["statin", "amiodarone"],     sev: "mid",  kind: "병용주의", basis: "문헌", title: "근병증 위험 (스타틴 + 아미오다론)", desc: "근육통·횡문근융해 위험이 증가할 수 있습니다." },
-    { classes: ["ccbnd", "bb"],              sev: "high", kind: "병용주의", basis: "DUR", title: "서맥·전도장애 (베라파밀·딜티아젬 + 베타차단제)", desc: "맥이 지나치게 느려지거나 방실전도가 막힐 수 있습니다." },
+    { classes: ["ccbnd", "bb"],              sev: "high", kind: "병용주의", basis: "문헌", title: "서맥·전도장애 (베라파밀·딜티아젬 + 베타차단제)", desc: "맥이 지나치게 느려지거나 방실전도가 막힐 수 있습니다." },
     { classes: ["ccbnd", "digoxin"],         sev: "mid",  kind: "병용주의", basis: "문헌", title: "디곡신 농도 상승 (비DHP CCB + 디곡신)", desc: "베라파밀·딜티아젬이 디곡신 농도를 높일 수 있습니다." },
     { classes: ["antipsy", "chei"],          sev: "mid",  kind: "병용주의", basis: "문헌", title: "치료 상충 (항정신병약 + 치매치료제)", desc: "콜린성 약과 항정신병약이 서로 반대로 작용해 효과가 상충할 수 있습니다." },
     { classes: ["prokinetic", "antipsy"],    sev: "mid",  kind: "병용주의", basis: "문헌", title: "추체외로 증상 위험 (메토클로프라미드 + 항정신병약)", desc: "떨림·경직 등 추체외로 부작용 위험이 더해집니다." },
-    { classes: ["cortico", "nsaid"],         sev: "high", kind: "병용주의", basis: "DUR", title: "위장출혈 위험 (스테로이드 + NSAID)", desc: "위·십이지장 궤양과 출혈 위험이 함께 올라갑니다." },
-    { classes: ["cox2", "anticoag"],         sev: "high", kind: "병용주의", basis: "DUR", title: "출혈 위험 (COX-2 억제제 + 항응고제)", desc: "COX-2 억제제도 항응고제와 함께 쓰면 출혈 위험이 커집니다." },
+    { classes: ["cortico", "nsaid"],         sev: "high", kind: "병용주의", basis: "문헌", title: "위장출혈 위험 (스테로이드 + NSAID)", desc: "위·십이지장 궤양과 출혈 위험이 함께 올라갑니다." },
+    { classes: ["cox2", "anticoag"],         sev: "high", kind: "병용주의", basis: "문헌", title: "출혈 위험 (COX-2 억제제 + 항응고제)", desc: "COX-2 억제제도 항응고제와 함께 쓰면 출혈 위험이 커집니다." },
   ];
 
   // ── 삼중 위험(triple whammy): 각 그룹에서 최소 1개씩 있으면 성립
@@ -383,8 +388,10 @@ window.OLYAK_RULES = (function () {
       origin: "Kim MY et al., Ann Geriatr Med Res 2018;22(3):121-129 · 원문 대조 완료", date: PIM.engineApplied, status: "반영" },
     { name: "WHO ATC 표준 코드", detail: `표1 63항목 중 ${PIM.table1.filter(function(x){return x.atc;}).length}항목에 5단계 코드 부여`,
       origin: "WHO ATC/DDD Index · 9항목 표본 대조(전수 미완료)", date: "2026-08", status: "반영" },
-    { name: "병용·중복 판정 규칙", detail: `병용 ${ddi.length}종 · 삼중 ${triples.length}종 · 효능군 중복 ${dup.length}계열`,
-      origin: "식약처 고시 병용금기 기준의 임상 표준 항목", date: "2026-08", status: "시드" },
+    { name: "식약처 고시 병용금기", detail: DUR ? `성분 조합 ${DUR.indexed.toLocaleString()}건 (고시 별표1)` : "미로드",
+      origin: "의약품 병용금기 성분 등의 지정에 관한 규정 별표1 · 2022-06-30 기준", date: "2022-06", status: DUR ? "반영" : "예정" },
+    { name: "계열 단위 병용·중복 규칙", detail: `병용 ${ddi.length}종 · 삼중 ${triples.length}종 · 효능군 중복 ${dup.length}계열`,
+      origin: "고시에 없는 조합까지 넓게 보기 위한 임상 표준 항목", date: "2026-08", status: "시드" },
     { name: "제품명 → 성분 사전", detail: `${Object.keys(products).length}종 (약봉투·처방전은 제품명으로 인쇄됨)`,
       origin: "자체 구축", date: "2026-08", status: "시드" },
     { name: "낱알식별 정보", detail: `${pills.length}종 (각인·모양·색·분할선)`,
@@ -396,11 +403,42 @@ window.OLYAK_RULES = (function () {
   ];
   const dataStamp = `한국형 PIM 2018 ${PIM.coverage.unique}항목 · 엔진 반영 ${PIM.engineApplied}`;
 
+
+  // ── 국가 병용금기 조회 ────────────────────────────────────────────────
+  //    식약처 고시 「의약품 병용금기 성분 등의 지정에 관한 규정」 별표1.
+  //    아래 계열쌍 규칙(ddi)은 임상 표준 항목을 코드화한 시드이고, 이쪽은 **고시 원문**이다.
+  //    따라서 국가 목록에 있으면 근거를 '식약처 고시'로 표기하고 금기로 판정한다.
+  //    계열 규칙에만 걸리면 문헌 근거의 '주의'로 낮춘다. 근거의 층위를 섞지 않기 위해서다.
+  function durContraindication(ingA, ingB) {
+    if (!DUR || !ingA || !ingB) return null;
+    const key = [String(ingA).toLowerCase(), String(ingB).toLowerCase()].sort().join('|');
+    return DUR.index[key] || null;
+  }
+
+  /** 복용 목록에서 국가 병용금기에 해당하는 조합을 모두 찾는다. */
+  function durHits(drugList) {
+    if (!DUR) return [];
+    const out = [];
+    for (let i = 0; i < drugList.length; i++) {
+      for (let j = i + 1; j < drugList.length; j++) {
+        const hit = durContraindication(drugList[i].ing, drugList[j].ing);
+        if (hit) out.push({ drugs: [drugList[i], drugList[j]], rule: hit });
+      }
+    }
+    return out;
+  }
+
+  const durMeta = DUR
+    ? { source: DUR.source, extracted: DUR.extracted, indexed: DUR.indexed,
+        deleted: DUR.deleted, unresolved: DUR.unresolved }
+    : null;
+
   return {
     drugs, keysOf, ddi, triples, dup,
     pimTable1, pimTable2, pimTable1Hit, pimTable2Hits, conditions, coverage,
     scores, alias, catColor, medIcon, pills, findPillCandidates,
     products, matchText, resolveQuery, searchIndex, dataSources, dataStamp,
+    durContraindication, durHits, durMeta,
     meta: { source: PIM.source, doi: PIM.doi, engineApplied: PIM.engineApplied },
   };
 })();

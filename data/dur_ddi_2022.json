@@ -1,0 +1,6788 @@
+{
+ "source": "식품의약품안전처 고시 「의약품 병용금기 성분 등의 지정에 관한 규정」 별표1 (제4조). 심평원 2022 보고서 부록3에 수록된 2022-06-30 기준본",
+ "extracted": 1130,
+ "deleted": 8,
+ "unresolved": 18,
+ "pairs": [
+  {
+   "no": 1,
+   "a": "acemetacin",
+   "b": "diflunisal",
+   "note": ""
+  },
+  {
+   "no": 2,
+   "a": "acemetacin",
+   "b": "methotrexate (분류번호 : 421)",
+   "note": "15mg 이상 투여시"
+  },
+  {
+   "no": 3,
+   "a": "acetazolamide",
+   "b": "methazolamide",
+   "note": ""
+  },
+  {
+   "no": 4,
+   "a": "acetazolamide",
+   "b": "topiramate",
+   "note": ""
+  },
+  {
+   "no": 5,
+   "a": "acitretin",
+   "b": "doxycycline",
+   "note": ""
+  },
+  {
+   "no": 6,
+   "a": "acitretin",
+   "b": "methotrexate",
+   "note": ""
+  },
+  {
+   "no": 7,
+   "a": "acitretin",
+   "b": "minocycline",
+   "note": ""
+  },
+  {
+   "no": 8,
+   "a": "acitretin",
+   "b": "oxytetracycline",
+   "note": ""
+  },
+  {
+   "no": 9,
+   "a": "acitretin",
+   "b": "tetracycline",
+   "note": ""
+  },
+  {
+   "no": 10,
+   "a": "adefovir",
+   "b": "emtricitabine + tenofovir",
+   "note": ""
+  },
+  {
+   "no": 11,
+   "a": "adefovir",
+   "b": "tenofovir",
+   "note": ""
+  },
+  {
+   "no": 12,
+   "a": "alfacalcidol",
+   "b": "calcifediol",
+   "note": ""
+  },
+  {
+   "no": 13,
+   "a": "alfacalcidol",
+   "b": "calcitriol",
+   "note": ""
+  },
+  {
+   "no": 14,
+   "a": "alfacalcidol",
+   "b": "calcitriol + alendronate",
+   "note": ""
+  },
+  {
+   "no": 15,
+   "a": "alfacalcidol",
+   "b": "paricalcitol",
+   "note": ""
+  },
+  {
+   "no": 16,
+   "a": "almotriptan",
+   "b": "anhydrous caffeine + ergotamine",
+   "note": ""
+  },
+  {
+   "no": 17,
+   "a": "almotriptan",
+   "b": "frovatriptan",
+   "note": "24시간 이내 병용금기"
+  },
+  {
+   "no": 18,
+   "a": "almotriptan",
+   "b": "naratriptan",
+   "note": ""
+  },
+  {
+   "no": 19,
+   "a": "almotriptan",
+   "b": "sumatriptan",
+   "note": ""
+  },
+  {
+   "no": 20,
+   "a": "almotriptan",
+   "b": "zolmitriptan",
+   "note": ""
+  },
+  {
+   "no": 21,
+   "a": "alprazolam",
+   "b": "itraconazole",
+   "note": ""
+  },
+  {
+   "no": 22,
+   "a": "alprazolam",
+   "b": "ketoconazole",
+   "note": ""
+  },
+  {
+   "no": 23,
+   "a": "altretamine",
+   "b": "pyridoxine",
+   "note": ""
+  },
+  {
+   "no": 24,
+   "a": "amantadine",
+   "b": "bromperidol",
+   "note": ""
+  },
+  {
+   "no": 25,
+   "a": "amantadine",
+   "b": "chlorpromazine",
+   "note": ""
+  },
+  {
+   "no": 26,
+   "a": "amantadine",
+   "b": "perphenazine",
+   "note": ""
+  },
+  {
+   "no": 27,
+   "a": "amantadine",
+   "b": "dronedarone",
+   "note": ""
+  },
+  {
+   "no": 28,
+   "a": "amantadine",
+   "b": "mizolastine",
+   "note": ""
+  },
+  {
+   "no": 29,
+   "a": "amantadine",
+   "b": "pimozide",
+   "note": ""
+  },
+  {
+   "no": 30,
+   "a": "amantadine",
+   "b": "toremifene",
+   "note": ""
+  },
+  {
+   "no": 31,
+   "a": "amiloride",
+   "b": "spironolactone",
+   "note": ""
+  },
+  {
+   "no": 32,
+   "a": "amiloride",
+   "b": "triamterene",
+   "note": ""
+  },
+  {
+   "no": 33,
+   "a": "aminocaproic acid",
+   "b": "thrombin",
+   "note": ""
+  },
+  {
+   "no": 34,
+   "a": "amiodarone",
+   "b": "erythromycin(정맥주사용)",
+   "note": ""
+  },
+  {
+   "no": 35,
+   "a": "amiodarone",
+   "b": "mizolastine",
+   "note": ""
+  },
+  {
+   "no": 36,
+   "a": "amiodarone",
+   "b": "pentamidine(비경구형)",
+   "note": ""
+  },
+  {
+   "no": 37,
+   "a": "amiodarone",
+   "b": "quinidine",
+   "note": ""
+  },
+  {
+   "no": 38,
+   "a": "amiodarone",
+   "b": "ritonavir",
+   "note": ""
+  },
+  {
+   "no": 39,
+   "a": "amiodarone",
+   "b": "sotalol",
+   "note": ""
+  },
+  {
+   "no": 40,
+   "a": "amiodarone",
+   "b": "sparfloxacin",
+   "note": ""
+  },
+  {
+   "no": 41,
+   "a": "amiodarone",
+   "b": "amantadine",
+   "note": ""
+  },
+  {
+   "no": 42,
+   "a": "amiodarone",
+   "b": "amitriptyline",
+   "note": ""
+  },
+  {
+   "no": 43,
+   "a": "amiodarone",
+   "b": "dolasetron",
+   "note": ""
+  },
+  {
+   "no": 44,
+   "a": "amiodarone",
+   "b": "dronedarone",
+   "note": ""
+  },
+  {
+   "no": 45,
+   "a": "amiodarone",
+   "b": "imipramine",
+   "note": ""
+  },
+  {
+   "no": 46,
+   "a": "amiodarone",
+   "b": "nortriptyline",
+   "note": ""
+  },
+  {
+   "no": 47,
+   "a": "amiodarone",
+   "b": "pimozide",
+   "note": ""
+  },
+  {
+   "no": 48,
+   "a": "amiodarone",
+   "b": "toremifene",
+   "note": ""
+  },
+  {
+   "no": 49,
+   "a": "amisulpride",
+   "b": "amiodarone",
+   "note": ""
+  },
+  {
+   "no": 50,
+   "a": "amisulpride",
+   "b": "bromocriptine",
+   "note": ""
+  },
+  {
+   "no": 51,
+   "a": "amisulpride",
+   "b": "pramipexole",
+   "note": ""
+  },
+  {
+   "no": 52,
+   "a": "amitriptyline",
+   "b": "moclobemide",
+   "note": ""
+  },
+  {
+   "no": 53,
+   "a": "amitriptyline",
+   "b": "selegiline",
+   "note": ""
+  },
+  {
+   "no": 54,
+   "a": "amoxapine",
+   "b": "selegiline",
+   "note": ""
+  },
+  {
+   "no": 55,
+   "a": "amrinone (inamrinone)",
+   "b": "dobutamine",
+   "note": ""
+  },
+  {
+   "no": 56,
+   "a": "anastrozole",
+   "b": "estrogen",
+   "note": ""
+  },
+  {
+   "no": 57,
+   "a": "anastrozole",
+   "b": "tamoxifen",
+   "note": ""
+  },
+  {
+   "no": 58,
+   "a": "ergotamine",
+   "b": "roxithromycin",
+   "note": ""
+  },
+  {
+   "no": 59,
+   "a": "ergotamine",
+   "b": "atazanavir",
+   "note": ""
+  },
+  {
+   "no": 60,
+   "a": "ergotamine",
+   "b": "clarithromycin",
+   "note": ""
+  },
+  {
+   "no": 61,
+   "a": "ergotamine",
+   "b": "erythromycin",
+   "note": ""
+  },
+  {
+   "no": 62,
+   "a": "ergotamine",
+   "b": "frovatriptan",
+   "note": "24시간 이내 병용금기"
+  },
+  {
+   "no": 63,
+   "a": "ergotamine",
+   "b": "indinavir",
+   "note": ""
+  },
+  {
+   "no": 64,
+   "a": "ergotamine",
+   "b": "itraconazole",
+   "note": ""
+  },
+  {
+   "no": 65,
+   "a": "ergotamine",
+   "b": "lopinavir + ritonavir",
+   "note": ""
+  },
+  {
+   "no": 66,
+   "a": "ergotamine",
+   "b": "nelfinavir",
+   "note": ""
+  },
+  {
+   "no": 67,
+   "a": "ergotamine",
+   "b": "ritonavir",
+   "note": ""
+  },
+  {
+   "no": 68,
+   "a": "ergotamine",
+   "b": "sumatriptan",
+   "note": ""
+  },
+  {
+   "no": 69,
+   "a": "ergotamine",
+   "b": "voriconazole",
+   "note": ""
+  },
+  {
+   "no": 70,
+   "a": "ergotamine",
+   "b": "zolmitriptan",
+   "note": "24시간 이내 병용금기"
+  },
+  {
+   "no": 71,
+   "a": "apraclonidine",
+   "b": "moclobemide",
+   "note": ""
+  },
+  {
+   "no": 72,
+   "a": "apraclonidine",
+   "b": "selegiline",
+   "note": ""
+  },
+  {
+   "no": 73,
+   "a": "articaine + epinephrine",
+   "b": "amoxapine",
+   "note": ""
+  },
+  {
+   "no": 74,
+   "a": "aspirin",
+   "b": "methotrexate",
+   "note": "15mg 이상 투여시"
+  },
+  {
+   "no": 75,
+   "a": "aspirin + dipyridamole",
+   "b": "methotrexate (분류번호 : 421)",
+   "note": "15mg 이상 투여시"
+  },
+  {
+   "no": 76,
+   "a": "atazanavir",
+   "b": "dihydroergotamine",
+   "note": ""
+  },
+  {
+   "no": 77,
+   "a": "atazanavir",
+   "b": "ergotamine",
+   "note": ""
+  },
+  {
+   "no": 78,
+   "a": "atazanavir",
+   "b": "lovastatin",
+   "note": ""
+  },
+  {
+   "no": 79,
+   "a": "atazanavir",
+   "b": "vine)",
+   "note": ""
+  },
+  {
+   "no": 80,
+   "a": "atazanavir",
+   "b": "pimozide",
+   "note": ""
+  },
+  {
+   "no": 81,
+   "a": "atazanavir",
+   "b": "simvastatin",
+   "note": ""
+  },
+  {
+   "no": 82,
+   "a": "atazanavir",
+   "b": "irinotecan",
+   "note": ""
+  },
+  {
+   "no": 83,
+   "a": "atomoxetine",
+   "b": "moclobemide",
+   "note": ""
+  },
+  {
+   "no": 84,
+   "a": "atomoxetine",
+   "b": "selegiline",
+   "note": ""
+  },
+  {
+   "no": 85,
+   "a": "atorvastatin",
+   "b": "itraconazole",
+   "note": ""
+  },
+  {
+   "no": 86,
+   "a": "atorvastatin",
+   "b": "ketoconazole",
+   "note": ""
+  },
+  {
+   "no": 87,
+   "a": "auranofin",
+   "b": "hydroxychloroquine",
+   "note": ""
+  },
+  {
+   "no": 88,
+   "a": "avanafil",
+   "b": "atazanavir",
+   "note": ""
+  },
+  {
+   "no": 89,
+   "a": "avanafil",
+   "b": "chloramphenicol",
+   "note": ""
+  },
+  {
+   "no": 90,
+   "a": "avanafil",
+   "b": "clarithromycin",
+   "note": ""
+  },
+  {
+   "no": 91,
+   "a": "avanafil",
+   "b": "emtricitabine + tenofovir",
+   "note": ""
+  },
+  {
+   "no": 92,
+   "a": "avanafil",
+   "b": "darunavir",
+   "note": ""
+  },
+  {
+   "no": 93,
+   "a": "avanafil",
+   "b": "indinavir",
+   "note": ""
+  },
+  {
+   "no": 94,
+   "a": "avanafil",
+   "b": "isosorbide dinitrate",
+   "note": ""
+  },
+  {
+   "no": 95,
+   "a": "avanafil",
+   "b": "isosorbide mononitrate",
+   "note": ""
+  },
+  {
+   "no": 96,
+   "a": "avanafil",
+   "b": "itraconazole",
+   "note": ""
+  },
+  {
+   "no": 97,
+   "a": "avanafil",
+   "b": "lopinavir + ritonavir",
+   "note": ""
+  },
+  {
+   "no": 98,
+   "a": "avanafil",
+   "b": "mirodenafil",
+   "note": ""
+  },
+  {
+   "no": 99,
+   "a": "avanafil",
+   "b": "molsidomine",
+   "note": ""
+  },
+  {
+   "no": 100,
+   "a": "avanafil",
+   "b": "nelfinavir",
+   "note": ""
+  },
+  {
+   "no": 101,
+   "a": "avanafil",
+   "b": "nicardipine",
+   "note": ""
+  },
+  {
+   "no": 102,
+   "a": "avanafil",
+   "b": "nicorandil",
+   "note": ""
+  },
+  {
+   "no": 103,
+   "a": "avanafil",
+   "b": "nitroglycerin",
+   "note": ""
+  },
+  {
+   "no": 104,
+   "a": "avanafil",
+   "b": "nitroprusside",
+   "note": ""
+  },
+  {
+   "no": 105,
+   "a": "avanafil",
+   "b": "posaconazole",
+   "note": ""
+  },
+  {
+   "no": 106,
+   "a": "avanafil",
+   "b": "ritonavir",
+   "note": ""
+  },
+  {
+   "no": 107,
+   "a": "avanafil",
+   "b": "sildenafil",
+   "note": ""
+  },
+  {
+   "no": 108,
+   "a": "avanafil",
+   "b": "tadalafil",
+   "note": ""
+  },
+  {
+   "no": 109,
+   "a": "avanafil",
+   "b": "udenafil",
+   "note": ""
+  },
+  {
+   "no": 110,
+   "a": "avanafil",
+   "b": "vardenafil",
+   "note": ""
+  },
+  {
+   "no": 111,
+   "a": "avanafil",
+   "b": "voriconazole",
+   "note": ""
+  },
+  {
+   "no": 112,
+   "a": "azithromycin",
+   "b": "anhydrous caffeine + ergotamine",
+   "note": ""
+  },
+  {
+   "no": 113,
+   "a": "benserazide + levodopa",
+   "b": "halothane",
+   "note": ""
+  },
+  {
+   "no": 114,
+   "a": "blonanserin",
+   "b": "lopinavir + ritonavir",
+   "note": ""
+  },
+  {
+   "no": 115,
+   "a": "blonanserin",
+   "b": "nelfinavir",
+   "note": ""
+  },
+  {
+   "no": 116,
+   "a": "bosentan",
+   "b": "tacrolimus (분류번호 : 142)",
+   "note": ""
+  },
+  {
+   "no": 117,
+   "a": "brimonidine",
+   "b": "moclobemide",
+   "note": ""
+  },
+  {
+   "no": 118,
+   "a": "brimonidine",
+   "b": "selegiline",
+   "note": ""
+  },
+  {
+   "no": 119,
+   "a": "bromperidol",
+   "b": "bromocriptine",
+   "note": ""
+  },
+  {
+   "no": 120,
+   "a": "bromperidol",
+   "b": "epinephrine",
+   "note": ""
+  },
+  {
+   "no": 121,
+   "a": "buprenorphine",
+   "b": "morphine",
+   "note": ""
+  },
+  {
+   "no": 122,
+   "a": "buspirone",
+   "b": "moclobemide",
+   "note": ""
+  },
+  {
+   "no": 123,
+   "a": "buspirone",
+   "b": "selegiline",
+   "note": ""
+  },
+  {
+   "no": 124,
+   "a": "calcifediol",
+   "b": "calcitriol + alendronate",
+   "note": ""
+  },
+  {
+   "no": 125,
+   "a": "calcifediol",
+   "b": "paricalcitol",
+   "note": ""
+  },
+  {
+   "no": 126,
+   "a": "calcitriol",
+   "b": "calcifediol",
+   "note": ""
+  },
+  {
+   "no": 127,
+   "a": "calcitriol",
+   "b": "paricalcitol",
+   "note": ""
+  },
+  {
+   "no": 128,
+   "a": "carbamazepine",
+   "b": "moclobemide",
+   "note": ""
+  },
+  {
+   "no": 129,
+   "a": "carbamazepine",
+   "b": "selegiline",
+   "note": ""
+  },
+  {
+   "no": 130,
+   "a": "carbamazepine",
+   "b": "voriconazole",
+   "note": ""
+  },
+  {
+   "no": 131,
+   "a": "chlorpromazine",
+   "b": "epinephrine",
+   "note": ""
+  },
+  {
+   "no": 132,
+   "a": "chlorprothixene",
+   "b": "epinephrine",
+   "note": ""
+  },
+  {
+   "no": 133,
+   "a": "chlorthalidone",
+   "b": "lithium carbonate",
+   "note": ""
+  },
+  {
+   "no": 134,
+   "a": "citalopram",
+   "b": "moclobemide",
+   "note": ""
+  },
+  {
+   "no": 135,
+   "a": "citalopram",
+   "b": "pimozide",
+   "note": ""
+  },
+  {
+   "no": 136,
+   "a": "clarithromycin",
+   "b": "mizolastine",
+   "note": ""
+  },
+  {
+   "no": 137,
+   "a": "clarithromycin",
+   "b": "pimozide",
+   "note": ""
+  },
+  {
+   "no": 138,
+   "a": "clenbuterol",
+   "b": "epinephrine",
+   "note": "소생 등의 위급상황 제외"
+  },
+  {
+   "no": 139,
+   "a": "clenbuterol",
+   "b": "norepinephrine",
+   "note": "소생 등의 응급상황 제외"
+  },
+  {
+   "no": 140,
+   "a": "clomipramine",
+   "b": "moclobemide",
+   "note": ""
+  },
+  {
+   "no": 141,
+   "a": "clomipramine",
+   "b": "selegiline",
+   "note": ""
+  },
+  {
+   "no": 142,
+   "a": "cyclosporine",
+   "b": "tacrolimus",
+   "note": ""
+  },
+  {
+   "no": 143,
+   "a": "dapoxetine",
+   "b": "moclobemide",
+   "note": ""
+  },
+  {
+   "no": 144,
+   "a": "dapoxetine",
+   "b": "nelfinavir",
+   "note": ""
+  },
+  {
+   "no": 145,
+   "a": "dapoxetine",
+   "b": "selegiline",
+   "note": ""
+  },
+  {
+   "no": 146,
+   "a": "dapoxetine",
+   "b": "sumatriptan",
+   "note": ""
+  },
+  {
+   "no": 147,
+   "a": "darunavir",
+   "b": "anhydrous caffeine + ergotamine",
+   "note": ""
+  },
+  {
+   "no": 148,
+   "a": "darunavir",
+   "b": "dihydroergotamine",
+   "note": ""
+  },
+  {
+   "no": 149,
+   "a": "dexamethasone",
+   "b": "sparfloxacin",
+   "note": ""
+  },
+  {
+   "no": 150,
+   "a": "dexketoprofen",
+   "b": "ciprofloxacin",
+   "note": ""
+  },
+  {
+   "no": 151,
+   "a": "dexketoprofen",
+   "b": "methotrexate (분류번호 : 421)",
+   "note": "15mg 이상 투여시"
+  },
+  {
+   "no": 152,
+   "a": "diethylpropion",
+   "b": "mazindol",
+   "note": ""
+  },
+  {
+   "no": 153,
+   "a": "diethylpropion",
+   "b": "moclobemide",
+   "note": ""
+  },
+  {
+   "no": 154,
+   "a": "diethylpropion",
+   "b": "phendimetrazine",
+   "note": ""
+  },
+  {
+   "no": 155,
+   "a": "diethylpropion",
+   "b": "phentermine",
+   "note": ""
+  },
+  {
+   "no": 156,
+   "a": "diethylpropion",
+   "b": "selegiline",
+   "note": ""
+  },
+  {
+   "no": 157,
+   "a": "diflunisal",
+   "b": "indometacin",
+   "note": ""
+  },
+  {
+   "no": 158,
+   "a": "dihydroergotamine",
+   "b": "almotriptan",
+   "note": "24시간 이내 병용금기"
+  },
+  {
+   "no": 159,
+   "a": "dihydroergotamine",
+   "b": "anhydrous caffeine + ergotamine",
+   "note": "24시간 이내 병용금기"
+  },
+  {
+   "no": 160,
+   "a": "dihydroergotamine",
+   "b": "azithromycin",
+   "note": ""
+  },
+  {
+   "no": 161,
+   "a": "dihydroergotamine",
+   "b": "clarithromycin",
+   "note": ""
+  },
+  {
+   "no": 162,
+   "a": "dihydroergotamine",
+   "b": "frovatriptan",
+   "note": "24시간 이내 병용금기"
+  },
+  {
+   "no": 163,
+   "a": "dihydroergotamine",
+   "b": "lopinavir + ritonavir",
+   "note": ""
+  },
+  {
+   "no": 164,
+   "a": "dihydroergotamine",
+   "b": "posaconazole",
+   "note": ""
+  },
+  {
+   "no": 165,
+   "a": "dihydroergotamine",
+   "b": "telithromycin",
+   "note": ""
+  },
+  {
+   "no": 166,
+   "a": "dihydroergotamine",
+   "b": "efavirenz",
+   "note": ""
+  },
+  {
+   "no": 167,
+   "a": "dihydroergotamine",
+   "b": "erythromycin",
+   "note": ""
+  },
+  {
+   "no": 168,
+   "a": "dihydroergotamine",
+   "b": "indinavir",
+   "note": ""
+  },
+  {
+   "no": 169,
+   "a": "dihydroergotamine",
+   "b": "itraconazole",
+   "note": ""
+  },
+  {
+   "no": 170,
+   "a": "dihydroergotamine",
+   "b": "nelfinavir",
+   "note": ""
+  },
+  {
+   "no": 171,
+   "a": "dihydroergotamine",
+   "b": "ritonavir",
+   "note": ""
+  },
+  {
+   "no": 172,
+   "a": "dihydroergotamine",
+   "b": "roxithromycin",
+   "note": ""
+  },
+  {
+   "no": 173,
+   "a": "dihydroergotamine",
+   "b": "sumatriptan",
+   "note": ""
+  },
+  {
+   "no": 174,
+   "a": "dihydroergotamine",
+   "b": "voriconazole",
+   "note": ""
+  },
+  {
+   "no": 175,
+   "a": "dihydroergotamine",
+   "b": "zolmitriptan",
+   "note": ""
+  },
+  {
+   "no": 176,
+   "a": "divalproex",
+   "b": "meropenem",
+   "note": ""
+  },
+  {
+   "no": 177,
+   "a": "dothiepin",
+   "b": "moclobemide",
+   "note": ""
+  },
+  {
+   "no": 178,
+   "a": "dothiepin",
+   "b": "selegiline",
+   "note": ""
+  },
+  {
+   "no": 179,
+   "a": "doxepin",
+   "b": "moclobemide",
+   "note": ""
+  },
+  {
+   "no": 180,
+   "a": "doxepin",
+   "b": "selegiline",
+   "note": ""
+  },
+  {
+   "no": 181,
+   "a": "doxycycline",
+   "b": "isotretinoin",
+   "note": ""
+  },
+  {
+   "no": 183,
+   "a": "dronedarone",
+   "b": "amitriptyline",
+   "note": ""
+  },
+  {
+   "no": 184,
+   "a": "dronedarone",
+   "b": "dolasetron",
+   "note": ""
+  },
+  {
+   "no": 185,
+   "a": "dronedarone",
+   "b": "imipramine",
+   "note": ""
+  },
+  {
+   "no": 186,
+   "a": "dronedarone",
+   "b": "nortriptyline",
+   "note": ""
+  },
+  {
+   "no": 187,
+   "a": "dronedarone",
+   "b": "toremifene",
+   "note": ""
+  },
+  {
+   "no": 188,
+   "a": "efavirenz",
+   "b": "anhydrous caffeine + ergotamine",
+   "note": ""
+  },
+  {
+   "no": 189,
+   "a": "efavirenz",
+   "b": "midazolam",
+   "note": ""
+  },
+  {
+   "no": 190,
+   "a": "efavirenz",
+   "b": "voriconazole",
+   "note": ""
+  },
+  {
+   "no": 191,
+   "a": "ephedrine",
+   "b": "moclobemide",
+   "note": ""
+  },
+  {
+   "no": 192,
+   "a": "ephedrine",
+   "b": "epinephrine",
+   "note": "소생 등의 위급상황 제외"
+  },
+  {
+   "no": 193,
+   "a": "ephedrine",
+   "b": "selegiline",
+   "note": ""
+  },
+  {
+   "no": 194,
+   "a": "ephedrine",
+   "b": "norepinephrine",
+   "note": "소생 등의 응급상황 제외"
+  },
+  {
+   "no": 195,
+   "a": "ergotamine",
+   "b": "indinavir",
+   "note": ""
+  },
+  {
+   "no": 196,
+   "a": "ergotamine",
+   "b": "itraconazole",
+   "note": ""
+  },
+  {
+   "no": 197,
+   "a": "ergotamine",
+   "b": "nelfinavir",
+   "note": ""
+  },
+  {
+   "no": 198,
+   "a": "ergotamine",
+   "b": "ritonavir",
+   "note": ""
+  },
+  {
+   "no": 199,
+   "a": "ergotamine",
+   "b": "voriconazole",
+   "note": ""
+  },
+  {
+   "no": 200,
+   "a": "erythromycin",
+   "b": "lovastatin",
+   "note": ""
+  },
+  {
+   "no": 201,
+   "a": "erythromycin",
+   "b": "chloramphenicol",
+   "note": ""
+  },
+  {
+   "no": 202,
+   "a": "erythromycin",
+   "b": "clindamycin",
+   "note": ""
+  },
+  {
+   "no": 203,
+   "a": "erythromycin",
+   "b": "lincomycin",
+   "note": ""
+  },
+  {
+   "no": 204,
+   "a": "erythromycin",
+   "b": "mizolastine",
+   "note": ""
+  },
+  {
+   "no": 205,
+   "a": "erythromycin",
+   "b": "pimozide",
+   "note": ""
+  },
+  {
+   "no": 206,
+   "a": "esomeprazole",
+   "b": "atazanavir",
+   "note": ""
+  },
+  {
+   "no": 207,
+   "a": "ezetimibe + simvastatin",
+   "b": "atazanavir",
+   "note": ""
+  },
+  {
+   "no": 208,
+   "a": "ezetimibe + simvastatin",
+   "b": "darunavir",
+   "note": ""
+  },
+  {
+   "no": 210,
+   "a": "ezetimibe + simvastatin",
+   "b": "indinavir",
+   "note": ""
+  },
+  {
+   "no": 211,
+   "a": "ezetimibe + simvastatin",
+   "b": "Itraconazole",
+   "note": ""
+  },
+  {
+   "no": 213,
+   "a": "ezetimibe + simvastatin",
+   "b": "lopinavir + ritonavir",
+   "note": ""
+  },
+  {
+   "no": 214,
+   "a": "ezetimibe + simvastatin",
+   "b": "nelfinavir",
+   "note": ""
+  },
+  {
+   "no": 215,
+   "a": "ezetimibe + simvastatin",
+   "b": "telithromycin",
+   "note": ""
+  },
+  {
+   "no": 216,
+   "a": "fenoterol",
+   "b": "epinephrine",
+   "note": "소생 등의 위급상황 제외"
+  },
+  {
+   "no": 217,
+   "a": "fenoterol",
+   "b": "norepinephrine",
+   "note": "소생 등의 응급상황 제외"
+  },
+  {
+   "no": 218,
+   "a": "flecainide",
+   "b": "mizolastine",
+   "note": ""
+  },
+  {
+   "no": 219,
+   "a": "fluconazole",
+   "b": "anhydrous caffeine + ergotamine",
+   "note": ""
+  },
+  {
+   "no": 220,
+   "a": "fluconazole",
+   "b": "dihydroergotamine",
+   "note": ""
+  },
+  {
+   "no": 221,
+   "a": "fluconazole",
+   "b": "triazolam",
+   "note": ""
+  },
+  {
+   "no": 222,
+   "a": "fluoxetine",
+   "b": "moclobemide",
+   "note": ""
+  },
+  {
+   "no": 223,
+   "a": "fluvoxamine",
+   "b": "moclobemide",
+   "note": ""
+  },
+  {
+   "no": 224,
+   "a": "fluvoxamine",
+   "b": "selegiline",
+   "note": ""
+  },
+  {
+   "no": 225,
+   "a": "fluvoxamine",
+   "b": "tizanidine",
+   "note": ""
+  },
+  {
+   "no": 226,
+   "a": "formoterol",
+   "b": "epinephrine",
+   "note": "소생 등의 위급상황 제외"
+  },
+  {
+   "no": 227,
+   "a": "formoterol",
+   "b": "norepinephrine",
+   "note": "소생 등의 응급상황 제외"
+  },
+  {
+   "no": 228,
+   "a": "gentamicin",
+   "b": "furosemide",
+   "note": ""
+  },
+  {
+   "no": 229,
+   "a": "glibenclamide",
+   "b": "bosentan",
+   "note": ""
+  },
+  {
+   "no": 230,
+   "a": "gliclazide",
+   "b": "miconazole",
+   "note": ""
+  },
+  {
+   "no": 231,
+   "a": "glipizide",
+   "b": "miconazole",
+   "note": ""
+  },
+  {
+   "no": 232,
+   "a": "haloperidol",
+   "b": "epinephrine",
+   "note": ""
+  },
+  {
+   "no": 233,
+   "a": "hemocoagulase",
+   "b": "thrombin",
+   "note": ""
+  },
+  {
+   "no": 234,
+   "a": "hexoprenaline",
+   "b": "norepinephrine",
+   "note": "소생 등의 응급상황 제외"
+  },
+  {
+   "no": 235,
+   "a": "hexoprenaline",
+   "b": "epinephrine",
+   "note": "소생 등의 위급상황 제외"
+  },
+  {
+   "no": 236,
+   "a": "hydrochlorothiazide",
+   "b": "erythromycin(정맥주사용)",
+   "note": ""
+  },
+  {
+   "no": 237,
+   "a": "hydrocortisone",
+   "b": "sparfloxacin",
+   "note": ""
+  },
+  {
+   "no": 238,
+   "a": "ibuprofen",
+   "b": "methotrexate",
+   "note": "20mg 이상 투여시"
+  },
+  {
+   "no": 239,
+   "a": "ilaprazole",
+   "b": "atazanavir",
+   "note": ""
+  },
+  {
+   "no": 240,
+   "a": "imipramine",
+   "b": "moclobemide",
+   "note": ""
+  },
+  {
+   "no": 241,
+   "a": "imipramine",
+   "b": "selegiline",
+   "note": ""
+  },
+  {
+   "no": 242,
+   "a": "indinavir",
+   "b": "amiodarone",
+   "note": ""
+  },
+  {
+   "no": 243,
+   "a": "indinavir",
+   "b": "lovastatin",
+   "note": ""
+  },
+  {
+   "no": 244,
+   "a": "indinavir",
+   "b": "midazolam",
+   "note": ""
+  },
+  {
+   "no": 245,
+   "a": "indinavir",
+   "b": "rifampicin (rifampin)",
+   "note": ""
+  },
+  {
+   "no": 246,
+   "a": "indometacin(경구)",
+   "b": "triamterene",
+   "note": ""
+  },
+  {
+   "no": 247,
+   "a": "iobitridol",
+   "b": "metformin",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 248,
+   "a": "iodixanol",
+   "b": "metformin",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 249,
+   "a": "iohexol",
+   "b": "metformin",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 250,
+   "a": "iomeprol",
+   "b": "metformin",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 251,
+   "a": "iopamidol",
+   "b": "metformin",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 252,
+   "a": "iopromide",
+   "b": "metformin",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 253,
+   "a": "iotrolan",
+   "b": "metformin",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 254,
+   "a": "ioversol",
+   "b": "metformin",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 255,
+   "a": "ioxaglate",
+   "b": "metformin",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 256,
+   "a": "isoproterenol",
+   "b": "epinephrine",
+   "note": "소생 등의 위급상황 제외"
+  },
+  {
+   "no": 257,
+   "a": "isosorbide dinitrate",
+   "b": "sildenafil",
+   "note": ""
+  },
+  {
+   "no": 258,
+   "a": "isosorbide mononitrate",
+   "b": "sildenafil",
+   "note": ""
+  },
+  {
+   "no": 259,
+   "a": "isotretinoin",
+   "b": "minocycline",
+   "note": ""
+  },
+  {
+   "no": 260,
+   "a": "isotretinoin",
+   "b": "oxytetracycline",
+   "note": ""
+  },
+  {
+   "no": 261,
+   "a": "isotretinoin",
+   "b": "tetracycline",
+   "note": ""
+  },
+  {
+   "no": 262,
+   "a": "isotretinoin",
+   "b": "tretinoin",
+   "note": ""
+  },
+  {
+   "no": 263,
+   "a": "itraconazole",
+   "b": "lovastatin",
+   "note": ""
+  },
+  {
+   "no": 264,
+   "a": "itraconazole",
+   "b": "vine)",
+   "note": ""
+  },
+  {
+   "no": 265,
+   "a": "itraconazole",
+   "b": "midazolam(경구용)",
+   "note": ""
+  },
+  {
+   "no": 266,
+   "a": "itraconazole",
+   "b": "pimozide",
+   "note": ""
+  },
+  {
+   "no": 267,
+   "a": "itraconazole",
+   "b": "quinidine",
+   "note": ""
+  },
+  {
+   "no": 268,
+   "a": "itraconazole",
+   "b": "simvastatin",
+   "note": ""
+  },
+  {
+   "no": 269,
+   "a": "itraconazole",
+   "b": "triazolam",
+   "note": ""
+  },
+  {
+   "no": 270,
+   "a": "itraconazole",
+   "b": "vardenafil",
+   "note": "75세 이상 남성"
+  },
+  {
+   "no": 271,
+   "a": "ketoconazole",
+   "b": "lovastatin",
+   "note": ""
+  },
+  {
+   "no": 272,
+   "a": "ketoconazole",
+   "b": "midazolam(경구용)",
+   "note": ""
+  },
+  {
+   "no": 273,
+   "a": "ketoconazole",
+   "b": "triazolam",
+   "note": ""
+  },
+  {
+   "no": 274,
+   "a": "ketoconazole",
+   "b": "isoniazid",
+   "note": ""
+  },
+  {
+   "no": 275,
+   "a": "ketoconazole",
+   "b": "rifampicin",
+   "note": ""
+  },
+  {
+   "no": 276,
+   "a": "ketoprofen",
+   "b": "ciprofloxacin",
+   "note": ""
+  },
+  {
+   "no": 278,
+   "a": "ketorolac",
+   "b": "aceclofenac",
+   "note": ""
+  },
+  {
+   "no": 279,
+   "a": "ketorolac",
+   "b": "acemetacin",
+   "note": ""
+  },
+  {
+   "no": 280,
+   "a": "ketorolac",
+   "b": "aspirin",
+   "note": ""
+  },
+  {
+   "no": 281,
+   "a": "ketorolac",
+   "b": "celecoxib",
+   "note": ""
+  },
+  {
+   "no": 282,
+   "a": "ketorolac",
+   "b": "clonixin",
+   "note": ""
+  },
+  {
+   "no": 283,
+   "a": "ketorolac",
+   "b": "dexibuprofen",
+   "note": ""
+  },
+  {
+   "no": 284,
+   "a": "ketorolac",
+   "b": "dexketoprofen",
+   "note": ""
+  },
+  {
+   "no": 285,
+   "a": "ketorolac",
+   "b": "diclofenac",
+   "note": ""
+  },
+  {
+   "no": 286,
+   "a": "ketorolac",
+   "b": "diflunisal",
+   "note": ""
+  },
+  {
+   "no": 287,
+   "a": "ketorolac",
+   "b": "etodolac",
+   "note": ""
+  },
+  {
+   "no": 288,
+   "a": "ketorolac",
+   "b": "etofenamate",
+   "note": ""
+  },
+  {
+   "no": 289,
+   "a": "ketorolac",
+   "b": "fenoprofen",
+   "note": ""
+  },
+  {
+   "no": 290,
+   "a": "ketorolac",
+   "b": "flufenamic acid",
+   "note": ""
+  },
+  {
+   "no": 291,
+   "a": "ketorolac",
+   "b": "flurbiprofen",
+   "note": ""
+  },
+  {
+   "no": 292,
+   "a": "ketorolac",
+   "b": "ibuprofen",
+   "note": ""
+  },
+  {
+   "no": 293,
+   "a": "ketorolac",
+   "b": "indometacin",
+   "note": ""
+  },
+  {
+   "no": 294,
+   "a": "ketorolac",
+   "b": "ketoprofen",
+   "note": ""
+  },
+  {
+   "no": 295,
+   "a": "ketorolac",
+   "b": "lornoxicam",
+   "note": ""
+  },
+  {
+   "no": 296,
+   "a": "ketorolac",
+   "b": "loxoprofen",
+   "note": ""
+  },
+  {
+   "no": 297,
+   "a": "ketorolac",
+   "b": "meclofenamate",
+   "note": ""
+  },
+  {
+   "no": 298,
+   "a": "ketorolac",
+   "b": "mefenamic acid",
+   "note": ""
+  },
+  {
+   "no": 299,
+   "a": "ketorolac",
+   "b": "meloxicam",
+   "note": ""
+  },
+  {
+   "no": 300,
+   "a": "ketorolac",
+   "b": "nabumetone",
+   "note": ""
+  },
+  {
+   "no": 301,
+   "a": "ketorolac",
+   "b": "naproxen",
+   "note": ""
+  },
+  {
+   "no": 302,
+   "a": "ketorolac",
+   "b": "nimesulide",
+   "note": ""
+  },
+  {
+   "no": 303,
+   "a": "ketorolac",
+   "b": "oxaprozin",
+   "note": ""
+  },
+  {
+   "no": 304,
+   "a": "ketorolac",
+   "b": "pentoxifylline",
+   "note": ""
+  },
+  {
+   "no": 305,
+   "a": "ketorolac",
+   "b": "piroxicam",
+   "note": ""
+  },
+  {
+   "no": 306,
+   "a": "ketorolac",
+   "b": "pranoprofen",
+   "note": ""
+  },
+  {
+   "no": 307,
+   "a": "ketorolac",
+   "b": "salsalate",
+   "note": ""
+  },
+  {
+   "no": 308,
+   "a": "ketorolac",
+   "b": "sulindac",
+   "note": ""
+  },
+  {
+   "no": 309,
+   "a": "ketorolac",
+   "b": "tenoxicam",
+   "note": ""
+  },
+  {
+   "no": 310,
+   "a": "ketorolac",
+   "b": "tiaprofenic acid",
+   "note": ""
+  },
+  {
+   "no": 311,
+   "a": "ketorolac",
+   "b": "zaltoprofen",
+   "note": ""
+  },
+  {
+   "no": 312,
+   "a": "lansoprazole",
+   "b": "atazanavir",
+   "note": ""
+  },
+  {
+   "no": 313,
+   "a": "levomepromazine",
+   "b": "moclobemide",
+   "note": ""
+  },
+  {
+   "no": 314,
+   "a": "levomepromazine",
+   "b": "selegiline",
+   "note": ""
+  },
+  {
+   "no": 315,
+   "a": "lovastatin",
+   "b": "darunavir",
+   "note": ""
+  },
+  {
+   "no": 316,
+   "a": "lovastatin",
+   "b": "lopinavir + ritonavir",
+   "note": ""
+  },
+  {
+   "no": 317,
+   "a": "lovastatin",
+   "b": "telithromycin",
+   "note": ""
+  },
+  {
+   "no": 318,
+   "a": "mazindol",
+   "b": "moclobemide",
+   "note": ""
+  },
+  {
+   "no": 319,
+   "a": "mazindol",
+   "b": "selegiline",
+   "note": ""
+  },
+  {
+   "no": 320,
+   "a": "meloxicam",
+   "b": "methotrexate (분류번호 : 421)",
+   "note": ""
+  },
+  {
+   "no": 321,
+   "a": "melphalan",
+   "b": "nalidixic acid",
+   "note": ""
+  },
+  {
+   "no": 322,
+   "a": "menatetrenon",
+   "b": "warfarin",
+   "note": ""
+  },
+  {
+   "no": 323,
+   "a": "metacycline",
+   "b": "acitretin",
+   "note": ""
+  },
+  {
+   "no": 324,
+   "a": "metacycline",
+   "b": "isotretinoin",
+   "note": ""
+  },
+  {
+   "no": 325,
+   "a": "metacycline",
+   "b": "tretinoin",
+   "note": ""
+  },
+  {
+   "no": 326,
+   "a": "metformin",
+   "b": "iodised oil",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 327,
+   "a": "metformin + glibenclamide",
+   "b": "iobitridol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 328,
+   "a": "metformin + glibenclamide",
+   "b": "iodised oil",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 329,
+   "a": "metformin + glibenclamide",
+   "b": "iodixanol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 330,
+   "a": "metformin + glibenclamide",
+   "b": "iohexol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 331,
+   "a": "metformin + glibenclamide",
+   "b": "iomeprol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 332,
+   "a": "metformin + glibenclamide",
+   "b": "iopamidol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 333,
+   "a": "metformin + glibenclamide",
+   "b": "iopromide",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 334,
+   "a": "metformin + glibenclamide",
+   "b": "iotrolan",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 335,
+   "a": "metformin + glibenclamide",
+   "b": "ioversol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 336,
+   "a": "metformin + glibenclamide",
+   "b": "ioxaglic acid",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 337,
+   "a": "metformin + gliclazide",
+   "b": "iobitridol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 338,
+   "a": "metformin + gliclazide",
+   "b": "iodised oil",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 339,
+   "a": "metformin + gliclazide",
+   "b": "iodixanol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 340,
+   "a": "metformin + gliclazide",
+   "b": "iohexol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 341,
+   "a": "metformin + gliclazide",
+   "b": "iomeprol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 342,
+   "a": "metformin + gliclazide",
+   "b": "iopamidol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 343,
+   "a": "metformin + gliclazide",
+   "b": "iopromide",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 344,
+   "a": "metformin + gliclazide",
+   "b": "iotrolan",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 345,
+   "a": "metformin + gliclazide",
+   "b": "ioversol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 346,
+   "a": "metformin + gliclazide",
+   "b": "ioxaglic acid",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 347,
+   "a": "metformin + glimepiride",
+   "b": "iobitridol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 348,
+   "a": "metformin + glimepiride",
+   "b": "iodised oil",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 349,
+   "a": "metformin + glimepiride",
+   "b": "iodixanol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 350,
+   "a": "metformin + glimepiride",
+   "b": "iohexol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 351,
+   "a": "metformin + glimepiride",
+   "b": "iomeprol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 352,
+   "a": "metformin + glimepiride",
+   "b": "iopamidol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 353,
+   "a": "metformin + glimepiride",
+   "b": "iopromide",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 354,
+   "a": "metformin + glimepiride",
+   "b": "iotrolan",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 355,
+   "a": "metformin + glimepiride",
+   "b": "ioversol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 356,
+   "a": "metformin + glimepiride",
+   "b": "ioxaglic acid",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 357,
+   "a": "metformin + pioglitazone",
+   "b": "iobitridol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 358,
+   "a": "metformin + pioglitazone",
+   "b": "iodised oil",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 359,
+   "a": "metformin + pioglitazone",
+   "b": "iodixanol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 360,
+   "a": "metformin + pioglitazone",
+   "b": "iohexol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 361,
+   "a": "metformin + pioglitazone",
+   "b": "iomeprol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 362,
+   "a": "metformin + pioglitazone",
+   "b": "iopamidol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 363,
+   "a": "metformin + pioglitazone",
+   "b": "iopromide",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 364,
+   "a": "metformin + pioglitazone",
+   "b": "iotrolan",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 365,
+   "a": "metformin + pioglitazone",
+   "b": "ioversol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 366,
+   "a": "metformin + pioglitazone",
+   "b": "ioxaglic acid",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 367,
+   "a": "metformin + rosiglitazone",
+   "b": "iobitridol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 368,
+   "a": "metformin + rosiglitazone",
+   "b": "iodised oil",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 369,
+   "a": "metformin + rosiglitazone",
+   "b": "iodixanol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 370,
+   "a": "metformin + rosiglitazone",
+   "b": "iohexol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 371,
+   "a": "metformin + rosiglitazone",
+   "b": "iomeprol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 372,
+   "a": "metformin + rosiglitazone",
+   "b": "iopamidol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 373,
+   "a": "metformin + rosiglitazone",
+   "b": "iopromide",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 374,
+   "a": "metformin + rosiglitazone",
+   "b": "iotrolan",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 375,
+   "a": "metformin + rosiglitazone",
+   "b": "ioversol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 376,
+   "a": "metformin + rosiglitazone",
+   "b": "ioxaglic acid",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 377,
+   "a": "metformin + sitagliptin",
+   "b": "iobitridol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 378,
+   "a": "metformin + sitagliptin",
+   "b": "iodised oil",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 379,
+   "a": "metformin + sitagliptin",
+   "b": "iodixanol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 380,
+   "a": "metformin + sitagliptin",
+   "b": "iohexol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 381,
+   "a": "metformin + sitagliptin",
+   "b": "iomeprol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 382,
+   "a": "metformin + sitagliptin",
+   "b": "iopamidol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 383,
+   "a": "metformin + sitagliptin",
+   "b": "iopromide",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 384,
+   "a": "metformin + sitagliptin",
+   "b": "iotrolan",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 385,
+   "a": "metformin + sitagliptin",
+   "b": "ioversol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 386,
+   "a": "metformin + sitagliptin",
+   "b": "ioxaglic acid",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 387,
+   "a": "metformin + vildagliptin",
+   "b": "iobitridol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 388,
+   "a": "metformin + vildagliptin",
+   "b": "iodised oil",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 389,
+   "a": "metformin + vildagliptin",
+   "b": "iodixanol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 390,
+   "a": "metformin + vildagliptin",
+   "b": "iohexol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 391,
+   "a": "metformin + vildagliptin",
+   "b": "iomeprol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 392,
+   "a": "metformin + vildagliptin",
+   "b": "iopamidol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 393,
+   "a": "metformin + vildagliptin",
+   "b": "iopromide",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 394,
+   "a": "metformin + vildagliptin",
+   "b": "iotrolan",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 395,
+   "a": "metformin + vildagliptin",
+   "b": "ioversol",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 396,
+   "a": "metformin + vildagliptin",
+   "b": "ioxaglic acid",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 397,
+   "a": "methoxyphenamine",
+   "b": "epinephrine (분류번호 : 245)",
+   "note": "소생 등의 응급상황 제외"
+  },
+  {
+   "no": 398,
+   "a": "methoxyphenamine",
+   "b": "norepinephrine",
+   "note": "소생 등의 응급상황 제외"
+  },
+  {
+   "no": 399,
+   "a": "ergonovine)",
+   "b": "nelfinavir",
+   "note": ""
+  },
+  {
+   "no": 400,
+   "a": "methylergometrine(methyl",
+   "b": "ritonavir",
+   "note": ""
+  },
+  {
+   "no": 401,
+   "a": "methylergometrine(methyl",
+   "b": "sumatriptan",
+   "note": ""
+  },
+  {
+   "no": 402,
+   "a": "methylergometrine(methyl",
+   "b": "zolmitriptan",
+   "note": ""
+  },
+  {
+   "no": 403,
+   "a": "methylphenidate",
+   "b": "moclobemide",
+   "note": ""
+  },
+  {
+   "no": 404,
+   "a": "methylphenidate",
+   "b": "selegiline",
+   "note": ""
+  },
+  {
+   "no": 405,
+   "a": "methylprednisolone",
+   "b": "sparfloxacin",
+   "note": ""
+  },
+  {
+   "no": 406,
+   "a": "metolazone",
+   "b": "lithium",
+   "note": ""
+  },
+  {
+   "no": 408,
+   "a": "midazolam(경구)",
+   "b": "atazanavir",
+   "note": ""
+  },
+  {
+   "no": 409,
+   "a": "midazolam(경구)",
+   "b": "darunavir",
+   "note": ""
+  },
+  {
+   "no": 410,
+   "a": "midazolam(경구)",
+   "b": "lopinavir + ritonavir",
+   "note": ""
+  },
+  {
+   "no": 411,
+   "a": "midazolam(경구)",
+   "b": "nelfinavir",
+   "note": ""
+  },
+  {
+   "no": 412,
+   "a": "midazolam(경구)",
+   "b": "ritonavir",
+   "note": ""
+  },
+  {
+   "no": 413,
+   "a": "midecamycin",
+   "b": "anhydrous caffeine + ergotamine",
+   "note": ""
+  },
+  {
+   "no": 414,
+   "a": "midecamycin",
+   "b": "dihydroergotamine",
+   "note": ""
+  },
+  {
+   "no": 417,
+   "a": "minocycline",
+   "b": "tretinoin",
+   "note": ""
+  },
+  {
+   "no": 418,
+   "a": "mirodenafil",
+   "b": "isosorbide dinitrate",
+   "note": ""
+  },
+  {
+   "no": 419,
+   "a": "mirodenafil",
+   "b": "isosorbidemononitrate",
+   "note": ""
+  },
+  {
+   "no": 420,
+   "a": "mirodenafil",
+   "b": "molsidomine",
+   "note": ""
+  },
+  {
+   "no": 421,
+   "a": "mirodenafil",
+   "b": "nicorandil",
+   "note": ""
+  },
+  {
+   "no": 422,
+   "a": "mirodenafil",
+   "b": "nitroglycerin",
+   "note": ""
+  },
+  {
+   "no": 423,
+   "a": "mirodenafil",
+   "b": "nitroprusside",
+   "note": ""
+  },
+  {
+   "no": 424,
+   "a": "mirodenafil",
+   "b": "tadalafil",
+   "note": ""
+  },
+  {
+   "no": 425,
+   "a": "mirodenafil",
+   "b": "udenafil",
+   "note": ""
+  },
+  {
+   "no": 426,
+   "a": "mirodenafil",
+   "b": "vardenafil",
+   "note": ""
+  },
+  {
+   "no": 427,
+   "a": "mirtazapine",
+   "b": "moclobemide",
+   "note": ""
+  },
+  {
+   "no": 428,
+   "a": "mirtazapine",
+   "b": "selegiline",
+   "note": ""
+  },
+  {
+   "no": 429,
+   "a": "mizolastine",
+   "b": "roxithromycin",
+   "note": ""
+  },
+  {
+   "no": 430,
+   "a": "mizolastine",
+   "b": "metronidazole",
+   "note": ""
+  },
+  {
+   "no": 431,
+   "a": "moclobemide",
+   "b": "dextromethorphan",
+   "note": ""
+  },
+  {
+   "no": 432,
+   "a": "moclobemide",
+   "b": "morphine",
+   "note": ""
+  },
+  {
+   "no": 433,
+   "a": "moclobemide",
+   "b": "nortriptyline",
+   "note": ""
+  },
+  {
+   "no": 434,
+   "a": "moclobemide",
+   "b": "paroxetine",
+   "note": ""
+  },
+  {
+   "no": 435,
+   "a": "moclobemide",
+   "b": "pethidine(meperidine)",
+   "note": ""
+  },
+  {
+   "no": 436,
+   "a": "moclobemide",
+   "b": "pseudoephedrine + triprolidine",
+   "note": ""
+  },
+  {
+   "no": 437,
+   "a": "moclobemide",
+   "b": "selegiline",
+   "note": ""
+  },
+  {
+   "no": 438,
+   "a": "moclobemide",
+   "b": "sertraline",
+   "note": ""
+  },
+  {
+   "no": 439,
+   "a": "moclobemide",
+   "b": "sumatriptan",
+   "note": ""
+  },
+  {
+   "no": 440,
+   "a": "moclobemide",
+   "b": "tramadol",
+   "note": ""
+  },
+  {
+   "no": 441,
+   "a": "moclobemide",
+   "b": "venlafaxine",
+   "note": ""
+  },
+  {
+   "no": 442,
+   "a": "molsidomine",
+   "b": "sildenafil",
+   "note": ""
+  },
+  {
+   "no": 443,
+   "a": "naratriptan",
+   "b": "sumatriptan",
+   "note": ""
+  },
+  {
+   "no": 444,
+   "a": "naratriptan",
+   "b": "zolmitriptan",
+   "note": ""
+  },
+  {
+   "no": 445,
+   "a": "naratriptan",
+   "b": "frovatriptan",
+   "note": "24시간 이내 병용금기"
+  },
+  {
+   "no": 446,
+   "a": "nelfinavir",
+   "b": "amiodarone",
+   "note": ""
+  },
+  {
+   "no": 447,
+   "a": "nelfinavir",
+   "b": "lovastatin",
+   "note": ""
+  },
+  {
+   "no": 448,
+   "a": "nelfinavir",
+   "b": "quinidine",
+   "note": ""
+  },
+  {
+   "no": 449,
+   "a": "nelfinavir",
+   "b": "rifampicin(rifampin)",
+   "note": ""
+  },
+  {
+   "no": 450,
+   "a": "netilmicin",
+   "b": "furosemide",
+   "note": ""
+  },
+  {
+   "no": 451,
+   "a": "nicorandil",
+   "b": "sildenafil",
+   "note": ""
+  },
+  {
+   "no": 452,
+   "a": "nisoldipine",
+   "b": "itraconazole",
+   "note": ""
+  },
+  {
+   "no": 453,
+   "a": "nisoldipine",
+   "b": "ketoconazole",
+   "note": ""
+  },
+  {
+   "no": 454,
+   "a": "norepinephrine",
+   "b": "isoproterenol",
+   "note": ""
+  },
+  {
+   "no": 455,
+   "a": "nortriptyline",
+   "b": "selegiline",
+   "note": ""
+  },
+  {
+   "no": 456,
+   "a": "octreotide",
+   "b": "bromocriptine",
+   "note": ""
+  },
+  {
+   "no": 457,
+   "a": "omeprazole",
+   "b": "atazanavir",
+   "note": ""
+  },
+  {
+   "no": 458,
+   "a": "oxapium iodide",
+   "b": "sodium iodide(131I)",
+   "note": "1주 이내 병용금기"
+  },
+  {
+   "no": 459,
+   "a": "oxatomide",
+   "b": "atropine",
+   "note": ""
+  },
+  {
+   "no": 460,
+   "a": "pantoprazole",
+   "b": "atazanavir",
+   "note": ""
+  },
+  {
+   "no": 461,
+   "a": "paricalcitol",
+   "b": "calcitriol + alendronate",
+   "note": ""
+  },
+  {
+   "no": 462,
+   "a": "paroxetine",
+   "b": "selegiline",
+   "note": ""
+  },
+  {
+   "no": 463,
+   "a": "pentamidine",
+   "b": "amisulpride",
+   "note": ""
+  },
+  {
+   "no": 464,
+   "a": "pentamidine",
+   "b": "zalcitabine",
+   "note": ""
+  },
+  {
+   "no": 465,
+   "a": "perphenazine",
+   "b": "epinephrine",
+   "note": ""
+  },
+  {
+   "no": 466,
+   "a": "pethidine(meperidine)",
+   "b": "selegiline",
+   "note": ""
+  },
+  {
+   "no": 467,
+   "a": "phendimetrazine",
+   "b": "mazindol",
+   "note": ""
+  },
+  {
+   "no": 468,
+   "a": "phendimetrazine",
+   "b": "moclobemide",
+   "note": ""
+  },
+  {
+   "no": 469,
+   "a": "phendimetrazine",
+   "b": "phentermine",
+   "note": ""
+  },
+  {
+   "no": 470,
+   "a": "phendimetrazine",
+   "b": "selegiline",
+   "note": ""
+  },
+  {
+   "no": 471,
+   "a": "phentermine",
+   "b": "mazindol",
+   "note": ""
+  },
+  {
+   "no": 472,
+   "a": "phentermine",
+   "b": "moclobemide",
+   "note": ""
+  },
+  {
+   "no": 473,
+   "a": "phentermine",
+   "b": "selegiline",
+   "note": ""
+  },
+  {
+   "no": 474,
+   "a": "pimozide",
+   "b": "amitriptyline",
+   "note": ""
+  },
+  {
+   "no": 475,
+   "a": "pimozide",
+   "b": "dronedarone",
+   "note": ""
+  },
+  {
+   "no": 476,
+   "a": "pimozide",
+   "b": "escitalopram",
+   "note": ""
+  },
+  {
+   "no": 477,
+   "a": "pimozide",
+   "b": "fluoxetine",
+   "note": ""
+  },
+  {
+   "no": 478,
+   "a": "pimozide",
+   "b": "fluvoxamine",
+   "note": ""
+  },
+  {
+   "no": 479,
+   "a": "pimozide",
+   "b": "imipramine",
+   "note": ""
+  },
+  {
+   "no": 480,
+   "a": "pimozide",
+   "b": "mizolastine",
+   "note": ""
+  },
+  {
+   "no": 481,
+   "a": "pimozide",
+   "b": "nortriptyline",
+   "note": ""
+  },
+  {
+   "no": 482,
+   "a": "pimozide",
+   "b": "paroxetine",
+   "note": ""
+  },
+  {
+   "no": 483,
+   "a": "pimozide",
+   "b": "posaconazole",
+   "note": ""
+  },
+  {
+   "no": 484,
+   "a": "pimozide",
+   "b": "quinidine",
+   "note": ""
+  },
+  {
+   "no": 485,
+   "a": "pimozide",
+   "b": "ritonavir",
+   "note": ""
+  },
+  {
+   "no": 486,
+   "a": "pimozide",
+   "b": "sertraline",
+   "note": ""
+  },
+  {
+   "no": 487,
+   "a": "pimozide",
+   "b": "telithromycin",
+   "note": ""
+  },
+  {
+   "no": 488,
+   "a": "pimozide",
+   "b": "toremifene",
+   "note": ""
+  },
+  {
+   "no": 489,
+   "a": "pimozide",
+   "b": "voriconazole",
+   "note": ""
+  },
+  {
+   "no": 490,
+   "a": "piroxicam",
+   "b": "methotrexate (분류번호 : 421)",
+   "note": "15mg 이상 투여시"
+  },
+  {
+   "no": 491,
+   "a": "posaconazole",
+   "b": "anhydrous caffeine + ergotamine",
+   "note": ""
+  },
+  {
+   "no": 492,
+   "a": "posaconazole",
+   "b": "lovastatin",
+   "note": ""
+  },
+  {
+   "no": 493,
+   "a": "posaconazole",
+   "b": "simvastatin",
+   "note": ""
+  },
+  {
+   "no": 494,
+   "a": "potassium chloride",
+   "b": "amiloride",
+   "note": ""
+  },
+  {
+   "no": 495,
+   "a": "potassium chloride",
+   "b": "spironolactone",
+   "note": ""
+  },
+  {
+   "no": 496,
+   "a": "potassium citrate",
+   "b": "amiloride",
+   "note": ""
+  },
+  {
+   "no": 497,
+   "a": "prednisolone",
+   "b": "sparfloxacin",
+   "note": ""
+  },
+  {
+   "no": 498,
+   "a": "procaterol",
+   "b": "epinephrine",
+   "note": "소생 등의 위급상황 제외"
+  },
+  {
+   "no": 499,
+   "a": "procaterol",
+   "b": "norepinephrine",
+   "note": "소생 등의 응급상황 제외"
+  },
+  {
+   "no": 500,
+   "a": "proglumetacin",
+   "b": "diflunisal",
+   "note": ""
+  },
+  {
+   "no": 501,
+   "a": "pseudoephedrine",
+   "b": "moclobemide",
+   "note": ""
+  },
+  {
+   "no": 502,
+   "a": "pseudoephedrine",
+   "b": "selegiline",
+   "note": ""
+  },
+  {
+   "no": 503,
+   "a": "quazepam",
+   "b": "ritonavir",
+   "note": ""
+  },
+  {
+   "no": 504,
+   "a": "quinidine",
+   "b": "voriconazole",
+   "note": ""
+  },
+  {
+   "no": 505,
+   "a": "quinidine",
+   "b": "azithromycin",
+   "note": ""
+  },
+  {
+   "no": 506,
+   "a": "quinidine",
+   "b": "clarithromycin",
+   "note": ""
+  },
+  {
+   "no": 507,
+   "a": "quinidine",
+   "b": "darunavir",
+   "note": ""
+  },
+  {
+   "no": 508,
+   "a": "quinidine",
+   "b": "erythromycin",
+   "note": ""
+  },
+  {
+   "no": 509,
+   "a": "quinidine",
+   "b": "fluconazole",
+   "note": ""
+  },
+  {
+   "no": 510,
+   "a": "quinidine",
+   "b": "indinavir",
+   "note": ""
+  },
+  {
+   "no": 511,
+   "a": "quinidine",
+   "b": "josamycin",
+   "note": ""
+  },
+  {
+   "no": 512,
+   "a": "quinidine",
+   "b": "ketoconazole",
+   "note": ""
+  },
+  {
+   "no": 513,
+   "a": "quinidine",
+   "b": "lopinavir + ritonavir",
+   "note": ""
+  },
+  {
+   "no": 514,
+   "a": "quinidine",
+   "b": "posaconazole",
+   "note": ""
+  },
+  {
+   "no": 515,
+   "a": "quinidine",
+   "b": "roxithromycin",
+   "note": ""
+  },
+  {
+   "no": 516,
+   "a": "quinidine",
+   "b": "spiramycin",
+   "note": ""
+  },
+  {
+   "no": 517,
+   "a": "quinidine",
+   "b": "telithromycin",
+   "note": ""
+  },
+  {
+   "no": 518,
+   "a": "quinupramine",
+   "b": "moclobemide",
+   "note": ""
+  },
+  {
+   "no": 519,
+   "a": "quinupramine",
+   "b": "selegiline",
+   "note": ""
+  },
+  {
+   "no": 520,
+   "a": "rabeprazole",
+   "b": "atazanavir",
+   "note": ""
+  },
+  {
+   "no": 521,
+   "a": "repaglinide",
+   "b": "gemfibrozil",
+   "note": ""
+  },
+  {
+   "no": 522,
+   "a": "revaprazan",
+   "b": "atazanavir",
+   "note": ""
+  },
+  {
+   "no": 523,
+   "a": "rifampicin",
+   "b": "isradipine",
+   "note": ""
+  },
+  {
+   "no": 524,
+   "a": "rifampicin",
+   "b": "nifedipine",
+   "note": ""
+  },
+  {
+   "no": 525,
+   "a": "rifampicin",
+   "b": "nisoldipine",
+   "note": ""
+  },
+  {
+   "no": 526,
+   "a": "rifampicin(rifampin)",
+   "b": "voriconazole",
+   "note": ""
+  },
+  {
+   "no": 527,
+   "a": "ritonavir",
+   "b": "blonanserin",
+   "note": ""
+  },
+  {
+   "no": 528,
+   "a": "ritonavir",
+   "b": "flecainide",
+   "note": ""
+  },
+  {
+   "no": 529,
+   "a": "ritonavir",
+   "b": "lovastatin",
+   "note": ""
+  },
+  {
+   "no": 530,
+   "a": "ritonavir",
+   "b": "quinidine",
+   "note": ""
+  },
+  {
+   "no": 531,
+   "a": "roxithromycin",
+   "b": "pimozide",
+   "note": ""
+  },
+  {
+   "no": 532,
+   "a": "salbutamol",
+   "b": "epinephrine (분류번호 : 245)",
+   "note": "소생 등의 위급상황 제외"
+  },
+  {
+   "no": 533,
+   "a": "salbutamol",
+   "b": "norepinephrine",
+   "note": "소생 등의 응급상황 제외"
+  },
+  {
+   "no": 534,
+   "a": "selegiline",
+   "b": "bupropion",
+   "note": ""
+  },
+  {
+   "no": 535,
+   "a": "selegiline",
+   "b": "cyclobenzaprine",
+   "note": ""
+  },
+  {
+   "no": 536,
+   "a": "selegiline",
+   "b": "dextromethorphan",
+   "note": ""
+  },
+  {
+   "no": 537,
+   "a": "selegiline",
+   "b": "fluoxetine",
+   "note": ""
+  },
+  {
+   "no": 538,
+   "a": "selegiline",
+   "b": "morphine",
+   "note": ""
+  },
+  {
+   "no": 539,
+   "a": "selegiline",
+   "b": "sertraline",
+   "note": ""
+  },
+  {
+   "no": 540,
+   "a": "selegiline",
+   "b": "sumatriptan",
+   "note": ""
+  },
+  {
+   "no": 541,
+   "a": "selegiline",
+   "b": "tramadol",
+   "note": ""
+  },
+  {
+   "no": 542,
+   "a": "selegiline",
+   "b": "venlafaxine",
+   "note": ""
+  },
+  {
+   "no": 543,
+   "a": "sibutramine",
+   "b": "diethylpropion",
+   "note": ""
+  },
+  {
+   "no": 544,
+   "a": "sibutramine",
+   "b": "mazindol",
+   "note": ""
+  },
+  {
+   "no": 545,
+   "a": "sibutramine",
+   "b": "phendimetrazine",
+   "note": ""
+  },
+  {
+   "no": 546,
+   "a": "sibutramine",
+   "b": "phentermine",
+   "note": ""
+  },
+  {
+   "no": 547,
+   "a": "sildenafil",
+   "b": "indinavir",
+   "note": ""
+  },
+  {
+   "no": 548,
+   "a": "sildenafil",
+   "b": "lopinavir + ritonavir",
+   "note": ""
+  },
+  {
+   "no": 549,
+   "a": "sildenafil",
+   "b": "ritonavir",
+   "note": ""
+  },
+  {
+   "no": 550,
+   "a": "sildenafil",
+   "b": "mirodenafil",
+   "note": ""
+  },
+  {
+   "no": 551,
+   "a": "sildenafil",
+   "b": "nitroglycerin",
+   "note": ""
+  },
+  {
+   "no": 552,
+   "a": "sildenafil",
+   "b": "nitroprusside",
+   "note": ""
+  },
+  {
+   "no": 553,
+   "a": "sildenafil",
+   "b": "tadalafil",
+   "note": ""
+  },
+  {
+   "no": 554,
+   "a": "sildenafil",
+   "b": "udenafil",
+   "note": ""
+  },
+  {
+   "no": 555,
+   "a": "sildenafil",
+   "b": "vardenafil",
+   "note": ""
+  },
+  {
+   "no": 556,
+   "a": "simvastatin",
+   "b": "clarithromycin",
+   "note": ""
+  },
+  {
+   "no": 557,
+   "a": "simvastatin",
+   "b": "darunavir",
+   "note": ""
+  },
+  {
+   "no": 558,
+   "a": "simvastatin",
+   "b": "erythromycin",
+   "note": ""
+  },
+  {
+   "no": 559,
+   "a": "simvastatin",
+   "b": "indinavir",
+   "note": ""
+  },
+  {
+   "no": 560,
+   "a": "simvastatin",
+   "b": "ketoconazole",
+   "note": ""
+  },
+  {
+   "no": 561,
+   "a": "simvastatin",
+   "b": "lopinavir + ritonavir",
+   "note": ""
+  },
+  {
+   "no": 562,
+   "a": "simvastatin",
+   "b": "nelfinavir",
+   "note": ""
+  },
+  {
+   "no": 563,
+   "a": "simvastatin",
+   "b": "ritonavir",
+   "note": ""
+  },
+  {
+   "no": 564,
+   "a": "simvastatin",
+   "b": "telithromycin",
+   "note": ""
+  },
+  {
+   "no": 565,
+   "a": "spiramycin",
+   "b": "mizolastine",
+   "note": ""
+  },
+  {
+   "no": 566,
+   "a": "spironolactone",
+   "b": "triamterene",
+   "note": ""
+  },
+  {
+   "no": 567,
+   "a": "sumatriptan",
+   "b": "clomipramine",
+   "note": ""
+  },
+  {
+   "no": 568,
+   "a": "sumatriptan",
+   "b": "ergotamine",
+   "note": ""
+  },
+  {
+   "no": 569,
+   "a": "sumatriptan",
+   "b": "lithium carbonate",
+   "note": ""
+  },
+  {
+   "no": 570,
+   "a": "sumatriptan",
+   "b": "zolmitriptan",
+   "note": ""
+  },
+  {
+   "no": 571,
+   "a": "tacrolimus",
+   "b": "amiloride",
+   "note": ""
+  },
+  {
+   "no": 572,
+   "a": "tacrolimus",
+   "b": "spironolactone",
+   "note": ""
+  },
+  {
+   "no": 573,
+   "a": "tadalafil",
+   "b": "isosorbide dinitrate",
+   "note": ""
+  },
+  {
+   "no": 574,
+   "a": "tadalafil",
+   "b": "isosorbide mononitrate",
+   "note": ""
+  },
+  {
+   "no": 575,
+   "a": "tadalafil",
+   "b": "molsidomine",
+   "note": ""
+  },
+  {
+   "no": 576,
+   "a": "tadalafil",
+   "b": "nicorandil",
+   "note": ""
+  },
+  {
+   "no": 577,
+   "a": "tadalafil",
+   "b": "nitroglycerin",
+   "note": ""
+  },
+  {
+   "no": 578,
+   "a": "tadalafil",
+   "b": "nitroprusside",
+   "note": ""
+  },
+  {
+   "no": 579,
+   "a": "telithromycin",
+   "b": "anhydrous caffeine + ergotamine",
+   "note": ""
+  },
+  {
+   "no": 580,
+   "a": "telithromycin",
+   "b": "amiodarone",
+   "note": ""
+  },
+  {
+   "no": 581,
+   "a": "tenoxicam",
+   "b": "methotrexate",
+   "note": "20mg 이상 투여시"
+  },
+  {
+   "no": 582,
+   "a": "terbutaline",
+   "b": "norepinephrine",
+   "note": "소생 등의 응급상황 제외"
+  },
+  {
+   "no": 583,
+   "a": "terbutaline",
+   "b": "epinephrine",
+   "note": "소생 등의 위급상황 제외"
+  },
+  {
+   "no": 584,
+   "a": "thiothixene",
+   "b": "bromocriptine",
+   "note": ""
+  },
+  {
+   "no": 585,
+   "a": "acid(tiaprofenate)",
+   "b": "methotrexate (분류번호 : 421)",
+   "note": "15mg 이상 투여시"
+  },
+  {
+   "no": 586,
+   "a": "tizanidine",
+   "b": "ciprofloxacin",
+   "note": ""
+  },
+  {
+   "no": 587,
+   "a": "tranexamic acid",
+   "b": "thrombin",
+   "note": ""
+  },
+  {
+   "no": 588,
+   "a": "tretinoin",
+   "b": "doxycycline",
+   "note": ""
+  },
+  {
+   "no": 589,
+   "a": "tretinoin",
+   "b": "oxytetracycline",
+   "note": ""
+  },
+  {
+   "no": 590,
+   "a": "tretinoin",
+   "b": "tetracycline",
+   "note": ""
+  },
+  {
+   "no": 591,
+   "a": "triazolam",
+   "b": "erythromycin",
+   "note": ""
+  },
+  {
+   "no": 592,
+   "a": "triazolam",
+   "b": "josamycin",
+   "note": ""
+  },
+  {
+   "no": 593,
+   "a": "trifluoperazine",
+   "b": "epinephrine",
+   "note": ""
+  },
+  {
+   "no": 594,
+   "a": "tulobuterol",
+   "b": "epinephrine (분류번호 : 245)",
+   "note": "소생 등의 응급상황 제외"
+  },
+  {
+   "no": 595,
+   "a": "tulobuterol",
+   "b": "norepinephrine",
+   "note": "소생 등의 응급상황 제외"
+  },
+  {
+   "no": 596,
+   "a": "udenafil",
+   "b": "isosorbide dinitrate",
+   "note": ""
+  },
+  {
+   "no": 597,
+   "a": "udenafil",
+   "b": "isosorbide mononitrate",
+   "note": ""
+  },
+  {
+   "no": 598,
+   "a": "udenafil",
+   "b": "molsidomine",
+   "note": ""
+  },
+  {
+   "no": 599,
+   "a": "udenafil",
+   "b": "nicorandil",
+   "note": ""
+  },
+  {
+   "no": 600,
+   "a": "udenafil",
+   "b": "nitroglycerin",
+   "note": ""
+  },
+  {
+   "no": 601,
+   "a": "udenafil",
+   "b": "nitroprusside",
+   "note": ""
+  },
+  {
+   "no": 602,
+   "a": "udenafil",
+   "b": "tadalafil",
+   "note": ""
+  },
+  {
+   "no": 605,
+   "a": "valproic acid(valproate)",
+   "b": "imipenem + cilastatin",
+   "note": ""
+  },
+  {
+   "no": 606,
+   "a": "valproic acid(valproate)",
+   "b": "meropenem",
+   "note": ""
+  },
+  {
+   "no": 607,
+   "a": "valproic acid(valproate)",
+   "b": "panipenem + betamipron",
+   "note": ""
+  },
+  {
+   "no": 608,
+   "a": "vardenafil",
+   "b": "amiodarone",
+   "note": ""
+  },
+  {
+   "no": 609,
+   "a": "vardenafil",
+   "b": "atazanavir",
+   "note": ""
+  },
+  {
+   "no": 610,
+   "a": "vardenafil",
+   "b": "emtricitabine + tenofovir",
+   "note": ""
+  },
+  {
+   "no": 611,
+   "a": "vardenafil",
+   "b": "darunavir",
+   "note": ""
+  },
+  {
+   "no": 612,
+   "a": "vardenafil",
+   "b": "dronedarone",
+   "note": ""
+  },
+  {
+   "no": 613,
+   "a": "vardenafil",
+   "b": "indinavir",
+   "note": ""
+  },
+  {
+   "no": 614,
+   "a": "vardenafil",
+   "b": "lopinavir + ritonavir",
+   "note": ""
+  },
+  {
+   "no": 615,
+   "a": "vardenafil",
+   "b": "nelfinavir",
+   "note": ""
+  },
+  {
+   "no": 616,
+   "a": "vardenafil",
+   "b": "ritonavir",
+   "note": ""
+  },
+  {
+   "no": 617,
+   "a": "vardenafil",
+   "b": "sotalol",
+   "note": ""
+  },
+  {
+   "no": 618,
+   "a": "vardenafil",
+   "b": "isosorbide dinitrate",
+   "note": ""
+  },
+  {
+   "no": 619,
+   "a": "vardenafil",
+   "b": "isosorbide mononitrate",
+   "note": ""
+  },
+  {
+   "no": 620,
+   "a": "vardenafil",
+   "b": "molsidomine",
+   "note": ""
+  },
+  {
+   "no": 621,
+   "a": "vardenafil",
+   "b": "nicorandil",
+   "note": ""
+  },
+  {
+   "no": 622,
+   "a": "vardenafil",
+   "b": "nitroglycerin",
+   "note": ""
+  },
+  {
+   "no": 623,
+   "a": "vardenafil",
+   "b": "nitroprusside",
+   "note": ""
+  },
+  {
+   "no": 624,
+   "a": "vardenafil",
+   "b": "tadalafil",
+   "note": ""
+  },
+  {
+   "no": 625,
+   "a": "vardenafil",
+   "b": "udenafil",
+   "note": ""
+  },
+  {
+   "no": 626,
+   "a": "ziprasidone",
+   "b": "dronedarone",
+   "note": ""
+  },
+  {
+   "no": 627,
+   "a": "ziprasidone",
+   "b": "mizolastine",
+   "note": ""
+  },
+  {
+   "no": 628,
+   "a": "ziprasidone",
+   "b": "pimozide",
+   "note": ""
+  },
+  {
+   "no": 629,
+   "a": "ziprasidone",
+   "b": "toremifene",
+   "note": ""
+  },
+  {
+   "no": 630,
+   "a": "zolmitriptan",
+   "b": "moclobemide",
+   "note": ""
+  },
+  {
+   "no": 631,
+   "a": "zuclopenthixol",
+   "b": "epinephrine",
+   "note": ""
+  },
+  {
+   "no": 639,
+   "a": "estradiol",
+   "b": "estradiol(정제)",
+   "note": ""
+  },
+  {
+   "no": 640,
+   "a": "estradiol",
+   "b": "medroxyprogesterone (주사제)",
+   "note": ""
+  },
+  {
+   "no": 641,
+   "a": "dexlansoprazole",
+   "b": "atazanavir",
+   "note": ""
+  },
+  {
+   "no": 642,
+   "a": "esomeprazole",
+   "b": "nelfinavir",
+   "note": ""
+  },
+  {
+   "no": 643,
+   "a": "olanzapine(정제)",
+   "b": "epinephrine",
+   "note": ""
+  },
+  {
+   "no": 644,
+   "a": "omeprazole",
+   "b": "nelfinavir",
+   "note": ""
+  },
+  {
+   "no": 645,
+   "a": "agomelatine",
+   "b": "fluvoxamine",
+   "note": ""
+  },
+  {
+   "no": 646,
+   "a": "agomelatine",
+   "b": "ciprofloxacin",
+   "note": ""
+  },
+  {
+   "no": 647,
+   "a": "dabigatran",
+   "b": "cyclosporine",
+   "note": ""
+  },
+  {
+   "no": 648,
+   "a": "dabigatran",
+   "b": "dronedarone",
+   "note": ""
+  },
+  {
+   "no": 649,
+   "a": "dabigatran",
+   "b": "itraconazole",
+   "note": ""
+  },
+  {
+   "no": 650,
+   "a": "doripenem",
+   "b": "valproic acid(valproate)",
+   "note": ""
+  },
+  {
+   "no": 653,
+   "a": "doripenem",
+   "b": "divalproex",
+   "note": ""
+  },
+  {
+   "no": 654,
+   "a": "etravirine",
+   "b": "carbamazepine",
+   "note": ""
+  },
+  {
+   "no": 655,
+   "a": "etravirine",
+   "b": "phenobarbital",
+   "note": ""
+  },
+  {
+   "no": 656,
+   "a": "etravirine",
+   "b": "phenytoin",
+   "note": ""
+  },
+  {
+   "no": 657,
+   "a": "etravirine",
+   "b": "rifampicin",
+   "note": ""
+  },
+  {
+   "no": 658,
+   "a": "etravirine",
+   "b": "St. john’s wort",
+   "note": ""
+  },
+  {
+   "no": 659,
+   "a": "febuxostat",
+   "b": "mercaptopurine",
+   "note": ""
+  },
+  {
+   "no": 660,
+   "a": "febuxostat",
+   "b": "azathioprine",
+   "note": ""
+  },
+  {
+   "no": 661,
+   "a": "fosaprepitant",
+   "b": "pimozide",
+   "note": ""
+  },
+  {
+   "no": 662,
+   "a": "iguratimod",
+   "b": "warfarin",
+   "note": ""
+  },
+  {
+   "no": 663,
+   "a": "ivabradine",
+   "b": "itraconazole",
+   "note": ""
+  },
+  {
+   "no": 664,
+   "a": "ivabradine",
+   "b": "clarithromycin",
+   "note": ""
+  },
+  {
+   "no": 665,
+   "a": "ivabradine",
+   "b": "erythromycin",
+   "note": ""
+  },
+  {
+   "no": 666,
+   "a": "ivabradine",
+   "b": "nelfinavir",
+   "note": ""
+  },
+  {
+   "no": 667,
+   "a": "ivabradine",
+   "b": "ritonavir",
+   "note": ""
+  },
+  {
+   "no": 668,
+   "a": "rasagiline",
+   "b": "moclobemide",
+   "note": ""
+  },
+  {
+   "no": 669,
+   "a": "rasagiline",
+   "b": "selegiline",
+   "note": ""
+  },
+  {
+   "no": 670,
+   "a": "rasagiline",
+   "b": "pethidine(meperidine)",
+   "note": ""
+  },
+  {
+   "no": 671,
+   "a": "rasagiline",
+   "b": "tramadol",
+   "note": ""
+  },
+  {
+   "no": 672,
+   "a": "rasagiline",
+   "b": "cyclobenzaprine",
+   "note": ""
+  },
+  {
+   "no": 673,
+   "a": "rasagiline",
+   "b": "St. john’s wort",
+   "note": ""
+  },
+  {
+   "no": 674,
+   "a": "rilpivirine",
+   "b": "carbamazepine",
+   "note": ""
+  },
+  {
+   "no": 675,
+   "a": "rilpivirine",
+   "b": "oxcarbazepine",
+   "note": ""
+  },
+  {
+   "no": 676,
+   "a": "rilpivirine",
+   "b": "phenobarbital",
+   "note": ""
+  },
+  {
+   "no": 677,
+   "a": "rilpivirine",
+   "b": "phenytoin",
+   "note": ""
+  },
+  {
+   "no": 678,
+   "a": "rilpivirine",
+   "b": "fosphenytoin",
+   "note": ""
+  },
+  {
+   "no": 679,
+   "a": "rilpivirine",
+   "b": "rifampicin",
+   "note": ""
+  },
+  {
+   "no": 680,
+   "a": "rilpivirine",
+   "b": "St. john’s wort",
+   "note": ""
+  },
+  {
+   "no": 681,
+   "a": "rilpivirine",
+   "b": "omeprazole",
+   "note": ""
+  },
+  {
+   "no": 682,
+   "a": "rilpivirine",
+   "b": "esomeprazole",
+   "note": ""
+  },
+  {
+   "no": 683,
+   "a": "rilpivirine",
+   "b": "lansoprazole",
+   "note": ""
+  },
+  {
+   "no": 684,
+   "a": "rilpivirine",
+   "b": "dexlansoprazole",
+   "note": ""
+  },
+  {
+   "no": 685,
+   "a": "rilpivirine",
+   "b": "pantoprazole",
+   "note": ""
+  },
+  {
+   "no": 686,
+   "a": "rilpivirine",
+   "b": "s-pantoprazole",
+   "note": ""
+  },
+  {
+   "no": 687,
+   "a": "rilpivirine",
+   "b": "rabeprazole",
+   "note": ""
+  },
+  {
+   "no": 688,
+   "a": "rilpivirine",
+   "b": "ilaprazole",
+   "note": ""
+  },
+  {
+   "no": 689,
+   "a": "rilpivirine",
+   "b": "revaprazan",
+   "note": ""
+  },
+  {
+   "no": 690,
+   "a": "rivaroxaban",
+   "b": "atazanavir",
+   "note": ""
+  },
+  {
+   "no": 691,
+   "a": "rivaroxaban",
+   "b": "indinavir",
+   "note": ""
+  },
+  {
+   "no": 692,
+   "a": "rivaroxaban",
+   "b": "ritonavir",
+   "note": ""
+  },
+  {
+   "no": 693,
+   "a": "rivaroxaban",
+   "b": "cobicistat + elvitegravir +",
+   "note": ""
+  },
+  {
+   "no": 694,
+   "a": "rivaroxaban",
+   "b": "itraconazole",
+   "note": ""
+  },
+  {
+   "no": 695,
+   "a": "rivaroxaban",
+   "b": "voriconazole",
+   "note": ""
+  },
+  {
+   "no": 696,
+   "a": "silodosin",
+   "b": "clarithromycin",
+   "note": ""
+  },
+  {
+   "no": 697,
+   "a": "silodosin",
+   "b": "itraconazole",
+   "note": ""
+  },
+  {
+   "no": 698,
+   "a": "silodosin",
+   "b": "ritonavir",
+   "note": ""
+  },
+  {
+   "no": 699,
+   "a": "ticagrelor",
+   "b": "clarithromycin",
+   "note": ""
+  },
+  {
+   "no": 700,
+   "a": "ticagrelor",
+   "b": "ritonavir",
+   "note": ""
+  },
+  {
+   "no": 701,
+   "a": "ticagrelor",
+   "b": "atazanavir",
+   "note": ""
+  },
+  {
+   "no": 702,
+   "a": "tolvaptan",
+   "b": "clarithromycin",
+   "note": ""
+  },
+  {
+   "no": 703,
+   "a": "tolvaptan",
+   "b": "itraconazole",
+   "note": ""
+  },
+  {
+   "no": 704,
+   "a": "tolvaptan",
+   "b": "ritonavir",
+   "note": ""
+  },
+  {
+   "no": 705,
+   "a": "tolvaptan",
+   "b": "indinavir",
+   "note": ""
+  },
+  {
+   "no": 706,
+   "a": "tolvaptan",
+   "b": "nelfinavir",
+   "note": ""
+  },
+  {
+   "no": 707,
+   "a": "domperidone",
+   "b": "amiodarone",
+   "note": ""
+  },
+  {
+   "no": 708,
+   "a": "domperidone",
+   "b": "amisulpride",
+   "note": ""
+  },
+  {
+   "no": 709,
+   "a": "domperidone",
+   "b": "anagrelide",
+   "note": ""
+  },
+  {
+   "no": 710,
+   "a": "domperidone",
+   "b": "arsenic trioxide",
+   "note": ""
+  },
+  {
+   "no": 711,
+   "a": "domperidone",
+   "b": "atazanavir",
+   "note": ""
+  },
+  {
+   "no": 712,
+   "a": "domperidone",
+   "b": "azithromycin",
+   "note": ""
+  },
+  {
+   "no": 713,
+   "a": "domperidone",
+   "b": "bedaquiline",
+   "note": ""
+  },
+  {
+   "no": 714,
+   "a": "domperidone",
+   "b": "bepridil",
+   "note": ""
+  },
+  {
+   "no": 715,
+   "a": "domperidone",
+   "b": "bicalutamide",
+   "note": ""
+  },
+  {
+   "no": 716,
+   "a": "domperidone",
+   "b": "boceprevir",
+   "note": ""
+  },
+  {
+   "no": 717,
+   "a": "domperidone",
+   "b": "chlorpromazine",
+   "note": ""
+  },
+  {
+   "no": 718,
+   "a": "domperidone",
+   "b": "ciprofloxacin",
+   "note": ""
+  },
+  {
+   "no": 719,
+   "a": "domperidone",
+   "b": "citalopram",
+   "note": ""
+  },
+  {
+   "no": 720,
+   "a": "domperidone",
+   "b": "clarithromycin",
+   "note": ""
+  },
+  {
+   "no": 721,
+   "a": "domperidone",
+   "b": "darunavir",
+   "note": ""
+  },
+  {
+   "no": 722,
+   "a": "domperidone",
+   "b": "degarelix",
+   "note": ""
+  },
+  {
+   "no": 723,
+   "a": "domperidone",
+   "b": "dolasetron",
+   "note": ""
+  },
+  {
+   "no": 724,
+   "a": "domperidone",
+   "b": "dronedarone",
+   "note": ""
+  },
+  {
+   "no": 725,
+   "a": "domperidone",
+   "b": "ebastine",
+   "note": ""
+  },
+  {
+   "no": 726,
+   "a": "domperidone",
+   "b": "ebastine + pseudoephedrine",
+   "note": ""
+  },
+  {
+   "no": 727,
+   "a": "domperidone",
+   "b": "erythromycin",
+   "note": ""
+  },
+  {
+   "no": 728,
+   "a": "domperidone",
+   "b": "escitalopram",
+   "note": ""
+  },
+  {
+   "no": 729,
+   "a": "domperidone",
+   "b": "fingolimod",
+   "note": ""
+  },
+  {
+   "no": 730,
+   "a": "domperidone",
+   "b": "fluconazole",
+   "note": ""
+  },
+  {
+   "no": 731,
+   "a": "domperidone",
+   "b": "granisetron",
+   "note": ""
+  },
+  {
+   "no": 732,
+   "a": "domperidone",
+   "b": "haloperidol",
+   "note": ""
+  },
+  {
+   "no": 733,
+   "a": "domperidone",
+   "b": "indinavir",
+   "note": ""
+  },
+  {
+   "no": 734,
+   "a": "domperidone",
+   "b": "itraconazole",
+   "note": ""
+  },
+  {
+   "no": 735,
+   "a": "domperidone",
+   "b": "ketoconazole",
+   "note": ""
+  },
+  {
+   "no": 736,
+   "a": "domperidone",
+   "b": "levofloxacin",
+   "note": ""
+  },
+  {
+   "no": 737,
+   "a": "domperidone",
+   "b": "mequitazine",
+   "note": ""
+  },
+  {
+   "no": 738,
+   "a": "domperidone",
+   "b": "metoclopramide",
+   "note": ""
+  },
+  {
+   "no": 739,
+   "a": "domperidone",
+   "b": "metoclopramide + pancreatin",
+   "note": ""
+  },
+  {
+   "no": 740,
+   "a": "domperidone",
+   "b": "mizolastine",
+   "note": ""
+  },
+  {
+   "no": 741,
+   "a": "domperidone",
+   "b": "moxifloxacin",
+   "note": ""
+  },
+  {
+   "no": 742,
+   "a": "domperidone",
+   "b": "nelfinavir",
+   "note": ""
+  },
+  {
+   "no": 743,
+   "a": "domperidone",
+   "b": "nilotinib",
+   "note": ""
+  },
+  {
+   "no": 744,
+   "a": "domperidone",
+   "b": "ondansetron",
+   "note": ""
+  },
+  {
+   "no": 745,
+   "a": "domperidone",
+   "b": "oxatomide",
+   "note": ""
+  },
+  {
+   "no": 746,
+   "a": "domperidone",
+   "b": "paliperidone (주사제)",
+   "note": ""
+  },
+  {
+   "no": 747,
+   "a": "domperidone",
+   "b": "pentamidine",
+   "note": ""
+  },
+  {
+   "no": 748,
+   "a": "domperidone",
+   "b": "pilsicainide",
+   "note": ""
+  },
+  {
+   "no": 749,
+   "a": "domperidone",
+   "b": "pimozide",
+   "note": ""
+  },
+  {
+   "no": 750,
+   "a": "domperidone",
+   "b": "posaconazole",
+   "note": ""
+  },
+  {
+   "no": 751,
+   "a": "domperidone",
+   "b": "prucalopride",
+   "note": ""
+  },
+  {
+   "no": 752,
+   "a": "domperidone",
+   "b": "radotinib",
+   "note": ""
+  },
+  {
+   "no": 753,
+   "a": "domperidone",
+   "b": "risperidone (주사제)",
+   "note": ""
+  },
+  {
+   "no": 754,
+   "a": "domperidone",
+   "b": "ritonavir",
+   "note": ""
+  },
+  {
+   "no": 755,
+   "a": "domperidone",
+   "b": "ritonavir + lopinavir",
+   "note": ""
+  },
+  {
+   "no": 756,
+   "a": "domperidone",
+   "b": "sotalol",
+   "note": ""
+  },
+  {
+   "no": 757,
+   "a": "domperidone",
+   "b": "telithromycin",
+   "note": ""
+  },
+  {
+   "no": 758,
+   "a": "domperidone",
+   "b": "toremifene",
+   "note": ""
+  },
+  {
+   "no": 759,
+   "a": "domperidone",
+   "b": "trazodone",
+   "note": ""
+  },
+  {
+   "no": 760,
+   "a": "domperidone",
+   "b": "vandetanib",
+   "note": ""
+  },
+  {
+   "no": 761,
+   "a": "domperidone",
+   "b": "venlafaxine",
+   "note": ""
+  },
+  {
+   "no": 762,
+   "a": "domperidone",
+   "b": "voriconazole",
+   "note": ""
+  },
+  {
+   "no": 763,
+   "a": "domperidone",
+   "b": "ziprasidone",
+   "note": ""
+  },
+  {
+   "no": 764,
+   "a": "lamivudine",
+   "b": "emtricitabine + tenofovir",
+   "note": ""
+  },
+  {
+   "no": 765,
+   "a": "lamivudine",
+   "b": "rilpivirine",
+   "note": ""
+  },
+  {
+   "no": 766,
+   "a": "lamivudine",
+   "b": "cobicistat + elvitegravir",
+   "note": ""
+  },
+  {
+   "no": 767,
+   "a": "lamivudine + zidovudine",
+   "b": "emtricitabine + tenofovir",
+   "note": ""
+  },
+  {
+   "no": 768,
+   "a": "lamivudine + zidovudine",
+   "b": "emtricitabine +",
+   "note": ""
+  },
+  {
+   "no": 769,
+   "a": "lamivudine + zidovudine",
+   "b": "emtricitabine + tenofovir +",
+   "note": ""
+  },
+  {
+   "no": 770,
+   "a": "lamivudine + abacavir",
+   "b": "emtricitabine + tenofovir",
+   "note": ""
+  },
+  {
+   "no": 771,
+   "a": "rilpivirine",
+   "b": "lamivudine + abacavir",
+   "note": ""
+  },
+  {
+   "no": 772,
+   "a": "cobicistat + elvitegravir",
+   "b": "lamivudine + abacavir",
+   "note": ""
+  },
+  {
+   "no": 773,
+   "a": "xylometazoline",
+   "b": "moclobemide",
+   "note": ""
+  },
+  {
+   "no": 774,
+   "a": "xylometazoline",
+   "b": "rasagiline",
+   "note": ""
+  },
+  {
+   "no": 775,
+   "a": "xylometazoline",
+   "b": "selegiline",
+   "note": ""
+  },
+  {
+   "no": 776,
+   "a": "boceprevir",
+   "b": "alfuzosin",
+   "note": ""
+  },
+  {
+   "no": 777,
+   "a": "boceprevir",
+   "b": "amiodarone",
+   "note": ""
+  },
+  {
+   "no": 778,
+   "a": "boceprevir",
+   "b": "dihydroergotamine",
+   "note": ""
+  },
+  {
+   "no": 779,
+   "a": "boceprevir",
+   "b": "doxazosin",
+   "note": ""
+  },
+  {
+   "no": 780,
+   "a": "boceprevir",
+   "b": "ergotamine + anhydrous caffeine",
+   "note": ""
+  },
+  {
+   "no": 781,
+   "a": "boceprevir",
+   "b": "lovastatin",
+   "note": ""
+  },
+  {
+   "no": 782,
+   "a": "boceprevir",
+   "b": "naftopidil",
+   "note": ""
+  },
+  {
+   "no": 783,
+   "a": "boceprevir",
+   "b": "pimozide",
+   "note": ""
+  },
+  {
+   "no": 784,
+   "a": "boceprevir",
+   "b": "propafenone",
+   "note": ""
+  },
+  {
+   "no": 785,
+   "a": "boceprevir",
+   "b": "quetiapine",
+   "note": ""
+  },
+  {
+   "no": 786,
+   "a": "boceprevir",
+   "b": "silodosin",
+   "note": ""
+  },
+  {
+   "no": 787,
+   "a": "boceprevir",
+   "b": "simvastatin",
+   "note": ""
+  },
+  {
+   "no": 788,
+   "a": "boceprevir",
+   "b": "simvastatin + ezetimibe",
+   "note": ""
+  },
+  {
+   "no": 789,
+   "a": "boceprevir",
+   "b": "simvastatin + fenofibrate",
+   "note": ""
+  },
+  {
+   "no": 790,
+   "a": "boceprevir",
+   "b": "tamsulosin",
+   "note": ""
+  },
+  {
+   "no": 791,
+   "a": "boceprevir",
+   "b": "terazosin",
+   "note": ""
+  },
+  {
+   "no": 792,
+   "a": "boceprevir",
+   "b": "triazolam",
+   "note": ""
+  },
+  {
+   "no": 793,
+   "a": "dolutegravir",
+   "b": "pilsicainide",
+   "note": ""
+  },
+  {
+   "no": 794,
+   "a": "emtricitabine + tenofovir",
+   "b": "carbamazepine",
+   "note": ""
+  },
+  {
+   "no": 795,
+   "a": "emtricitabine + tenofovir",
+   "b": "dexlansoprazole",
+   "note": ""
+  },
+  {
+   "no": 796,
+   "a": "emtricitabine + tenofovir",
+   "b": "esomeprazole",
+   "note": ""
+  },
+  {
+   "no": 797,
+   "a": "+ rilpivirine",
+   "b": "fosphenytoin",
+   "note": ""
+  },
+  {
+   "no": 798,
+   "a": "+ rilpivirine",
+   "b": "ilaprazole",
+   "note": ""
+  },
+  {
+   "no": 799,
+   "a": "+ rilpivirine",
+   "b": "lansoprazole",
+   "note": ""
+  },
+  {
+   "no": 800,
+   "a": "+ rilpivirine",
+   "b": "omeprazole",
+   "note": ""
+  },
+  {
+   "no": 801,
+   "a": "+ rilpivirine",
+   "b": "oxcarbazepine",
+   "note": ""
+  },
+  {
+   "no": 802,
+   "a": "+ rilpivirine",
+   "b": "pantoprazole",
+   "note": ""
+  },
+  {
+   "no": 803,
+   "a": "+ rilpivirine",
+   "b": "s-pantoprazole",
+   "note": ""
+  },
+  {
+   "no": 804,
+   "a": "+ rilpivirine",
+   "b": "phenobarbital",
+   "note": ""
+  },
+  {
+   "no": 805,
+   "a": "+ rilpivirine",
+   "b": "phenytoin",
+   "note": ""
+  },
+  {
+   "no": 806,
+   "a": "+ rilpivirine",
+   "b": "rabeprazole",
+   "note": ""
+  },
+  {
+   "no": 807,
+   "a": "+ rilpivirine",
+   "b": "revaprazan",
+   "note": ""
+  },
+  {
+   "no": 808,
+   "a": "+ rilpivirine",
+   "b": "rifampicin",
+   "note": ""
+  },
+  {
+   "no": 809,
+   "a": "+ rilpivirine",
+   "b": "St. john's wort",
+   "note": ""
+  },
+  {
+   "no": 810,
+   "a": "desvenlafaxine",
+   "b": "moclobemide",
+   "note": ""
+  },
+  {
+   "no": 811,
+   "a": "desvenlafaxine",
+   "b": "selegiline",
+   "note": ""
+  },
+  {
+   "no": 812,
+   "a": "vortioxetine",
+   "b": "moclobemide",
+   "note": ""
+  },
+  {
+   "no": 813,
+   "a": "vortioxetine",
+   "b": "selegiline",
+   "note": ""
+  },
+  {
+   "no": 814,
+   "a": "etoricoxib",
+   "b": "methotrexate",
+   "note": ""
+  },
+  {
+   "no": 815,
+   "a": "tapentadol",
+   "b": "moclobemide",
+   "note": ""
+  },
+  {
+   "no": 816,
+   "a": "tapentadol",
+   "b": "rasagiline",
+   "note": ""
+  },
+  {
+   "no": 817,
+   "a": "tapentadol",
+   "b": "selegiline",
+   "note": ""
+  },
+  {
+   "no": 818,
+   "a": "trastuzumab emtansine",
+   "b": "boceprevir",
+   "note": ""
+  },
+  {
+   "no": 819,
+   "a": "trastuzumab emtansine",
+   "b": "clarithromycin",
+   "note": ""
+  },
+  {
+   "no": 820,
+   "a": "trastuzumab emtansine",
+   "b": "atazanavir",
+   "note": ""
+  },
+  {
+   "no": 821,
+   "a": "trastuzumab emtansine",
+   "b": "darunavir",
+   "note": ""
+  },
+  {
+   "no": 822,
+   "a": "trastuzumab emtansine",
+   "b": "indinavir",
+   "note": ""
+  },
+  {
+   "no": 823,
+   "a": "trastuzumab emtansine",
+   "b": "itraconazole",
+   "note": ""
+  },
+  {
+   "no": 824,
+   "a": "trastuzumab emtansine",
+   "b": "nelfinavir",
+   "note": ""
+  },
+  {
+   "no": 825,
+   "a": "trastuzumab emtansine",
+   "b": "posaconazole",
+   "note": ""
+  },
+  {
+   "no": 826,
+   "a": "trastuzumab emtansine",
+   "b": "ritonavir",
+   "note": ""
+  },
+  {
+   "no": 827,
+   "a": "trastuzumab emtansine",
+   "b": "ritonavir + lopinavir",
+   "note": ""
+  },
+  {
+   "no": 828,
+   "a": "trastuzumab emtansine",
+   "b": "voriconazole",
+   "note": ""
+  },
+  {
+   "no": 829,
+   "a": "trastuzumab emtansine",
+   "b": "ketoconazole",
+   "note": ""
+  },
+  {
+   "no": 830,
+   "a": "duloxetine",
+   "b": "fluvoxamine",
+   "note": ""
+  },
+  {
+   "no": 831,
+   "a": "duloxetine",
+   "b": "moclobemide",
+   "note": ""
+  },
+  {
+   "no": 832,
+   "a": "duloxetine",
+   "b": "selegiline",
+   "note": ""
+  },
+  {
+   "no": 833,
+   "a": "risperidone",
+   "b": "epinephrine",
+   "note": ""
+  },
+  {
+   "no": 834,
+   "a": "diclofenac + misoprostol",
+   "b": "ketorolac",
+   "note": ""
+  },
+  {
+   "no": 835,
+   "a": "quetiapine",
+   "b": "epinephrine",
+   "note": ""
+  },
+  {
+   "no": 836,
+   "a": "diltiazem",
+   "b": "ivabradine",
+   "note": ""
+  },
+  {
+   "no": 837,
+   "a": "verapamil",
+   "b": "ivabradine",
+   "note": ""
+  },
+  {
+   "no": 838,
+   "a": "nitroglycerin",
+   "b": "ergotamine + caffeine",
+   "note": "소생 등의 위급상황 제외"
+  },
+  {
+   "no": 839,
+   "a": "nitroglycerin",
+   "b": "dihydroergotamine",
+   "note": "소생 등의 위급상황 제외"
+  },
+  {
+   "no": 840,
+   "a": "nitroglycerin",
+   "b": "riociguat",
+   "note": "소생 등의 위급상황 제외"
+  },
+  {
+   "no": 841,
+   "a": "avanafil",
+   "b": "riociguat",
+   "note": ""
+  },
+  {
+   "no": 842,
+   "a": "mirodenafil",
+   "b": "riociguat",
+   "note": ""
+  },
+  {
+   "no": 843,
+   "a": "sildenafil",
+   "b": "riociguat",
+   "note": ""
+  },
+  {
+   "no": 844,
+   "a": "tadalafil",
+   "b": "riociguat",
+   "note": ""
+  },
+  {
+   "no": 845,
+   "a": "udenafil",
+   "b": "riociguat",
+   "note": ""
+  },
+  {
+   "no": 846,
+   "a": "vardenafil",
+   "b": "riociguat",
+   "note": ""
+  },
+  {
+   "no": 847,
+   "a": "dextromethorphan",
+   "b": "rasagiline",
+   "note": ""
+  },
+  {
+   "no": 848,
+   "a": "ephedrine",
+   "b": "ergotamine + caffeine",
+   "note": ""
+  },
+  {
+   "no": 849,
+   "a": "ephedrine",
+   "b": "dihydroergotamine",
+   "note": ""
+  },
+  {
+   "no": 850,
+   "a": "pimozide",
+   "b": "+emtricitabine + tenofovir",
+   "note": ""
+  },
+  {
+   "no": 851,
+   "a": "pimozide",
+   "b": "cobicistat + atazanavir",
+   "note": ""
+  },
+  {
+   "no": 852,
+   "a": "pimozide",
+   "b": "cobicistat + darunavir",
+   "note": ""
+  },
+  {
+   "no": 853,
+   "a": "pimozide",
+   "b": "darunavir",
+   "note": ""
+  },
+  {
+   "no": 854,
+   "a": "pimozide",
+   "b": "indinavir",
+   "note": ""
+  },
+  {
+   "no": 855,
+   "a": "pimozide",
+   "b": "nelfinavir",
+   "note": ""
+  },
+  {
+   "no": 856,
+   "a": "pimozide",
+   "b": "fluconazole",
+   "note": ""
+  },
+  {
+   "no": 857,
+   "a": "simvastatin",
+   "b": "fusidic acid",
+   "note": ""
+  },
+  {
+   "no": 858,
+   "a": "simvastatin + ezetimibe",
+   "b": "fusidic acid",
+   "note": ""
+  },
+  {
+   "no": 859,
+   "a": "simvastatin + ezetimibe",
+   "b": "clarithromycin",
+   "note": ""
+  },
+  {
+   "no": 860,
+   "a": "simvastatin + ezetimibe",
+   "b": "posaconazole",
+   "note": ""
+  },
+  {
+   "no": 861,
+   "a": "simvastatin + ezetimibe",
+   "b": "ritonavir",
+   "note": ""
+  },
+  {
+   "no": 862,
+   "a": "simvastatin + fenofibrate",
+   "b": "clarithromycin",
+   "note": ""
+  },
+  {
+   "no": 863,
+   "a": "simvastatin + fenofibrate",
+   "b": "posaconazole",
+   "note": ""
+  },
+  {
+   "no": 864,
+   "a": "simvastatin + fenofibrate",
+   "b": "ritonavir",
+   "note": ""
+  },
+  {
+   "no": 865,
+   "a": "simvastatin + fenofibrate",
+   "b": "fusidic acid",
+   "note": ""
+  },
+  {
+   "no": 866,
+   "a": "dolutegravir",
+   "b": "St. john’s wort",
+   "note": ""
+  },
+  {
+   "no": 867,
+   "a": "St. john’s wort",
+   "b": "efavirenz",
+   "note": ""
+  },
+  {
+   "no": 868,
+   "a": "St. john’s wort",
+   "b": "nevirapine",
+   "note": ""
+  },
+  {
+   "no": 869,
+   "a": "St. john’s wort",
+   "b": "indinavir",
+   "note": ""
+  },
+  {
+   "no": 870,
+   "a": "St. john’s wort",
+   "b": "nelfinavir",
+   "note": ""
+  },
+  {
+   "no": 871,
+   "a": "St. john’s wort",
+   "b": "ritonavir",
+   "note": ""
+  },
+  {
+   "no": 872,
+   "a": "St. john’s wort",
+   "b": "ritonavir + lopinavir",
+   "note": ""
+  },
+  {
+   "no": 873,
+   "a": "asunaprevir",
+   "b": "atazanavir",
+   "note": ""
+  },
+  {
+   "no": 874,
+   "a": "asunaprevir",
+   "b": "boceprevir",
+   "note": ""
+  },
+  {
+   "no": 875,
+   "a": "asunaprevir",
+   "b": "bosentan",
+   "note": ""
+  },
+  {
+   "no": 876,
+   "a": "asunaprevir",
+   "b": "carbamazepine",
+   "note": ""
+  },
+  {
+   "no": 877,
+   "a": "asunaprevir",
+   "b": "ceritinib",
+   "note": ""
+  },
+  {
+   "no": 878,
+   "a": "asunaprevir",
+   "b": "clarithromycin",
+   "note": ""
+  },
+  {
+   "no": 879,
+   "a": "asunaprevir",
+   "b": "cobicistat함유제제",
+   "note": ""
+  },
+  {
+   "no": 880,
+   "a": "asunaprevir",
+   "b": "crizotinib",
+   "note": ""
+  },
+  {
+   "no": 881,
+   "a": "asunaprevir",
+   "b": "cyclosporine",
+   "note": ""
+  },
+  {
+   "no": 882,
+   "a": "asunaprevir",
+   "b": "dabrafenib",
+   "note": ""
+  },
+  {
+   "no": 883,
+   "a": "asunaprevir",
+   "b": "darunavir",
+   "note": ""
+  },
+  {
+   "no": 884,
+   "a": "asunaprevir",
+   "b": "dexamethasone",
+   "note": ""
+  },
+  {
+   "no": 885,
+   "a": "asunaprevir",
+   "b": "diltiazem",
+   "note": ""
+  },
+  {
+   "no": 886,
+   "a": "asunaprevir",
+   "b": "dronedarone",
+   "note": ""
+  },
+  {
+   "no": 887,
+   "a": "asunaprevir",
+   "b": "efavirenz",
+   "note": ""
+  },
+  {
+   "no": 888,
+   "a": "asunaprevir",
+   "b": "enzalutamide",
+   "note": ""
+  },
+  {
+   "no": 889,
+   "a": "asunaprevir",
+   "b": "erythromycin",
+   "note": ""
+  },
+  {
+   "no": 890,
+   "a": "asunaprevir",
+   "b": "etravirine",
+   "note": ""
+  },
+  {
+   "no": 891,
+   "a": "asunaprevir",
+   "b": "flecainide",
+   "note": ""
+  },
+  {
+   "no": 892,
+   "a": "asunaprevir",
+   "b": "fluconazole",
+   "note": ""
+  },
+  {
+   "no": 893,
+   "a": "asunaprevir",
+   "b": "fosphenytoin",
+   "note": ""
+  },
+  {
+   "no": 894,
+   "a": "asunaprevir",
+   "b": "gemfibrozil",
+   "note": ""
+  },
+  {
+   "no": 895,
+   "a": "asunaprevir",
+   "b": "imatinib",
+   "note": ""
+  },
+  {
+   "no": 896,
+   "a": "asunaprevir",
+   "b": "indinavir",
+   "note": ""
+  },
+  {
+   "no": 897,
+   "a": "asunaprevir",
+   "b": "itraconazole",
+   "note": ""
+  },
+  {
+   "no": 898,
+   "a": "asunaprevir",
+   "b": "ketoconazole",
+   "note": ""
+  },
+  {
+   "no": 899,
+   "a": "asunaprevir",
+   "b": "lopinavir + ritonavir",
+   "note": ""
+  },
+  {
+   "no": 900,
+   "a": "asunaprevir",
+   "b": "mitotane",
+   "note": ""
+  },
+  {
+   "no": 901,
+   "a": "asunaprevir",
+   "b": "modafinil",
+   "note": ""
+  },
+  {
+   "no": 902,
+   "a": "asunaprevir",
+   "b": "nafcillin",
+   "note": ""
+  },
+  {
+   "no": 903,
+   "a": "asunaprevir",
+   "b": "nelfinavir",
+   "note": ""
+  },
+  {
+   "no": 904,
+   "a": "asunaprevir",
+   "b": "nevirapine",
+   "note": ""
+  },
+  {
+   "no": 905,
+   "a": "asunaprevir",
+   "b": "nilotinib",
+   "note": ""
+  },
+  {
+   "no": 906,
+   "a": "asunaprevir",
+   "b": "oxcarbazepine",
+   "note": ""
+  },
+  {
+   "no": 907,
+   "a": "asunaprevir",
+   "b": "phenobarbital",
+   "note": ""
+  },
+  {
+   "no": 908,
+   "a": "asunaprevir",
+   "b": "phenytoin",
+   "note": ""
+  },
+  {
+   "no": 909,
+   "a": "asunaprevir",
+   "b": "posaconazole",
+   "note": ""
+  },
+  {
+   "no": 910,
+   "a": "asunaprevir",
+   "b": "primidone",
+   "note": ""
+  },
+  {
+   "no": 911,
+   "a": "asunaprevir",
+   "b": "propafenone",
+   "note": ""
+  },
+  {
+   "no": 912,
+   "a": "asunaprevir",
+   "b": "rifabutin",
+   "note": ""
+  },
+  {
+   "no": 913,
+   "a": "asunaprevir",
+   "b": "rifampicin",
+   "note": ""
+  },
+  {
+   "no": 914,
+   "a": "asunaprevir",
+   "b": "ritonavir",
+   "note": ""
+  },
+  {
+   "no": 915,
+   "a": "asunaprevir",
+   "b": "sirolimus",
+   "note": ""
+  },
+  {
+   "no": 916,
+   "a": "asunaprevir",
+   "b": "St. John's Wort",
+   "note": ""
+  },
+  {
+   "no": 917,
+   "a": "asunaprevir",
+   "b": "verapamil",
+   "note": ""
+  },
+  {
+   "no": 918,
+   "a": "asunaprevir",
+   "b": "voriconazole",
+   "note": ""
+  },
+  {
+   "no": 919,
+   "a": "daclatasvir",
+   "b": "amiodarone",
+   "note": ""
+  },
+  {
+   "no": 920,
+   "a": "daclatasvir",
+   "b": "carbamazepine",
+   "note": ""
+  },
+  {
+   "no": 921,
+   "a": "daclatasvir",
+   "b": "dexamethasone",
+   "note": ""
+  },
+  {
+   "no": 922,
+   "a": "daclatasvir",
+   "b": "enzalutamide",
+   "note": ""
+  },
+  {
+   "no": 923,
+   "a": "daclatasvir",
+   "b": "fosphenytoin",
+   "note": ""
+  },
+  {
+   "no": 924,
+   "a": "daclatasvir",
+   "b": "mitotane",
+   "note": ""
+  },
+  {
+   "no": 925,
+   "a": "daclatasvir",
+   "b": "oxcarbazepine",
+   "note": ""
+  },
+  {
+   "no": 926,
+   "a": "daclatasvir",
+   "b": "phenobarbital",
+   "note": ""
+  },
+  {
+   "no": 927,
+   "a": "daclatasvir",
+   "b": "phenytoin",
+   "note": ""
+  },
+  {
+   "no": 928,
+   "a": "daclatasvir",
+   "b": "primidone",
+   "note": ""
+  },
+  {
+   "no": 929,
+   "a": "daclatasvir",
+   "b": "rifabutin",
+   "note": ""
+  },
+  {
+   "no": 930,
+   "a": "daclatasvir",
+   "b": "rifampicin",
+   "note": ""
+  },
+  {
+   "no": 931,
+   "a": "daclatasvir",
+   "b": "St. John's Wort",
+   "note": ""
+  },
+  {
+   "no": 932,
+   "a": "sofosbuvir",
+   "b": "amiodarone",
+   "note": ""
+  },
+  {
+   "no": 933,
+   "a": "sofosbuvir",
+   "b": "carbamazepine",
+   "note": ""
+  },
+  {
+   "no": 934,
+   "a": "sofosbuvir",
+   "b": "fosphenytoin",
+   "note": ""
+  },
+  {
+   "no": 935,
+   "a": "sofosbuvir",
+   "b": "modafinil",
+   "note": ""
+  },
+  {
+   "no": 936,
+   "a": "sofosbuvir",
+   "b": "oxcarbazepine",
+   "note": ""
+  },
+  {
+   "no": 937,
+   "a": "sofosbuvir",
+   "b": "phenobarbital",
+   "note": ""
+  },
+  {
+   "no": 938,
+   "a": "sofosbuvir",
+   "b": "phenytoin",
+   "note": ""
+  },
+  {
+   "no": 939,
+   "a": "sofosbuvir",
+   "b": "primidone",
+   "note": ""
+  },
+  {
+   "no": 940,
+   "a": "sofosbuvir",
+   "b": "rifabutin",
+   "note": ""
+  },
+  {
+   "no": 941,
+   "a": "sofosbuvir",
+   "b": "rifampicin",
+   "note": ""
+  },
+  {
+   "no": 942,
+   "a": "sofosbuvir",
+   "b": "St. John's Wort",
+   "note": ""
+  },
+  {
+   "no": 943,
+   "a": "ledipasvir + sofosbuvir",
+   "b": "amiodarone",
+   "note": ""
+  },
+  {
+   "no": 944,
+   "a": "ledipasvir + sofosbuvir",
+   "b": "carbamazepine",
+   "note": ""
+  },
+  {
+   "no": 945,
+   "a": "ledipasvir + sofosbuvir",
+   "b": "fosphenytoin",
+   "note": ""
+  },
+  {
+   "no": 946,
+   "a": "ledipasvir + sofosbuvir",
+   "b": "modafinil",
+   "note": ""
+  },
+  {
+   "no": 947,
+   "a": "ledipasvir + sofosbuvir",
+   "b": "oxcarbazepine",
+   "note": ""
+  },
+  {
+   "no": 948,
+   "a": "ledipasvir + sofosbuvir",
+   "b": "phenobarbital",
+   "note": ""
+  },
+  {
+   "no": 949,
+   "a": "ledipasvir + sofosbuvir",
+   "b": "phenytoin",
+   "note": ""
+  },
+  {
+   "no": 950,
+   "a": "ledipasvir + sofosbuvir",
+   "b": "primidone",
+   "note": ""
+  },
+  {
+   "no": 951,
+   "a": "ledipasvir + sofosbuvir",
+   "b": "rifabutin",
+   "note": ""
+  },
+  {
+   "no": 952,
+   "a": "ledipasvir + sofosbuvir",
+   "b": "rifampicin",
+   "note": ""
+  },
+  {
+   "no": 953,
+   "a": "ledipasvir + sofosbuvir",
+   "b": "rosuvastatin",
+   "note": ""
+  },
+  {
+   "no": 954,
+   "a": "ledipasvir + sofosbuvir",
+   "b": "St. John's Wort",
+   "note": ""
+  },
+  {
+   "no": 955,
+   "a": "itraconazole",
+   "b": "ticagrelor",
+   "note": ""
+  },
+  {
+   "no": 958,
+   "a": "esomeprazole + naproxen",
+   "b": "rilpivirin",
+   "note": ""
+  },
+  {
+   "no": 959,
+   "a": "rilpivirin",
+   "b": "esomeprazole + naproxen",
+   "note": ""
+  },
+  {
+   "no": 960,
+   "a": "lansoprazole",
+   "b": "nelfinavir",
+   "note": ""
+  },
+  {
+   "no": 961,
+   "a": "atorvastatin",
+   "b": "fusidic acid",
+   "note": ""
+  },
+  {
+   "no": 962,
+   "a": "atorvastatin + amlodipine",
+   "b": "fusidic acid",
+   "note": ""
+  },
+  {
+   "no": 963,
+   "a": "atorvastatin + ezetimibe",
+   "b": "fusidic acid",
+   "note": ""
+  },
+  {
+   "no": 964,
+   "a": "atorvastatin + irbesartan",
+   "b": "fusidic acid",
+   "note": ""
+  },
+  {
+   "no": 965,
+   "a": "clarithromycin",
+   "b": "colchicine",
+   "note": ""
+  },
+  {
+   "no": 966,
+   "a": "hydroxyzine",
+   "b": "amiodarone",
+   "note": ""
+  },
+  {
+   "no": 967,
+   "a": "hydroxyzine",
+   "b": "citalopram",
+   "note": ""
+  },
+  {
+   "no": 968,
+   "a": "hydroxyzine",
+   "b": "erythromycin",
+   "note": ""
+  },
+  {
+   "no": 969,
+   "a": "hydroxyzine",
+   "b": "escitalopram",
+   "note": ""
+  },
+  {
+   "no": 970,
+   "a": "hydroxyzine",
+   "b": "haloperidol",
+   "note": ""
+  },
+  {
+   "no": 971,
+   "a": "hydroxyzine",
+   "b": "levofloxacin",
+   "note": ""
+  },
+  {
+   "no": 972,
+   "a": "hydroxyzine",
+   "b": "mefloquine",
+   "note": ""
+  },
+  {
+   "no": 973,
+   "a": "hydroxyzine",
+   "b": "moxifloxacin",
+   "note": ""
+  },
+  {
+   "no": 974,
+   "a": "hydroxyzine",
+   "b": "pentamidine",
+   "note": ""
+  },
+  {
+   "no": 975,
+   "a": "hydroxyzine",
+   "b": "sotalol",
+   "note": ""
+  },
+  {
+   "no": 976,
+   "a": "hydroxyzine",
+   "b": "toremifene",
+   "note": ""
+  },
+  {
+   "no": 977,
+   "a": "hydroxyzine",
+   "b": "vandetanib",
+   "note": ""
+  },
+  {
+   "no": 978,
+   "a": "oxymetazoline",
+   "b": "amitriptyline",
+   "note": ""
+  },
+  {
+   "no": 979,
+   "a": "oxymetazoline",
+   "b": "amoxapine",
+   "note": ""
+  },
+  {
+   "no": 980,
+   "a": "oxymetazoline",
+   "b": "clomipramine",
+   "note": ""
+  },
+  {
+   "no": 981,
+   "a": "oxymetazoline",
+   "b": "dothiepin (Dosulepin)",
+   "note": ""
+  },
+  {
+   "no": 982,
+   "a": "oxymetazoline",
+   "b": "doxepin",
+   "note": ""
+  },
+  {
+   "no": 983,
+   "a": "oxymetazoline",
+   "b": "imipramine",
+   "note": ""
+  },
+  {
+   "no": 984,
+   "a": "oxymetazoline",
+   "b": "nortriptyline",
+   "note": ""
+  },
+  {
+   "no": 985,
+   "a": "dabigatran",
+   "b": "ketoconazole",
+   "note": ""
+  },
+  {
+   "no": 986,
+   "a": "dabigatran",
+   "b": "carbamazepine",
+   "note": ""
+  },
+  {
+   "no": 987,
+   "a": "dabigatran",
+   "b": "phenytoin",
+   "note": ""
+  },
+  {
+   "no": 988,
+   "a": "dabigatran",
+   "b": "rifampicin",
+   "note": ""
+  },
+  {
+   "no": 989,
+   "a": "dabigatran",
+   "b": "St. John’s Wort",
+   "note": ""
+  },
+  {
+   "no": 990,
+   "a": "dabigatran",
+   "b": "rifampicin + isoniazid",
+   "note": ""
+  },
+  {
+   "no": 991,
+   "a": "dabigatran",
+   "b": "+pyrazinamide",
+   "note": ""
+  },
+  {
+   "no": 992,
+   "a": "dabigatran",
+   "b": "pyrazinamide + ethambutol",
+   "note": ""
+  },
+  {
+   "no": 993,
+   "a": "sertraline",
+   "b": "linezolid",
+   "note": ""
+  },
+  {
+   "no": 994,
+   "a": "pantoprazole",
+   "b": "nelfinavir",
+   "note": ""
+  },
+  {
+   "no": 995,
+   "a": "s-pantoprazole",
+   "b": "nelfinavir",
+   "note": ""
+  },
+  {
+   "no": 996,
+   "a": "palbociclib",
+   "b": "clarithromycin",
+   "note": ""
+  },
+  {
+   "no": 997,
+   "a": "palbociclib",
+   "b": "itraconazole",
+   "note": ""
+  },
+  {
+   "no": 998,
+   "a": "palbociclib",
+   "b": "ketoconazole",
+   "note": ""
+  },
+  {
+   "no": 999,
+   "a": "palbociclib",
+   "b": "posaconazole",
+   "note": ""
+  },
+  {
+   "no": 1000,
+   "a": "palbociclib",
+   "b": "voriconazole",
+   "note": ""
+  },
+  {
+   "no": 1001,
+   "a": "palbociclib",
+   "b": "indinavir",
+   "note": ""
+  },
+  {
+   "no": 1002,
+   "a": "palbociclib",
+   "b": "lopinavir + ritonavir",
+   "note": ""
+  },
+  {
+   "no": 1003,
+   "a": "palbociclib",
+   "b": "nelfinavir",
+   "note": ""
+  },
+  {
+   "no": 1004,
+   "a": "palbociclib",
+   "b": "ritonavir",
+   "note": ""
+  },
+  {
+   "no": 1005,
+   "a": "palbociclib",
+   "b": "carbamazepine",
+   "note": ""
+  },
+  {
+   "no": 1006,
+   "a": "palbociclib",
+   "b": "enzalutamide",
+   "note": ""
+  },
+  {
+   "no": 1007,
+   "a": "palbociclib",
+   "b": "phenytoin",
+   "note": ""
+  },
+  {
+   "no": 1008,
+   "a": "palbociclib",
+   "b": "rifampicin (rifampin)",
+   "note": ""
+  },
+  {
+   "no": 1009,
+   "a": "palbociclib",
+   "b": "St. John’s wort",
+   "note": ""
+  },
+  {
+   "no": 1010,
+   "a": "Elbasvir +Grazoprevir",
+   "b": "Carbamazepine",
+   "note": ""
+  },
+  {
+   "no": 1011,
+   "a": "Elbasvir + Grazoprevir",
+   "b": "Efavirenz",
+   "note": ""
+  },
+  {
+   "no": 1012,
+   "a": "Elbasvir + Grazoprevir",
+   "b": "Phenytoin",
+   "note": ""
+  },
+  {
+   "no": 1013,
+   "a": "Elbasvir + Grazoprevir",
+   "b": "Rifampicin (Rifampin)",
+   "note": ""
+  },
+  {
+   "no": 1014,
+   "a": "Elbasvir + Grazoprevir",
+   "b": "St. John’s wort",
+   "note": ""
+  },
+  {
+   "no": 1015,
+   "a": "Elbasvir + Grazoprevir",
+   "b": "Atazanavir",
+   "note": ""
+  },
+  {
+   "no": 1016,
+   "a": "Elbasvir + Grazoprevir",
+   "b": "Cyclosporin",
+   "note": ""
+  },
+  {
+   "no": 1017,
+   "a": "Elbasvir + Grazoprevir",
+   "b": "Darunavir",
+   "note": ""
+  },
+  {
+   "no": 1018,
+   "a": "Elbasvir + Grazoprevir",
+   "b": "Lopinavir + Ritonavir",
+   "note": ""
+  },
+  {
+   "no": 1019,
+   "a": "Ethinylestradiol",
+   "b": "Ombitasvir + Paritaprevir",
+   "note": ""
+  },
+  {
+   "no": 1025,
+   "a": "Methotrexate",
+   "b": "Nitrous oxide (N2O)",
+   "note": ""
+  },
+  {
+   "no": 1026,
+   "a": "Gemfibrozil",
+   "b": "Dasabuvir",
+   "note": ""
+  },
+  {
+   "no": 1027,
+   "a": "Gemfibrozil",
+   "b": "Selexipag",
+   "note": ""
+  },
+  {
+   "no": 1028,
+   "a": "Bupropion + Naltrexone",
+   "b": "Diethylpropion",
+   "note": ""
+  },
+  {
+   "no": 1029,
+   "a": "Bupropion + Naltrexone",
+   "b": "Lorcaserin",
+   "note": ""
+  },
+  {
+   "no": 1030,
+   "a": "Bupropion + Naltrexone",
+   "b": "Mazindol",
+   "note": ""
+  },
+  {
+   "no": 1031,
+   "a": "Bupropion + Naltrexone",
+   "b": "Phendimetrazine",
+   "note": ""
+  },
+  {
+   "no": 1032,
+   "a": "Bupropion + Naltrexone",
+   "b": "Phentermine",
+   "note": ""
+  },
+  {
+   "no": 1033,
+   "a": "Lorcaserin",
+   "b": "Diethylpropion",
+   "note": ""
+  },
+  {
+   "no": 1034,
+   "a": "Lorcaserin",
+   "b": "Mazindol",
+   "note": ""
+  },
+  {
+   "no": 1035,
+   "a": "Lorcaserin",
+   "b": "Phendimetrazine",
+   "note": ""
+  },
+  {
+   "no": 1036,
+   "a": "Lorcaserin",
+   "b": "Phentermine",
+   "note": ""
+  },
+  {
+   "no": 1037,
+   "a": "Haloperidol",
+   "b": "Levodopa + Carbidopa",
+   "note": ""
+  },
+  {
+   "no": 1038,
+   "a": "Entacapone",
+   "b": "Haloperidol",
+   "note": ""
+  },
+  {
+   "no": 1039,
+   "a": "Haloperidol",
+   "b": "Levodopa + Benserazide",
+   "note": ""
+  },
+  {
+   "no": 1040,
+   "a": "Haloperidol",
+   "b": "Amiodarone",
+   "note": ""
+  },
+  {
+   "no": 1041,
+   "a": "Haloperidol",
+   "b": "Dronedarone",
+   "note": ""
+  },
+  {
+   "no": 1042,
+   "a": "Haloperidol",
+   "b": "Sotalol",
+   "note": ""
+  },
+  {
+   "no": 1043,
+   "a": "Haloperidol",
+   "b": "Citalopram",
+   "note": ""
+  },
+  {
+   "no": 1044,
+   "a": "Haloperidol",
+   "b": "Escitalopram",
+   "note": ""
+  },
+  {
+   "no": 1045,
+   "a": "Haloperidol",
+   "b": "Azithromycin",
+   "note": ""
+  },
+  {
+   "no": 1046,
+   "a": "Haloperidol",
+   "b": "Clarithromycin",
+   "note": ""
+  },
+  {
+   "no": 1047,
+   "a": "Haloperidol",
+   "b": "Erythromycin",
+   "note": ""
+  },
+  {
+   "no": 1048,
+   "a": "Haloperidol",
+   "b": "Levofloxacin",
+   "note": ""
+  },
+  {
+   "no": 1049,
+   "a": "Haloperidol",
+   "b": "Moxifloxacin",
+   "note": ""
+  },
+  {
+   "no": 1050,
+   "a": "Haloperidol",
+   "b": "Chlorpromazine",
+   "note": ""
+  },
+  {
+   "no": 1051,
+   "a": "Haloperidol",
+   "b": "Levomepromazine",
+   "note": ""
+  },
+  {
+   "no": 1052,
+   "a": "Haloperidol",
+   "b": "Perphenazine",
+   "note": ""
+  },
+  {
+   "no": 1053,
+   "a": "Haloperidol",
+   "b": "Pimozide",
+   "note": ""
+  },
+  {
+   "no": 1054,
+   "a": "Haloperidol",
+   "b": "Ziprasidone",
+   "note": ""
+  },
+  {
+   "no": 1055,
+   "a": "Haloperidol",
+   "b": "Pentamidine",
+   "note": ""
+  },
+  {
+   "no": 1056,
+   "a": "Haloperidol",
+   "b": "Dolasetron",
+   "note": ""
+  },
+  {
+   "no": 1057,
+   "a": "Haloperidol",
+   "b": "Toremifene",
+   "note": ""
+  },
+  {
+   "no": 1058,
+   "a": "Haloperidol",
+   "b": "Vandetanib",
+   "note": ""
+  },
+  {
+   "no": 1059,
+   "a": "Emtricitabine + Tenofovir",
+   "b": "Carbamazepine",
+   "note": ""
+  },
+  {
+   "no": 1060,
+   "a": "Emtricitabine + Tenofovir",
+   "b": "Phenobarbital",
+   "note": ""
+  },
+  {
+   "no": 1061,
+   "a": "Emtricitabine + Tenofovir",
+   "b": "Phenytoin",
+   "note": ""
+  },
+  {
+   "no": 1062,
+   "a": "Emtricitabine + Tenofovir",
+   "b": "Fosphenytoin",
+   "note": ""
+  },
+  {
+   "no": 1063,
+   "a": "Emtricitabine + Tenofovir",
+   "b": "Rifabutin",
+   "note": ""
+  },
+  {
+   "no": 1064,
+   "a": "Emtricitabine + Tenofovir",
+   "b": "Rifampicin (Rifampin)",
+   "note": ""
+  },
+  {
+   "no": 1065,
+   "a": "Emtricitabine + Tenofovir",
+   "b": "St. John’s wort",
+   "note": ""
+  },
+  {
+   "no": 1066,
+   "a": "Emtricitabine + Tenofovir",
+   "b": "Alfuzosin",
+   "note": ""
+  },
+  {
+   "no": 1067,
+   "a": "Cobicistat + Elvitegravir +",
+   "b": "Amiodarone",
+   "note": ""
+  },
+  {
+   "no": 1068,
+   "a": "Cobicistat + Elvitegravir +",
+   "b": "Blonanserin",
+   "note": ""
+  },
+  {
+   "no": 1069,
+   "a": "Cobicistat + Elvitegravir +",
+   "b": "Dihydroergotamine",
+   "note": ""
+  },
+  {
+   "no": 1070,
+   "a": "Cobicistat + Elvitegravir +",
+   "b": "Ergometrine",
+   "note": ""
+  },
+  {
+   "no": 1071,
+   "a": "Cobicistat + Elvitegravir +",
+   "b": "Ergotamine + Caffeine",
+   "note": ""
+  },
+  {
+   "no": 1072,
+   "a": "Emtricitabine + Tenofovir",
+   "b": "Lovastatin",
+   "note": ""
+  },
+  {
+   "no": 1073,
+   "a": "Emtricitabine + Tenofovir",
+   "b": "Simvastatin",
+   "note": ""
+  },
+  {
+   "no": 1074,
+   "a": "Emtricitabine + Tenofovir",
+   "b": "Triazolam",
+   "note": ""
+  },
+  {
+   "no": 1075,
+   "a": "Emtricitabine + Tenofovir",
+   "b": "Sildenafil",
+   "note": ""
+  },
+  {
+   "no": 1076,
+   "a": "Emtricitabine + Tenofovir",
+   "b": "Tadalafil",
+   "note": ""
+  },
+  {
+   "no": 1077,
+   "a": "Radium 223 dichloride",
+   "b": "Abiraterone",
+   "note": ""
+  },
+  {
+   "no": 1078,
+   "a": "Itraconazole",
+   "b": "Dronedarone",
+   "note": ""
+  },
+  {
+   "no": 1079,
+   "a": "Itraconazole",
+   "b": "Mizolastine",
+   "note": ""
+  },
+  {
+   "no": 1080,
+   "a": "Itraconazole",
+   "b": "Irinotecan",
+   "note": ""
+  },
+  {
+   "no": 1081,
+   "a": "Itraconazole",
+   "b": "Felodipine",
+   "note": ""
+  },
+  {
+   "no": 1082,
+   "a": "Itraconazole",
+   "b": "Lercanidipine",
+   "note": ""
+  },
+  {
+   "no": 1083,
+   "a": "Itraconazole",
+   "b": "Dapoxetine",
+   "note": ""
+  },
+  {
+   "no": 1084,
+   "a": "Fluconazole",
+   "b": "Eryrhromycin",
+   "note": ""
+  },
+  {
+   "no": 1085,
+   "a": "Voriconazole",
+   "b": "Rifabutin",
+   "note": ""
+  },
+  {
+   "no": 1086,
+   "a": "Voriconazole",
+   "b": "Phenobarbital",
+   "note": ""
+  },
+  {
+   "no": 1087,
+   "a": "Voriconazole",
+   "b": "Sirolimus",
+   "note": ""
+  },
+  {
+   "no": 1088,
+   "a": "Voriconazole",
+   "b": "St. John’s wort",
+   "note": ""
+  },
+  {
+   "no": 1089,
+   "a": "Posaconazole",
+   "b": "Atorvastatin",
+   "note": ""
+  },
+  {
+   "no": 1090,
+   "a": "Atorvastatin",
+   "b": "Cyclosporine",
+   "note": ""
+  },
+  {
+   "no": 1091,
+   "a": "Simvastatin",
+   "b": "Cyclosporine",
+   "note": ""
+  },
+  {
+   "no": 1092,
+   "a": "Rosuvastatin",
+   "b": "Cyclosporine",
+   "note": ""
+  },
+  {
+   "no": 1093,
+   "a": "Lovastatin",
+   "b": "Cyclosporine",
+   "note": ""
+  },
+  {
+   "no": 1094,
+   "a": "Pitavastatin",
+   "b": "Cyclosporine",
+   "note": ""
+  },
+  {
+   "no": 1095,
+   "a": "Iobitridol",
+   "b": "Metformin 함유제제",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 1096,
+   "a": "Iodixanol",
+   "b": "Metformin 함유제제",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 1097,
+   "a": "Iohexol",
+   "b": "Metformin 함유제제",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 1098,
+   "a": "Iomeprol",
+   "b": "Metformin 함유제제",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 1099,
+   "a": "Iopamidol",
+   "b": "Metformin 함유제제",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 1100,
+   "a": "Iopromide",
+   "b": "Metformin 함유제제",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 1101,
+   "a": "Ioversol",
+   "b": "Metformin 함유제제",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 1102,
+   "a": "Iodised oil",
+   "b": "Metformin 함유제제",
+   "note": "48시간 이내 병용금기"
+  },
+  {
+   "no": 1103,
+   "a": "Haloperidol",
+   "b": "Gemifloxacin",
+   "note": ""
+  },
+  {
+   "no": 1104,
+   "a": "Pseudoephedrine",
+   "b": "Rasagiline",
+   "note": ""
+  },
+  {
+   "no": 1105,
+   "a": "Pseudoephedrine",
+   "b": "Rasagiline",
+   "note": ""
+  },
+  {
+   "no": 1106,
+   "a": "Tegafur",
+   "b": "(5-Fluorouracil, 5-FU)",
+   "note": ""
+  },
+  {
+   "no": 1107,
+   "a": "Tegafur",
+   "b": "Capecitabine",
+   "note": ""
+  },
+  {
+   "no": 1108,
+   "a": "Tegafur",
+   "b": "Doxifluridine",
+   "note": ""
+  },
+  {
+   "no": 1110,
+   "a": "Glecaprevir + Pibrentasvir",
+   "b": "Atazanavir",
+   "note": ""
+  },
+  {
+   "no": 1111,
+   "a": "Glecaprevir + Pibrentasvir",
+   "b": "Atorvastatin",
+   "note": ""
+  },
+  {
+   "no": 1112,
+   "a": "Glecaprevir + Pibrentasvir",
+   "b": "Simvastatin",
+   "note": ""
+  },
+  {
+   "no": 1113,
+   "a": "Glecaprevir + Pibrentasvir",
+   "b": "Carbamazepine",
+   "note": ""
+  },
+  {
+   "no": 1114,
+   "a": "Glecaprevir + Pibrentasvir",
+   "b": "Phenytoin",
+   "note": ""
+  },
+  {
+   "no": 1115,
+   "a": "Glecaprevir + Pibrentasvir",
+   "b": "Rifampicin(Rifampin)",
+   "note": ""
+  },
+  {
+   "no": 1116,
+   "a": "Glecaprevir + Pibrentasvir",
+   "b": "St. John’s wort",
+   "note": ""
+  },
+  {
+   "no": 1117,
+   "a": "Letermovir",
+   "b": "Pimozide",
+   "note": ""
+  },
+  {
+   "no": 1118,
+   "a": "Letermovir",
+   "b": "Ergotamine + Caffeine",
+   "note": ""
+  },
+  {
+   "no": 1119,
+   "a": "Letermovir",
+   "b": "Methylergometrine",
+   "note": ""
+  },
+  {
+   "no": 1120,
+   "a": "Netupitant + Palonosetron",
+   "b": "Rifampicin(Rifampin)",
+   "note": ""
+  },
+  {
+   "no": 1121,
+   "a": "Tegoprazan",
+   "b": "Atazanavir",
+   "note": ""
+  },
+  {
+   "no": 1122,
+   "a": "Tegoprazan",
+   "b": "Rilpivirine",
+   "note": ""
+  },
+  {
+   "no": 1123,
+   "a": "Tegoprazan",
+   "b": "Rilpivirine + Dolutegravir",
+   "note": ""
+  },
+  {
+   "no": 1124,
+   "a": "Hydroxychloroquine",
+   "b": "Amiodarone",
+   "note": ""
+  },
+  {
+   "no": 1125,
+   "a": "Nirmatrelvir + Ritonavir",
+   "b": "Amiodarone 함유제제",
+   "note": ""
+  },
+  {
+   "no": 1126,
+   "a": "Nirmatrelvir + Ritonavir",
+   "b": "Ergotamine 함유제제",
+   "note": ""
+  },
+  {
+   "no": 1127,
+   "a": "Nirmatrelvir + Ritonavir",
+   "b": "Pimozide 함유제제",
+   "note": ""
+  },
+  {
+   "no": 1128,
+   "a": "Nirmatrelvir + Ritonavir",
+   "b": "Sildenafil 함유제제",
+   "note": ""
+  },
+  {
+   "no": 1129,
+   "a": "Nirmatrelvir + Ritonavir",
+   "b": "Simvastatin 함유제제",
+   "note": "12시간 이내 병용금기"
+  },
+  {
+   "no": 1130,
+   "a": "Nirmatrelvir + Ritonavir",
+   "b": "St. john’s wort 함유제제",
+   "note": ""
+  },
+  {
+   "no": 1131,
+   "a": "Nirmatrelvir + Ritonavir",
+   "b": "Flecainide 함유제제",
+   "note": ""
+  },
+  {
+   "no": 1132,
+   "a": "Nirmatrelvir + Ritonavir",
+   "b": "Lovastatin 함유제제",
+   "note": "12시간 이내 병용금기"
+  },
+  {
+   "no": 1133,
+   "a": "Nirmatrelvir + Ritonavir",
+   "b": "Alfuzocin 함유제제",
+   "note": ""
+  },
+  {
+   "no": 1134,
+   "a": "Nirmatrelvir + Ritonavir",
+   "b": "Pethidine 함유제제",
+   "note": ""
+  },
+  {
+   "no": 1135,
+   "a": "Nirmatrelvir + Ritonavir",
+   "b": "Piroxicam 함유제제",
+   "note": ""
+  },
+  {
+   "no": 1136,
+   "a": "Nirmatrelvir + Ritonavir",
+   "b": "Ranolazine 함유제제",
+   "note": ""
+  },
+  {
+   "no": 1137,
+   "a": "Nirmatrelvir + Ritonavir",
+   "b": "Dronedarone 함유제제",
+   "note": ""
+  },
+  {
+   "no": 1138,
+   "a": "Nirmatrelvir + Ritonavir",
+   "b": "Colchicine 함유제제",
+   "note": ""
+  },
+  {
+   "no": 1139,
+   "a": "Nirmatrelvir + Ritonavir",
+   "b": "Clozapine 함유제제",
+   "note": ""
+  },
+  {
+   "no": 1140,
+   "a": "Nirmatrelvir + Ritonavir",
+   "b": "Triazolam 함유제제",
+   "note": ""
+  },
+  {
+   "no": 1141,
+   "a": "Nirmatrelvir + Ritonavir",
+   "b": "Carbamazepine 함유제제",
+   "note": ""
+  },
+  {
+   "no": 1142,
+   "a": "Nirmatrelvir + Ritonavir",
+   "b": "Phenobarbital 함유제제",
+   "note": ""
+  },
+  {
+   "no": 1143,
+   "a": "Nirmatrelvir + Ritonavir",
+   "b": "Phenytoin 함유제제",
+   "note": ""
+  },
+  {
+   "no": 1144,
+   "a": "Nirmatrelvir + Ritonavir",
+   "b": "Rifampicin(rifampin) 함유제제",
+   "note": ""
+  },
+  {
+   "no": 1145,
+   "a": "Nirmatrelvir + Ritonavir",
+   "b": "Apalutamide 함유제제",
+   "note": ""
+  },
+  {
+   "no": 1146,
+   "a": "Nirmatrelvir + Ritonavir",
+   "b": "Propafenone 함유제제",
+   "note": ""
+  },
+  {
+   "no": 1147,
+   "a": "Nirmatrelvir + Ritonavir",
+   "b": "Methylergometrine(methylergono",
+   "note": ""
+  },
+  {
+   "no": 1148,
+   "a": "Divalproex",
+   "b": "Mefloquine",
+   "note": ""
+  },
+  {
+   "no": 1149,
+   "a": "Foscarnet",
+   "b": "Pentamidine",
+   "note": ""
+  },
+  {
+   "no": 1150,
+   "a": "Zinc histidine",
+   "b": "D-Penicillamine",
+   "note": ""
+  },
+  {
+   "no": 1151,
+   "a": "Defibrotide",
+   "b": "Alteplase",
+   "note": ""
+  },
+  {
+   "no": 1152,
+   "a": "Defibrotide",
+   "b": "Tenecteplase",
+   "note": ""
+  },
+  {
+   "no": 1153,
+   "a": "Omidenepag isopropyl",
+   "b": "Tafluprost",
+   "note": ""
+  },
+  {
+   "no": 1154,
+   "a": "Omidenepag isopropyl",
+   "b": "Tafluprost + Timolol",
+   "note": ""
+  },
+  {
+   "no": 1161,
+   "a": "Ranolazine",
+   "b": "Itraconazole",
+   "note": ""
+  },
+  {
+   "no": 1162,
+   "a": "Tenofovir disoproxil",
+   "b": "Adefovir dipivoxil",
+   "note": ""
+  }
+ ]
+}
