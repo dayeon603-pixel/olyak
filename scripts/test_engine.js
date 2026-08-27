@@ -286,7 +286,14 @@ check('2세대 항히스타민은 치매 조건 항콜린제에 안 걸림',
   countType(analyze(['세티리진'], ['dementia']), '표2') === 0);
 check('1세대 항히스타민(클로르페니라민)은 치매 조건에 걸림',
   countType(analyze(['클로르페니라민'], ['dementia']), '표2') >= 1);
-check('DPP-4·SGLT-2 당뇨약은 설폰요소제 중복에 안 걸림', !hasType(analyze(['시타글립틴','리나글립틴']), '중복'));
+// 고시는 DPP-4 억제제 2종(계열 8-6)을 효능군 중복으로 본다. 임상적으로 맞는 판정이므로
+// '중복이 아니어야 한다'가 아니라 '설폰요소제(8-2)와 섞이지 않아야 한다'로 검증한다.
+check('DPP-4는 설폰요소제와 다른 계열(8-6 vs 8-2)',
+  R.durSeries(byName['시타글립틴']) !== R.durSeries(byName['글리메피리드']));
+check('DPP-4 2종은 고시상 효능군 중복이 맞다',
+  (R.durDupHits([byName['시타글립틴'], byName['리나글립틴']])[0] || {}).series === '8-6');
+check('DPP-4 2종에 설폰요소제 중복 소견은 없음',
+  !analyze(['시타글립틴','리나글립틴']).some(x => (x.title || '').includes('설폰요소제')));
 check('보강 약물 전부 색·아이콘 매핑 존재', R.drugs.every(d => R.catColor[d.cls] && R.medIcon[d.cls]));
 
 // ══ 13. ATC 표준 코드 ═══════════════════════════════════════════════
