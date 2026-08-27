@@ -25,6 +25,9 @@ function analyze(picked, conds, srcMap) {
   R.durHits(picked.map(n => byName[n])).forEach(h => {
     findings.push({ sev: 'high', type: '병용금기(고시)', title: `${h.drugs[0].n} + ${h.drugs[1].n} — 식약처 고시 병용금기` });
   });
+  R.durDupHits(picked.map(n => byName[n])).forEach(h => {
+    findings.push({ sev: 'mid', type: '효능군 중복(고시)', title: `${h.drugs.map(d => d.n).join(', ')} — 고시 동일 효능군` });
+  });
   for (let i = 0; i < picked.length; i++) for (let j = i + 1; j < picked.length; j++) {
     const c1 = clsOf(picked[i]), c2 = clsOf(picked[j]);
     R.ddi.forEach(rule => { const [a, b] = rule.classes;
@@ -320,6 +323,28 @@ check('근거 표기 정합성: DUR로 표기한 규칙은 고시에 실재', ((
   });
 })());
 check('데이터 출처 화면에 고시 노출', R.dataSources.some(d => d.name.includes('고시') && d.status === '반영'));
+
+// ══ 15. 국가 효능군 중복 (고시 제8조) ══════════════════════════════
+section('15. 국가 효능군 중복');
+check('효능군 색인 로드', R.durMeta.dupIndexed > 300 && R.durMeta.dupSeries === 56);
+check('출처에 제8조 명시', /제8조/.test(R.durMeta.dupSource));
+check('계열 조회: 아스피린 = 1-1', R.durSeries(byName['아스피린']) === '1-1');
+check('계열 조회: 졸피뎀 = 4-2', R.durSeries(byName['졸피뎀']) === '4-2');
+check('미등재 성분은 null', R.durSeries({ n: '존재하지않는약' }) === null);
+check('NSAID 2종 = 고시 동일 효능군', R.durDupHits([byName['이부프로펜'], byName['나프록센']]).length === 1);
+check('2세대 항히스타민 2종 = 고시 동일 효능군(7-1)',
+  (R.durDupHits([byName['세티리진'], byName['로라타딘']])[0] || {}).series === '7-1');
+check('고시는 1·2세대 항히스타민을 같은 계열로 본다',
+  R.durSeries(byName['디펜히드라민']) === R.durSeries(byName['세티리진']));
+check('고시는 졸피뎀과 벤조를 다른 계열로 본다',
+  R.durSeries(byName['졸피뎀']) !== R.durSeries(byName['디아제팜']));
+check('졸피뎀+디아제팜은 고시 효능군 중복 아님',
+  R.durDupHits([byName['졸피뎀'], byName['디아제팜']]).length === 0);
+check('서로 다른 계열은 중복 아님', R.durDupHits([byName['암로디핀'], byName['메트포르민']]).length === 0);
+check('고시 효능군 중복이 판정에 반영', hasType(analyze(['세티리진', '로라타딘']), '효능군 중복(고시)'));
+check('고시 효능군 중복 = 노랑', signal(analyze(['세티리진', '로라타딘'])) === 'yellow');
+check('데이터 출처에 효능군 중복 노출',
+  R.dataSources.some(d => d.name.includes('효능군 중복') && d.status === '반영'));
 
 // ── 결과 ──
 console.log(`\n엔진 테스트: ${pass} 통과 / ${fail} 실패 (총 ${pass + fail}건)`);

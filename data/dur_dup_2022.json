@@ -1,0 +1,2300 @@
+{
+ "source": "식품의약품안전처 고시 「의약품 병용금기 성분 등의 지정에 관한 규정」 제8조 효능군 중복. 심평원 2022 보고서 부록2 수록본",
+ "total": 382,
+ "withEnglish": 220,
+ "seriesCount": 56,
+ "items": [
+  {
+   "code": "1-1-1",
+   "series": "1-1",
+   "ko": "아세클로페낙",
+   "en": ""
+  },
+  {
+   "code": "1-1-2",
+   "series": "1-1",
+   "ko": "아세메타신",
+   "en": ""
+  },
+  {
+   "code": "1-1-3",
+   "series": "1-1",
+   "ko": "아스피린",
+   "en": "Aspirin"
+  },
+  {
+   "code": "1-1-4",
+   "series": "1-1",
+   "ko": "암페낙",
+   "en": "Amfenac"
+  },
+  {
+   "code": "1-1-5",
+   "series": "1-1",
+   "ko": "셀레콕시브",
+   "en": "Celecoxib"
+  },
+  {
+   "code": "1-1-6",
+   "series": "1-1",
+   "ko": "시녹시캄",
+   "en": ""
+  },
+  {
+   "code": "1-1-7",
+   "series": "1-1",
+   "ko": "클로닉신",
+   "en": "Clonixin"
+  },
+  {
+   "code": "1-1-8",
+   "series": "1-1",
+   "ko": "덱시부프로펜",
+   "en": ""
+  },
+  {
+   "code": "1-1-9",
+   "series": "1-1",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "1-1-10",
+   "series": "1-1",
+   "ko": "디클로페낙",
+   "en": "Diclofenac"
+  },
+  {
+   "code": "1-1-11",
+   "series": "1-1",
+   "ko": "디플루니살",
+   "en": "Diflunisal"
+  },
+  {
+   "code": "1-1-12",
+   "series": "1-1",
+   "ko": "에모르파존",
+   "en": ""
+  },
+  {
+   "code": "1-1-13",
+   "series": "1-1",
+   "ko": "에텐자미드",
+   "en": ""
+  },
+  {
+   "code": "1-1-14",
+   "series": "1-1",
+   "ko": "에토돌락",
+   "en": "Etodolac"
+  },
+  {
+   "code": "1-1-15",
+   "series": "1-1",
+   "ko": "페노프로펜",
+   "en": "Fenoprofen"
+  },
+  {
+   "code": "1-1-16",
+   "series": "1-1",
+   "ko": "플루페남산",
+   "en": ""
+  },
+  {
+   "code": "1-1-17",
+   "series": "1-1",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "1-1-18",
+   "series": "1-1",
+   "ko": "글루카메타신",
+   "en": ""
+  },
+  {
+   "code": "1-1-19",
+   "series": "1-1",
+   "ko": "이부프로펜",
+   "en": "Ibuprofen"
+  },
+  {
+   "code": "1-1-20",
+   "series": "1-1",
+   "ko": "이미다졸",
+   "en": "Imidazole"
+  },
+  {
+   "code": "1-1-21",
+   "series": "1-1",
+   "ko": "인도메타신",
+   "en": ""
+  },
+  {
+   "code": "1-1-22",
+   "series": "1-1",
+   "ko": "케토프로펜",
+   "en": "Ketoprofen"
+  },
+  {
+   "code": "1-1-23",
+   "series": "1-1",
+   "ko": "케토롤락",
+   "en": "Ketorolac"
+  },
+  {
+   "code": "1-1-24",
+   "series": "1-1",
+   "ko": "로나졸락",
+   "en": "Lonazolac"
+  },
+  {
+   "code": "1-1-25",
+   "series": "1-1",
+   "ko": "로르녹시캄",
+   "en": ""
+  },
+  {
+   "code": "1-1-26",
+   "series": "1-1",
+   "ko": "록소프로펜",
+   "en": "Loxoprofen"
+  },
+  {
+   "code": "1-1-27",
+   "series": "1-1",
+   "ko": "메클로페남산",
+   "en": ""
+  },
+  {
+   "code": "1-1-28",
+   "series": "1-1",
+   "ko": "메페남산",
+   "en": ""
+  },
+  {
+   "code": "1-1-29",
+   "series": "1-1",
+   "ko": "멜록시캄",
+   "en": "Meloxicam"
+  },
+  {
+   "code": "1-1-30",
+   "series": "1-1",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "1-1-31",
+   "series": "1-1",
+   "ko": "나부메톤",
+   "en": ""
+  },
+  {
+   "code": "1-1-32",
+   "series": "1-1",
+   "ko": "나프록센",
+   "en": "Naproxen"
+  },
+  {
+   "code": "1-1-33",
+   "series": "1-1",
+   "ko": "니메술리드",
+   "en": "Nimesulide"
+  },
+  {
+   "code": "1-1-34",
+   "series": "1-1",
+   "ko": "옥사프로진",
+   "en": "Oxaprozin"
+  },
+  {
+   "code": "1-1-35",
+   "series": "1-1",
+   "ko": "펠루비프로펜",
+   "en": ""
+  },
+  {
+   "code": "1-1-36",
+   "series": "1-1",
+   "ko": "피록시캄",
+   "en": "Piroxicam"
+  },
+  {
+   "code": "1-1-37",
+   "series": "1-1",
+   "ko": "프라노프로펜",
+   "en": ""
+  },
+  {
+   "code": "1-1-38",
+   "series": "1-1",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "1-1-39",
+   "series": "1-1",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "1-1-40",
+   "series": "1-1",
+   "ko": "살살레이트",
+   "en": "Salsalate"
+  },
+  {
+   "code": "1-1-41",
+   "series": "1-1",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "1-1-42",
+   "series": "1-1",
+   "ko": "설린닥",
+   "en": "Sulindac"
+  },
+  {
+   "code": "1-1-43",
+   "series": "1-1",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "1-1-44",
+   "series": "1-1",
+   "ko": "테녹시캄",
+   "en": "Tenoxicam"
+  },
+  {
+   "code": "1-1-45",
+   "series": "1-1",
+   "ko": "티아프로펜산",
+   "en": ""
+  },
+  {
+   "code": "1-1-46",
+   "series": "1-1",
+   "ko": "톨페남산",
+   "en": ""
+  },
+  {
+   "code": "1-1-47",
+   "series": "1-1",
+   "ko": "톨메틴",
+   "en": "Tolmetin"
+  },
+  {
+   "code": "1-1-48",
+   "series": "1-1",
+   "ko": "잘토프로펜",
+   "en": "Zaltoprofen"
+  },
+  {
+   "code": "1-1-49",
+   "series": "1-1",
+   "ko": "폴마콕시브",
+   "en": "Polmacoxib"
+  },
+  {
+   "code": "1-1-50",
+   "series": "1-1",
+   "ko": "에토리콕시브",
+   "en": "Etoricoxib"
+  },
+  {
+   "code": "1-2-1",
+   "series": "1-2",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "1-2-2",
+   "series": "1-2",
+   "ko": "프로파세타몰",
+   "en": ""
+  },
+  {
+   "code": "1-3-1",
+   "series": "1-3",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "1-3-2",
+   "series": "1-3",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "1-4-1",
+   "series": "1-4",
+   "ko": "알모트립탄",
+   "en": ""
+  },
+  {
+   "code": "1-4-2",
+   "series": "1-4",
+   "ko": "프로바트립탄",
+   "en": ""
+  },
+  {
+   "code": "1-4-3",
+   "series": "1-4",
+   "ko": "나라트립탄",
+   "en": "Naratriptan"
+  },
+  {
+   "code": "1-4-4",
+   "series": "1-4",
+   "ko": "수마트립탄",
+   "en": ""
+  },
+  {
+   "code": "1-4-5",
+   "series": "1-4",
+   "ko": "졸미트립탄",
+   "en": ""
+  },
+  {
+   "code": "2-1-1",
+   "series": "2-1",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "2-1-2",
+   "series": "2-1",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "2-1-3",
+   "series": "2-1",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "2-1-4",
+   "series": "2-1",
+   "ko": "메톨라존",
+   "en": "Metolazone"
+  },
+  {
+   "code": "2-1-5",
+   "series": "2-1",
+   "ko": "지파미드",
+   "en": "Xipamide"
+  },
+  {
+   "code": "2-1-6",
+   "series": "2-1",
+   "ko": "인다파미드",
+   "en": ""
+  },
+  {
+   "code": "2-1-7",
+   "series": "2-1",
+   "ko": "클로르탈리돈",
+   "en": ""
+  },
+  {
+   "code": "2-1-8",
+   "series": "2-1",
+   "ko": "트리파미드",
+   "en": "Tripamide"
+  },
+  {
+   "code": "2-2-1",
+   "series": "2-2",
+   "ko": "아밀로리드",
+   "en": "Amiloride"
+  },
+  {
+   "code": "2-2-2",
+   "series": "2-2",
+   "ko": "스피로노락톤",
+   "en": ""
+  },
+  {
+   "code": "2-2-3",
+   "series": "2-2",
+   "ko": "트리암테렌",
+   "en": "Triamterene"
+  },
+  {
+   "code": "2-3-1",
+   "series": "2-3",
+   "ko": "메틸도파",
+   "en": "Methyldopa"
+  },
+  {
+   "code": "2-3-2",
+   "series": "2-3",
+   "ko": "목소니딘",
+   "en": "Moxonidine"
+  },
+  {
+   "code": "2-4-1",
+   "series": "2-4",
+   "ko": "프라조신",
+   "en": "Prazosin"
+  },
+  {
+   "code": "2-4-2",
+   "series": "2-4",
+   "ko": "테라조신",
+   "en": "Terazosin"
+  },
+  {
+   "code": "2-4-3",
+   "series": "2-4",
+   "ko": "독사조신",
+   "en": "Doxazosin"
+  },
+  {
+   "code": "2-4-4",
+   "series": "2-4",
+   "ko": "우라피딜",
+   "en": "Urapidil"
+  },
+  {
+   "code": "2-4-5",
+   "series": "2-4",
+   "ko": "펜톨라민",
+   "en": ""
+  },
+  {
+   "code": "2-5-1",
+   "series": "2-5",
+   "ko": "핀돌롤",
+   "en": "Pindolol"
+  },
+  {
+   "code": "2-5-2",
+   "series": "2-5",
+   "ko": "프로프라놀롤",
+   "en": "Propranolol"
+  },
+  {
+   "code": "2-5-3",
+   "series": "2-5",
+   "ko": "나돌롤",
+   "en": "Nadolol"
+  },
+  {
+   "code": "2-5-4",
+   "series": "2-5",
+   "ko": "메핀돌롤",
+   "en": "Mepindolol"
+  },
+  {
+   "code": "2-5-5",
+   "series": "2-5",
+   "ko": "카르테올롤",
+   "en": "Carteolol"
+  },
+  {
+   "code": "2-5-6",
+   "series": "2-5",
+   "ko": "펜부톨롤",
+   "en": "Penbutolol"
+  },
+  {
+   "code": "2-5-7",
+   "series": "2-5",
+   "ko": "메토프롤롤",
+   "en": "Metoprolol"
+  },
+  {
+   "code": "2-5-8",
+   "series": "2-5",
+   "ko": "아테놀롤",
+   "en": "Atenolol"
+  },
+  {
+   "code": "2-5-9",
+   "series": "2-5",
+   "ko": "아세부톨롤",
+   "en": "Acebutolol"
+  },
+  {
+   "code": "2-5-10",
+   "series": "2-5",
+   "ko": "베타솔롤",
+   "en": "Betaxolol"
+  },
+  {
+   "code": "2-5-11",
+   "series": "2-5",
+   "ko": "베반톨롤",
+   "en": "Bevantolol"
+  },
+  {
+   "code": "2-5-12",
+   "series": "2-5",
+   "ko": "비소프롤롤",
+   "en": "Bisoprolol"
+  },
+  {
+   "code": "2-5-13",
+   "series": "2-5",
+   "ko": "셀리프롤롤",
+   "en": "Celiprolol"
+  },
+  {
+   "code": "2-5-14",
+   "series": "2-5",
+   "ko": "s-아테놀롤",
+   "en": "s-아테놀롤"
+  },
+  {
+   "code": "2-5-15",
+   "series": "2-5",
+   "ko": "네비볼롤",
+   "en": "Nebivolol"
+  },
+  {
+   "code": "2-5-16",
+   "series": "2-5",
+   "ko": "라베탈롤",
+   "en": "Labetalol"
+  },
+  {
+   "code": "2-5-17",
+   "series": "2-5",
+   "ko": "카르베딜롤",
+   "en": "Carvedilol"
+  },
+  {
+   "code": "2-5-18",
+   "series": "2-5",
+   "ko": "아모술랄롤",
+   "en": "Amosulalol"
+  },
+  {
+   "code": "2-5-19",
+   "series": "2-5",
+   "ko": "아로티놀롤",
+   "en": "Arotinolol"
+  },
+  {
+   "code": "2-5-20",
+   "series": "2-5",
+   "ko": "니프라딜롤",
+   "en": "Nipradilol"
+  },
+  {
+   "code": "2-6-1",
+   "series": "2-6",
+   "ko": "히드랄라진",
+   "en": "Hydralazine"
+  },
+  {
+   "code": "2-6-2",
+   "series": "2-6",
+   "ko": "카드랄라진",
+   "en": "Cadralazine"
+  },
+  {
+   "code": "2-6-3",
+   "series": "2-6",
+   "ko": "미녹시딜",
+   "en": ""
+  },
+  {
+   "code": "2-7-1",
+   "series": "2-7",
+   "ko": "암로디핀",
+   "en": "Amlodipine"
+  },
+  {
+   "code": "2-7-2",
+   "series": "2-7",
+   "ko": "펠로디핀",
+   "en": "Felodipine"
+  },
+  {
+   "code": "2-7-3",
+   "series": "2-7",
+   "ko": "이스라디핀",
+   "en": "Isradipine"
+  },
+  {
+   "code": "2-7-4",
+   "series": "2-7",
+   "ko": "니카르디핀",
+   "en": "Nicardipine"
+  },
+  {
+   "code": "2-7-5",
+   "series": "2-7",
+   "ko": "니페디핀",
+   "en": "Nifedipine"
+  },
+  {
+   "code": "2-7-6",
+   "series": "2-7",
+   "ko": "니모디핀",
+   "en": "Nimodipine"
+  },
+  {
+   "code": "2-7-7",
+   "series": "2-7",
+   "ko": "니솔디핀",
+   "en": "Nisoldipine"
+  },
+  {
+   "code": "2-7-8",
+   "series": "2-7",
+   "ko": "라시디핀",
+   "en": "Lacidipine"
+  },
+  {
+   "code": "2-7-9",
+   "series": "2-7",
+   "ko": "닐바디핀",
+   "en": "Nilvadipine"
+  },
+  {
+   "code": "2-7-10",
+   "series": "2-7",
+   "ko": "마니디핀",
+   "en": "Manidipine"
+  },
+  {
+   "code": "2-7-11",
+   "series": "2-7",
+   "ko": "바르니디핀",
+   "en": "Barnidipine"
+  },
+  {
+   "code": "2-7-12",
+   "series": "2-7",
+   "ko": "레르카니디핀",
+   "en": ""
+  },
+  {
+   "code": "2-7-13",
+   "series": "2-7",
+   "ko": "실니디핀",
+   "en": "Cilnidipine"
+  },
+  {
+   "code": "2-7-14",
+   "series": "2-7",
+   "ko": "베니디핀",
+   "en": "Benidipine"
+  },
+  {
+   "code": "2-7-15",
+   "series": "2-7",
+   "ko": "에포니디핀",
+   "en": "Efonidipine"
+  },
+  {
+   "code": "2-7-16",
+   "series": "2-7",
+   "ko": "니트렌디핀",
+   "en": ""
+  },
+  {
+   "code": "2-7-17",
+   "series": "2-7",
+   "ko": "s-암로디핀",
+   "en": "s-암로디핀"
+  },
+  {
+   "code": "2-8-1",
+   "series": "2-8",
+   "ko": "베라파밀",
+   "en": "Verapamil"
+  },
+  {
+   "code": "2-8-2",
+   "series": "2-8",
+   "ko": "딜티아젬",
+   "en": "Diltiazem"
+  },
+  {
+   "code": "2-9-1",
+   "series": "2-9",
+   "ko": "캅토프릴",
+   "en": "Captopril"
+  },
+  {
+   "code": "2-9-2",
+   "series": "2-9",
+   "ko": "에날라프릴",
+   "en": "Enalapril"
+  },
+  {
+   "code": "2-9-3",
+   "series": "2-9",
+   "ko": "리시노프릴",
+   "en": "Lisinopril"
+  },
+  {
+   "code": "2-9-4",
+   "series": "2-9",
+   "ko": "페린도프릴",
+   "en": "Perindopril"
+  },
+  {
+   "code": "2-9-5",
+   "series": "2-9",
+   "ko": "라미프릴",
+   "en": "Ramipril"
+  },
+  {
+   "code": "2-9-6",
+   "series": "2-9",
+   "ko": "퀴나프릴",
+   "en": "Quinapril"
+  },
+  {
+   "code": "2-9-7",
+   "series": "2-9",
+   "ko": "베나제프릴",
+   "en": "Benazepril"
+  },
+  {
+   "code": "2-9-8",
+   "series": "2-9",
+   "ko": "실라자프릴",
+   "en": "Cilazapril"
+  },
+  {
+   "code": "2-9-9",
+   "series": "2-9",
+   "ko": "포시노프릴",
+   "en": "Fosinopril"
+  },
+  {
+   "code": "2-9-10",
+   "series": "2-9",
+   "ko": "트란돌라프릴",
+   "en": "Trandolapril"
+  },
+  {
+   "code": "2-9-11",
+   "series": "2-9",
+   "ko": "스피라프릴",
+   "en": "Spirapril"
+  },
+  {
+   "code": "2-9-12",
+   "series": "2-9",
+   "ko": "델라프릴",
+   "en": "Delapril"
+  },
+  {
+   "code": "2-9-13",
+   "series": "2-9",
+   "ko": "모엑시프릴",
+   "en": "Moexipril"
+  },
+  {
+   "code": "2-9-14",
+   "series": "2-9",
+   "ko": "테모카프릴",
+   "en": "Temocapril"
+  },
+  {
+   "code": "2-9-15",
+   "series": "2-9",
+   "ko": "이미다프릴",
+   "en": "Imidapril"
+  },
+  {
+   "code": "2-9-16",
+   "series": "2-9",
+   "ko": "알라세프릴",
+   "en": "Alacepril"
+  },
+  {
+   "code": "2-9-17",
+   "series": "2-9",
+   "ko": "조페노프릴",
+   "en": "Zofenopril"
+  },
+  {
+   "code": "2-10-1",
+   "series": "2-10",
+   "ko": "로사르탄",
+   "en": "Losartan"
+  },
+  {
+   "code": "2-10-2",
+   "series": "2-10",
+   "ko": "에프로사르탄",
+   "en": "Eprosartan"
+  },
+  {
+   "code": "2-10-3",
+   "series": "2-10",
+   "ko": "발사르탄",
+   "en": "Valsartan"
+  },
+  {
+   "code": "2-10-4",
+   "series": "2-10",
+   "ko": "이르베사르탄",
+   "en": "Irbesartan"
+  },
+  {
+   "code": "2-10-5",
+   "series": "2-10",
+   "ko": "칸데사르탄",
+   "en": ""
+  },
+  {
+   "code": "2-10-6",
+   "series": "2-10",
+   "ko": "텔미사르탄",
+   "en": ""
+  },
+  {
+   "code": "2-10-7",
+   "series": "2-10",
+   "ko": "올메사르탄",
+   "en": ""
+  },
+  {
+   "code": "2-10-8",
+   "series": "2-10",
+   "ko": "피마사르탄",
+   "en": "Fimasartan"
+  },
+  {
+   "code": "2-10-9",
+   "series": "2-10",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "3-1-1",
+   "series": "3-1",
+   "ko": "심바스타틴",
+   "en": ""
+  },
+  {
+   "code": "3-1-2",
+   "series": "3-1",
+   "ko": "로바스타틴",
+   "en": "Lovastatin"
+  },
+  {
+   "code": "3-1-3",
+   "series": "3-1",
+   "ko": "프라바스타틴",
+   "en": "Pravastatin"
+  },
+  {
+   "code": "3-1-4",
+   "series": "3-1",
+   "ko": "플루바스타틴",
+   "en": "Fluvastatin"
+  },
+  {
+   "code": "3-1-5",
+   "series": "3-1",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "3-1-6",
+   "series": "3-1",
+   "ko": "로수바스타틴",
+   "en": ""
+  },
+  {
+   "code": "3-1-7",
+   "series": "3-1",
+   "ko": "피타바스타틴",
+   "en": "Pitavastatin"
+  },
+  {
+   "code": "3-2-1",
+   "series": "3-2",
+   "ko": "니코틴산",
+   "en": ""
+  },
+  {
+   "code": "3-2-2",
+   "series": "3-2",
+   "ko": "아시피목스",
+   "en": "Acipimox"
+  },
+  {
+   "code": "3-3-1",
+   "series": "3-3",
+   "ko": "",
+   "en": "Clofibrate"
+  },
+  {
+   "code": "3-3-2",
+   "series": "3-3",
+   "ko": "",
+   "en": "Bezafibrate"
+  },
+  {
+   "code": "3-3-3",
+   "series": "3-3",
+   "ko": "겜피브로질",
+   "en": "Gemfibrozil"
+  },
+  {
+   "code": "3-3-4",
+   "series": "3-3",
+   "ko": "",
+   "en": "Fenofibrate"
+  },
+  {
+   "code": "3-3-5",
+   "series": "3-3",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "3-3-6",
+   "series": "3-3",
+   "ko": "",
+   "en": "Etofibrate"
+  },
+  {
+   "code": "3-3-7",
+   "series": "3-3",
+   "ko": "",
+   "en": "Clinofibrate"
+  },
+  {
+   "code": "3-3-8",
+   "series": "3-3",
+   "ko": "프로부콜",
+   "en": "Probucol"
+  },
+  {
+   "code": "4-1-1",
+   "series": "4-1",
+   "ko": "페노바르비탈",
+   "en": ""
+  },
+  {
+   "code": "4-1-2",
+   "series": "4-1",
+   "ko": "펜토바르비탈",
+   "en": ""
+  },
+  {
+   "code": "4-2-1",
+   "series": "4-2",
+   "ko": "플루라제팜",
+   "en": "Flurazepam"
+  },
+  {
+   "code": "4-2-2",
+   "series": "4-2",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "4-2-3",
+   "series": "4-2",
+   "ko": "트리아졸람",
+   "en": "Triazolam"
+  },
+  {
+   "code": "4-2-4",
+   "series": "4-2",
+   "ko": "미다졸람",
+   "en": "Midazolam"
+  },
+  {
+   "code": "4-2-5",
+   "series": "4-2",
+   "ko": "쿠아제팜",
+   "en": "Quazepam"
+  },
+  {
+   "code": "4-2-6",
+   "series": "4-2",
+   "ko": "로프라졸람",
+   "en": "Loprazolam"
+  },
+  {
+   "code": "4-2-7",
+   "series": "4-2",
+   "ko": "조피클론",
+   "en": "Zopiclone"
+  },
+  {
+   "code": "4-2-8",
+   "series": "4-2",
+   "ko": "졸피뎀",
+   "en": "Zolpidem"
+  },
+  {
+   "code": "4-2-9",
+   "series": "4-2",
+   "ko": "에스조피클론",
+   "en": ""
+  },
+  {
+   "code": "5-1-1",
+   "series": "5-1",
+   "ko": "알펜타닐",
+   "en": "Alfentanil"
+  },
+  {
+   "code": "5-1-2",
+   "series": "5-1",
+   "ko": "펜타닐",
+   "en": "Fentanyl"
+  },
+  {
+   "code": "5-1-3",
+   "series": "5-1",
+   "ko": "페티딘",
+   "en": "Pethidine"
+  },
+  {
+   "code": "5-1-4",
+   "series": "5-1",
+   "ko": "레미펜타닐",
+   "en": ""
+  },
+  {
+   "code": "5-1-5",
+   "series": "5-1",
+   "ko": "수펜타닐",
+   "en": "Sufentanil"
+  },
+  {
+   "code": "5-1-6",
+   "series": "5-1",
+   "ko": "히드로코돈",
+   "en": ""
+  },
+  {
+   "code": "5-1-7",
+   "series": "5-1",
+   "ko": "히드로모르폰",
+   "en": ""
+  },
+  {
+   "code": "5-1-8",
+   "series": "5-1",
+   "ko": "모르핀",
+   "en": "Morphine"
+  },
+  {
+   "code": "5-1-9",
+   "series": "5-1",
+   "ko": "옥시코돈",
+   "en": "Oxycodone"
+  },
+  {
+   "code": "5-1-10",
+   "series": "5-1",
+   "ko": "부프레노르핀",
+   "en": ""
+  },
+  {
+   "code": "5-1-11",
+   "series": "5-1",
+   "ko": "부토르파놀",
+   "en": ""
+  },
+  {
+   "code": "5-1-12",
+   "series": "5-1",
+   "ko": "날부핀",
+   "en": "Nalbuphine"
+  },
+  {
+   "code": "5-1-13",
+   "series": "5-1",
+   "ko": "펜타조신",
+   "en": ""
+  },
+  {
+   "code": "5-1-14",
+   "series": "5-1",
+   "ko": "트라마돌",
+   "en": "Tramadol"
+  },
+  {
+   "code": "5-1-15",
+   "series": "5-1",
+   "ko": "타펜타돌",
+   "en": "Tapentadol"
+  },
+  {
+   "code": "6-1-1",
+   "series": "6-1",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "6-1-2",
+   "series": "6-1",
+   "ko": "비페리덴",
+   "en": "Biperiden"
+  },
+  {
+   "code": "6-1-3",
+   "series": "6-1",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "6-1-4",
+   "series": "6-1",
+   "ko": "벤즈트로핀",
+   "en": ""
+  },
+  {
+   "code": "6-1-5",
+   "series": "6-1",
+   "ko": "오르페나드린",
+   "en": ""
+  },
+  {
+   "code": "6-2-1",
+   "series": "6-2",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "6-2-2",
+   "series": "6-2",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "6-2-3",
+   "series": "6-2",
+   "ko": "르비도파 / 엔",
+   "en": "Carbidopa/"
+  },
+  {
+   "code": "6-3-1",
+   "series": "6-3",
+   "ko": "로피니롤",
+   "en": "Ropinirole"
+  },
+  {
+   "code": "6-3-2",
+   "series": "6-3",
+   "ko": "프라미펙솔",
+   "en": ""
+  },
+  {
+   "code": "6-3-3",
+   "series": "6-3",
+   "ko": "로티고틴",
+   "en": "Rotigotine"
+  },
+  {
+   "code": "6-3-4",
+   "series": "6-3",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "6-4-1",
+   "series": "6-4",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "6-4-2",
+   "series": "6-4",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "6-4-3",
+   "series": "6-4",
+   "ko": "페르페나진",
+   "en": ""
+  },
+  {
+   "code": "6-4-4",
+   "series": "6-4",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "6-5-1",
+   "series": "6-5",
+   "ko": "할로페리돌",
+   "en": "Haloperidol"
+  },
+  {
+   "code": "6-5-2",
+   "series": "6-5",
+   "ko": "브롬페리돌",
+   "en": ""
+  },
+  {
+   "code": "6-6-1",
+   "series": "6-6",
+   "ko": "주클로펜틱솔",
+   "en": ""
+  },
+  {
+   "code": "6-6-2",
+   "series": "6-6",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "6-6-3",
+   "series": "6-6",
+   "ko": "티오틱센",
+   "en": ""
+  },
+  {
+   "code": "6-7-1",
+   "series": "6-7",
+   "ko": "올란자핀",
+   "en": "Olanzapine"
+  },
+  {
+   "code": "6-7-2",
+   "series": "6-7",
+   "ko": "쿠에티아핀",
+   "en": "Quetiapine"
+  },
+  {
+   "code": "6-8-1",
+   "series": "6-8",
+   "ko": "아미술프리드",
+   "en": ""
+  },
+  {
+   "code": "6-8-2",
+   "series": "6-8",
+   "ko": "티아프리드",
+   "en": "Tiapride"
+  },
+  {
+   "code": "6-8-3",
+   "series": "6-8",
+   "ko": "네모나프리드",
+   "en": ""
+  },
+  {
+   "code": "6-8-4",
+   "series": "6-8",
+   "ko": "설피리드",
+   "en": "Sulpiride"
+  },
+  {
+   "code": "6-9-1",
+   "series": "6-9",
+   "ko": "리스페리돈",
+   "en": ""
+  },
+  {
+   "code": "6-9-2",
+   "series": "6-9",
+   "ko": "팔리페리돈",
+   "en": ""
+  },
+  {
+   "code": "6-10-1",
+   "series": "6-10",
+   "ko": "디아제팜",
+   "en": "Diazepam"
+  },
+  {
+   "code": "6-10-2",
+   "series": "6-10",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "6-10-3",
+   "series": "6-10",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "6-10-4",
+   "series": "6-10",
+   "ko": "로라제팜",
+   "en": "Lorazepam"
+  },
+  {
+   "code": "6-10-5",
+   "series": "6-10",
+   "ko": "브로마제팜",
+   "en": ""
+  },
+  {
+   "code": "6-10-6",
+   "series": "6-10",
+   "ko": "클로바잠",
+   "en": "Clobazam"
+  },
+  {
+   "code": "6-10-7",
+   "series": "6-10",
+   "ko": "알프라졸람",
+   "en": "Alprazolam"
+  },
+  {
+   "code": "6-10-8",
+   "series": "6-10",
+   "ko": "피나제팜",
+   "en": "Pinazepam"
+  },
+  {
+   "code": "6-10-9",
+   "series": "6-10",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "6-11-1",
+   "series": "6-11",
+   "ko": "탄도스피론",
+   "en": ""
+  },
+  {
+   "code": "6-11-2",
+   "series": "6-11",
+   "ko": "부스피론",
+   "en": "Buspirone"
+  },
+  {
+   "code": "6-12-1",
+   "series": "6-12",
+   "ko": "이미프라민",
+   "en": "Imipramine"
+  },
+  {
+   "code": "6-12-2",
+   "series": "6-12",
+   "ko": "클로미프라민",
+   "en": ""
+  },
+  {
+   "code": "6-12-3",
+   "series": "6-12",
+   "ko": "아미트립틸린",
+   "en": ""
+  },
+  {
+   "code": "6-12-4",
+   "series": "6-12",
+   "ko": "노르트립틸린",
+   "en": ""
+  },
+  {
+   "code": "6-12-5",
+   "series": "6-12",
+   "ko": "도술레핀",
+   "en": "Dosulepin"
+  },
+  {
+   "code": "6-12-6",
+   "series": "6-12",
+   "ko": "아목사핀",
+   "en": "Amoxapine"
+  },
+  {
+   "code": "6-12-7",
+   "series": "6-12",
+   "ko": "퀴누프라민",
+   "en": ""
+  },
+  {
+   "code": "6-12-8",
+   "series": "6-12",
+   "ko": "독세핀",
+   "en": "Doxepin"
+  },
+  {
+   "code": "6-13-1",
+   "series": "6-13",
+   "ko": "플루옥세틴",
+   "en": "Fluoxetine"
+  },
+  {
+   "code": "6-13-2",
+   "series": "6-13",
+   "ko": "시탈로프람",
+   "en": "Citalopram"
+  },
+  {
+   "code": "6-13-3",
+   "series": "6-13",
+   "ko": "파록세틴",
+   "en": "Paroxetine"
+  },
+  {
+   "code": "6-13-4",
+   "series": "6-13",
+   "ko": "설트랄린",
+   "en": "Sertraline"
+  },
+  {
+   "code": "6-13-5",
+   "series": "6-13",
+   "ko": "플루복사민",
+   "en": ""
+  },
+  {
+   "code": "6-13-6",
+   "series": "6-13",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "6-14-1",
+   "series": "6-14",
+   "ko": "벤라팍신",
+   "en": "Venlafaxine"
+  },
+  {
+   "code": "6-14-2",
+   "series": "6-14",
+   "ko": "둘록세틴",
+   "en": "Duloxetine"
+  },
+  {
+   "code": "6-14-3",
+   "series": "6-14",
+   "ko": "밀나시프란",
+   "en": "Milnacipran"
+  },
+  {
+   "code": "6-14-4",
+   "series": "6-14",
+   "ko": "데스벤라팍신",
+   "en": ""
+  },
+  {
+   "code": "6-15-1",
+   "series": "6-15",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "6-15-2",
+   "series": "6-15",
+   "ko": "아토목세틴",
+   "en": ""
+  },
+  {
+   "code": "6-16-1",
+   "series": "6-16",
+   "ko": "피라세탐",
+   "en": "Piracetam"
+  },
+  {
+   "code": "6-16-2",
+   "series": "6-16",
+   "ko": "옥시라세탐",
+   "en": "Oxiracetam"
+  },
+  {
+   "code": "6-17-1",
+   "series": "6-17",
+   "ko": "도네페질",
+   "en": "Donepezil"
+  },
+  {
+   "code": "6-17-2",
+   "series": "6-17",
+   "ko": "리바스티그민",
+   "en": ""
+  },
+  {
+   "code": "6-17-3",
+   "series": "6-17",
+   "ko": "갈란타민",
+   "en": ""
+  },
+  {
+   "code": "7-1-1",
+   "series": "7-1",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "7-1-2",
+   "series": "7-1",
+   "ko": "클레마스틴",
+   "en": "Clemastine"
+  },
+  {
+   "code": "7-1-3",
+   "series": "7-1",
+   "ko": "시프로헵타딘",
+   "en": ""
+  },
+  {
+   "code": "7-1-4",
+   "series": "7-1",
+   "ko": "디펜히드라민",
+   "en": ""
+  },
+  {
+   "code": "7-1-5",
+   "series": "7-1",
+   "ko": "디페닐피랄린",
+   "en": ""
+  },
+  {
+   "code": "7-1-6",
+   "series": "7-1",
+   "ko": "독실라민",
+   "en": ""
+  },
+  {
+   "code": "7-1-7",
+   "series": "7-1",
+   "ko": "메퀴타진",
+   "en": ""
+  },
+  {
+   "code": "7-1-8",
+   "series": "7-1",
+   "ko": "옥사토미드",
+   "en": "Oxatomide"
+  },
+  {
+   "code": "7-1-9",
+   "series": "7-1",
+   "ko": "페니라민",
+   "en": ""
+  },
+  {
+   "code": "7-1-10",
+   "series": "7-1",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "7-1-11",
+   "series": "7-1",
+   "ko": "아크리바스틴",
+   "en": "Acrivastine"
+  },
+  {
+   "code": "7-1-12",
+   "series": "7-1",
+   "ko": "아젤라스틴",
+   "en": "Azelastine"
+  },
+  {
+   "code": "7-1-13",
+   "series": "7-1",
+   "ko": "베포타스틴",
+   "en": ""
+  },
+  {
+   "code": "7-1-14",
+   "series": "7-1",
+   "ko": "세티리진",
+   "en": "Cetirizine"
+  },
+  {
+   "code": "7-1-15",
+   "series": "7-1",
+   "ko": "데스로라타딘",
+   "en": ""
+  },
+  {
+   "code": "7-1-16",
+   "series": "7-1",
+   "ko": "에바스틴",
+   "en": "Ebastine"
+  },
+  {
+   "code": "7-1-17",
+   "series": "7-1",
+   "ko": "에메다스틴",
+   "en": ""
+  },
+  {
+   "code": "7-1-18",
+   "series": "7-1",
+   "ko": "에피나스틴",
+   "en": "Epinastine"
+  },
+  {
+   "code": "7-1-19",
+   "series": "7-1",
+   "ko": "펙소페나딘",
+   "en": ""
+  },
+  {
+   "code": "7-1-20",
+   "series": "7-1",
+   "ko": "케토티펜",
+   "en": "Ketotifen"
+  },
+  {
+   "code": "7-1-21",
+   "series": "7-1",
+   "ko": "레보세티리진",
+   "en": ""
+  },
+  {
+   "code": "7-1-22",
+   "series": "7-1",
+   "ko": "로라타딘",
+   "en": "Loratadine"
+  },
+  {
+   "code": "7-1-23",
+   "series": "7-1",
+   "ko": "미졸라스틴",
+   "en": "Mizolastine"
+  },
+  {
+   "code": "7-1-24",
+   "series": "7-1",
+   "ko": "올로파타딘",
+   "en": ""
+  },
+  {
+   "code": "7-2-1",
+   "series": "7-2",
+   "ko": "에페드린",
+   "en": "Ephedrine"
+  },
+  {
+   "code": "7-2-2",
+   "series": "7-2",
+   "ko": "슈도에페드린",
+   "en": ""
+  },
+  {
+   "code": "7-3-1",
+   "series": "7-3",
+   "ko": "몬테루카스트",
+   "en": ""
+  },
+  {
+   "code": "7-3-2",
+   "series": "7-3",
+   "ko": "프란루카스트",
+   "en": "Pranlukast"
+  },
+  {
+   "code": "7-3-3",
+   "series": "7-3",
+   "ko": "",
+   "en": "Zafirlukast"
+  },
+  {
+   "code": "7-4-1",
+   "series": "7-4",
+   "ko": "아세브로필린",
+   "en": ""
+  },
+  {
+   "code": "7-4-2",
+   "series": "7-4",
+   "ko": "아세피필린",
+   "en": "Acepifylline"
+  },
+  {
+   "code": "7-4-3",
+   "series": "7-4",
+   "ko": "아미노필린",
+   "en": ""
+  },
+  {
+   "code": "7-4-4",
+   "series": "7-4",
+   "ko": "바미필린",
+   "en": "Bamifylline"
+  },
+  {
+   "code": "7-4-5",
+   "series": "7-4",
+   "ko": "독소필린",
+   "en": "Doxofylline"
+  },
+  {
+   "code": "7-4-6",
+   "series": "7-4",
+   "ko": "옥스트리필린",
+   "en": ""
+  },
+  {
+   "code": "7-4-7",
+   "series": "7-4",
+   "ko": "테오프로민",
+   "en": ""
+  },
+  {
+   "code": "7-4-8",
+   "series": "7-4",
+   "ko": "테오필린",
+   "en": ""
+  },
+  {
+   "code": "7-4-9",
+   "series": "7-4",
+   "ko": "에틸 테오필린",
+   "en": ""
+  },
+  {
+   "code": "7-5-1",
+   "series": "7-5",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "7-5-2",
+   "series": "7-5",
+   "ko": "메톡시페나민",
+   "en": ""
+  },
+  {
+   "code": "7-5-3",
+   "series": "7-5",
+   "ko": "밤부테롤",
+   "en": ""
+  },
+  {
+   "code": "7-5-4",
+   "series": "7-5",
+   "ko": "클렌부테롤",
+   "en": "Clenbuterol"
+  },
+  {
+   "code": "7-5-5",
+   "series": "7-5",
+   "ko": "페노테롤",
+   "en": "Fenoterol"
+  },
+  {
+   "code": "7-5-6",
+   "series": "7-5",
+   "ko": "포르모테롤",
+   "en": "Formoterol"
+  },
+  {
+   "code": "7-5-7",
+   "series": "7-5",
+   "ko": "헥소프레날린",
+   "en": ""
+  },
+  {
+   "code": "7-5-8",
+   "series": "7-5",
+   "ko": "프로카테롤",
+   "en": "Procaterol"
+  },
+  {
+   "code": "7-5-9",
+   "series": "7-5",
+   "ko": "살부타몰",
+   "en": "Salbutamol"
+  },
+  {
+   "code": "7-5-10",
+   "series": "7-5",
+   "ko": "테르부탈린",
+   "en": "Terbutaline"
+  },
+  {
+   "code": "7-5-11",
+   "series": "7-5",
+   "ko": "툴로부테롤",
+   "en": "Tulobuterol"
+  },
+  {
+   "code": "7-6-1",
+   "series": "7-6",
+   "ko": "페미롤라스트",
+   "en": "Pemirolast"
+  },
+  {
+   "code": "7-6-2",
+   "series": "7-6",
+   "ko": "트라닐라스트",
+   "en": "Tranilast"
+  },
+  {
+   "code": "7-7-1",
+   "series": "7-7",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "7-7-2",
+   "series": "7-7",
+   "ko": "암브록솔",
+   "en": "Ambroxol"
+  },
+  {
+   "code": "7-7-3",
+   "series": "7-7",
+   "ko": "브롬헥신",
+   "en": ""
+  },
+  {
+   "code": "7-7-4",
+   "series": "7-7",
+   "ko": "에르도스테인",
+   "en": "Erdosteine"
+  },
+  {
+   "code": "7-7-5",
+   "series": "7-7",
+   "ko": "푸도스테인",
+   "en": "Fudosteine"
+  },
+  {
+   "code": "7-7-6",
+   "series": "7-7",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "7-7-7",
+   "series": "7-7",
+   "ko": "레토스테인",
+   "en": "Letosteine"
+  },
+  {
+   "code": "7-7-8",
+   "series": "7-7",
+   "ko": "넬테넥신",
+   "en": ""
+  },
+  {
+   "code": "7-7-9",
+   "series": "7-7",
+   "ko": "소브레롤",
+   "en": "Sobrerol"
+  },
+  {
+   "code": "7-7-10",
+   "series": "7-7",
+   "ko": "테노티올라",
+   "en": ""
+  },
+  {
+   "code": "7-7-11",
+   "series": "7-7",
+   "ko": "아세틸-L-시",
+   "en": ""
+  },
+  {
+   "code": "7-8-1",
+   "series": "7-8",
+   "ko": "벤프로페린",
+   "en": ""
+  },
+  {
+   "code": "7-8-2",
+   "series": "7-8",
+   "ko": "벤조나테이트",
+   "en": ""
+  },
+  {
+   "code": "7-8-3",
+   "series": "7-8",
+   "ko": "부타미레이트",
+   "en": "Butamirate"
+  },
+  {
+   "code": "7-8-4",
+   "series": "7-8",
+   "ko": "클로페라스틴",
+   "en": ""
+  },
+  {
+   "code": "7-8-5",
+   "series": "7-8",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "7-8-6",
+   "series": "7-8",
+   "ko": "드로프로피진",
+   "en": ""
+  },
+  {
+   "code": "7-8-7",
+   "series": "7-8",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "7-8-8",
+   "series": "7-8",
+   "ko": "옥솔라민",
+   "en": "Oxolamine"
+  },
+  {
+   "code": "7-8-9",
+   "series": "7-8",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "7-8-10",
+   "series": "7-8",
+   "ko": "티페피딘",
+   "en": "Tipepidine"
+  },
+  {
+   "code": "7-8-11",
+   "series": "7-8",
+   "ko": "지페프롤",
+   "en": "Zipeprol"
+  },
+  {
+   "code": "7-8-12",
+   "series": "7-8",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "8-1-1",
+   "series": "8-1",
+   "ko": "메트포르민",
+   "en": "Metformin"
+  },
+  {
+   "code": "8-2-1",
+   "series": "8-2",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "8-2-2",
+   "series": "8-2",
+   "ko": "글리클라지드",
+   "en": "Gliclazide"
+  },
+  {
+   "code": "8-2-3",
+   "series": "8-2",
+   "ko": "글리메피리드",
+   "en": "Glimepiride"
+  },
+  {
+   "code": "8-2-4",
+   "series": "8-2",
+   "ko": "글리피지드",
+   "en": "Glipizide"
+  },
+  {
+   "code": "8-2-5",
+   "series": "8-2",
+   "ko": "미티글리니드",
+   "en": "Mitiglinide"
+  },
+  {
+   "code": "8-2-6",
+   "series": "8-2",
+   "ko": "나테글리니드",
+   "en": "Nateglinide"
+  },
+  {
+   "code": "8-2-7",
+   "series": "8-2",
+   "ko": "레파글리니드",
+   "en": ""
+  },
+  {
+   "code": "8-3-1",
+   "series": "8-3",
+   "ko": "아카보즈",
+   "en": "Acarbose"
+  },
+  {
+   "code": "8-3-2",
+   "series": "8-3",
+   "ko": "미그리톨",
+   "en": "Miglitol"
+  },
+  {
+   "code": "8-3-3",
+   "series": "8-3",
+   "ko": "보글리보스",
+   "en": "Voglibose"
+  },
+  {
+   "code": "8-4-1",
+   "series": "8-4",
+   "ko": "로베글리타존",
+   "en": ""
+  },
+  {
+   "code": "8-4-2",
+   "series": "8-4",
+   "ko": "피오글리타존",
+   "en": ""
+  },
+  {
+   "code": "8-5-1",
+   "series": "8-5",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "8-5-2",
+   "series": "8-5",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "8-5-3",
+   "series": "8-5",
+   "ko": "",
+   "en": "Ipragliflozin"
+  },
+  {
+   "code": "8-5-4",
+   "series": "8-5",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "8-6-1",
+   "series": "8-6",
+   "ko": "알로글립틴",
+   "en": "Alogliptin"
+  },
+  {
+   "code": "8-6-2",
+   "series": "8-6",
+   "ko": "아나글립틴",
+   "en": "Anagliptin"
+  },
+  {
+   "code": "8-6-3",
+   "series": "8-6",
+   "ko": "에보글립틴",
+   "en": "Evogliptin"
+  },
+  {
+   "code": "8-6-4",
+   "series": "8-6",
+   "ko": "제미글립틴",
+   "en": "Gemigliptin"
+  },
+  {
+   "code": "8-6-5",
+   "series": "8-6",
+   "ko": "리나글립틴",
+   "en": "Linagliptin"
+  },
+  {
+   "code": "8-6-6",
+   "series": "8-6",
+   "ko": "삭사글립틴",
+   "en": "Saxagliptin"
+  },
+  {
+   "code": "8-6-7",
+   "series": "8-6",
+   "ko": "시타글립틴",
+   "en": "Sitagliptin"
+  },
+  {
+   "code": "8-6-8",
+   "series": "8-6",
+   "ko": "테네리글립틴",
+   "en": ""
+  },
+  {
+   "code": "8-6-9",
+   "series": "8-6",
+   "ko": "빌다글립틴",
+   "en": "Vildagliptin"
+  },
+  {
+   "code": "8-6-10",
+   "series": "8-6",
+   "ko": "엑세나타이드",
+   "en": "Exenatide"
+  },
+  {
+   "code": "8-6-11",
+   "series": "8-6",
+   "ko": "릭시세나티드",
+   "en": ""
+  },
+  {
+   "code": "8-6-12",
+   "series": "8-6",
+   "ko": "",
+   "en": "Dulaglutide"
+  },
+  {
+   "code": "8-6-13",
+   "series": "8-6",
+   "ko": "리라글루티드",
+   "en": "Liraglutide"
+  },
+  {
+   "code": "8-7-1",
+   "series": "8-7",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "8-7-2",
+   "series": "8-7",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "8-7-3",
+   "series": "8-7",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "8-7-4",
+   "series": "8-7",
+   "ko": "휴먼인슐린",
+   "en": ""
+  },
+  {
+   "code": "8-8-1",
+   "series": "8-8",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "8-8-2",
+   "series": "8-8",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "8-8-3",
+   "series": "8-8",
+   "ko": "인슐린디터머",
+   "en": ""
+  },
+  {
+   "code": "8-8-4",
+   "series": "8-8",
+   "ko": "인슐린글라진",
+   "en": ""
+  },
+  {
+   "code": "9-1-1",
+   "series": "9-1",
+   "ko": "시메티딘",
+   "en": "Cimetidine"
+  },
+  {
+   "code": "9-1-2",
+   "series": "9-1",
+   "ko": "파모티딘",
+   "en": "Famotidine"
+  },
+  {
+   "code": "9-1-3",
+   "series": "9-1",
+   "ko": "라푸티딘",
+   "en": "Lafutidine"
+  },
+  {
+   "code": "9-1-4",
+   "series": "9-1",
+   "ko": "니자티딘",
+   "en": "Nizatidine"
+  },
+  {
+   "code": "9-1-5",
+   "series": "9-1",
+   "ko": "라니티딘",
+   "en": "Ranitidine"
+  },
+  {
+   "code": "9-1-6",
+   "series": "9-1",
+   "ko": "록사티딘",
+   "en": "Roxatidine"
+  },
+  {
+   "code": "9-2-1",
+   "series": "9-2",
+   "ko": "일라프라졸",
+   "en": "Ilaprazole"
+  },
+  {
+   "code": "9-2-2",
+   "series": "9-2",
+   "ko": "란소프라졸",
+   "en": ""
+  },
+  {
+   "code": "9-2-3",
+   "series": "9-2",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "9-2-4",
+   "series": "9-2",
+   "ko": "오메프라졸",
+   "en": ""
+  },
+  {
+   "code": "9-2-5",
+   "series": "9-2",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "9-2-6",
+   "series": "9-2",
+   "ko": "판토프라졸",
+   "en": ""
+  },
+  {
+   "code": "9-2-7",
+   "series": "9-2",
+   "ko": "",
+   "en": ""
+  },
+  {
+   "code": "9-2-8",
+   "series": "9-2",
+   "ko": "라베프라졸",
+   "en": ""
+  },
+  {
+   "code": "9-3-1",
+   "series": "9-3",
+   "ko": "레바프라잔",
+   "en": "Revaprazan"
+  },
+  {
+   "code": "9-3-2",
+   "series": "9-3",
+   "ko": "테고프라잔",
+   "en": "Tegoprazan"
+  },
+  {
+   "code": "9-3-3",
+   "series": "9-3",
+   "ko": "보노프라잔",
+   "en": ""
+  }
+ ]
+}

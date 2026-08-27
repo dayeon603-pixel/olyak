@@ -1084,7 +1084,15 @@ function analyze(){
       findings.push({sev:t.sev, type:t.kind, title:`${t.title}`, desc:`${t.desc} (${names})`, basis:'DUR'});
     }
   });
-  // 3) 효능군 중복
+  // 2b) 국가 효능군 중복 — 식약처 고시 제8조. 계열 추정이 아니라 고시가 정한 계열이다.
+  R.durDupHits(pickedDrugs0).forEach(h=>{
+    const names=h.drugs.map(d=>d.n).join(', ');
+    findings.push({sev:'mid', type:'효능군 중복(고시)',
+      title:`${names} — 고시 동일 효능군`,
+      desc:`식약처 고시가 같은 효능군(계열 ${h.series})으로 지정한 성분을 2가지 이상 함께 복용 중입니다. 추가 효과는 기대하기 어렵고 부작용 위험이 더해집니다.`,
+      basis:'고시'});
+  });
+  // 3) 효능군 중복(계열 시드) — 고시 계열과 어긋나는 부분을 넓게 보완
   const byCls={}; picked.forEach(n=>{(byCls[clsOf(n)]=byCls[clsOf(n)]||[]).push(n);});
   R.dup.forEach(d=>{ const arr=byCls[d.cls]; if(arr&&arr.length>1){
     findings.push({sev:d.sev||'mid', type:'효능군 중복', title:`중복 — ${arr.join(', ')}`, desc:d.note, basis:'DUR'});
@@ -1391,6 +1399,7 @@ function basisFull(f){
   if(t.includes('PIM')) return '한국형 노인 부적절약물(PIM) 2018 표1 — 조건 무관 63항목 · Kim MY et al., Ann Geriatr Med Res 2018;22(3):121-129';
   if(t.includes('삼중')) return '노인 삼중요법 급성신손상 주의(NSAID+RAS차단제+이뇨제)';
   if(t.includes('크로스소스')) return '올약 크로스소스 통합 점검(시설약+가족반입약+자가복용) — 소비자앱·요양원SW 미탐지';
+  if(t.includes('효능군 중복(고시)')) return '식품의약품안전처 고시 「의약품 병용금기 성분 등의 지정에 관한 규정」 제8조 효능군 중복';
   if(t.includes('중복')) return '효능군 중복(동일 계열 중복 처방)';
   if(f.basis==='DUR') return '식약처 의약품안전사용서비스(DUR) 병용금기·주의 기준';
   if(f.basis==='문헌') return '표준 임상 문헌 기반 약물상호작용';

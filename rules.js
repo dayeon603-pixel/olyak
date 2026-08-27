@@ -390,6 +390,8 @@ window.OLYAK_RULES = (function () {
       origin: "WHO ATC/DDD Index · 9항목 표본 대조(전수 미완료)", date: "2026-08", status: "반영" },
     { name: "식약처 고시 병용금기", detail: DUR ? `성분 조합 ${DUR.indexed.toLocaleString()}건 (고시 별표1)` : "미로드",
       origin: "의약품 병용금기 성분 등의 지정에 관한 규정 별표1 · 2022-06-30 기준", date: "2022-06", status: DUR ? "반영" : "예정" },
+    { name: "식약처 고시 효능군 중복", detail: DUR && DUR.dup ? `성분 ${Object.keys(DUR.dup.seriesOf).length}종 · ${DUR.dup.seriesCount}계열 (고시 제8조)` : "미로드",
+      origin: "의약품 병용금기 성분 등의 지정에 관한 규정 제8조", date: "2022-06", status: DUR && DUR.dup ? "반영" : "예정" },
     { name: "계열 단위 병용·중복 규칙", detail: `병용 ${ddi.length}종 · 삼중 ${triples.length}종 · 효능군 중복 ${dup.length}계열`,
       origin: "고시에 없는 조합까지 넓게 보기 위한 임상 표준 항목", date: "2026-08", status: "시드" },
     { name: "제품명 → 성분 사전", detail: `${Object.keys(products).length}종 (약봉투·처방전은 제품명으로 인쇄됨)`,
@@ -428,9 +430,35 @@ window.OLYAK_RULES = (function () {
     return out;
   }
 
+
+  // ── 국가 효능군 중복 조회 ──────────────────────────────────────────────
+  //    식약처 고시 제8조 효능군 중복(부록2). 한글 성분명을 키로 쓴다.
+  //    아래 dup 규칙(계열 단위 시드)과 다른 점이 있다. 예를 들어 고시는 1·2세대 항히스타민을
+  //    같은 계열(7-1)로 묶고, 졸피뎀을 벤조디아제핀과 다른 계열(4-2)에 둔다.
+  //    우리 분류와 국가 분류가 어긋나는 지점이므로, 고시 판정을 우선 표기하고 근거를 나눈다.
+  function durSeries(drug) {
+    if (!DUR || !DUR.dup || !drug) return null;
+    return DUR.dup.seriesOf[String(drug.n || '').replace(/\s/g, '')] || null;
+  }
+
+  /** 복용 목록에서 국가 효능군 중복에 해당하는 묶음을 찾는다. */
+  function durDupHits(drugList) {
+    if (!DUR || !DUR.dup) return [];
+    const bySeries = {};
+    drugList.forEach((d) => {
+      const s = durSeries(d);
+      if (s) (bySeries[s] = bySeries[s] || []).push(d);
+    });
+    return Object.entries(bySeries)
+      .filter(([, arr]) => arr.length > 1)
+      .map(([series, arr]) => ({ series, drugs: arr }));
+  }
+
   const durMeta = DUR
     ? { source: DUR.source, extracted: DUR.extracted, indexed: DUR.indexed,
-        deleted: DUR.deleted, unresolved: DUR.unresolved }
+        deleted: DUR.deleted, unresolved: DUR.unresolved,
+        dupSource: DUR.dup.source, dupTotal: DUR.dup.total, dupSeries: DUR.dup.seriesCount,
+        dupIndexed: Object.keys(DUR.dup.seriesOf).length }
     : null;
 
   return {
@@ -438,7 +466,7 @@ window.OLYAK_RULES = (function () {
     pimTable1, pimTable2, pimTable1Hit, pimTable2Hits, conditions, coverage,
     scores, alias, catColor, medIcon, pills, findPillCandidates,
     products, matchText, resolveQuery, searchIndex, dataSources, dataStamp,
-    durContraindication, durHits, durMeta,
+    durContraindication, durHits, durSeries, durDupHits, durMeta,
     meta: { source: PIM.source, doi: PIM.doi, engineApplied: PIM.engineApplied },
   };
 })();

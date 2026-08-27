@@ -32,6 +32,19 @@ src.pairs.forEach((p) => {
   }));
 });
 
+// ── 부록2: 효능군 중복 (고시 제8조) ──
+// 한글 성분명을 키로 쓴다. 영문명은 표 레이아웃상 위아래 줄로 흩어져 추출률이 낮았고(220/382),
+// 한글명은 382개 전부 잡혔기 때문이다. 매칭도 우리 약물 마스터의 한글명과 하면 된다.
+const dupSrc = JSON.parse(fs.readFileSync(path.join(root, 'data/dur_dup_2022.json'), 'utf8'));
+const seriesOf = {};        // 한글 성분명 → 계열코드
+const seriesName = {};      // 계열코드 → 대표 성분들(디버깅·표시용)
+dupSrc.items.forEach((it) => {
+  const ko = String(it.ko || '').replace(/\s/g, '');
+  if (!ko) return;
+  if (!seriesOf[ko]) seriesOf[ko] = it.series;
+  (seriesName[it.series] = seriesName[it.series] || []).push(ko);
+});
+
 const out = `/* 자동 생성 파일 — 직접 수정하지 마세요.
  * 생성: node scripts/build_dur.js  (원본: data/dur_ddi_2022.json)
  * 출처: ${src.source}
@@ -41,8 +54,13 @@ window.OLYAK_DUR = ${JSON.stringify({
   source: src.source,
   extracted: src.extracted, deleted: src.deleted, unresolved: src.unresolved,
   indexed: expanded, index,
+  dup: {
+    source: dupSrc.source, total: dupSrc.total, seriesCount: dupSrc.seriesCount,
+    seriesOf, seriesName,
+  },
 }, null, 0)};
 `;
 fs.writeFileSync(path.join(root, 'dur_data.js'), out, 'utf8');
 console.log(`dur_data.js 생성 — 원문 ${src.extracted}쌍 → 색인 ${expanded}건 (복합제 전개 포함)`);
 console.log(`추출 실패 ${src.unresolved}건은 원문 1162쌍 대비 ${(src.unresolved / 1162 * 100).toFixed(1)}%`);
+console.log(`효능군 중복 — 성분 ${dupSrc.total}개 · 계열 ${dupSrc.seriesCount}개 색인`);
